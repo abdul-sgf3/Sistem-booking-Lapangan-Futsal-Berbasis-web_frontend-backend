@@ -213,7 +213,7 @@ include '../includes/header.php';
     }
     .vsq-btn-booking:hover { background: #B91C1C; }
 
-    /* ===== CARA BOOKING (Sesuai Figma Baru) ===== */
+    /* ===== CARA BOOKING ===== */
     .vsq-steps {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -227,11 +227,8 @@ include '../includes/header.php';
         gap: 16px;
     }
 
-    .vsq-step-wrapper:last-child {
-        gap: 0;
-    }
+    .vsq-step-wrapper:last-child { gap: 0; }
 
-    /* Kartu setiap step */
     .vsq-step {
         background: #FFFFFF;
         border: 1px solid var(--vsq-border);
@@ -247,7 +244,6 @@ include '../includes/header.php';
         align-items: center;
     }
 
-    /* Ikon dengan nomor di kiri atas */
     .vsq-step-header {
         display: flex;
         align-items: center;
@@ -302,7 +298,6 @@ include '../includes/header.php';
         line-height: 1.5;
     }
 
-    /* Tanda panah biru di antara kartu */
     .vsq-arrow {
         font-size: 28px;
         color: var(--vsq-blue);
@@ -310,55 +305,82 @@ include '../includes/header.php';
         flex-shrink: 0;
     }
 
-    /* ===== FAQ (Sesuai Figma Baru) ===== */
+    /* ===== FAQ (Accordion) ===== */
     .vsq-faq-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 16px;
+        align-items: start;
     }
 
     .vsq-faq-item {
         background: white;
         border: 1px solid var(--vsq-border);
         border-radius: 12px;
-        padding: 18px 22px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        padding: 0;
         cursor: pointer;
         transition: all 0.2s;
         box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-    }
-    .vsq-faq-item:hover { 
-        background: var(--vsq-blue-light);
-        border-color: var(--vsq-blue);
+        overflow: hidden;
     }
 
-    .vsq-faq-item .faq-text {
+    .vsq-faq-item:hover { 
+        border-color: var(--vsq-blue);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+    }
+
+    .vsq-faq-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 22px;
+        gap: 12px;
+        user-select: none;
+    }
+
+    .vsq-faq-header .faq-text {
         display: flex;
         gap: 10px;
         align-items: flex-start;
         font-size: 14px;
         font-weight: 600;
         color: var(--vsq-navy);
+        line-height: 1.4;
     }
 
-    .vsq-faq-item .faq-text .faq-number {
+    .vsq-faq-header .faq-number {
         color: var(--vsq-navy);
         font-weight: 700;
         flex-shrink: 0;
     }
 
-    .vsq-faq-item .faq-arrow {
+    .vsq-faq-header .faq-arrow {
         color: var(--vsq-blue);
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 700;
         flex-shrink: 0;
-        transition: transform 0.2s;
+        transition: transform 0.3s ease;
+        display: inline-block;
+        line-height: 1;
     }
 
-    .vsq-faq-item:hover .faq-arrow {
-        transform: translateY(2px);
+    .vsq-faq-item.active .faq-arrow { transform: rotate(180deg); }
+
+    .vsq-faq-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+        padding: 0 22px;
+        font-size: 13px;
+        color: var(--vsq-gray);
+        line-height: 1.6;
+        border-top: 0 solid var(--vsq-border);
+    }
+
+    .vsq-faq-item.active .vsq-faq-body {
+        max-height: 200px;
+        padding: 14px 22px 18px;
+        border-top: 1px solid var(--vsq-border);
     }
 
     /* ===== RESPONSIVE ===== */
@@ -453,13 +475,12 @@ include '../includes/header.php';
     </div>
     <div class="vsq-steps">
         
-        <!-- Step 1 -->
         <div class="vsq-step-wrapper">
             <div class="vsq-step">
                 <div class="vsq-step-header">
                     <div class="vsq-step-number">1</div>
                     <div class="vsq-step-svg">
-                        <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M6 2v4M18 2v4M2 12h20"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/><path d="M9 9h.01M15 9h.01"/></svg>
                     </div>
                 </div>
                 <h4>Pilih Lapangan</h4>
@@ -468,13 +489,12 @@ include '../includes/header.php';
             <span class="vsq-arrow">›</span>
         </div>
 
-        <!-- Step 2 -->
         <div class="vsq-step-wrapper">
             <div class="vsq-step">
                 <div class="vsq-step-header">
                     <div class="vsq-step-number">2</div>
                     <div class="vsq-step-svg">
-                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg>
+                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg>
                     </div>
                 </div>
                 <h4>Pilih Jadwal</h4>
@@ -483,13 +503,12 @@ include '../includes/header.php';
             <span class="vsq-arrow">›</span>
         </div>
 
-        <!-- Step 3 -->
         <div class="vsq-step-wrapper">
             <div class="vsq-step">
                 <div class="vsq-step-header">
                     <div class="vsq-step-number">3</div>
                     <div class="vsq-step-svg">
-                        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>
                     </div>
                 </div>
                 <h4>Isi Data Booking</h4>
@@ -498,13 +517,12 @@ include '../includes/header.php';
             <span class="vsq-arrow">›</span>
         </div>
 
-        <!-- Step 4 -->
         <div class="vsq-step-wrapper">
             <div class="vsq-step">
                 <div class="vsq-step-header">
                     <div class="vsq-step-number">4</div>
                     <div class="vsq-step-svg">
-                        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
                     </div>
                 </div>
                 <h4>Konfirmasi</h4>
@@ -521,35 +539,80 @@ include '../includes/header.php';
         <h2>Pertanyaan yang sering diajukan</h2>
     </div>
     <div class="vsq-faq-grid">
-        <div class="vsq-faq-item">
-            <div class="faq-text">
-                <span class="faq-number">1.</span>
-                <span>Apakah booking dapat dibatalkan?</span>
+        
+        <!-- FAQ 1 -->
+        <div class="vsq-faq-item" onclick="toggleFaq(this)">
+            <div class="vsq-faq-header">
+                <div class="faq-text">
+                    <span class="faq-number">1.</span>
+                    <span>Apakah booking dapat dibatalkan?</span>
+                </div>
+                <span class="faq-arrow">⌄</span>
             </div>
-            <span class="faq-arrow">⌄</span>
-        </div>
-        <div class="vsq-faq-item">
-            <div class="faq-text">
-                <span class="faq-number">3.</span>
-                <span>Bagaimana cara saya mengetahui booking saya berhasil</span>
+            <div class="vsq-faq-body">
+                Bisa, pada bagian menu "Riwayat pembookingan" pilih lapangan yang kalian booking, lalu klik "Batalkan booking"
             </div>
-            <span class="faq-arrow">⌄</span>
         </div>
-        <div class="vsq-faq-item">
-            <div class="faq-text">
-                <span class="faq-number">2.</span>
-                <span>Apakah saya bisa mengubah jadwal lapangan</span>
+
+        <!-- FAQ 2 -->
+        <div class="vsq-faq-item" onclick="toggleFaq(this)">
+            <div class="vsq-faq-header">
+                <div class="faq-text">
+                    <span class="faq-number">3.</span>
+                    <span>Bagaimana cara saya mengetahui booking saya berhasil</span>
+                </div>
+                <span class="faq-arrow">⌄</span>
             </div>
-            <span class="faq-arrow">⌄</span>
-        </div>
-        <div class="vsq-faq-item">
-            <div class="faq-text">
-                <span class="faq-number">4.</span>
-                <span>Apakah bisa melakukan booking dengan beberapa jadwal sekaligus?</span>
+            <div class="vsq-faq-body">
+                Ketika sudah melakukan pembayaran, status pembookingan akan terlihat pada bagian menu "Riwayat Booking"
             </div>
-            <span class="faq-arrow">⌄</span>
         </div>
+
+        <!-- FAQ 3 -->
+        <div class="vsq-faq-item" onclick="toggleFaq(this)">
+            <div class="vsq-faq-header">
+                <div class="faq-text">
+                    <span class="faq-number">2.</span>
+                    <span>Apakah saya bisa mengubah jadwal lapangan</span>
+                </div>
+                <span class="faq-arrow">⌄</span>
+            </div>
+            <div class="vsq-faq-body">
+                Bisa, untuk perubahan jadwal langsung saja hubungi kontak kami
+            </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="vsq-faq-item" onclick="toggleFaq(this)">
+            <div class="vsq-faq-header">
+                <div class="faq-text">
+                    <span class="faq-number">4.</span>
+                    <span>Apakah bisa melakukan booking dengan beberapa jadwal sekaligus?</span>
+                </div>
+                <span class="faq-arrow">⌄</span>
+            </div>
+            <div class="vsq-faq-body">
+                Bisa, ketik memilih jadwal anda bisa memilih dengan cara beberapa jadwal yang kosong/tersedia
+            </div>
+        </div>
+
     </div>
 </section>
+
+<script>
+function toggleFaq(element) {
+    const isActive = element.classList.contains('active');
+    
+    // Tutup semua FAQ
+    document.querySelectorAll('.vsq-faq-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // Buka yang diklik jika belum aktif
+    if (!isActive) {
+        element.classList.add('active');
+    }
+}
+</script>
 
 <?php include '../includes/footer.php'; ?>

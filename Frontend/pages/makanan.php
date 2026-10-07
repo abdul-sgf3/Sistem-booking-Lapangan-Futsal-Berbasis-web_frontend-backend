@@ -1,11 +1,11 @@
 <?php
 // makanan.php - Katalog Makanan & Minuman Vincent Arena
 session_start();
-include 'config/database.php';
+include '../../config/database.php';
 
 $title = 'Makanan & Minuman - Vincent Arena';
 $halaman = 'makanan.php'; // Menentukan menu aktif di header
-include 'includes/header.php';
+include '../includes/header.php';
 
 // Ambil filter kategori jika ada
 $kategori = isset($_GET['kategori']) ? $_GET['kategori'] : 'semua';
@@ -212,9 +212,9 @@ if ($kategori != 'semua') {
     <div class="menu-grid">
         <?php if ($result && mysqli_num_rows($result) > 0): ?>
             <?php while ($item = mysqli_fetch_assoc($result)): 
-                $foto_path = 'assets/uploads/makanan/' . $item['foto'];
+                $foto_path = '../assets/uploads/makanan/' . $item['foto'];
                 if (empty($item['foto']) || !file_exists($foto_path)) {
-                    $foto_path = 'assets/img/default-food.jpg';
+                    $foto_path = '../assets/uploads/makanan/default-food.jpg';
                 }
             ?>
                 <div class="menu-card">
@@ -241,4 +241,4 @@ if ($kategori != 'semua') {
     </div>
 </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

@@ -1,16 +1,17 @@
 <?php
-// riwayat.php - Riwayat Booking User
+// riwayat_booking.php - Riwayat Booking User
 session_start();
-include 'config/database.php';
+include '../../config/database.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: ../autentikasi/login.php");
     exit();
 }
 
 $id_user = $_SESSION['user_id'];
 $title = 'Riwayat Booking - Vincent Arena';
-include 'includes/header.php';
+$halaman = 'riwayat_booking.php';
+include '../includes/header.php';
 
 // Prepared Statement untuk mencegah SQL Injection
 $query = "SELECT b.*, l.nama_lapangan 
@@ -196,8 +197,8 @@ $result = mysqli_stmt_get_result($stmt);
                     
                     <!-- Kolom Bukti Pembayaran -->
                     <td>
-                        <?php if (!empty($booking['bukti_pembayaran']) && file_exists('assets/uploads/bukti/' . $booking['bukti_pembayaran'])): ?>
-                            <a href="assets/uploads/bukti/<?= rawurlencode($booking['bukti_pembayaran']); ?>" target="_blank" class="btn-action btn-view">📎 Lihat</a>
+                        <?php if (!empty($booking['bukti_pembayaran']) && file_exists('../assets/uploads/bukti/' . $booking['bukti_pembayaran'])): ?>
+                            <a href="../assets/uploads/bukti/<?= rawurlencode($booking['bukti_pembayaran']); ?>" target="_blank" class="btn-action btn-view">📎 Lihat</a>
                         <?php else: ?>
                             <?php if ($booking['status'] == 'pending'): ?>
                                 <a href="upload_bukti.php?id=<?= $booking['id']; ?>" class="btn-action btn-upload">📤 Upload</a>
@@ -255,4 +256,4 @@ $result = mysqli_stmt_get_result($stmt);
     </div>
 </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

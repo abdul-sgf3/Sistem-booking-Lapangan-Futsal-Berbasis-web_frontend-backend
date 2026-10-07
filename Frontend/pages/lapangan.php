@@ -1,10 +1,10 @@
 <?php
 // lapangan.php - Halaman Semua Lapangan
 session_start();
-include 'config/database.php';
+include '../../config/database.php';
 
 $title = 'Lapangan - Vincent Arena';
-include 'includes/header.php';
+include '../includes/header.php';
 
 // Pagination
 $limit = 6;
@@ -153,7 +153,7 @@ $result = mysqli_query($conn, $query);
         <?php if (mysqli_num_rows($result) > 0): ?>
             <?php while ($lapangan = mysqli_fetch_assoc($result)): ?>
             <div class="lapangan-card">
-                <div class="lapangan-img" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('assets/uploads/lapangan/<?= $lapangan['foto'] ?? 'default.jpg' ?>');">
+                <div class="lapangan-img" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('../assets/uploads/lapangan/<?= $lapangan['foto'] ?? 'default.jpg' ?>');">
                     <span class="lapangan-status">✅ Tersedia</span>
                 </div>
                 <div class="lapangan-info">
@@ -187,4 +187,4 @@ $result = mysqli_query($conn, $query);
     <?php endif; ?>
 </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

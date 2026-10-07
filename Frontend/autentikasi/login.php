@@ -1,7 +1,24 @@
-<?php
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Tsubasa Arena</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+        colors: { navy: '#0B2A52', accent: '#E8394A', ok: '#16A34A' },
+      }},
+    };
+  </script>
+</head>
+<body class="font-sans text-slate-800 bg-slate-50 min-h-screen flex items-center justify-center p-4"><?php
 // login.php - Halaman login USER dengan Username + CAPTCHA
 session_start();
-include 'config/database.php';
+include '../../config/database.php';
 
 // Generate CAPTCHA matematika
 function generateCaptcha() {
@@ -59,7 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 $title = 'Login - Tsubasa Arena';
-include 'includes/header.php';
 ?>
 
 <div class="container" style="max-width: 500px; margin: 60px auto;">
@@ -141,5 +157,5 @@ include 'includes/header.php';
         });
     }
 </script>
-
-<?php include 'includes/footer.php'; ?>
+</body>
+</html>

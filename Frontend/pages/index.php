@@ -1,205 +1,555 @@
 <?php
-// index.php - Halaman Depan User
+// index.php - Halaman Depan User (Sesuai Desain Figma)
 session_start();
-include 'config/database.php';
+include '../../config/database.php';
 
-$title = 'Beranda - Tsubasa Arena';
-include 'includes/header.php';
-
-$keunggulan = [
-    ['Lokasi Strategis',    '<path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>'],
-    ['Fasilitas Lengkap',   '<path d="M4 7h16M4 12h16M4 17h10"/><path d="m17 16 2 2 3-4"/>'],
-    ['Pencahayaan Premium', '<path d="M9 18h6m-5 3h4M12 3a6 6 0 0 0-3.5 10.9c.5.4.8 1 .8 1.6V16h5.4v-.5c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3z"/>'],
-    ['Aman & Nyaman',       '<path d="M12 3 4 6v6c0 4.4 3.4 8.1 8 9 4.6-.9 8-4.6 8-9V6l-8-3z"/><path d="m9 12 2 2 4-4"/>'],
-    ['Harga Kompetitif',    '<circle cx="12" cy="12" r="9"/><path d="M14.5 9.5c-.4-.9-1.4-1.5-2.5-1.5-1.4 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1.1 2-2.5 2c-1.1 0-2.1-.6-2.5-1.5M12 6.5V8m0 8v1.5"/>'],
-];
+$title = 'Beranda - Vincent SQ Arena';
+include '../includes/header.php';
 ?>
 
 <style>
-    html { overflow-x: hidden; }
-    :root { --hm-navy:#131b33; --hm-red:#f01d24; --hm-ok:#16a34a; --hm-line:#e2e8f0; --hm-muted:#64748b; }
+    /* ===== VARIABEL WARNA ===== */
+    :root {
+        --vsq-navy: #0F172A;
+        --vsq-blue: #2563EB;
+        --vsq-blue-light: #EFF6FF;
+        --vsq-red: #DC2626;
+        --vsq-gold: #EAB308;
+        --vsq-gray: #64748B;
+        --vsq-light: #F8FAFC;
+        --vsq-border: #E2E8F0;
+    }
 
-    /* ===== HERO (lebar penuh) ===== */
-    .hm-hero {
-        position: relative; width: 100vw; margin-left: calc(50% - 50vw);
-        min-height: 440px; display: flex; align-items: center;
-        background: var(--hm-navy); overflow: hidden; color: #fff;
+    body {
+        background-color: #ffffff;
+        font-family: 'Plus Jakarta Sans', sans-serif;
     }
-    .hm-hero img.hm-bg {
-        position: absolute; inset: 0; width: 100%; height: 100%;
-        object-fit: cover; object-position: center 60%;
+
+    /* ===== HERO SECTION ===== */
+    .vsq-hero {
+        position: relative;
+        width: 100%;
+        min-height: 400px;
+        background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), 
+                    url('../assets/uploads/lapangan/hero.jpeg') center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        color: white;
+        padding: 60px 20px;
+        box-sizing: border-box;
     }
-    .hm-hero::after {
-        content: ""; position: absolute; inset: 0;
-        background: linear-gradient(90deg, var(--hm-navy) 0%, var(--hm-navy) 32%, rgba(19,27,51,.72) 50%, rgba(19,27,51,.15) 100%);
+
+    .vsq-hero-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
     }
-    .hm-wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; box-sizing: border-box; }
-    .hm-hero .hm-wrap { position: relative; z-index: 2; padding-top: 40px; padding-bottom: 70px; }
-    .hm-hero h1 { font-size: 46px; line-height: 1.15; font-weight: 800; margin: 0; max-width: 620px; }
-    .hm-hero h1 span { color: var(--hm-red); }
-    .hm-hero p { font-size: 15px; line-height: 1.7; margin: 22px 0 0; color: #e5e7eb; max-width: 520px; }
-    .hm-btn {
-        display: inline-block; margin-top: 28px; background: var(--hm-red); color: #fff;
-        font-weight: 600; font-size: 15px; padding: 14px 26px; border-radius: 10px; text-decoration: none;
+
+    .vsq-hero h1 {
+        font-size: 42px;
+        font-weight: 800;
+        line-height: 1.2;
+        margin: 0 0 16px 0;
+        max-width: 600px;
+    }
+
+    .vsq-hero h1 span { color: var(--vsq-red); }
+
+    .vsq-hero p {
+        font-size: 15px;
+        line-height: 1.6;
+        color: #CBD5E1;
+        max-width: 500px;
+        margin: 0;
+    }
+
+    .vsq-location-badge {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--vsq-navy);
+        padding: 8px 16px;
+        border-radius: 30px;
+        font-size: 13px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    /* ===== SECTION UMUM ===== */
+    .vsq-section {
+        padding: 60px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    .vsq-section-title {
         text-align: center;
+        margin-bottom: 40px;
     }
-    .hm-btn:hover { background: #d4141b; }
-    .hm-badge {
-        position: absolute; z-index: 2; right: 28px; bottom: 22px; display: flex; align-items: center; gap: 8px;
-        background: rgba(229,231,235,.9); color: #4b5563; font-size: 14px; font-weight: 600;
-        padding: 10px 18px; border-radius: 12px;
-    }
-    .hm-badge svg { width: 18px; height: 18px; stroke: #4b5563; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
-    /* ===== SECTION ===== */
-    .hm-sec { padding: 56px 0 0; }
-    .hm-title { text-align: center; margin-bottom: 32px; }
-    .hm-title h2 { margin: 0; font-size: 30px; font-weight: 800; color: var(--hm-navy); }
-    .hm-title p { margin: 8px auto 0; max-width: 460px; font-size: 13px; color: var(--hm-muted); line-height: 1.6; }
+    .vsq-section-title h2 {
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--vsq-blue);
+        margin: 0 0 8px 0;
+    }
 
-    /* ===== CARD LAPANGAN ===== */
-    .hm-list { display: flex; flex-direction: column; gap: 20px; }
-    .hm-card {
-        display: flex; background: #fff; border: 1px solid #cbd5e1; border-radius: 16px;
-        overflow: hidden; transition: box-shadow .2s;
+    .vsq-section-title p {
+        font-size: 14px;
+        color: var(--vsq-gray);
+        margin: 0;
     }
-    .hm-card:hover { box-shadow: 0 10px 24px rgba(0,0,0,.10); }
-    .hm-img {
-        position: relative; width: 52%; flex-shrink: 0; min-height: 270px;
-        background: #cbd5e1 center/cover no-repeat; border-radius: 16px;
-    }
-    .hm-status {
-        display: inline-flex; align-items: center; gap: 6px;
-        background: rgba(0,0,0,.72); color: #fff; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px;
-    }
-    .hm-status i { width: 8px; height: 8px; border-radius: 50%; background: var(--hm-ok); flex-shrink: 0; }
-    .hm-body { padding: 24px 28px; display: flex; flex-direction: column; justify-content: center; flex: 1; min-width: 0; }
-    .hm-body h3 { margin: 0; font-size: 21px; font-weight: 700; color: var(--hm-navy); }
-    .hm-body p { margin: 8px 0 0; font-size: 14px; line-height: 1.6; color: var(--hm-muted); }
-    .hm-price { margin-top: 10px; font-size: 16px; font-weight: 700; color: var(--hm-red); }
-    .hm-price small { font-weight: 500; color: var(--hm-muted); font-size: 13px; }
-    .hm-detail {
-        align-self: flex-start; margin-top: 16px; background: var(--hm-navy); color: #fff;
-        font-size: 14px; font-weight: 600; padding: 10px 22px; border-radius: 10px; text-decoration: none;
-    }
-    .hm-detail:hover { background: #1f2b4d; }
-    .hm-empty { text-align: center; padding: 40px 20px; color: #888; border: 1px dashed var(--hm-line); border-radius: 16px; }
 
-    /* ===== KEUNGGULAN ===== */
-    .hm-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
-    .hm-feat { text-align: center; padding: 22px 12px; border: 1px solid var(--hm-line); border-radius: 16px; background: #fff; transition: box-shadow .2s; }
-    .hm-feat:hover { box-shadow: 0 10px 24px rgba(0,0,0,.1); }
-    .hm-ico { width: 56px; height: 56px; margin: 0 auto; border-radius: 16px; background: var(--hm-navy); display: grid; place-items: center; }
-    .hm-ico svg { width: 28px; height: 28px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .hm-feat h3 { margin: 12px 0 0; font-size: 15px; font-weight: 700; color: var(--hm-navy); }
+    /* ===== KARTU LAPANGAN ===== */
+    .vsq-lapangan-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
 
-    /* ===== TABLET (<=1023px) ===== */
+    .vsq-card {
+        background: white;
+        border: 1px solid var(--vsq-border);
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+        transition: box-shadow 0.3s, transform 0.3s;
+        min-height: 240px;
+    }
+
+    .vsq-card:hover {
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        transform: translateY(-4px);
+    }
+
+    .vsq-card-img {
+        position: relative;
+        width: 45%;
+        flex-shrink: 0;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .vsq-card-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        padding: 5px 14px;
+        border-radius: 25px;
+        font-size: 12px;
+        font-weight: 700;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .badge-vip { background: var(--vsq-gold); color: var(--vsq-navy); }
+    .badge-regular { background: #F1F5F9; color: var(--vsq-navy); }
+
+    .vsq-card-body {
+        padding: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-width: 0;
+    }
+
+    .vsq-card-body h3 {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--vsq-navy);
+        margin: 0 0 14px 0;
+    }
+
+    .vsq-fasilitas {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 16px 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 12px;
+    }
+
+    .vsq-fasilitas li {
+        font-size: 12px;
+        color: var(--vsq-gray);
+        display: flex;
+        align-items: flex-start;
+        gap: 6px;
+        line-height: 1.4;
+    }
+
+    .vsq-fasilitas li::before {
+        content: "✓";
+        color: var(--vsq-navy);
+        font-weight: 900;
+        font-size: 13px;
+        flex-shrink: 0;
+    }
+
+    .vsq-card-footer {
+        margin-top: auto;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-top: 14px;
+        border-top: 1px solid var(--vsq-border);
+    }
+
+    .vsq-btn-booking {
+        background: var(--vsq-red);
+        color: white;
+        padding: 10px 22px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 700;
+        transition: all 0.2s;
+        box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
+    }
+    .vsq-btn-booking:hover { background: #B91C1C; }
+
+    /* ===== CARA BOOKING (Sesuai Figma Baru) ===== */
+    .vsq-steps {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        align-items: center;
+    }
+
+    .vsq-step-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .vsq-step-wrapper:last-child {
+        gap: 0;
+    }
+
+    /* Kartu setiap step */
+    .vsq-step {
+        background: #FFFFFF;
+        border: 1px solid var(--vsq-border);
+        border-radius: 16px;
+        padding: 20px 16px 24px;
+        text-align: center;
+        flex: 1;
+        position: relative;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        min-height: 180px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Ikon dengan nomor di kiri atas */
+    .vsq-step-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        width: 100%;
+    }
+
+    .vsq-step-number {
+        width: 36px;
+        height: 36px;
+        background: var(--vsq-blue);
+        color: white;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 16px;
+        font-weight: 800;
+        flex-shrink: 0;
+    }
+
+    .vsq-step-svg {
+        width: 36px;
+        height: 36px;
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+    }
+
+    .vsq-step-svg svg {
+        width: 32px;
+        height: 32px;
+        stroke: var(--vsq-blue);
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .vsq-step h4 {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--vsq-blue);
+        margin: 0 0 8px 0;
+    }
+
+    .vsq-step p {
+        font-size: 12px;
+        color: var(--vsq-gray);
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    /* Tanda panah biru di antara kartu */
+    .vsq-arrow {
+        font-size: 28px;
+        color: var(--vsq-blue);
+        font-weight: 300;
+        flex-shrink: 0;
+    }
+
+    /* ===== FAQ (Sesuai Figma Baru) ===== */
+    .vsq-faq-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    .vsq-faq-item {
+        background: white;
+        border: 1px solid var(--vsq-border);
+        border-radius: 12px;
+        padding: 18px 22px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    .vsq-faq-item:hover { 
+        background: var(--vsq-blue-light);
+        border-color: var(--vsq-blue);
+    }
+
+    .vsq-faq-item .faq-text {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--vsq-navy);
+    }
+
+    .vsq-faq-item .faq-text .faq-number {
+        color: var(--vsq-navy);
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .vsq-faq-item .faq-arrow {
+        color: var(--vsq-blue);
+        font-size: 20px;
+        font-weight: 700;
+        flex-shrink: 0;
+        transition: transform 0.2s;
+    }
+
+    .vsq-faq-item:hover .faq-arrow {
+        transform: translateY(2px);
+    }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 1023px) {
-        .hm-wrap { padding: 0 20px; }
-        .hm-hero h1 { font-size: 36px; }
-        .hm-grid { grid-template-columns: repeat(3, 1fr); }
-        .hm-hero::after { background: linear-gradient(90deg, var(--hm-navy) 0%, rgba(19,27,51,.85) 60%, rgba(19,27,51,.35) 100%); }
+        .vsq-lapangan-grid { grid-template-columns: 1fr; }
+        .vsq-steps { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .vsq-step-wrapper { flex-direction: column; gap: 10px; }
+        .vsq-arrow { display: none; }
     }
 
-    /* ===== MOBILE (<=767px) ===== */
     @media (max-width: 767px) {
-        .hm-wrap { padding: 0 16px; }
-        .hm-sec { padding: 40px 0 0; }
-
-        .hm-hero { min-height: 380px; }
-        .hm-hero .hm-wrap { padding-top: 28px; padding-bottom: 60px; }
-        .hm-hero h1 { font-size: 26px; max-width: 100%; }
-        .hm-hero p { font-size: 13px; max-width: 100%; }
-        .hm-btn { width: 100%; padding: 13px 20px; font-size: 14px; }
-        .hm-badge { left: 16px; right: 16px; bottom: 14px; font-size: 12px; padding: 9px 14px; justify-content: center; }
-
-        .hm-title h2 { font-size: 22px; }
-        .hm-title p { font-size: 12.5px; padding: 0 8px; }
-
-        .hm-card { flex-direction: column; }
-        .hm-img { width: 100%; min-height: 190px; border-radius: 16px 16px 0 0; }
-        .hm-body { padding: 18px 20px 22px; }
-        .hm-body h3 { font-size: 18px; }
-        .hm-detail { align-self: stretch; text-align: center; }
-
-        .hm-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-        .hm-grid .hm-feat:last-child { grid-column: span 2; }
-        .hm-feat { padding: 18px 10px; }
-        .hm-ico { width: 48px; height: 48px; }
-        .hm-ico svg { width: 24px; height: 24px; }
-        .hm-feat h3 { font-size: 13.5px; }
-    }
-
-    /* ===== MOBILE KECIL (<=380px) ===== */
-    @media (max-width: 380px) {
-        .hm-hero h1 { font-size: 22px; }
-        .hm-badge { font-size: 11px; }
-        .hm-grid { grid-template-columns: 1fr; }
-        .hm-grid .hm-feat:last-child { grid-column: span 1; }
+        .vsq-hero h1 { font-size: 28px; }
+        .vsq-hero p { font-size: 13px; }
+        .vsq-location-badge { position: static; margin-top: 20px; display: inline-flex; }
+        
+        .vsq-card { flex-direction: column; min-height: auto; }
+        .vsq-card-img { width: 100%; height: 180px; }
+        .vsq-fasilitas { grid-template-columns: 1fr; }
+        .vsq-card-footer { justify-content: stretch; }
+        .vsq-btn-booking { text-align: center; width: 100%; }
+        
+        .vsq-faq-grid { grid-template-columns: 1fr; }
+        .vsq-steps { grid-template-columns: 1fr; gap: 20px; }
+        .vsq-section-title h2 { font-size: 24px; }
     }
 </style>
 
 <!-- HERO -->
-<section class="hm-hero">
-    <img class="hm-bg" src="assets/uploads/lapangan/hero.jpg" alt="Interior lapangan futsal"
-         onerror="this.onerror=null;this.src='assets/uploads/lapangan/hero.jpeg'">
-    <div class="hm-wrap">
+<section class="vsq-hero">
+    <div class="vsq-hero-content">
         <h1>Sewa Lapangan Olahraga Favoritmu dengan Sekali <span>Klik</span></h1>
-        <p>Vincent Arena kini hadir untuk Futsal, Basket, Badminton, dan Voli dengan fasilitas standar nasional dan sistem konfirmasi realtime.</p>
-        <a href="lapangan.php" class="hm-btn">Booking Sekarang</a>
+        <p>Vincent SQ Arena kini hadir untuk Futsal, Basket, Badminton, dan Voli dengan fasilitas standar nasional dan sistem konfirmasi realtime.</p>
     </div>
-    <div class="hm-badge">
-        <svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-        Majasem, Kota Cirebon, Jawa Barat
+    <div class="vsq-location-badge">
+        📍 Majasem, Kota Cirebon, Jawa Barat
     </div>
 </section>
 
 <!-- PILIHAN LAPANGAN -->
-<section class="hm-sec">
-    <div class="hm-wrap">
-        <div class="hm-title">
-            <h2>Pilihan Lapangan Tersedia</h2>
-            <p>Pilih jenis lapangan dengan spesifikasi lantai terbaik untuk kenyamanan tim dan performa bertanding maksimal.</p>
-        </div>
+<section class="vsq-section">
+    <div class="vsq-section-title">
+        <h2>Pilihan Lapangan Tersedia</h2>
+        <p>Pilih jenis lapangan dengan spesifikasi lantai terbaik untuk kenyamanan tim dan performa bertanding maksimal.</p>
+    </div>
 
-        <div class="hm-list">
-            <?php
-            $query  = "SELECT * FROM lapangan WHERE status = 'aktif' ORDER BY id ASC LIMIT 2";
-            $result = mysqli_query($conn, $query);
+    <div class="vsq-lapangan-grid">
+        <?php
+        $query  = "SELECT * FROM lapangan WHERE status = 'aktif' ORDER BY id ASC LIMIT 4";
+        $result = mysqli_query($conn, $query);
 
-            if ($result && mysqli_num_rows($result) > 0):
-                while ($lapangan = mysqli_fetch_assoc($result)):
-                    $foto = (!empty($lapangan['foto']) && file_exists('assets/uploads/lapangan/' . $lapangan['foto']))
-                        ? 'assets/uploads/lapangan/' . rawurlencode($lapangan['foto']) : '';
-            ?>
-            <article class="hm-card">
-                <div class="hm-img" <?= $foto ? 'style="background-image:url(\'' . $foto . '\')"' : '' ?>></div>
-                <div class="hm-body">
-                    <span class="hm-status" style="align-self:flex-start;margin-bottom:10px"><i></i>Tersedia</span>
-                    <h3><?= htmlspecialchars($lapangan['nama_lapangan']) ?></h3>
-                    <p><?= htmlspecialchars(mb_strimwidth($lapangan['deskripsi'] ?? '', 0, 110, '...')) ?></p>
-                    <div class="hm-price">Rp <?= number_format($lapangan['harga_per_jam'], 0, ',', '.') ?> <small>/ jam</small></div>
-                    <a href="detail_lapangan.php?id=<?= (int)$lapangan['id'] ?>" class="hm-detail">Booking Sekarang →</a>
+        if ($result && mysqli_num_rows($result) > 0):
+            while ($lapangan = mysqli_fetch_assoc($result)):
+                $foto = (!empty($lapangan['foto']) && file_exists('../assets/uploads/lapangan/' . $lapangan['foto']))
+                    ? '../assets/uploads/lapangan/' . rawurlencode($lapangan['foto']) : '';
+                
+                $badge_text = ($lapangan['harga_per_jam'] >= 200000) ? 'VIP' : 'Regular';
+                $badge_class = ($badge_text == 'VIP') ? 'badge-vip' : 'badge-regular';
+        ?>
+        <article class="vsq-card">
+            <div class="vsq-card-img" style="background-image: url('<?= $foto ?>');">
+                <span class="vsq-card-badge <?= $badge_class ?>"><?= $badge_text ?></span>
+            </div>
+            <div class="vsq-card-body">
+                <h3><?= htmlspecialchars($lapangan['nama_lapangan']) ?></h3>
+                <ul class="vsq-fasilitas">
+                    <li>Lapangan berstandar nasional</li>
+                    <li>Pencahayaan LED</li>
+                    <li>Loker & Ruang Ganti</li>
+                    <li>Area Parkir Luas</li>
+                </ul>
+                <div class="vsq-card-footer">
+                    <a href="detail_lapangan.php?id=<?= (int)$lapangan['id'] ?>" class="vsq-btn-booking">Booking Sekarang</a>
                 </div>
-            </article>
-            <?php
-                endwhile;
-            else:
-            ?>
-            <div class="hm-empty">Belum ada lapangan tersedia.</div>
-            <?php endif; ?>
+            </div>
+        </article>
+        <?php
+            endwhile;
+        else:
+        ?>
+        <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #888;">
+            Belum ada lapangan tersedia.
+        </div>
+        <?php endif; ?>
+    </div>
+</section>
+
+<!-- CARA BOOKING -->
+<section class="vsq-section">
+    <div class="vsq-section-title">
+        <h2>Cara Booking Lapangan</h2>
+        <p>Booking lapangan di Vincent'SQ dapat dilakukan dengan beberapa langkah berikut</p>
+    </div>
+    <div class="vsq-steps">
+        
+        <!-- Step 1 -->
+        <div class="vsq-step-wrapper">
+            <div class="vsq-step">
+                <div class="vsq-step-header">
+                    <div class="vsq-step-number">1</div>
+                    <div class="vsq-step-svg">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M6 2v4M18 2v4M2 12h20"/></svg>
+                    </div>
+                </div>
+                <h4>Pilih Lapangan</h4>
+                <p>Pilih Lapangan yang digunakan di menu booking</p>
+            </div>
+            <span class="vsq-arrow">›</span>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="vsq-step-wrapper">
+            <div class="vsq-step">
+                <div class="vsq-step-header">
+                    <div class="vsq-step-number">2</div>
+                    <div class="vsq-step-svg">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg>
+                    </div>
+                </div>
+                <h4>Pilih Jadwal</h4>
+                <p>Pilih jadwal lapangan yang tersedia</p>
+            </div>
+            <span class="vsq-arrow">›</span>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="vsq-step-wrapper">
+            <div class="vsq-step">
+                <div class="vsq-step-header">
+                    <div class="vsq-step-number">3</div>
+                    <div class="vsq-step-svg">
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+                    </div>
+                </div>
+                <h4>Isi Data Booking</h4>
+                <p>Isi data diri anda untuk Melakukan pembookingan</p>
+            </div>
+            <span class="vsq-arrow">›</span>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="vsq-step-wrapper">
+            <div class="vsq-step">
+                <div class="vsq-step-header">
+                    <div class="vsq-step-number">4</div>
+                    <div class="vsq-step-svg">
+                        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                </div>
+                <h4>Konfirmasi</h4>
+                <p>Tunggu verifikasi dari admin</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="vsq-section">
+    <div class="vsq-section-title">
+        <h2>Pertanyaan yang sering diajukan</h2>
+    </div>
+    <div class="vsq-faq-grid">
+        <div class="vsq-faq-item">
+            <div class="faq-text">
+                <span class="faq-number">1.</span>
+                <span>Apakah booking dapat dibatalkan?</span>
+            </div>
+            <span class="faq-arrow">⌄</span>
+        </div>
+        <div class="vsq-faq-item">
+            <div class="faq-text">
+                <span class="faq-number">3.</span>
+                <span>Bagaimana cara saya mengetahui booking saya berhasil</span>
+            </div>
+            <span class="faq-arrow">⌄</span>
+        </div>
+        <div class="vsq-faq-item">
+            <div class="faq-text">
+                <span class="faq-number">2.</span>
+                <span>Apakah saya bisa mengubah jadwal lapangan</span>
+            </div>
+            <span class="faq-arrow">⌄</span>
+        </div>
+        <div class="vsq-faq-item">
+            <div class="faq-text">
+                <span class="faq-number">4.</span>
+                <span>Apakah bisa melakukan booking dengan beberapa jadwal sekaligus?</span>
+            </div>
+            <span class="faq-arrow">⌄</span>
         </div>
     </div>
 </section>
 
-<!-- KENAPA TSUBASA ARENA -->
-<section class="hm-sec" style="padding-bottom:56px">
-    <div class="hm-wrap">
-        <div class="hm-title">
-            <h2>Kenapa Harus Bermain di <span style="color:var(--hm-red)">Vincent Arena</span>?</h2>
-            <p>Didesain khusus untuk kebutuhan yang hobi futsal hingga untuk kompetisi turnamen di kota Cirebon.</p>
-        </div>
-    </div>
-</section>
-
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

@@ -1,7 +1,7 @@
 <?php
 // index.php - Halaman Depan User (Sesuai Desain Figma)
 session_start();
-include '../../config/database.php';
+include ('../../Backend/config.php');
 
 $title = 'Beranda - Vincent SQ Arena';
 include '../includes/header.php';

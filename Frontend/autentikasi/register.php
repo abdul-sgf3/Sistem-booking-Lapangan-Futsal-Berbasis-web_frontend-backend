@@ -1,7 +1,7 @@
 <?php
 // register.php - Halaman registrasi USER
 session_start();
-include 'config/database.php';
+include '../../Backend/config/database.php';
 
 $error = '';
 $success = '';
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 $title = 'Register - Tsubasa Arena';
-include 'includes/header.php';
+include '../includes/header.php';
 ?>
 
 <div class="container" style="max-width: 500px; margin: 60px auto;">
@@ -104,4 +104,4 @@ include 'includes/header.php';
     </div>
 </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

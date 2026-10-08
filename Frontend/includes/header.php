@@ -6,7 +6,7 @@ $judul   = $judul ?? 'Beranda';
 $nama    = $_SESSION['nama'] ?? $_SESSION['username'] ?? 'Pengguna';
 
 // Base URL Project
-$base_url = '/Booking-Futsal-main/tsubasa_arena/Frontend';
+$base_url = '/System-booking-Lapangan-Futsal-Berbasis-web_frontend-backend/Frontend';
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -17,17 +17,16 @@ $base_url = '/Booking-Futsal-main/tsubasa_arena/Frontend';
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script>
-    tailwind.config = {
-      theme: { extend: {
+ tailwind.config = {
+    theme: { extend: {
         fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
         colors: { 
-            navy: '#0F172A', 
-            accent: '#DC2626',
-            gold: '#EAB308',
-            blue: '#3B82F6'
+            navy: '#0F172A',
+            accent: '#DC2626'
         },
-      }},
-    };
+    }},
+};
+
   </script>
 </head>
 <body class="font-sans text-slate-800 bg-white">

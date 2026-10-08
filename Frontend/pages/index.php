@@ -1,18 +1,16 @@
 <?php
 // index.php - Halaman Depan User (Sesuai Desain Figma)
 session_start();
-include('../../Backend/config/database.php');
+include '../../Backend/config/database.php';
 
 $title = 'Beranda - Vincent SQ Arena';
 include '../includes/header.php';
 ?>
 
 <style>
-    /* ===== VARIABEL WARNA ===== */
     :root {
         --vsq-navy: #0F172A;
         --vsq-blue: #2563EB;
-        --vsq-blue-light: #EFF6FF;
         --vsq-red: #DC2626;
         --vsq-gold: #EAB308;
         --vsq-gray: #64748B;
@@ -25,7 +23,7 @@ include '../includes/header.php';
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* ===== HERO SECTION ===== */
+    /* HERO */
     .vsq-hero {
         position: relative;
         width: 100%;
@@ -78,9 +76,9 @@ include '../includes/header.php';
         gap: 6px;
     }
 
-    /* ===== SECTION UMUM ===== */
+    /* SECTION */
     .vsq-section {
-        padding: 60px 20px;
+        padding: 50px 20px;
         max-width: 1200px;
         margin: 0 auto;
         box-sizing: border-box;
@@ -88,10 +86,9 @@ include '../includes/header.php';
 
     .vsq-section-title {
         text-align: center;
-        margin-bottom: 40px;
+        margin-bottom: 36px;
     }
 
-    /* Judul default: Navy gelap */
     .vsq-section-title h2 {
         font-size: 32px;
         font-weight: 800;
@@ -99,7 +96,6 @@ include '../includes/header.php';
         margin: 0 0 8px 0;
     }
 
-    /* Judul biru untuk section tertentu */
     .vsq-section-title.title-blue h2 {
         color: var(--vsq-blue);
     }
@@ -110,12 +106,11 @@ include '../includes/header.php';
         margin: 0;
     }
 
-    /* Sub-judul biru */
     .vsq-section-title.title-blue p {
         color: var(--vsq-blue);
     }
 
-    /* ===== KARTU LAPANGAN ===== */
+    /* KARTU LAPANGAN */
     .vsq-lapangan-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -224,7 +219,7 @@ include '../includes/header.php';
     }
     .vsq-btn-booking:hover { background: #B91C1C; }
 
-    /* ===== CARA BOOKING ===== */
+    /* CARA BOOKING */
     .vsq-steps {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -316,7 +311,7 @@ include '../includes/header.php';
         flex-shrink: 0;
     }
 
-    /* ===== FAQ (Accordion) ===== */
+    /* FAQ */
     .vsq-faq-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -394,7 +389,7 @@ include '../includes/header.php';
         border-top: 1px solid var(--vsq-border);
     }
 
-    /* ===== RESPONSIVE ===== */
+    /* RESPONSIVE */
     @media (max-width: 1023px) {
         .vsq-lapangan-grid { grid-template-columns: 1fr; }
         .vsq-steps { grid-template-columns: repeat(2, 1fr); gap: 20px; }
@@ -430,7 +425,7 @@ include '../includes/header.php';
     </div>
 </section>
 
-<!-- PILIHAN LAPANGAN (Judul Navy Gelap) -->
+<!-- PILIHAN LAPANGAN -->
 <section class="vsq-section">
     <div class="vsq-section-title">
         <h2>Pilihan Lapangan Tersedia</h2>
@@ -478,7 +473,7 @@ include '../includes/header.php';
     </div>
 </section>
 
-<!-- CARA BOOKING (Judul & Sub-judul Biru) -->
+<!-- CARA BOOKING -->
 <section class="vsq-section">
     <div class="vsq-section-title title-blue">
         <h2>Cara Booking Lapangan</h2>
@@ -486,7 +481,6 @@ include '../includes/header.php';
     </div>
     <div class="vsq-steps">
         
-        <!-- Step 1: Pilih Lapangan (Ikon Lapangan Futsal) -->
         <div class="vsq-step-wrapper">
             <div class="vsq-step">
                 <div class="vsq-step-header">
@@ -507,7 +501,6 @@ include '../includes/header.php';
             <span class="vsq-arrow">›</span>
         </div>
 
-        <!-- Step 2: Pilih Jadwal (Ikon Kalender Grid) -->
         <div class="vsq-step-wrapper">
             <div class="vsq-step">
                 <div class="vsq-step-header">
@@ -532,7 +525,6 @@ include '../includes/header.php';
             <span class="vsq-arrow">›</span>
         </div>
 
-        <!-- Step 3: Isi Data Booking (Ikon Dokumen dalam Lingkaran) -->
         <div class="vsq-step-wrapper">
             <div class="vsq-step">
                 <div class="vsq-step-header">
@@ -553,7 +545,6 @@ include '../includes/header.php';
             <span class="vsq-arrow">›</span>
         </div>
 
-        <!-- Step 4: Konfirmasi (Ikon Centang dalam Lingkaran) -->
         <div class="vsq-step-wrapper">
             <div class="vsq-step">
                 <div class="vsq-step-header">
@@ -573,14 +564,13 @@ include '../includes/header.php';
     </div>
 </section>
 
-<!-- FAQ (Judul Biru) -->
+<!-- FAQ -->
 <section class="vsq-section">
     <div class="vsq-section-title title-blue">
         <h2>Pertanyaan yang sering diajukan</h2>
     </div>
     <div class="vsq-faq-grid">
         
-        <!-- FAQ 1 -->
         <div class="vsq-faq-item" onclick="toggleFaq(this)">
             <div class="vsq-faq-header">
                 <div class="faq-text">
@@ -594,7 +584,6 @@ include '../includes/header.php';
             </div>
         </div>
 
-        <!-- FAQ 2 -->
         <div class="vsq-faq-item" onclick="toggleFaq(this)">
             <div class="vsq-faq-header">
                 <div class="faq-text">
@@ -608,7 +597,6 @@ include '../includes/header.php';
             </div>
         </div>
 
-        <!-- FAQ 3 -->
         <div class="vsq-faq-item" onclick="toggleFaq(this)">
             <div class="vsq-faq-header">
                 <div class="faq-text">
@@ -622,7 +610,6 @@ include '../includes/header.php';
             </div>
         </div>
 
-        <!-- FAQ 4 -->
         <div class="vsq-faq-item" onclick="toggleFaq(this)">
             <div class="vsq-faq-header">
                 <div class="faq-text">
@@ -642,13 +629,9 @@ include '../includes/header.php';
 <script>
 function toggleFaq(element) {
     const isActive = element.classList.contains('active');
-    
-    // Tutup semua FAQ
     document.querySelectorAll('.vsq-faq-item').forEach(item => {
         item.classList.remove('active');
     });
-    
-    // Buka yang diklik jika belum aktif
     if (!isActive) {
         element.classList.add('active');
     }

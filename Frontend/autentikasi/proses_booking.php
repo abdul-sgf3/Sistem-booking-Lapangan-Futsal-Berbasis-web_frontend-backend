@@ -1,7 +1,7 @@
 <?php
-// proses_booking.php - Proses Booking
+// proses_booking.php
 session_start();
-include 'config/database.php';
+include '../../Backend/config/database.php';
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -15,26 +15,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $jam_mulai = mysqli_real_escape_string($conn, $_POST['jam_mulai']);
     $durasi = (int)$_POST['durasi'];
     $total_harga = (int)$_POST['total_harga'];
-    $catatan = mysqli_real_escape_string($conn, $_POST['catatan']);
-    $metode_pembayaran = $_POST['metode_pembayaran'];
+    $catatan = mysqli_real_escape_string($conn, $_POST['catatan'] ?? '');
+    $metode_pembayaran = $_POST['metode_pembayaran'] ?? 'transfer';
     
-    // Generate kode booking unik
     $kode_booking = 'BSK' . date('Ymd') . rand(100, 999);
     
-    // Upload bukti transfer jika metode transfer
+    // Upload bukti
     $bukti = '';
     if ($metode_pembayaran == 'transfer' && isset($_FILES['bukti']) && $_FILES['bukti']['error'] == 0) {
-        $target_dir = "assets/uploads/bukti/";
+        $target_dir = "../assets/uploads/bukti/";
         if (!file_exists($target_dir)) {
             mkdir($target_dir, 0777, true);
         }
         $file_extension = pathinfo($_FILES['bukti']['name'], PATHINFO_EXTENSION);
         $bukti = time() . '_' . uniqid() . '.' . $file_extension;
-        $target_file = $target_dir . $bukti;
-        move_uploaded_file($_FILES['bukti']['tmp_name'], $target_file);
+        move_uploaded_file($_FILES['bukti']['tmp_name'], $target_dir . $bukti);
     }
     
-    // Cek apakah sudah ada booking di jam yang sama
+    // Cek bentrok jadwal
     $cek = mysqli_query($conn, "SELECT id FROM booking 
                                 WHERE id_lapangan = $id_lapangan 
                                 AND tanggal = '$tanggal' 
@@ -43,32 +41,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     if (mysqli_num_rows($cek) > 0) {
         $_SESSION['booking_error'] = "Jam tersebut sudah dibooking! Silakan pilih jam lain.";
-        header("Location: detail_lapangan.php?id=$id_lapangan");
+        header("Location: ../pages/detail_lapangan.php?id=$id_lapangan");
         exit();
     }
     
-    // Status berdasarkan metode pembayaran
-    $status = ($metode_pembayaran == 'transfer') ? 'pending' : 'pending';
+    $status = 'pending';
     
-    // Simpan booking
     $query = "INSERT INTO booking (id_user, id_lapangan, kode_booking, tanggal, jam_mulai, durasi, total_harga, catatan, bukti_pembayaran, status) 
               VALUES ($id_user, $id_lapangan, '$kode_booking', '$tanggal', '$jam_mulai', $durasi, $total_harga, '$catatan', '$bukti', '$status')";
     
     if (mysqli_query($conn, $query)) {
-        if ($metode_pembayaran == 'transfer') {
-            $_SESSION['booking_success'] = "Booking berhasil! Kode booking: $kode_booking. Silakan upload bukti transfer untuk konfirmasi admin.";
-        } else {
-            $_SESSION['booking_success'] = "Booking berhasil! Kode booking: $kode_booking. Silakan datang sesuai jadwal.";
-        }
-        header("Location: riwayat.php");
+        $_SESSION['booking_success'] = "Booking berhasil! Kode booking: $kode_booking.";
+        header("Location: ../pages/riwayat_booking.php");
         exit();
     } else {
         $_SESSION['booking_error'] = "Gagal melakukan booking!";
-        header("Location: detail_lapangan.php?id=$id_lapangan");
+        header("Location: ../pages/detail_lapangan.php?id=$id_lapangan");
         exit();
     }
 } else {
-    header("Location: lapangan.php");
+    header("Location: ../pages/lapangan.php");
     exit();
 }
 ?>

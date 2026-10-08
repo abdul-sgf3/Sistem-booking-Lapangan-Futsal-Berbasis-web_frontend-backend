@@ -1,7 +1,7 @@
 <?php
 // detail_lapangan.php - Halaman Detail & Form Booking Lapangan
 session_start();
-include '../../config/database.php';
+include '../../Backend/config/database.php';
 
 // Ambil ID lapangan dari URL
 $id_lapangan = isset($_GET['id']) ? (int)$_GET['id'] : 0;

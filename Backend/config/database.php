@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root"; 
 $pass = "";     
-$db = "vincent_sqdb_sql";
+$db = "vincent_sqdb";
 
 $conn = mysqli_connect($host, $user, $pass, $db);
 

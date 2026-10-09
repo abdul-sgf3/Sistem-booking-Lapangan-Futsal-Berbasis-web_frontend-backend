@@ -5,8 +5,14 @@ $halaman = basename($_SERVER['PHP_SELF']);
 $judul   = $judul ?? 'Beranda';
 $nama    = $_SESSION['nama'] ?? $_SESSION['username'] ?? 'Pengguna';
 
-// Base URL Project
-$base_url = '/System-booking-Lapangan-Futsal-Berbasis-web_frontend-backend/Frontend';
+$base_url = '/vincent-arena/Frontend';
+
+function navClass($file, $halaman, $mobile = false) {
+    $base = $mobile ? 'block px-4 py-2.5 rounded-lg transition-all duration-200' : 'px-3 py-2 rounded-lg transition-all duration-200';
+    return $base . ($halaman === $file 
+        ? ' bg-navy text-white font-bold' 
+        : ' text-slate-500 hover:text-navy font-medium');
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -17,26 +23,25 @@ $base_url = '/System-booking-Lapangan-Futsal-Berbasis-web_frontend-backend/Front
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script>
- tailwind.config = {
-    theme: { extend: {
+    tailwind.config = {
+      theme: { extend: {
         fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
         colors: { 
             navy: '#0F172A',
-            accent: '#DC2626'
+            accent: '#DC2626',
+            blue: '#2563EB'
         },
-    }},
-};
-
+      }},
+    };
   </script>
 </head>
 <body class="font-sans text-slate-800 bg-white">
 
 <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
-  <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 
     <!-- KIRI: Logo & Menu Desktop -->
-    <div class="flex items-center gap-10">
-      <!-- Logo -->
+    <div class="flex items-center gap-8">
       <a href="<?= $base_url ?>/pages/index.php" class="flex flex-col leading-tight">
         <span class="text-2xl font-extrabold text-navy tracking-tight">
           Vincent'<span class="text-accent">SQ</span>
@@ -44,15 +49,11 @@ $base_url = '/System-booking-Lapangan-Futsal-Berbasis-web_frontend-backend/Front
         <span class="text-[10px] font-bold text-accent tracking-[0.15em] mt-0.5">SPORTS ARENA</span>
       </a>
 
-      <!-- Menu Desktop -->
       <nav class="hidden lg:flex items-center gap-1 text-sm">
-        <!-- Beranda: SIAP, pakai <a> -->
-        <a href="<?= $base_url ?>/pages/index.php" class="px-4 py-2 rounded-lg bg-navy text-white font-bold">Beranda</a>
-        
-        <!-- Menu belum jadi: pakai <span> (TIDAK BISA DIKLIK) -->
-        <span class="px-4 py-2 rounded-lg text-slate-400 opacity-50 cursor-not-allowed select-none">Booking Lapangan</span>
-        <span class="px-4 py-2 rounded-lg text-slate-400 opacity-50 cursor-not-allowed select-none">Riwayat Booking</span>
-        <span class="px-4 py-2 rounded-lg text-slate-400 opacity-50 cursor-not-allowed select-none">Makanan Minuman</span>
+        <a href="<?= $base_url ?>/pages/index.php" class="<?= navClass('index.php', $halaman) ?>">Beranda</a>
+        <a href="<?= $base_url ?>/pages/lapangan.php" class="<?= navClass('lapangan.php', $halaman) ?>">Booking Lapangan</a>
+        <a href="<?= $base_url ?>/pages/riwayat_booking.php" class="<?= navClass('riwayat_booking.php', $halaman) ?>">Riwayat Booking</a>
+        <a href="<?= $base_url ?>/pages/makanan.php" class="<?= navClass('makanan.php', $halaman) ?>">Makanan Minuman</a>
       </nav>
     </div>
 
@@ -67,11 +68,10 @@ $base_url = '/System-booking-Lapangan-Futsal-Berbasis-web_frontend-backend/Front
           </div>
           <a href="<?= $base_url ?>/autentikasi/logout.php" class="hidden lg:inline bg-accent text-white px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-red-700 transition">Logout</a>
       <?php else: ?>
-          <a href="<?= $base_url ?>/autentikasi/login.php" class="bg-blue text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-blue-600 transition shadow-sm">Login</a>
+          <a href="<?= $base_url ?>/autentikasi/login.php" class="bg-blue text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-blue-700 transition shadow-sm">Login</a>
           <a href="<?= $base_url ?>/autentikasi/register.php" class="bg-accent text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-red-700 transition shadow-sm">Register</a>
       <?php endif; ?>
 
-      <!-- Tombol Menu Mobile -->
       <button id="menuBtn" class="lg:hidden p-2 rounded-lg hover:bg-slate-100" aria-label="Menu">
         <svg class="w-6 h-6 text-navy" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
@@ -83,13 +83,10 @@ $base_url = '/System-booking-Lapangan-Futsal-Berbasis-web_frontend-backend/Front
 
   <!-- Menu Mobile -->
   <nav id="mobileMenu" class="hidden lg:hidden border-t bg-white px-6 py-3 space-y-1 text-sm font-semibold">
-    <!-- Beranda: SIAP, pakai <a> -->
-    <a href="<?= $base_url ?>/pages/index.php" class="block px-4 py-2.5 rounded-lg bg-navy text-white font-bold">Beranda</a>
-    
-    <!-- Menu belum jadi: pakai <span> (TIDAK BISA DIKLIK) -->
-    <span class="block px-4 py-2.5 rounded-lg text-slate-400 opacity-50 cursor-not-allowed select-none">Booking Lapangan</span>
-    <span class="block px-4 py-2.5 rounded-lg text-slate-400 opacity-50 cursor-not-allowed select-none">Riwayat Booking</span>
-    <span class="block px-4 py-2.5 rounded-lg text-slate-400 opacity-50 cursor-not-allowed select-none">Makanan Minuman</span>
+    <a href="<?= $base_url ?>/pages/index.php" class="<?= navClass('index.php', $halaman, true) ?>">Beranda</a>
+    <a href="<?= $base_url ?>/pages/lapangan.php" class="<?= navClass('lapangan.php', $halaman, true) ?>">Booking Lapangan</a>
+    <a href="<?= $base_url ?>/pages/riwayat_booking.php" class="<?= navClass('riwayat_booking.php', $halaman, true) ?>">Riwayat Booking</a>
+    <a href="<?= $base_url ?>/pages/makanan.php" class="<?= navClass('makanan.php', $halaman, true) ?>">Makanan Minuman</a>
     
     <?php if(isset($_SESSION['user_id']) || isset($_SESSION['id_user'])): ?>
         <a href="<?= $base_url ?>/autentikasi/logout.php" class="block px-4 py-2.5 rounded-lg text-accent">Logout</a>

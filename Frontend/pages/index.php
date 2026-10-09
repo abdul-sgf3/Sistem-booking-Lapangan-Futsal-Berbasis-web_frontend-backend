@@ -23,7 +23,7 @@ include '../includes/header.php';
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* HERO */
+    /* ===== HERO SECTION ===== */
     .vsq-hero {
         position: relative;
         width: 100%;
@@ -76,7 +76,7 @@ include '../includes/header.php';
         gap: 6px;
     }
 
-    /* SECTION */
+    /* ===== SECTION UMUM ===== */
     .vsq-section {
         padding: 50px 20px;
         max-width: 1200px;
@@ -110,7 +110,7 @@ include '../includes/header.php';
         color: var(--vsq-blue);
     }
 
-    /* KARTU LAPANGAN */
+    /* ===== KARTU LAPANGAN (Sesuai Figma) ===== */
     .vsq-lapangan-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -125,7 +125,7 @@ include '../includes/header.php';
         display: flex;
         flex-direction: row;
         transition: box-shadow 0.3s, transform 0.3s;
-        min-height: 240px;
+        min-height: 260px;
     }
 
     .vsq-card:hover {
@@ -141,22 +141,8 @@ include '../includes/header.php';
         background-position: center;
     }
 
-    .vsq-card-badge {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        padding: 5px 14px;
-        border-radius: 25px;
-        font-size: 12px;
-        font-weight: 700;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-
-    .badge-vip { background: var(--vsq-gold); color: var(--vsq-navy); }
-    .badge-regular { background: #F1F5F9; color: var(--vsq-navy); }
-
     .vsq-card-body {
-        padding: 20px;
+        padding: 24px;
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -164,48 +150,85 @@ include '../includes/header.php';
         min-width: 0;
     }
 
-    .vsq-card-body h3 {
+    /* Header: Nama + Badge sejajar */
+    .vsq-card-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .vsq-card-header h3 {
         font-size: 20px;
         font-weight: 700;
         color: var(--vsq-navy);
-        margin: 0 0 14px 0;
+        margin: 0;
     }
 
+    .vsq-card-badge {
+        padding: 5px 16px;
+        border-radius: 25px;
+        font-size: 13px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .badge-vip { 
+        background: var(--vsq-gold); 
+        color: var(--vsq-navy); 
+    }
+    .badge-regular { 
+        background: #E2E8F0; 
+        color: var(--vsq-navy); 
+    }
+
+    /* Fasilitas dengan ikon centang bulat */
     .vsq-fasilitas {
         list-style: none;
         padding: 0;
-        margin: 0 0 16px 0;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px 12px;
+        margin: 0 0 20px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
     }
 
     .vsq-fasilitas li {
-        font-size: 12px;
-        color: var(--vsq-gray);
+        font-size: 13px;
+        color: #334155;
         display: flex;
         align-items: flex-start;
-        gap: 6px;
+        gap: 10px;
         line-height: 1.4;
     }
 
+    /* Ikon centang bulat hitam */
     .vsq-fasilitas li::before {
         content: "✓";
-        color: var(--vsq-navy);
+        color: white;
+        background: var(--vsq-navy);
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
         font-weight: 900;
-        font-size: 13px;
         flex-shrink: 0;
+        margin-top: 1px;
     }
 
     .vsq-card-footer {
         margin-top: auto;
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex-start;
         align-items: center;
-        padding-top: 14px;
+        padding-top: 16px;
         border-top: 1px solid var(--vsq-border);
     }
 
+    /* Tombol dengan panah */
     .vsq-btn-booking {
         background: var(--vsq-red);
         color: white;
@@ -216,10 +239,26 @@ include '../includes/header.php';
         font-weight: 700;
         transition: all 0.2s;
         box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
     }
-    .vsq-btn-booking:hover { background: #B91C1C; }
 
-    /* CARA BOOKING */
+    .vsq-btn-booking::after {
+        content: "→";
+        font-size: 16px;
+        transition: transform 0.2s;
+    }
+
+    .vsq-btn-booking:hover { 
+        background: #B91C1C; 
+    }
+
+    .vsq-btn-booking:hover::after { 
+        transform: translateX(4px);
+    }
+
+    /* ===== CARA BOOKING ===== */
     .vsq-steps {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -311,7 +350,7 @@ include '../includes/header.php';
         flex-shrink: 0;
     }
 
-    /* FAQ */
+    /* ===== FAQ (Accordion) ===== */
     .vsq-faq-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -389,7 +428,7 @@ include '../includes/header.php';
         border-top: 1px solid var(--vsq-border);
     }
 
-    /* RESPONSIVE */
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 1023px) {
         .vsq-lapangan-grid { grid-template-columns: 1fr; }
         .vsq-steps { grid-template-columns: repeat(2, 1fr); gap: 20px; }
@@ -404,9 +443,8 @@ include '../includes/header.php';
         
         .vsq-card { flex-direction: column; min-height: auto; }
         .vsq-card-img { width: 100%; height: 180px; }
-        .vsq-fasilitas { grid-template-columns: 1fr; }
         .vsq-card-footer { justify-content: stretch; }
-        .vsq-btn-booking { text-align: center; width: 100%; }
+        .vsq-btn-booking { text-align: center; width: 100%; justify-content: center; }
         
         .vsq-faq-grid { grid-template-columns: 1fr; }
         .vsq-steps { grid-template-columns: 1fr; gap: 20px; }
@@ -418,18 +456,24 @@ include '../includes/header.php';
 <section class="vsq-hero">
     <div class="vsq-hero-content">
         <h1>Sewa Lapangan Olahraga Favoritmu dengan Sekali <span>Klik</span></h1>
-        <p>Vincent SQ Arena kini hadir untuk Futsal, Basket, Badminton, dan Voli dengan fasilitas standar nasional dan sistem konfirmasi realtime.</p>
-    </div>
-    <div class="vsq-location-badge">
-        📍 Majasem, Kota Cirebon, Jawa Barat
-    </div>
+       <p>Vincent SQ Arena hadir untuk lapangan Futsal dengan fasilitas standar nasional dan sistem konfirmasi realtime.</p>
+  <div class="vsq-location-badge">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;">
+        <!-- Pin lokasi -->
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 3.5 5.5 9.5 6.4 10.4.3.3.9.3 1.2 0C13.5 18.5 19 12.5 19 9c0-3.87-3.13-7-7-7z" stroke="#334155" stroke-width="1.8" fill="none"/>
+        <!-- Lingkaran dalam -->
+        <circle cx="12" cy="9" r="2.2" fill="#334155"/>
+        <!-- Alas/tatakan bawah -->
+        <path d="M5 19h14M7 21h10" stroke="#334155" stroke-width="1.8" stroke-linecap="round"/>
+    </svg>
+    <span>Tuparev, Kota Cirebon, Jawa Barat</span>
+</div>
 </section>
 
 <!-- PILIHAN LAPANGAN -->
 <section class="vsq-section">
     <div class="vsq-section-title">
         <h2>Pilihan Lapangan Tersedia</h2>
-        <p>Pilih jenis lapangan dengan spesifikasi lantai terbaik untuk kenyamanan tim dan performa bertanding maksimal.</p>
     </div>
 
     <div class="vsq-lapangan-grid">
@@ -444,18 +488,34 @@ include '../includes/header.php';
                 
                 $badge_text = ($lapangan['harga_per_jam'] >= 200000) ? 'VIP' : 'Regular';
                 $badge_class = ($badge_text == 'VIP') ? 'badge-vip' : 'badge-regular';
+                
+                if ($badge_text == 'VIP') {
+                    $fasilitas = [
+                        'Lapangan dengan kondisi indoor',
+                        'Area bermain lebih Luas',
+                        'Include dengan area penonton',
+                        'Sirkulasi udara yang nyaman'
+                    ];
+                } else {
+                    $fasilitas = [
+                        'Lapangan dengan kondisi indoor',
+                        'Area bermain ukuran standar umum',
+                        'Fasilitas lengkap dan terawat',
+                        'Sirkulasi udara yang nyaman'
+                    ];
+                }
         ?>
         <article class="vsq-card">
-            <div class="vsq-card-img" style="background-image: url('<?= $foto ?>');">
-                <span class="vsq-card-badge <?= $badge_class ?>"><?= $badge_text ?></span>
-            </div>
+            <div class="vsq-card-img" style="background-image: url('<?= $foto ?>');"></div>
             <div class="vsq-card-body">
-                <h3><?= htmlspecialchars($lapangan['nama_lapangan']) ?></h3>
+                <div class="vsq-card-header">
+                    <h3><?= htmlspecialchars($lapangan['nama_lapangan']) ?></h3>
+                    <span class="vsq-card-badge <?= $badge_class ?>"><?= $badge_text ?></span>
+                </div>
                 <ul class="vsq-fasilitas">
-                    <li>Lapangan berstandar nasional</li>
-                    <li>Pencahayaan LED</li>
-                    <li>Loker & Ruang Ganti</li>
-                    <li>Area Parkir Luas</li>
+                    <?php foreach ($fasilitas as $f): ?>
+                        <li><?= htmlspecialchars($f) ?></li>
+                    <?php endforeach; ?>
                 </ul>
                 <div class="vsq-card-footer">
                     <a href="detail_lapangan.php?id=<?= (int)$lapangan['id'] ?>" class="vsq-btn-booking">Booking Sekarang</a>
@@ -481,6 +541,7 @@ include '../includes/header.php';
     </div>
     <div class="vsq-steps">
         
+        <!-- Step 1 -->
         <div class="vsq-step-wrapper">
             <div class="vsq-step">
                 <div class="vsq-step-header">
@@ -501,6 +562,7 @@ include '../includes/header.php';
             <span class="vsq-arrow">›</span>
         </div>
 
+        <!-- Step 2 -->
         <div class="vsq-step-wrapper">
             <div class="vsq-step">
                 <div class="vsq-step-header">
@@ -525,6 +587,7 @@ include '../includes/header.php';
             <span class="vsq-arrow">›</span>
         </div>
 
+        <!-- Step 3 -->
         <div class="vsq-step-wrapper">
             <div class="vsq-step">
                 <div class="vsq-step-header">
@@ -545,6 +608,7 @@ include '../includes/header.php';
             <span class="vsq-arrow">›</span>
         </div>
 
+        <!-- Step 4 -->
         <div class="vsq-step-wrapper">
             <div class="vsq-step">
                 <div class="vsq-step-header">

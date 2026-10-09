@@ -1,161 +1,234 @@
+<?php
+// login.php - Halaman Login User
+session_start();
+
+// Jika sudah login, redirect ke beranda
+if (isset($_SESSION['user_id'])) {
+    header("Location: ../pages/index.php");
+    exit();
+}
+
+$error = '';
+$success = '';
+
+// Cek pesan sukses dari register
+if (isset($_SESSION['register_success'])) {
+    $success = $_SESSION['register_success'];
+    unset($_SESSION['register_success']);
+}
+
+// Proses login (untuk sementara validasi FE-only, integrasi BE nanti)
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email    = trim($_POST['email'] ?? '');
+    $password = trim($_POST['password'] ?? '');
+    
+    if (empty($email) || empty($password)) {
+        $error = "Email dan password wajib diisi!";
+    } else {
+        // ============================================
+        // TODO: Integrasi dengan BE endpoint /Backend/API/login.php
+        // ============================================
+        // Sementara kita pakai validasi placeholder
+        // BE akan kirim response JSON: { status, message, data: { user_id, nama } }
+        
+        // Placeholder validasi (hapus setelah BE siap)
+        $error = "Fitur login sedang dalam pengembangan BE.";
+        
+        // Kode asli setelah BE siap:
+        /*
+        $response = kirimKeAPI('/Backend/API/login.php', [
+            'email' => $email,
+            'password' => $password
+        ]);
+        
+        if ($response['status'] === 'success') {
+            $_SESSION['user_id'] = $response['data']['user_id'];
+            $_SESSION['nama'] = $response['data']['nama'];
+            header("Location: ../pages/index.php");
+            exit();
+        } else {
+            $error = $response['message'];
+        }
+        */
+    }
+}
+
+$title = 'Login - Vincent SQ Arena';
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login - Vincent'SQ Arena</title>
+  <title><?= htmlspecialchars($title) ?></title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script>
     tailwind.config = {
       theme: { extend: {
         fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
-        colors: { navy: '#0B2A52', accent: '#E8394A', ok: '#16A34A' },
+        colors: {
+          navy: '#0F172A',
+          accent: '#DC2626',
+          blue: '#3B82F6',
+        },
       }},
     };
   </script>
 </head>
-<body class="font-sans text-slate-800 bg-slate-50 min-h-screen flex items-center justify-center p-4"><?php
-// login.php - Halaman login USER dengan Username + CAPTCHA
-session_start();
-include '../../config/database.php';
+<body class="font-sans min-h-screen bg-navy">
 
-// Generate CAPTCHA matematika
-function generateCaptcha() {
-    $angka1 = rand(1, 20);
-    $angka2 = rand(1, 20);
-    $_SESSION['user_captcha_angka1'] = $angka1;
-    $_SESSION['user_captcha_angka2'] = $angka2;
-    $_SESSION['user_captcha_hasil'] = $angka1 + $angka2;
-    return [$angka1, $angka2];
-}
+<!-- Background -->
+<div class="fixed inset-0 z-0">
+    <div class="absolute inset-0 bg-cover bg-center"
+         style="background-image: url('../assets/uploads/lapangan/hero.jpeg');"></div>
+    <div class="absolute inset-0" style="background: rgba(15, 23, 42, 0.85);"></div>
+</div>
 
-// Cek apakah CAPTCHA sudah ada
-if (!isset($_SESSION['user_captcha_angka1'])) {
-    generateCaptcha();
-}
+<!-- Tombol Kembali -->
+<a href="../pages/index.php"
+   class="fixed top-8 left-8 z-20 w-14 h-14 flex items-center justify-center text-white hover:text-slate-300 transition"
+   aria-label="Kembali">
+    <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+</a>
 
-$angka1 = $_SESSION['user_captcha_angka1'];
-$angka2 = $_SESSION['user_captcha_angka2'];
-$error = '';
+<!-- Card Login -->
+<div class="relative z-10 min-h-screen flex items-center justify-center p-4">
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = mysqli_real_escape_string($conn, $_POST['username']);
-    $password = md5($_POST['password']);
-    $captcha = (int)$_POST['captcha'];
-    
-    // Validasi CAPTCHA
-    if ($captcha != $_SESSION['user_captcha_hasil']) {
-        $error = "❌ Kode keamanan salah!";
-        generateCaptcha();
-        $angka1 = $_SESSION['user_captcha_angka1'];
-        $angka2 = $_SESSION['user_captcha_angka2'];
-    } else {
-        // Cek user dengan username dan role 'user'
-        $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password' AND role = 'user' AND is_active = 1";
-        $result = mysqli_query($conn, $query);
-        
-        if (mysqli_num_rows($result) == 1) {
-            $user = mysqli_fetch_assoc($result);
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_nama'] = $user['nama'];
-            $_SESSION['user_username'] = $user['username'];
-            $_SESSION['user_role'] = $user['role'];
-            $_SESSION['login_success'] = true;
-            
-            generateCaptcha(); // Reset captcha untuk next login
-            header("Location: index.php");
-            exit();
-        } else {
-            $error = "❌ Username atau password salah!";
-            generateCaptcha();
-            $angka1 = $_SESSION['user_captcha_angka1'];
-            $angka2 = $_SESSION['user_captcha_angka2'];
-        }
-    }
-}
+    <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl px-8 py-10">
 
-$title = 'Login - Vincent\'sQ Arena';
-?>
+        <!-- Logo -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-extrabold text-navy tracking-tight">
+                Vincent'<span class="text-accent">SQ</span>
+            </h1>
+            <p class="text-[11px] font-extrabold text-accent tracking-[0.25em] mt-1">SPORTS ARENA</p>
+        </div>
 
-<div class="container" style="max-width: 500px; margin: 60px auto;">
-    <div style="background: white; border-radius: 24px; padding: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 5px solid #e63946;">
-        
-        <h2 style="text-align: center; color: #0a2b4e; margin-bottom: 30px;">⚡ LOGIN USER ⚡</h2>
-        
+        <!-- Judul -->
+        <h2 class="text-xl font-bold text-navy text-center mb-8">Masuk ke Akun Anda</h2>
+
+        <!-- Pesan Error -->
         <?php if ($error): ?>
-            <div style="background: #fee; color: #e63946; padding: 12px; border-radius: 12px; margin-bottom: 20px; text-align: center; border-left: 3px solid #e63946;">
-                <?= $error ?>
+            <div class="bg-red-50 text-red-600 text-sm font-semibold p-3 rounded-lg mb-4 text-center border border-red-200">
+                <?= htmlspecialchars($error) ?>
             </div>
         <?php endif; ?>
-        
-        <form method="POST" id="loginForm">
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">👤 USERNAME</label>
-                <input type="text" name="username" id="username" required placeholder="Masukkan username" autocomplete="off" style="width: 100%; padding: 14px; border: 2px solid #e1e1e1; border-radius: 12px; font-size: 14px;">
+
+        <!-- Pesan Sukses -->
+        <?php if ($success): ?>
+            <div class="bg-green-50 text-green-600 text-sm font-semibold p-3 rounded-lg mb-4 text-center border border-green-200">
+                <?= htmlspecialchars($success) ?>
             </div>
-            
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">🔒 PASSWORD</label>
-                <input type="password" name="password" id="password" required placeholder="Masukkan password" style="width: 100%; padding: 14px; border: 2px solid #e1e1e1; border-radius: 12px;">
-            </div>
-            
-            <!-- CAPTCHA Matematika -->
-            <div style="margin-bottom: 25px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">🔐 CAPTCHA</label>
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 12px; text-align: center;">
-                    <div id="captchaQuestion" style="font-size: 24px; font-weight: bold; background: #0a2b4e; color: white; display: inline-block; padding: 8px 20px; border-radius: 40px; margin-bottom: 12px;">
-                        <?= $angka1 ?> + <?= $angka2 ?> = ?
+        <?php endif; ?>
+
+        <!-- FORM LOGIN -->
+        <form method="POST" class="space-y-5">
+
+            <!-- Input Email -->
+            <div>
+                <label class="block text-sm font-semibold text-blue-500 mb-2">Email</label>
+                <div class="relative">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-blue-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <rect x="2" y="4" width="20" height="16" rx="2"/>
+                            <path d="M2 6l10 7 10-7"/>
+                        </svg>
                     </div>
-                    <input type="number" name="captcha" id="captcha" required placeholder="Masukkan hasil penjumlahan" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 12px; text-align: center; font-size: 16px;">
-                    <button type="button" id="refreshCaptcha" style="background: #0a2b4e; color: white; padding: 8px 20px; margin-top: 12px; border: none; border-radius: 30px; cursor: pointer;">🔄 Refresh Captcha</button>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        placeholder="Masukkan email"
+                        required
+                        autocomplete="email"
+                        class="w-full pl-12 pr-4 py-3 border-2 border-blue-200 rounded-lg text-slate-700 focus:outline-none focus:border-blue-500 transition">
                 </div>
             </div>
-            
-            <button type="submit" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #e63946 0%, #c1121f 100%); color: white; border: none; border-radius: 30px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s;">⚡ LOGIN ⚡</button>
+
+            <!-- Input Password -->
+            <div>
+                <label class="block text-sm font-semibold text-blue-500 mb-2">Password</label>
+                <div class="relative">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-blue-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <rect x="3" y="11" width="18" height="11" rx="2"/>
+                            <path d="M7 11V7a5 5 0 0110 0v4"/>
+                        </svg>
+                    </div>
+                    <input 
+                        type="password" 
+                        name="password" 
+                        id="password"
+                        placeholder="Masukkan password"
+                        required
+                        autocomplete="current-password"
+                        class="w-full pl-12 pr-12 py-3 border-2 border-blue-200 rounded-lg text-slate-700 focus:outline-none focus:border-blue-500 transition">
+                    
+                    <!-- Toggle Show/Hide Password -->
+                    <button type="button" id="togglePassword" 
+                        class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                        <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Lupa Password -->
+            <div class="text-right">
+                <a href="#" class="text-xs text-blue-500 hover:underline font-semibold">Lupa Password?</a>
+            </div>
+
+            <!-- Tombol Login -->
+            <button type="submit"
+                class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-lg transition shadow-md">
+                Login
+            </button>
         </form>
-        
-        <p style="text-align: center; margin-top: 25px;">
-            Belum punya akun? <a href="register.php" style="color: #e63946; text-decoration: none; font-weight: 600;">Register di sini</a>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-3 my-6">
+            <div class="flex-1 h-px bg-slate-200"></div>
+            <span class="text-xs text-slate-400 font-semibold">ATAU</span>
+            <div class="flex-1 h-px bg-slate-200"></div>
+        </div>
+
+        <!-- Link Register -->
+        <p class="text-center text-sm text-slate-500">
+            Belum punya akun? 
+            <a href="register.php" class="text-accent font-bold hover:underline">Daftar di sini</a>
         </p>
+
     </div>
 </div>
 
 <script>
-    // Refresh CAPTCHA dengan AJAX
-    const refreshBtn = document.getElementById('refreshCaptcha');
-    const captchaQuestion = document.getElementById('captchaQuestion');
-    const captchaInput = document.getElementById('captcha');
-    
-    if (refreshBtn) {
-        refreshBtn.addEventListener('click', async function() {
-            const originalText = refreshBtn.innerHTML;
-            refreshBtn.innerHTML = '🔄 Loading...';
-            refreshBtn.disabled = true;
-            
-            try {
-                const response = await fetch('refresh_captcha_user.php');
-                const data = await response.json();
-                
-                if (data.success) {
-                    captchaQuestion.innerHTML = data.angka1 + ' + ' + data.angka2 + ' = ?';
-                    captchaInput.value = '';
-                    captchaQuestion.style.transform = 'scale(1.05)';
-                    setTimeout(() => {
-                        captchaQuestion.style.transform = 'scale(1)';
-                    }, 200);
-                } else {
-                    alert('Gagal mengganti soal, silakan reload halaman.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Terjadi kesalahan, silakan reload halaman.');
-            } finally {
-                refreshBtn.innerHTML = originalText;
-                refreshBtn.disabled = false;
-            }
-        });
+// ===== Toggle Show/Hide Password =====
+const toggleBtn = document.getElementById('togglePassword');
+const passwordInput = document.getElementById('password');
+const eyeIcon = document.getElementById('eyeIcon');
+
+toggleBtn.addEventListener('click', function() {
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        // Ikon mata dengan garis (hidden)
+        eyeIcon.innerHTML = `
+            <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+        `;
+    } else {
+        passwordInput.type = 'password';
+        // Ikon mata normal
+        eyeIcon.innerHTML = `
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+        `;
     }
+});
 </script>
+
 </body>
 </html>

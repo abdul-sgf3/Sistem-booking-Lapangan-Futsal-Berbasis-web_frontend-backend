@@ -98,6 +98,7 @@ include '../includes/header.php';
 
     .vsq-section-title.title-blue h2 {
         color: var(--vsq-blue);
+        margin: 0 0 8px 0;
     }
 
     .vsq-section-title p {
@@ -283,7 +284,7 @@ include '../includes/header.php';
         flex: 1;
         position: relative;
         box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        min-height: 200px;
+        min-height: 180px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -293,8 +294,8 @@ include '../includes/header.php';
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 12px;
-        margin-bottom: 14px;
+        gap: 8px;
+        margin-bottom: 12px;
         width: 100%;
     }
 
@@ -312,16 +313,16 @@ include '../includes/header.php';
     }
 
     .vsq-step-svg {
-        width: 44px;
-        height: 44px;
+        width: 36px;
+        height: 36px;
         display: grid;
         place-items: center;
         flex-shrink: 0;
     }
 
     .vsq-step-svg svg {
-        width: 44px;
-        height: 44px;
+        width: 32px;
+        height: 32px;
         stroke: var(--vsq-blue);
         fill: none;
         stroke-width: 2;
@@ -344,7 +345,7 @@ include '../includes/header.php';
     }
 
     .vsq-arrow {
-        font-size: 32px;
+        font-size: 28px;
         color: var(--vsq-blue);
         font-weight: 300;
         flex-shrink: 0;
@@ -535,7 +536,7 @@ include '../includes/header.php';
 
 <!-- CARA BOOKING -->
 <section class="vsq-section">
-    <div class="vsq-section-title title-blue">
+    <div class="vsq-section-title">
         <h2>Cara Booking Lapangan</h2>
         <p>Booking lapangan di Vincent'SQ dapat dilakukan dengan beberapa langkah berikut</p>
     </div>
@@ -547,13 +548,7 @@ include '../includes/header.php';
                 <div class="vsq-step-header">
                     <div class="vsq-step-number">1</div>
                     <div class="vsq-step-svg">
-                        <svg viewBox="0 0 24 24">
-                            <rect x="3" y="5" width="18" height="14" rx="1.5"/>
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <circle cx="12" cy="12" r="3"/>
-                            <path d="M3 9h2v6H3"/>
-                            <path d="M21 9h-2v6h2"/>
-                        </svg>
+                        <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/><path d="M9 9h.01M15 9h.01"/></svg>
                     </div>
                 </div>
                 <h4>Pilih Lapangan</h4>
@@ -568,17 +563,7 @@ include '../includes/header.php';
                 <div class="vsq-step-header">
                     <div class="vsq-step-number">2</div>
                     <div class="vsq-step-svg">
-                        <svg viewBox="0 0 24 24">
-                            <rect x="3" y="4" width="18" height="18" rx="2"/>
-                            <line x1="16" y1="2" x2="16" y2="6"/>
-                            <line x1="8" y1="2" x2="8" y2="6"/>
-                            <line x1="3" y1="10" x2="21" y2="10"/>
-                            <rect x="7" y="13" width="2" height="2" rx="0.5" fill="currentColor" stroke="none"/>
-                            <rect x="12" y="13" width="2" height="2" rx="0.5" fill="currentColor" stroke="none"/>
-                            <rect x="17" y="13" width="2" height="2" rx="0.5" fill="currentColor" stroke="none"/>
-                            <rect x="7" y="17" width="2" height="2" rx="0.5" fill="currentColor" stroke="none"/>
-                            <rect x="12" y="17" width="2" height="2" rx="0.5" fill="currentColor" stroke="none"/>
-                        </svg>
+                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg>
                     </div>
                 </div>
                 <h4>Pilih Jadwal</h4>
@@ -593,13 +578,7 @@ include '../includes/header.php';
                 <div class="vsq-step-header">
                     <div class="vsq-step-number">3</div>
                     <div class="vsq-step-svg">
-                        <svg viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="10"/>
-                            <rect x="8" y="7" width="8" height="10" rx="1"/>
-                            <line x1="9.5" y1="10" x2="14.5" y2="10"/>
-                            <line x1="9.5" y1="12" x2="14.5" y2="12"/>
-                            <line x1="9.5" y1="14" x2="12.5" y2="14"/>
-                        </svg>
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>
                     </div>
                 </div>
                 <h4>Isi Data Booking</h4>
@@ -614,10 +593,7 @@ include '../includes/header.php';
                 <div class="vsq-step-header">
                     <div class="vsq-step-number">4</div>
                     <div class="vsq-step-svg">
-                        <svg viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="10"/>
-                            <polyline points="8 12 11 15 16 9"/>
-                        </svg>
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
                     </div>
                 </div>
                 <h4>Konfirmasi</h4>
@@ -630,7 +606,7 @@ include '../includes/header.php';
 
 <!-- FAQ -->
 <section class="vsq-section">
-    <div class="vsq-section-title title-blue">
+    <div class="vsq-section-title">
         <h2>Pertanyaan yang sering diajukan</h2>
     </div>
     <div class="vsq-faq-grid">

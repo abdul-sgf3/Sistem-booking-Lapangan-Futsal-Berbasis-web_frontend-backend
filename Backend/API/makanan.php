@@ -1,20 +1,25 @@
 <?php
-// api/makanan.php - GET semua makanan/minuman
+// ============================================
+// Backend/API/makanan.php
+// GET /api/makanan?kategori=makanan|minuman|semua
+// ============================================
 require_once 'config.php';
 
-if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
-    sendError('Method tidak diizinkan', 405);
-}
+requireMethod('GET');
 
 $kategori = isset($_GET['kategori']) ? $_GET['kategori'] : 'semua';
 
-if ($kategori !== 'semua') {
+if (!in_array($kategori, ['semua', 'makanan', 'minuman'])) {
+    sendError('Kategori tidak valid. Gunakan: semua, makanan, atau minuman', 400);
+}
+
+if ($kategori === 'semua') {
+    $result = mysqli_query($conn, "SELECT * FROM makanan_minuman ORDER BY kategori ASC, nama ASC");
+} else {
     $stmt = mysqli_prepare($conn, "SELECT * FROM makanan_minuman WHERE kategori = ? ORDER BY nama ASC");
     mysqli_stmt_bind_param($stmt, "s", $kategori);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-} else {
-    $result = mysqli_query($conn, "SELECT * FROM makanan_minuman ORDER BY kategori DESC, nama ASC");
 }
 
 if (!$result) {
@@ -23,17 +28,11 @@ if (!$result) {
 
 $makanan = [];
 while ($row = mysqli_fetch_assoc($result)) {
-    if (!empty($row['foto'])) {
-        $row['foto_url'] = '/Booking-Futsal-main/tsubasa_arena/Frontend/assets/uploads/makanan/' . $row['foto'];
-    } else {
-        $row['foto_url'] = '';
-    }
+    $row['id'] = (int)$row['id'];
+    $row['harga'] = (int)$row['harga'];
+    $row['foto_url'] = fotoMakananUrl($row['foto']);
     $makanan[] = $row;
 }
 
-sendResponse([
-    'status' => 'success',
-    'total'  => count($makanan),
-    'data'   => $makanan
-]);
+sendResponse($makanan, 'Daftar makanan/minuman berhasil diambil');
 ?>

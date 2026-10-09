@@ -19,7 +19,8 @@ function navClass($file, $halaman, $mobile = false) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title><?= htmlspecialchars($judul) ?> - Vincent'SQ Sports Arena</title>
+  <title><?= htmlspecialchars($judul) ?> - Vincent SQ Arena</title>
+  <title><?= htmlspecialchars($judul) ?> - Sport Arena</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script>
@@ -57,8 +58,13 @@ function navClass($file, $halaman, $mobile = false) {
       </nav>
     </div>
 
-    <!-- KANAN: Tombol Login & Register -->
-    <div class="flex items-center gap-3">
+    <!-- KANAN: Notifikasi & Tombol Login -->
+    <div class="flex items-center gap-4">
+      <button class="relative p-2 rounded-full hover:bg-slate-100" aria-label="Notifikasi">
+        <svg class="w-5 h-5 text-navy" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 1 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5m6 0a3 3 0 1 1-6 0"/></svg>
+        <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-accent rounded-full ring-2 ring-white"></span>
+      </button>
+
       <?php if(isset($_SESSION['user_id']) || isset($_SESSION['id_user'])): ?>
           <div class="flex items-center gap-2">
             <span class="hidden sm:inline text-sm font-semibold text-navy">Hai, <?= htmlspecialchars($nama) ?>!</span>
@@ -66,7 +72,7 @@ function navClass($file, $halaman, $mobile = false) {
               <?= strtoupper(substr($nama, 0, 1)) ?>
             </span>
           </div>
-          <a href="<?= $base_url ?>/autentikasi/logout.php" class="hidden lg:inline bg-accent text-white px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-red-700 transition">Logout</a>
+          <a href="<?= $base_url ?>/autentikasi/logout.php" class="hidden lg:inline text-accent font-semibold hover:underline text-sm">Logout</a>
       <?php else: ?>
           <a href="<?= $base_url ?>/autentikasi/login.php" class="bg-blue text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-blue-700 transition shadow-sm">Login</a>
           <a href="<?= $base_url ?>/autentikasi/register.php" class="bg-accent text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-red-700 transition shadow-sm">Register</a>
@@ -91,8 +97,7 @@ function navClass($file, $halaman, $mobile = false) {
     <?php if(isset($_SESSION['user_id']) || isset($_SESSION['id_user'])): ?>
         <a href="<?= $base_url ?>/autentikasi/logout.php" class="block px-4 py-2.5 rounded-lg text-accent">Logout</a>
     <?php else: ?>
-        <a href="<?= $base_url ?>/autentikasi/login.php" class="block px-4 py-2.5 rounded-lg text-blue font-bold">Login</a>
-        <a href="<?= $base_url ?>/autentikasi/register.php" class="block px-4 py-2.5 rounded-lg text-accent font-bold">Register</a>
+        <a href="<?= $base_url ?>/autentikasi/login.php" class="block px-4 py-2.5 rounded-lg text-accent">Login</a>
     <?php endif; ?>
   </nav>
 </header>

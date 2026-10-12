@@ -3,6 +3,10 @@
 session_start();
 
 $email = $_SESSION['register_email'] ?? 'sdsh@gmail.com';
+
+// Path gambar
+$ilustrasi_path = '../assets/images/ilustrasi-kurir.jpg';
+$hero_path = '../assets/uploads/lapangan/hero.jpeg';
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +36,7 @@ $email = $_SESSION['register_email'] ?? 'sdsh@gmail.com';
             justify-content: center;
             background: 
                 linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)),
-                url('../assets/uploads/lapangan/hero.jpeg') center/cover no-repeat;
+                url('<?= htmlspecialchars($hero_path) ?>') center/cover no-repeat;
             position: relative;
             padding: 20px;
         }
@@ -76,8 +80,6 @@ $email = $_SESSION['register_email'] ?? 'sdsh@gmail.com';
 
         /* Logo */
         .vsq-logo { margin-bottom: 15px; }
-        
-        /* Font "Vincent'SQ" tidak Bold (600) */
         .vsq-logo h1 {
             font-size: 28px;
             font-weight: 600;
@@ -101,10 +103,10 @@ $email = $_SESSION['register_email'] ?? 'sdsh@gmail.com';
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 150px;
         }
         
-        /* SVG Ilustrasi */
-        .vsq-illustration svg {
+        .vsq-illustration img {
             width: 220px;
             height: auto;
             display: block;
@@ -153,8 +155,7 @@ $email = $_SESSION['register_email'] ?? 'sdsh@gmail.com';
             margin-bottom: 12px;
             font-weight: 400;
         }
-        
-        /* Teks "Kirim ulang kode" berwarna BIRU */
+        /* PERBAIKAN: Angka 01:00 berwarna BIRU */
         .vsq-timer span { 
             color: var(--vsq-btn-blue);
             font-weight: 600; 
@@ -167,6 +168,7 @@ $email = $_SESSION['register_email'] ?? 'sdsh@gmail.com';
             margin-bottom: 24px;
             font-weight: 400;
         }
+        /* PERBAIKAN: "Ganti email" berwarna BIRU, tidak bold */
         .vsq-change-email a {
             color: var(--vsq-btn-blue);
             text-decoration: none;
@@ -176,6 +178,7 @@ $email = $_SESSION['register_email'] ?? 'sdsh@gmail.com';
         .vsq-change-email a:hover { color: #1D4ED8; text-decoration: underline; }
 
         /* Tombol Verifikasi */
+        /* PERBAIKAN: Font lebih tipis (500), tidak bold */
         .vsq-btn-submit {
             display: block;
             width: 100%;
@@ -183,7 +186,7 @@ $email = $_SESSION['register_email'] ?? 'sdsh@gmail.com';
             margin: 0 auto;
             padding: 14px 20px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 500; /* <-- Diubah dari 600 ke 500 agar tidak bold */
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: #FFFFFF;
             background-color: var(--vsq-btn-blue);
@@ -207,7 +210,7 @@ $email = $_SESSION['register_email'] ?? 'sdsh@gmail.com';
             .vsq-otp-input { width: 42px; height: 50px; font-size: 20px; }
             .vsq-back-btn { top: 20px; left: 20px; width: 40px; height: 40px; }
             .vsq-back-btn svg { width: 24px; height: 24px; }
-            .vsq-illustration svg { width: 180px; }
+            .vsq-illustration img { width: 180px; }
         }
     </style>
 </head>
@@ -230,91 +233,9 @@ $email = $_SESSION['register_email'] ?? 'sdsh@gmail.com';
             <p>Sports Arena</p>
         </div>
 
-        <!-- Ilustrasi SVG Detail (Meniru Gambar Target) -->
+        <!-- Ilustrasi: Gambar Asli -->
         <div class="vsq-illustration">
-            <svg viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- === BACKGROUND GEDUNG === -->
-                <rect x="100" y="80" width="300" height="240" rx="8" fill="#F8FAFC"/>
-                <rect x="100" y="80" width="300" height="15" fill="#E2E8F0"/>
-                <!-- Jendela Gedung -->
-                <rect x="140" y="130" width="70" height="80" rx="4" fill="#E2E8F0"/>
-                <rect x="230" y="130" width="70" height="80" rx="4" fill="#E2E8F0"/>
-                <rect x="320" y="130" width="50" height="80" rx="4" fill="#E2E8F0"/>
-                <!-- Pintu Gedung -->
-                <rect x="200" y="240" width="100" height="80" rx="4" fill="#E2E8F0"/>
-
-                <!-- === KOTAK POS BIRU === -->
-                <!-- Tiang Penyangga Kotak Pos -->
-                <rect x="140" y="320" width="70" height="60" fill="#2563EB"/>
-                <rect x="130" y="370" width="90" height="10" rx="5" fill="#1E40AF"/>
-                
-                <!-- Badan Kotak Pos (Kanan) -->
-                <rect x="220" y="200" width="140" height="130" rx="12" fill="#2563EB"/>
-                <!-- Atap Lengkung Kotak Pos -->
-                <path d="M50 230 Q160 120 260 230" fill="#3B82F6"/>
-                <!-- Badan Kotak Pos (Kiri) -->
-                <rect x="50" y="230" width="180" height="100" rx="8" fill="#3B82F6"/>
-                
-                <!-- Garis Horizontal pada Kotak Pos -->
-                <rect x="50" y="260" width="180" height="10" fill="#1D4ED8" opacity="0.5"/>
-                <rect x="50" y="290" width="180" height="10" fill="#1D4ED8" opacity="0.5"/>
-                <rect x="220" y="260" width="140" height="10" fill="#1D4ED8" opacity="0.5"/>
-                <rect x="220" y="290" width="140" height="10" fill="#1D4ED8" opacity="0.5"/>
-                
-                <!-- Bendera Kotak Pos -->
-                <rect x="80" y="190" width="12" height="60" rx="4" fill="#1E293B"/>
-                <rect x="92" y="190" width="40" height="30" rx="5" fill="#EF4444"/>
-                <path d="M92 205 L132 205" stroke="#DC2626" stroke-width="3"/>
-
-                <!-- === AMPLOP BESAR === -->
-                <rect x="250" y="220" width="200" height="140" rx="8" fill="#DBEAFE" stroke="#93C5FD" stroke-width="4"/>
-                <!-- Lipatan Amplop Segitiga -->
-                <path d="M250 225 L350 310 L450 225" stroke="#93C5FD" stroke-width="4" fill="none" stroke-linejoin="round"/>
-                <!-- Segitiga Lipatan Kanan -->
-                <path d="M380 220 L450 270 L450 220" fill="#BFDBFE" opacity="0.6"/>
-
-                <!-- === KURIR PRIA === -->
-                <!-- Kaki Kiri -->
-                <rect x="320" y="310" width="20" height="70" rx="8" fill="#1E293B"/>
-                <rect x="315" y="370" width="30" height="15" rx="5" fill="#334155"/>
-                <!-- Kaki Kanan -->
-                <rect x="365" y="310" width="20" height="70" rx="8" fill="#1E293B"/>
-                <rect x="360" y="370" width="30" height="15" rx="5" fill="#334155"/>
-                <!-- Sepatu -->
-                <rect x="310" y="375" width="40" height="12" rx="4" fill="#94A3B8"/>
-                <rect x="355" y="375" width="40" height="12" rx="4" fill="#94A3B8"/>
-                
-                <!-- Badan (Seragam Biru) -->
-                <rect x="310" y="190" width="85" height="130" rx="15" fill="#3B82F6"/>
-                <!-- Kerah Baju -->
-                <path d="M335 190 L352 225 L370 190" fill="#2563EB"/>
-                <!-- Lengan Kiri (Memegang Amplop) -->
-                <rect x="280" y="210" width="35" height="75" rx="12" fill="#3B82F6"/>
-                <!-- Tangan Kiri -->
-                <circle cx="295" cy="285" r="12" fill="#FCD34D"/>
-                <!-- Lengan Kanan -->
-                <rect x="390" y="210" width="35" height="75" rx="12" fill="#3B82F6"/>
-                <!-- Tangan Kanan -->
-                <circle cx="408" cy="285" r="12" fill="#FCD34D"/>
-
-                <!-- Leher -->
-                <rect x="340" y="170" width="25" height="25" fill="#FCD34D"/>
-                
-                <!-- Kepala -->
-                <circle cx="352" cy="140" r="35" fill="#FCD34D"/>
-                <!-- Rambut -->
-                <path d="M317 140 Q325 100 352 100 Q379 100 387 140" fill="#78350F"/>
-                <!-- Topi Kurir -->
-                <path d="M317 135 Q352 95 387 135" fill="#1D4ED8"/>
-                <rect x="317" y="125" width="70" height="12" rx="6" fill="#1E3A8A"/>
-                <!-- Visor Topi -->
-                <rect x="352" y="125" width="35" height="8" rx="4" fill="#1E3A8A"/>
-                
-                <!-- Wajah -->
-                <circle cx="340" cy="140" r="3.5" fill="#1E293B"/>
-                <circle cx="365" cy="140" r="3.5" fill="#1E293B"/>
-                <path d="M345 155 Q352 165 360 155" stroke="#1E293B" stroke-width="3" fill="none" stroke-linecap="round"/>
-            </svg>
+            <img src="<?= htmlspecialchars($ilustrasi_path) ?>" alt="">
         </div>
 
         <!-- Teks Instruksi -->
@@ -393,7 +314,7 @@ $email = $_SESSION['register_email'] ?? 'sdsh@gmail.com';
             if (timeLeft <= 0) {
                 clearInterval(timer);
                 countdownElement.textContent = "00:00";
-                countdownElement.parentElement.innerHTML = 'Kode telah kadaluarsa. <a href="#" style="color: #2563EB; font-weight: 600;">Kirim ulang</a>';
+                countdownElement.parentElement.innerHTML = 'Kode telah kadaluarsa. <a href="#" style="color: #2563EB; font-weight: 400;">Kirim ulang</a>';
                 return;
             }
 

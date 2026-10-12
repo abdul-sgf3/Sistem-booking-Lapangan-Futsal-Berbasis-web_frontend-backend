@@ -1,7 +1,40 @@
 <?php
 // index.php - Halaman Depan User (Final)
 session_start();
-include '../../Backend/config/database.php';
+
+// ============================================================
+// KONEKSI DATABASE (DIPERBAIKI)
+// Nama database yang benar: vincent_sqdb
+// ============================================================
+$db_paths = [
+    __DIR__ . '/../../Backend/config/database.php',
+    __DIR__ . '/../../../Backend/config/database.php',
+    __DIR__ . '/../../Backend/config.php',
+    __DIR__ . '/../../../Backend/config.php',
+    $_SERVER['DOCUMENT_ROOT'] . '/vincent-arena/Backend/config/database.php',
+    $_SERVER['DOCUMENT_ROOT'] . '/vincent-arena/Backend/config.php',
+];
+
+$db_path = null;
+foreach ($db_paths as $path) {
+    if (file_exists($path)) {
+        $db_path = $path;
+        break;
+    }
+}
+
+if ($db_path) {
+    include $db_path;
+}
+
+// Fallback: koneksi langsung jika $conn belum terdefinisi
+if (!isset($conn) || !$conn) {
+    // ✅ NAMA DATABASE: vincent_sqdb
+    $conn = @mysqli_connect('localhost', 'root', '', 'vincent_sqdb');
+    if ($conn) {
+        mysqli_set_charset($conn, 'utf8mb4');
+    }
+}
 
 $title = 'Beranda - Vincent SQ Arena';
 include '../includes/header.php';
@@ -611,56 +644,62 @@ include '../includes/header.php';
 
     <div class="vsq-lapangan-grid">
         <?php
-        $query  = "SELECT * FROM lapangan WHERE status = 'aktif' ORDER BY id ASC LIMIT 4";
-        $result = mysqli_query($conn, $query);
+        if (!isset($conn) || !$conn) {
+            echo '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #888;">';
+            echo '<p style="font-size: 16px; font-weight: 600;">⚠️ Koneksi database gagal</p>';
+            echo '</div>';
+        } else {
+            $query  = "SELECT * FROM lapangan WHERE status = 'aktif' ORDER BY id ASC LIMIT 4";
+            $result = mysqli_query($conn, $query);
 
-        if ($result && mysqli_num_rows($result) > 0):
-            while ($lapangan = mysqli_fetch_assoc($result)):
-                $foto = (!empty($lapangan['foto']) && file_exists('../assets/uploads/lapangan/' . $lapangan['foto']))
-                    ? '../assets/uploads/lapangan/' . rawurlencode($lapangan['foto']) : '';
-                
-                $badge_text = ($lapangan['harga_per_jam'] >= 200000) ? 'VIP' : 'Regular';
-                $badge_class = ($badge_text == 'VIP') ? 'badge-vip' : 'badge-regular';
-                
-                if ($badge_text == 'VIP') {
-                    $fasilitas = [
-                        'Lapangan dengan kondisi indoor',
-                        'Area bermain lebih Luas',
-                        'Include dengan area penonton',
-                        'Sirkulasi udara yang nyaman'
-                    ];
-                } else {
-                    $fasilitas = [
-                        'Lapangan dengan kondisi indoor',
-                        'Area bermain ukuran standar umum'
-                    ];
-                }
-        ?>
-        <article class="vsq-card">
-            <div class="vsq-card-img" style="background-image: url('<?= $foto ?>');"></div>
-            <div class="vsq-card-body">
-                <div class="vsq-card-header">
-                    <h3><?= htmlspecialchars($lapangan['nama_lapangan']) ?></h3>
-                    <span class="vsq-card-badge <?= $badge_class ?>"><?= $badge_text ?></span>
+            if ($result && mysqli_num_rows($result) > 0):
+                while ($lapangan = mysqli_fetch_assoc($result)):
+                    $foto = (!empty($lapangan['foto']) && file_exists('../assets/uploads/lapangan/' . $lapangan['foto']))
+                        ? '../assets/uploads/lapangan/' . rawurlencode($lapangan['foto']) : '';
+                    
+                    $badge_text = ($lapangan['harga_per_jam'] >= 200000) ? 'VIP' : 'Regular';
+                    $badge_class = ($badge_text == 'VIP') ? 'badge-vip' : 'badge-regular';
+                    
+                    if ($badge_text == 'VIP') {
+                        $fasilitas = [
+                            'Lapangan dengan kondisi indoor',
+                            'Area bermain lebih Luas',
+                            'Include dengan area penonton',
+                            'Sirkulasi udara yang nyaman'
+                        ];
+                    } else {
+                        $fasilitas = [
+                            'Lapangan dengan kondisi indoor',
+                            'Area bermain ukuran standar umum'
+                        ];
+                    }
+            ?>
+            <article class="vsq-card">
+                <div class="vsq-card-img" style="background-image: url('<?= $foto ?>');"></div>
+                <div class="vsq-card-body">
+                    <div class="vsq-card-header">
+                        <h3><?= htmlspecialchars($lapangan['nama_lapangan']) ?></h3>
+                        <span class="vsq-card-badge <?= $badge_class ?>"><?= $badge_text ?></span>
+                    </div>
+                    <ul class="vsq-fasilitas">
+                        <?php foreach ($fasilitas as $f): ?>
+                            <li><?= htmlspecialchars($f) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <div class="vsq-card-footer">
+                        <a href="detail_lapangan.php?id=<?= (int)$lapangan['id'] ?>" class="vsq-btn-booking">Booking Sekarang</a>
+                    </div>
                 </div>
-                <ul class="vsq-fasilitas">
-                    <?php foreach ($fasilitas as $f): ?>
-                        <li><?= htmlspecialchars($f) ?></li>
-                    <?php endforeach; ?>
-                </ul>
-                <div class="vsq-card-footer">
-                    <a href="detail_lapangan.php?id=<?= (int)$lapangan['id'] ?>" class="vsq-btn-booking">Booking Sekarang</a>
-                </div>
+            </article>
+            <?php
+                endwhile;
+            else:
+            ?>
+            <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #888;">
+                Belum ada lapangan tersedia.
             </div>
-        </article>
-        <?php
-            endwhile;
-        else:
-        ?>
-        <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #888;">
-            Belum ada lapangan tersedia.
-        </div>
-        <?php endif; ?>
+            <?php endif;
+        } ?>
     </div>
 </section>
 

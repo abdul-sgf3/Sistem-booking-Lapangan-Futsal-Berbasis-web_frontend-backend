@@ -1,22 +1,22 @@
 <?php
 // ============================================
 // Backend/API/config.php
-// Konfigurasi API - Vincent SQ Arena
+// Konfigurasi Global API Vincent SQ Arena
 // ============================================
 
-// --- CORS (Izinkan akses dari frontend) ---
+// --- CORS ---
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
 header("Content-Type: application/json; charset=UTF-8");
 
-// Handle preflight request (OPTIONS)
+// Handle preflight request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
-// --- Session untuk autentikasi ---
+// --- Session ---
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -25,10 +25,9 @@ if (session_status() === PHP_SESSION_NONE) {
 $host = 'localhost';
 $user = 'root';
 $pass = '';
-$db   = 'vincent_sqdb_sql'; // <-- GANTI: hapus '.sql'
+$db   = 'vincent_sqdb';
 
 $conn = mysqli_connect($host, $user, $pass, $db);
-
 if (!$conn) {
     http_response_code(500);
     echo json_encode([
@@ -38,11 +37,18 @@ if (!$conn) {
     ]);
     exit();
 }
-
-// Set charset
 mysqli_set_charset($conn, 'utf8mb4');
 
-// --- Helper: Response Sukses ---
+// --- Konstanta Path ---
+define('BASE_URL', '/Futsal_VincentSQ');
+define('UPLOAD_LAPANGAN', BASE_URL . '/Frontend/assets/uploads/lapangan/');
+define('UPLOAD_MAKANAN',  BASE_URL . '/Frontend/assets/uploads/makanan/');
+define('UPLOAD_BUKTI',    BASE_URL . '/Frontend/assets/uploads/bukti/');
+
+// ============================================
+// HELPER: RESPONSE
+// ============================================
+
 function sendResponse($data = null, $message = 'Data berhasil diproses', $code = 200) {
     http_response_code($code);
     echo json_encode([
@@ -53,7 +59,6 @@ function sendResponse($data = null, $message = 'Data berhasil diproses', $code =
     exit();
 }
 
-// --- Helper: Response Error ---
 function sendError($message, $code = 400) {
     http_response_code($code);
     echo json_encode([
@@ -64,14 +69,16 @@ function sendError($message, $code = 400) {
     exit();
 }
 
-// --- Helper: Cek Method ---
+// ============================================
+// HELPER: VALIDASI
+// ============================================
+
 function requireMethod($method) {
     if ($_SERVER['REQUEST_METHOD'] !== $method) {
         sendError('Method tidak diizinkan. Gunakan ' . $method, 405);
     }
 }
 
-// --- Helper: Cek Login User ---
 function requireUserLogin() {
     if (!isset($_SESSION['user_id'])) {
         sendError('Anda belum login', 401);
@@ -79,35 +86,30 @@ function requireUserLogin() {
     return $_SESSION['user_id'];
 }
 
-// --- Helper: Cek Login Admin ---
 function requireAdminLogin() {
-    if (!isset($_SESSION['admin_id']) || $_SESSION['role'] !== 'admin') {
+    if (!isset($_SESSION['admin_id']) || ($_SESSION['role'] ?? '') !== 'admin') {
         sendError('Akses ditolak. Anda bukan admin.', 403);
     }
     return $_SESSION['admin_id'];
 }
 
-// --- Helper: Ambil input JSON ---
 function getJsonInput() {
-    $input = file_get_contents('php://input');
-    return json_decode($input, true) ?? [];
+    return json_decode(file_get_contents('php://input'), true) ?? [];
 }
 
-// --- Helper: Format URL Foto Lapangan ---
+// ============================================
+// HELPER: FORMAT URL
+// ============================================
+
 function fotoLapanganUrl($filename) {
-    if (empty($filename)) return '';
-    return '/Futsal_VincentSQ/Frontend/assets/uploads/lapangan/' . rawurlencode($filename);
+    return empty($filename) ? '' : UPLOAD_LAPANGAN . rawurlencode($filename);
 }
 
-// --- Helper: Format URL Foto Makanan ---
 function fotoMakananUrl($filename) {
-    if (empty($filename)) return '';
-    return '/Futsal_VincentSQ/Frontend/assets/uploads/makanan/' . rawurlencode($filename);
+    return empty($filename) ? '' : UPLOAD_MAKANAN . rawurlencode($filename);
 }
 
-// --- Helper: Format URL Bukti Pembayaran ---
 function buktiUrl($filename) {
-    if (empty($filename)) return '';
-    return '/Futsal_VincentSQ/Frontend/assets/uploads/bukti/' . rawurlencode($filename);
+    return empty($filename) ? '' : UPLOAD_BUKTI . rawurlencode($filename);
 }
 ?>

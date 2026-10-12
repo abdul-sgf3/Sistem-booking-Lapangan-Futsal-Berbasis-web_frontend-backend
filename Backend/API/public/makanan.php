@@ -1,16 +1,13 @@
 <?php
-// ============================================
-// Backend/API/makanan.php
-// GET /api/makanan?kategori=makanan|minuman|semua
-// ============================================
-require_once 'config.php';
+// GET /api/makanan
+require_once '../config.php';
 
 requireMethod('GET');
 
 $kategori = isset($_GET['kategori']) ? $_GET['kategori'] : 'semua';
 
 if (!in_array($kategori, ['semua', 'makanan', 'minuman'])) {
-    sendError('Kategori tidak valid. Gunakan: semua, makanan, atau minuman', 400);
+    sendError('Kategori tidak valid', 400);
 }
 
 if ($kategori === 'semua') {
@@ -22,9 +19,7 @@ if ($kategori === 'semua') {
     $result = mysqli_stmt_get_result($stmt);
 }
 
-if (!$result) {
-    sendError('Query gagal: ' . mysqli_error($conn), 500);
-}
+if (!$result) sendError('Query gagal: ' . mysqli_error($conn), 500);
 
 $makanan = [];
 while ($row = mysqli_fetch_assoc($result)) {

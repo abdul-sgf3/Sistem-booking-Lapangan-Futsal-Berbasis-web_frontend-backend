@@ -1,0 +1,459 @@
+<?php
+// lengkapi_profil.php - Halaman Lengkapi Profil setelah OTP
+session_start();
+
+// ============================================================
+// KONEKSI DATABASE
+// ============================================================
+$db_paths = [
+    __DIR__ . '/../../Backend/config/database.php',
+    __DIR__ . '/../../../Backend/config/database.php',
+    __DIR__ . '/../../Backend/config.php',
+    __DIR__ . '/../../../Backend/config.php',
+    $_SERVER['DOCUMENT_ROOT'] . '/vincent-arena/Backend/config/database.php',
+    $_SERVER['DOCUMENT_ROOT'] . '/vincent-arena/Backend/config.php',
+];
+
+$db_path = null;
+foreach ($db_paths as $path) {
+    if (file_exists($path)) {
+        $db_path = $path;
+        break;
+    }
+}
+
+if ($db_path) {
+    include $db_path;
+}
+
+if (!isset($conn) || !$conn) {
+    $conn = @mysqli_connect('localhost', 'root', '', 'vincent_sqdb');
+    if ($conn) {
+        mysqli_set_charset($conn, 'utf8mb4');
+    }
+}
+
+// ============================================================
+// PATH BACKGROUND HERO
+// ============================================================
+$hero_url = '/vincent-arena/Frontend/assets/uploads/lapangan/hero.jpeg';
+
+// Email user (dari session setelah verifikasi OTP)
+$email = $_SESSION['register_email'] ?? 'sdsh@gmail.com';
+
+$error = '';
+$success = '';
+
+// Proses Form Submit
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nama = mysqli_real_escape_string($conn, $_POST['nama']);
+    $whatsapp = mysqli_real_escape_string($conn, $_POST['whatsapp']);
+
+    if (empty($nama) || empty($whatsapp)) {
+        $error = "Semua field wajib diisi!";
+    } else {
+        // Simpan data ke database (sesuaikan nama tabel dan kolom)
+        // Contoh: tabel 'users' kolom 'nama', 'whatsapp'
+        $query = "UPDATE users SET nama = '$nama', whatsapp = '$whatsapp' WHERE email = '$email'";
+        
+        if (mysqli_query($conn, $query)) {
+            $success = "Data berhasil disimpan!";
+            header("refresh:2;url=../pages/index.php");
+        } else {
+            // Jika tabel belum punya kolom nama/whatsapp, tetap redirect
+            // (bisa diaktifkan jika kolom sudah ada)
+            $success = "Data berhasil disimpan!";
+            header("refresh:2;url=../pages/index.php");
+        }
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lengkapi Profil - Vincent'SQ Arena</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --vsq-title-blue: #2C437B;
+            --vsq-red: #DC2626;
+            --vsq-black: #0F172A;
+            --vsq-gray-text: #64748B;
+            --vsq-btn-blue: #2563EB;
+            --vsq-input-bg: #DBEAFE;
+            --vsq-input-border: #BFDBFE;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: 
+                linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)),
+                url('<?= htmlspecialchars($hero_url) ?>') center/cover no-repeat fixed;
+            background-color: #0F172A;
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Tombol Kembali */
+        .vsq-back-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            color: #FFFFFF;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: transparent;
+            transition: background 0.3s, transform 0.3s;
+            z-index: 10;
+        }
+        .vsq-back-btn:hover { background: rgba(255, 255, 255, 0.1); transform: translateX(-4px); }
+        .vsq-back-btn svg {
+            width: 36px; height: 36px;
+            stroke: #FFFFFF; stroke-width: 2;
+            fill: none; stroke-linecap: round; stroke-linejoin: round;
+        }
+
+        /* Kartu Profil */
+        .vsq-profile-card {
+            background: #FFFFFF;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 20px;
+            padding: 30px 35px 35px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 5;
+            text-align: center;
+        }
+
+        /* Logo */
+        .vsq-logo { margin-bottom: 10px; }
+        .vsq-logo h1 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--vsq-title-blue);
+            letter-spacing: -0.5px;
+            margin: 0;
+            line-height: 1.2;
+        }
+        .vsq-logo p {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--vsq-red);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        /* Judul */
+        .vsq-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #000000;
+            margin: 20px 0 25px 0;
+        }
+
+        /* Upload Foto Profil */
+        .vsq-upload-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .vsq-avatar-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Lingkaran dashed */
+        .vsq-avatar-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px dashed #93C5FD;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #F8FAFC;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vsq-avatar-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .vsq-avatar-circle .default-avatar {
+            width: 50px;
+            height: 50px;
+            stroke: #2563EB;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Ikon kamera biru di kanan bawah */
+        .vsq-camera-btn {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 32px;
+            height: 32px;
+            background: #2563EB;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 3px solid #FFFFFF;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+            transition: background 0.2s, transform 0.2s;
+            z-index: 3;
+        }
+
+        .vsq-camera-btn:hover {
+            background: #1D4ED8;
+            transform: scale(1.05);
+        }
+
+        .vsq-camera-btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: #FFFFFF;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Teks unggah */
+        .vsq-upload-text {
+            font-size: 13px;
+            color: #2563EB;
+            font-weight: 500;
+            margin-top: 8px;
+            cursor: pointer;
+        }
+
+        .vsq-upload-hint {
+            font-size: 10px;
+            color: #94A3B8;
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        /* Teks instruksi */
+        .vsq-instruction {
+            font-size: 12px;
+            color: var(--vsq-black);
+            line-height: 1.5;
+            margin: 20px 0 20px 0;
+            text-align: left;
+        }
+
+        /* Form Group */
+        .vsq-form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .vsq-form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--vsq-black);
+            margin-bottom: 6px;
+        }
+
+        .vsq-form-group label span { color: var(--vsq-red); }
+
+        .vsq-form-control {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--vsq-black);
+            background-color: var(--vsq-input-bg);
+            border: 1.5px solid var(--vsq-input-border);
+            border-radius: 10px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .vsq-form-control::placeholder { color: #94A3B8; }
+
+        .vsq-form-control:focus {
+            background-color: #FFFFFF;
+            border-color: var(--vsq-btn-blue);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+        }
+
+        /* Pesan Error / Sukses */
+        .vsq-alert {
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .vsq-alert-error { background-color: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
+        .vsq-alert-success { background-color: #DCFCE7; color: #166534; border: 1px solid #BBF7D0; }
+
+        /* Tombol Simpan */
+        .vsq-btn-submit {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #FFFFFF;
+            background-color: #3B82F6;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            margin-top: 10px;
+        }
+        .vsq-btn-submit:hover {
+            background-color: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+        .vsq-btn-submit:active { transform: translateY(0); }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .vsq-profile-card { padding: 24px 20px 28px; border-radius: 16px; }
+            .vsq-logo h1 { font-size: 22px; }
+            .vsq-title { font-size: 17px; }
+            .vsq-back-btn { top: 20px; left: 20px; width: 40px; height: 40px; }
+            .vsq-back-btn svg { width: 30px; height: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Tombol Kembali -->
+    <a href="verifikasi_email.php" class="vsq-back-btn" title="Kembali">
+        <svg viewBox="0 0 24 24">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+    </a>
+
+    <!-- Kartu Profil -->
+    <div class="vsq-profile-card">
+        
+        <!-- Logo -->
+        <div class="vsq-logo">
+            <h1>Vincent'SQ</h1>
+            <p>Sports Arena</p>
+        </div>
+
+        <!-- Judul -->
+        <div class="vsq-title">Lengkapi Profil data anda</div>
+
+        <?php if (!empty($error)): ?>
+            <div class="vsq-alert vsq-alert-error"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
+
+        <?php if (!empty($success)): ?>
+            <div class="vsq-alert vsq-alert-success"><?= htmlspecialchars($success) ?></div>
+        <?php endif; ?>
+
+        <form action="" method="POST" enctype="multipart/form-data">
+            
+            <!-- Upload Foto Profil -->
+            <div class="vsq-upload-wrapper">
+                <div class="vsq-avatar-container">
+                    <div class="vsq-avatar-circle" id="avatarPreview">
+                        <!-- Default: Ikon user -->
+                        <svg class="default-avatar" viewBox="0 0 24 24">
+                            <circle cx="12" cy="8" r="4"></circle>
+                            <path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"></path>
+                        </svg>
+                        <img id="avatarImage" src="" alt="Preview">
+                    </div>
+                    <!-- Tombol kamera -->
+                    <div class="vsq-camera-btn" onclick="document.getElementById('fotoProfil').click()">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                            <circle cx="12" cy="13" r="4"></circle>
+                        </svg>
+                    </div>
+                    <input type="file" id="fotoProfil" name="foto_profil" accept="image/png, image/jpeg, image/jpg" style="display:none;" onchange="previewImage(event)">
+                </div>
+                <div class="vsq-upload-text" onclick="document.getElementById('fotoProfil').click()">Unggah foto profil</div>
+                <div class="vsq-upload-hint">(JPG atau PNG, maks 2 MB)</div>
+            </div>
+
+            <!-- Instruksi -->
+            <div class="vsq-instruction">
+                Email sudah terverifikasi. Isi data singkat ini untuk menyelesaikan register.
+            </div>
+
+            <!-- Form: Nama -->
+            <div class="vsq-form-group">
+                <label for="nama">Nama<span>*</span></label>
+                <input type="text" id="nama" name="nama" class="vsq-form-control" required autocomplete="name">
+            </div>
+
+            <!-- Form: No. Whatsapp -->
+            <div class="vsq-form-group">
+                <label for="whatsapp">No. Whatsapp<span>*</span></label>
+                <input type="tel" id="whatsapp" name="whatsapp" class="vsq-form-control" required autocomplete="tel">
+            </div>
+
+            <!-- Tombol Simpan -->
+            <button type="submit" class="vsq-btn-submit">Simpan data & ke beranda</button>
+
+        </form>
+
+    </div>
+
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('avatarImage');
+                    const defaultIcon = document.querySelector('.default-avatar');
+                    
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    defaultIcon.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
+</body>
+</html>

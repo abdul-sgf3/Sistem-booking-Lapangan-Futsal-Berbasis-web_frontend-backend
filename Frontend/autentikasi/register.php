@@ -59,14 +59,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --vsq-title-blue: #2C437B; /* Warna Biru Navy untuk Vincent'SQ */
-            --vsq-red: #DC2626;        /* Untuk "SPORTS ARENA" dan tanda bintang (*) */
-            --vsq-black: #0F172A;      /* Untuk Label Email, Password, dll (Hitam) */
-            --vsq-gray-text: #64748B;  /* Untuk teks "Sudah memiliki akun?" */
-            --vsq-input-bg: #DBEAFE;   /* Background input biru muda */
+            --vsq-title-blue: #2C437B; 
+            --vsq-red: #DC2626;        
+            --vsq-black: #0F172A;      
+            --vsq-gray-text: #64748B;  
+            --vsq-input-bg: #DBEAFE;   
             --vsq-input-border: #BFDBFE;
-            --vsq-placeholder: #94A3B8;/* Warna placeholder abu-abu */
-            --vsq-btn-blue: #2563EB;   /* Warna tombol dan link login */
+            --vsq-placeholder: #94A3B8;
+            --vsq-btn-blue: #2563EB;   
         }
 
         * {
@@ -141,8 +141,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .vsq-logo h1 {
             font-size: 32px;
-            font-weight: 800; /* Judul tetap Bold */
-            color: var(--vsq-title-blue); /* #2C437B */
+            font-weight: 800;
+            color: var(--vsq-title-blue); 
             letter-spacing: -0.5px;
             margin: 0;
             line-height: 1.2;
@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .vsq-logo p {
             font-size: 14px;
             font-weight: 700;
-            color: var(--vsq-red); /* Merah */
+            color: var(--vsq-red); 
             letter-spacing: 2px;
             text-transform: uppercase;
             margin-top: 4px;
@@ -162,23 +162,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-bottom: 24px;
         }
 
-        /* PERBAIKAN: Label tidak boleh Bold (Menggunakan 400) */
         .vsq-form-group label {
             display: block;
             font-size: 15px;
-            font-weight: 400; /* <--- Diubah menjadi Normal (tidak tebal) */
+            font-weight: 400; 
             color: var(--vsq-black); 
             margin-bottom: 8px;
         }
 
-        /* Tanda Bintang tetap Merah */
         .vsq-form-group label span {
             color: var(--vsq-red); 
+        }
+
+        /* Wrapper untuk input dan ikon mata */
+        .vsq-input-wrapper {
+            position: relative;
+            width: 100%;
         }
 
         .vsq-form-control {
             width: 100%;
             padding: 14px 18px;
+            padding-right: 50px; 
             font-size: 15px;
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--vsq-black);
@@ -189,16 +194,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             transition: all 0.3s ease;
         }
 
-        /* PERBAIKAN: Placeholder juga tidak boleh Bold */
         .vsq-form-control::placeholder {
             color: var(--vsq-placeholder); 
-            font-weight: 400; /* <--- Diubah menjadi Normal */
+            font-weight: 400; 
         }
 
         .vsq-form-control:focus {
             background-color: #FFFFFF;
             border-color: var(--vsq-btn-blue);
             box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+        }
+
+        /* Ikon Mata (Eye Icon) */
+        .vsq-toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748B;
+            transition: color 0.2s;
+            background: transparent;
+            border: none;
+            padding: 0;
+            z-index: 2;
+        }
+
+        .vsq-toggle-password:hover {
+            color: var(--vsq-btn-blue);
+        }
+
+        .vsq-toggle-password svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         /* Pesan Error / Sukses */
@@ -223,21 +259,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border: 1px solid #BBF7D0;
         }
 
-        /* Tombol Daftar */
+        /* Link Login */
+        .vsq-login-link-top {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: var(--vsq-gray-text); 
+            font-weight: 500;
+        }
+
+        /* "Login di sini" TIDAK BOLD (400) */
+        .vsq-login-link-top a {
+            color: var(--vsq-btn-blue); 
+            text-decoration: none;
+            font-weight: 400; 
+            transition: color 0.2s;
+        }
+
+        .vsq-login-link-top a:hover {
+            color: #1D4ED8;
+            text-decoration: underline;
+        }
+
+        /* 
+           PERBAIKAN TOMBOL: 
+           - Lebar dibatasi (max-width) agar tidak terlalu lebar
+           - Padding dikurangi agar tidak terlalu tinggi
+           - Font tidak terlalu bold (600)
+           - Border radius 12px
+        */
         .vsq-btn-submit {
+            display: block;
             width: 100%;
-            padding: 16px;
-            font-size: 16px;
-            font-weight: 700; /* Tombol tetap Bold */
+            max-width: 320px; /* <--- Membatasi lebar tombol agar tidak terlalu lebar */
+            margin: 0 auto;   /* <--- Membuat tombol ke tengah */
+            padding: 12px 20px; /* <--- Padding dikurangi agar tidak terlalu tinggi */
+            font-size: 15px;    /* <--- Ukuran font sedikit lebih kecil */
+            font-weight: 600;   /* <--- Font tidak terlalu bold (600) */
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: #FFFFFF; 
             background-color: var(--vsq-btn-blue);
             border: none;
-            border-radius: 50px;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-            margin-top: 10px;
         }
 
         .vsq-btn-submit:hover {
@@ -248,27 +315,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .vsq-btn-submit:active {
             transform: translateY(0);
-        }
-
-        /* Link Login */
-        .vsq-login-link {
-            text-align: center;
-            margin-top: 28px;
-            font-size: 14px;
-            color: var(--vsq-gray-text); 
-            font-weight: 500;
-        }
-
-        .vsq-login-link a {
-            color: var(--vsq-btn-blue); 
-            text-decoration: none;
-            font-weight: 700;
-            transition: color 0.2s;
-        }
-
-        .vsq-login-link a:hover {
-            color: #1D4ED8;
-            text-decoration: underline;
         }
 
         /* Responsive */
@@ -289,6 +335,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .vsq-back-btn svg {
                 width: 24px;
                 height: 24px;
+            }
+            .vsq-btn-submit {
+                max-width: 100%; /* Di mobile, tombol full width */
             }
         }
     </style>
@@ -335,24 +384,64 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div class="vsq-form-group">
                 <label for="password">Password<span>*</span></label>
-                <input type="password" id="password" name="password" class="vsq-form-control" placeholder="Masukkan Password..." required autocomplete="new-password">
+                <div class="vsq-input-wrapper">
+                    <input type="password" id="password" name="password" class="vsq-form-control" placeholder="Masukkan Password..." required autocomplete="new-password">
+                    <button type="button" class="vsq-toggle-password" onclick="togglePassword('password', this)">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
+                </div>
             </div>
 
             <div class="vsq-form-group">
                 <label for="konfirmasi_password">Konfirmasi Password<span>*</span></label>
-                <input type="password" id="konfirmasi_password" name="konfirmasi_password" class="vsq-form-control" placeholder="Masukkan Password..." required autocomplete="new-password">
+                <div class="vsq-input-wrapper">
+                    <input type="password" id="konfirmasi_password" name="konfirmasi_password" class="vsq-form-control" placeholder="Masukkan Password..." required autocomplete="new-password">
+                    <button type="button" class="vsq-toggle-password" onclick="togglePassword('konfirmasi_password', this)">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
+                </div>
             </div>
 
+            <!-- Link Login dipindahkan ke ATAS tombol -->
+            <div class="vsq-login-link-top">
+                Sudah memiliki akun? <a href="login.php">Login di sini</a>
+            </div>
+
+            <!-- Tombol Daftar Akun -->
             <button type="submit" class="vsq-btn-submit">Daftar Akun</button>
 
         </form>
 
-        <!-- Link Login -->
-        <div class="vsq-login-link">
-            Sudah memiliki akun? <a href="login.php">Login di sini</a>
-        </div>
-
     </div>
+
+    <script>
+        function togglePassword(inputId, iconElement) {
+            const input = document.getElementById(inputId);
+            const svg = iconElement.querySelector('svg');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                // Ganti ikon menjadi mata tertutup (eye-off)
+                svg.innerHTML = `
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                `;
+            } else {
+                input.type = 'password';
+                // Ganti ikon menjadi mata terbuka
+                svg.innerHTML = `
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                `;
+            }
+        }
+    </script>
 
 </body>
 </html>

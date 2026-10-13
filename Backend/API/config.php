@@ -40,7 +40,7 @@ if (!$conn) {
 mysqli_set_charset($conn, 'utf8mb4');
 
 // --- Konstanta Path ---
-define('BASE_URL', '/Futsal_VincentSQ');
+define('BASE_URL', '/Futsal_Vincent_SQ');
 define('UPLOAD_LAPANGAN', BASE_URL . '/Frontend/assets/uploads/lapangan/');
 define('UPLOAD_MAKANAN',  BASE_URL . '/Frontend/assets/uploads/makanan/');
 define('UPLOAD_BUKTI',    BASE_URL . '/Frontend/assets/uploads/bukti/');

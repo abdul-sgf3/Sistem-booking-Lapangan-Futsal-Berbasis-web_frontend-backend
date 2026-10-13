@@ -1,5 +1,5 @@
 <?php
-$base_url = '/System-booking-Lapangan-Futsal-Berbasis-web_frontend-backend/Frontend';
+$base_url = '/vincent-arena/Frontend';
 ?>
 <footer class="bg-navy text-white mt-auto">
     <div class="max-w-6xl mx-auto px-6 py-12">
@@ -56,6 +56,35 @@ $base_url = '/System-booking-Lapangan-Futsal-Berbasis-web_frontend-backend/Front
 
     </div>
 </footer>
+
+<!-- ===== NETWORK OVERLAY ===== -->
+<div id="network-overlay" class="network-overlay">
+    <div class="network-content">
+        <div class="network-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="80" height="80">
+                <path d="M1 1l22 22"/>
+                <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+                <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+                <path d="M10.71 5.05A16 16 0 0 1 22.58 9"/>
+                <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                <line x1="12" y1="20" x2="12.01" y2="20"/>
+            </svg>
+        </div>
+        <h2 class="network-title">Tidak Ada Koneksi Internet</h2>
+        <p class="network-message">Periksa koneksi Anda dan coba lagi</p>
+        <button onclick="retryConnection()" class="network-btn">Coba Lagi</button>
+    </div>
+</div>
+
+<!-- ===== TOAST CONTAINER ===== -->
+<div id="toast-container" class="toast-container"></div>
+
+<!-- ===== NETWORK JS ===== -->
+<script src="<?= $base_url ?>/assets/js/network.js"></script>
+
+<!-- ===== VALIDASI BOOKING JS ===== -->
+<script src="<?= $base_url ?>/assets/js/validasi_booking.js"></script>
 
 </body>
 </html>

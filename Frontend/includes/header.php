@@ -24,6 +24,10 @@ function navClass($file, $halaman, $mobile = false) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- ===== NETWORK CSS ===== -->
+  <link rel="stylesheet" href="<?= $base_url ?>/assets/css/network.css">
+  
   <script>
     tailwind.config = {
       theme: { extend: {

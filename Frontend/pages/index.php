@@ -48,7 +48,7 @@ include '../includes/header.php';
         --vsq-gold: #FACC15;
         --vsq-gray: #64748B;
         --vsq-border: #E2E8F0;
-        --vsq-footer-bg: #0B1120; /* Warna background footer lebih gelap */
+        --vsq-footer-bg: #0B1120;
     }
 
     body {
@@ -383,18 +383,18 @@ include '../includes/header.php';
         flex-shrink: 0;
     }
 
-    /* ===== FAQ (SESUAI GAMBAR 2) ===== */
+    /* ===== FAQ ===== */
     .vsq-faq-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 24px; /* Jarak antar kotak lebih lega */
+        gap: 24px;
         align-items: start;
     }
 
     .vsq-faq-item {
         background: #FFFFFF;
-        border: 1.5px solid #E2E8F0; /* Border lebih tebal sedikit */
-        border-radius: 16px; /* Sudut lebih bulat */
+        border: 1.5px solid #E2E8F0;
+        border-radius: 16px;
         padding: 0;
         cursor: pointer;
         transition: all 0.2s;
@@ -402,7 +402,6 @@ include '../includes/header.php';
         overflow: hidden;
     }
 
-    /* Efek hover dan active border biru */
     .vsq-faq-item:hover, 
     .vsq-faq-item.active { 
         border-color: var(--vsq-blue);
@@ -413,16 +412,16 @@ include '../includes/header.php';
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 24px 28px; /* Padding lebih lega */
+        padding: 24px 28px;
         gap: 16px;
         user-select: none;
     }
 
     .vsq-faq-header .faq-text {
         display: flex;
-        gap: 16px; /* Jarak nomor ke teks */
+        gap: 16px;
         align-items: flex-start;
-        font-size: 16px; /* Ukuran teks lebih besar */
+        font-size: 16px;
         font-weight: 600;
         color: #1E293B;
         line-height: 1.4;
@@ -434,7 +433,6 @@ include '../includes/header.php';
         flex-shrink: 0;
     }
 
-    /* Ikon Chevron (v) tipis berwarna biru */
     .vsq-faq-header .faq-arrow {
         color: var(--vsq-blue);
         font-size: 20px;
@@ -462,15 +460,10 @@ include '../includes/header.php';
 
     .vsq-faq-item.active .vsq-faq-body {
         max-height: 200px;
-        padding: 0 28px 24px 28px; /* Padding bawah saat aktif */
+        padding: 0 28px 24px 28px;
     }
 
-    /* ===== FOOTER (SESUAI GAMBAR 2) ===== */
-    /* 
-       Catatan: CSS Footer ini mungkin berada di file ../includes/footer.php.
-       Namun, saya sertakan di sini agar tampilan sesuai dengan gambar target.
-       Jika footer.php Anda sudah memiliki style sendiri, harap hapus style di bawah ini.
-    */
+    /* ===== FOOTER ===== */
     .vsq-footer {
         background-color: var(--vsq-footer-bg);
         color: #FFFFFF;
@@ -482,7 +475,7 @@ include '../includes/header.php';
         max-width: 1200px;
         margin: 0 auto;
         display: grid;
-        grid-template-columns: 1.5fr 1fr 1.5fr; /* Proporsi kolom */
+        grid-template-columns: 1.5fr 1fr 1.5fr;
         gap: 40px;
         margin-bottom: 50px;
     }
@@ -531,7 +524,6 @@ include '../includes/header.php';
         color: #FFFFFF;
     }
 
-    /* Ikon di footer berwarna merah */
     .vsq-footer-contact-item svg {
         width: 20px;
         height: 20px;
@@ -589,14 +581,12 @@ include '../includes/header.php';
         .vsq-fasilitas li { font-size: 13px; }
         .vsq-btn-booking { width: 100%; justify-content: center; }
         
-        /* FAQ Mobile */
         .vsq-faq-grid { grid-template-columns: 1fr; gap: 16px; }
         .vsq-faq-header { padding: 18px 20px; }
         .vsq-faq-header .faq-text { font-size: 14px; gap: 10px; }
         .vsq-faq-body { padding: 0 20px; }
         .vsq-faq-item.active .vsq-faq-body { padding: 0 20px 20px 20px; }
         
-        /* Footer Mobile */
         .vsq-steps { grid-template-columns: 1fr; gap: 20px; }
         .vsq-section-title h2 { font-size: 24px; }
         .vsq-section.section-lapangan { padding-top: 20px; }
@@ -873,19 +863,12 @@ include '../includes/header.php';
 </section>
 
 <!-- FOOTER -->
-<!-- 
-    Catatan: Bagian ini biasanya ada di file ../includes/footer.php.
-    Saya tuliskan di sini agar Anda bisa langsung melihat hasilnya sesuai Gambar 2.
-    Jika Anda sudah memiliki footer.php, silakan copy struktur HTML dan CSS di bawah ini ke file tersebut.
--->
 <footer class="vsq-footer">
     <div class="vsq-footer-content">
-        <!-- Kolom 1: Brand -->
         <div class="vsq-footer-brand">
             Vincent'SQ <span>Arena</span>
         </div>
 
-        <!-- Kolom 2: Menu -->
         <div class="vsq-footer-menu">
             <a href="index.php">Beranda</a>
             <a href="booking.php">Booking lapangan</a>
@@ -893,7 +876,6 @@ include '../includes/header.php';
             <a href="makanan.php">Makanan & Minuman</a>
         </div>
 
-        <!-- Kolom 3: Kontak -->
         <div class="vsq-footer-contact">
             <div class="vsq-footer-contact-item">
                 <svg viewBox="0 0 24 24">
@@ -920,7 +902,6 @@ include '../includes/header.php';
         </div>
     </div>
 
-    <!-- Copyright -->
     <div class="vsq-footer-bottom">
         @ 2026 Vincent'SQ Arena. All Right Reserved
     </div>
@@ -938,4 +919,37 @@ function toggleFaq(element) {
 }
 </script>
 
-<?php // include '../includes/footer.php'; // Dihapus sementara agar footer buatan di atas tampil ?>
+<!-- ===== NETWORK CSS ===== -->
+<link rel="stylesheet" href="/vincent-arena/Frontend/assets/css/network.css">
+
+<!-- ===== NETWORK OVERLAY ===== -->
+<div id="network-overlay" class="network-overlay">
+    <div class="network-content">
+        <div class="network-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="80" height="80">
+                <path d="M1 1l22 22"/>
+                <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+                <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+                <path d="M10.71 5.05A16 16 0 0 1 22.58 9"/>
+                <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                <line x1="12" y1="20" x2="12.01" y2="20"/>
+            </svg>
+        </div>
+        <h2 class="network-title">Tidak Ada Koneksi Internet</h2>
+        <p class="network-message">Periksa koneksi Anda dan coba lagi</p>
+        <button onclick="retryConnection()" class="network-btn">Coba Lagi</button>
+    </div>
+</div>
+
+<!-- ===== TOAST CONTAINER ===== -->
+<div id="toast-container" class="toast-container"></div>
+
+<!-- ===== NETWORK JS ===== -->
+<script src="/vincent-arena/Frontend/assets/js/network.js"></script>
+
+<!-- ===== VALIDASI BOOKING JS ===== -->
+<script src="/vincent-arena/Frontend/assets/js/validasi_booking.js"></script>
+
+</body>
+</html>

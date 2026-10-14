@@ -5,12 +5,24 @@
 // ============================================
 
 // --- CORS ---
-header("Access-Control-Allow-Origin: *");
+$allowed_origins = [
+    'http://localhost',
+    'http://127.0.0.1',
+    'http://localhost:3000',
+    'http://localhost:8080'
+];
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if (in_array($origin, $allowed_origins)) {
+    header("Access-Control-Allow-Origin: $origin");
+} else {
+    header("Access-Control-Allow-Origin: http://localhost");
+}
 header("Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json; charset=UTF-8");
 
-// Handle preflight request
+// Handle preflight
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
@@ -44,6 +56,11 @@ define('BASE_URL', '/Futsal_Vincent_SQ');
 define('UPLOAD_LAPANGAN', BASE_URL . '/Frontend/assets/uploads/lapangan/');
 define('UPLOAD_MAKANAN',  BASE_URL . '/Frontend/assets/uploads/makanan/');
 define('UPLOAD_BUKTI',    BASE_URL . '/Frontend/assets/uploads/bukti/');
+define('UPLOAD_PROFIL',   BASE_URL . '/Frontend/assets/uploads/profil/');
+
+// --- Absolute Path untuk Upload ---
+define('ABS_UPLOAD_PROFIL', __DIR__ . '/../../Frontend/assets/uploads/profil/');
+define('ABS_UPLOAD_BUKTI',  __DIR__ . '/../../Frontend/assets/uploads/bukti/');
 
 // ============================================
 // HELPER: RESPONSE
@@ -87,14 +104,15 @@ function requireUserLogin() {
 }
 
 function requireAdminLogin() {
-    if (!isset($_SESSION['admin_id']) || ($_SESSION['role'] ?? '') !== 'admin') {
+    if (!isset($_SESSION['admin_id'])) {
         sendError('Akses ditolak. Anda bukan admin.', 403);
     }
     return $_SESSION['admin_id'];
 }
 
 function getJsonInput() {
-    return json_decode(file_get_contents('php://input'), true) ?? [];
+    $input = json_decode(file_get_contents('php://input'), true);
+    return $input ?? [];
 }
 
 // ============================================
@@ -111,5 +129,21 @@ function fotoMakananUrl($filename) {
 
 function buktiUrl($filename) {
     return empty($filename) ? '' : UPLOAD_BUKTI . rawurlencode($filename);
+}
+
+function fotoProfilUrl($filename) {
+    return empty($filename) ? '' : UPLOAD_PROFIL . rawurlencode($filename);
+}
+
+// ============================================
+// LOAD HELPERS (jika ada)
+// ============================================
+
+$helper_files = ['response.php', 'validator.php', 'otp_generator.php', 'uploader.php'];
+foreach ($helper_files as $helper) {
+    $path = __DIR__ . '/helpers/' . $helper;
+    if (file_exists($path)) {
+        require_once $path;
+    }
 }
 ?>

@@ -49,9 +49,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result && mysqli_num_rows($result) > 0) {
             $user = mysqli_fetch_assoc($result);
             if (password_verify($password, $user['password'])) {
+                // ============================================================
+                // ✅ SET SESSION LENGKAP (nama + username)
+                // ============================================================
                 $_SESSION['user_id'] = $user['id'];
+                $_SESSION['nama'] = $user['nama'] ?? $user['username'];
+                $_SESSION['username'] = $user['username'];
                 $_SESSION['user_email'] = $user['email'];
                 $_SESSION['user_role'] = $user['role'] ?? 'user';
+                
                 header("Location: ../pages/index.php");
                 exit;
             } else {
@@ -216,9 +222,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         .vsq-forgot-link a:hover { text-decoration: underline; }
 
-        /* ============================================================
-           reCAPTCHA BOX - Sesuai Gambar Referensi
-           ============================================================ */
         .vsq-recaptcha {
             background: #F9FAFB;
             border: 1px solid #E5E7EB;
@@ -272,7 +275,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-weight: 400;
         }
 
-        /* Logo reCAPTCHA resmi */
         .vsq-recaptcha-logo {
             display: flex;
             flex-direction: column;
@@ -412,36 +414,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <a href="#">Lupa Password?</a>
                     </div>
 
-                    <!-- ============================================================
-                         reCAPTCHA BOX dengan Logo RESMI reCAPTCHA
-                         (Dua panah melingkar: biru tua + biru muda + abu-abu)
-                         ============================================================ -->
                     <div class="vsq-recaptcha">
                         <div class="vsq-recaptcha-left">
                             <input type="checkbox" id="recaptcha" class="vsq-recaptcha-checkbox" required>
                             <label for="recaptcha" class="vsq-recaptcha-label">I'm not a robot</label>
                         </div>
                         <div class="vsq-recaptcha-logo">
-                            <!-- Logo reCAPTCHA resmi (dua panah melingkar) -->
                             <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Panah biru tua (kanan atas) -->
                                 <path d="M24 4 C35.05 4 44 12.95 44 24 L38 24 C38 16.27 31.73 10 24 10 L24 4 Z" fill="#1C3AA9"/>
-                                <!-- Ujung panah biru tua (segitiga) -->
                                 <path d="M44 24 L38 24 L41 18 L44 24 Z" fill="#1C3AA9"/>
                                 <path d="M24 4 L30 4 L24 10 L24 4 Z" fill="#1C3AA9"/>
-                                
-                                <!-- Panah abu-abu (kiri bawah) -->
                                 <path d="M24 44 C12.95 44 4 35.05 4 24 L10 24 C10 31.73 16.27 38 24 38 L24 44 Z" fill="#B0B0B0"/>
-                                <!-- Ujung panah abu-abu (segitiga) -->
                                 <path d="M4 24 L10 24 L7 30 L4 24 Z" fill="#B0B0B0"/>
                                 <path d="M24 44 L18 44 L24 38 L24 44 Z" fill="#B0B0B0"/>
-                                
-                                <!-- Panah biru muda (kiri atas) -->
                                 <path d="M24 4 C16 4 9.5 8.5 6.5 14.5 L11.5 17.5 C13.5 13 18.5 10 24 10 L24 4 Z" fill="#4285F4"/>
-                                
-                                <!-- Pusat putih membentuk huruf C -->
                                 <circle cx="24" cy="24" r="9" fill="#F9FAFB"/>
-                                <!-- Bentuk huruf C di tengah -->
                                 <path d="M24 15 A9 9 0 0 1 33 24 L28 24 A4 4 0 0 0 24 20 L24 15 Z" fill="#FFFFFF"/>
                                 <path d="M24 33 A9 9 0 0 1 15 24 L20 24 A4 4 0 0 0 24 28 L24 33 Z" fill="#FFFFFF"/>
                             </svg>

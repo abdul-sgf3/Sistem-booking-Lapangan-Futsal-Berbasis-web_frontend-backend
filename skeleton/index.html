@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda - Vincent SQ Arena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/card.css">
+    <link rel="stylesheet" href="css/network.css">
+    <script>
+        tailwind.config = {
+            theme: { extend: {
+                fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                colors: { navy: '#0F172A', accent: '#DC2626', blue: '#2563EB' }
+            }}
+        };
+    </script>
+</head>
+<body class="bg-white font-sans">
+
+    <!-- NAVBAR (di-load via JS) -->
+    <header id="navbar"></header>
+
+    <!-- HERO -->
+    <section class="vsq-hero">
+        <div class="vsq-hero-content">
+            <h1>Sewa Lapangan Olahraga Favoritmu dengan Sekali <span>Klik</span></h1>
+            <p>Vincent'SQ Arena hadir untuk lapangan Futsal dengan fasilitas standar nasional dan sistem konfirmasi realtime.</p>
+        </div>
+    </section>
+
+    <!-- PILIHAN LAPANGAN -->
+    <section class="vsq-section">
+        <div class="vsq-section-title">
+            <h2>Pilihan Lapangan Tersedia</h2>
+        </div>
+        <div class="vsq-lapangan-grid" id="lapangan-container">
+            <p class="loading-text">Memuat data lapangan...</p>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="vsq-section">
+        <div class="vsq-section-title">
+            <h2>Pertanyaan yang sering diajukan</h2>
+        </div>
+        <div class="vsq-faq-grid" id="faq-container">
+            <!-- FAQ items akan di-render JS -->
+        </div>
+    </section>
+
+    <!-- FOOTER (di-load via JS) -->
+    <footer id="footer"></footer>
+
+    <!-- OVERLAY NETWORK -->
+    <div id="network-overlay" class="network-overlay">
+        <div class="network-content">
+            <h2 class="network-title">Tidak Ada Koneksi Internet</h2>
+            <p class="network-message">Periksa koneksi Anda dan coba lagi</p>
+            <button onclick="retryConnection()" class="network-btn">Coba Lagi</button>
+        </div>
+    </div>
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- JS -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/lapangan.js"></script>
+    <script src="js/faq.js"></script>
+    <script src="js/network.js"></script>
+</body>
+</html>

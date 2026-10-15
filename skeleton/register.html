@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Vincent SQ Arena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/network.css">
+</head>
+<body class="min-h-screen bg-navy">
+
+    <div class="fixed inset-0 z-0">
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('../Frontend/assets/uploads/lapangan/hero.jpeg');"></div>
+        <div class="absolute inset-0" style="background: rgba(15, 23, 42, 0.85);"></div>
+    </div>
+
+    <a href="index.html" class="fixed top-8 left-8 z-20 w-14 h-14 flex items-center justify-center text-white hover:text-slate-300">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+    </a>
+
+    <div class="relative z-10 min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl px-8 py-10">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-extrabold text-navy">
+                    Vincent'<span class="text-accent">SQ</span>
+                </h1>
+                <p class="text-[11px] font-extrabold text-accent tracking-[0.25em] mt-1">SPORTS ARENA</p>
+            </div>
+
+            <h2 class="text-xl font-bold text-navy text-center mb-6">Daftar Akun Baru</h2>
+
+            <div id="alert-box"></div>
+
+            <form id="register-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-blue-500 mb-2">Email *</label>
+                    <input type="email" name="email" required class="w-full px-4 py-3 bg-blue-50 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-blue-500 mb-2">Password *</label>
+                    <input type="password" name="password" required class="w-full px-4 py-3 bg-blue-50 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-blue-500 mb-2">Konfirmasi Password *</label>
+                    <input type="password" name="confirm_password" required class="w-full px-4 py-3 bg-blue-50 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500">
+                </div>
+
+                <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3.5 rounded-full shadow-lg">
+                    Daftar Akun
+                </button>
+            </form>
+
+            <p class="text-center text-sm text-slate-500 mt-6">
+                Sudah punya akun? <a href="login.html" class="text-blue-600 font-bold hover:underline">Login di sini</a>
+            </p>
+        </div>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/network.js"></script>
+</body>
+</html>

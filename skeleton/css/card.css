@@ -1,0 +1,197 @@
+/* card.css - Style Kartu Lapangan */
+.vsq-lapangan-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.vsq-card {
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    transition: box-shadow 0.3s, transform 0.3s;
+    min-height: 200px;
+}
+
+.vsq-card:hover {
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    transform: translateY(-4px);
+}
+
+.vsq-card-img {
+    position: relative;
+    width: 42%;
+    flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
+    background-color: #E2E8F0;
+}
+
+.vsq-card-body {
+    padding: 16px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.vsq-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.vsq-card-header h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #0F172A;
+    margin: 0;
+}
+
+.vsq-card-badge {
+    padding: 3px 12px;
+    border-radius: 25px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.badge-vip { background: #EAB308; color: #0F172A; }
+.badge-regular { background: #E2E8F0; color: #0F172A; }
+
+.vsq-fasilitas {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.vsq-fasilitas li {
+    font-size: 12px;
+    color: #334155;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.4;
+}
+
+.vsq-fasilitas li::before {
+    content: "✓";
+    color: white;
+    background: #0F172A;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 900;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.vsq-card-footer {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid #E2E8F0;
+}
+
+.vsq-btn-booking {
+    background: #DC2626;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
+}
+
+.vsq-btn-booking::after {
+    content: "→";
+    font-size: 14px;
+}
+
+.vsq-btn-booking:hover { background: #B91C1C; }
+
+/* FAQ */
+.vsq-faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: start;
+}
+
+.vsq-faq-item {
+    background: white;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 16px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.vsq-faq-item.active,
+.vsq-faq-item:hover {
+    border-color: #2563EB;
+}
+
+.vsq-faq-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 22px;
+    gap: 12px;
+}
+
+.vsq-faq-header .faq-text {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0F172A;
+}
+
+.vsq-faq-arrow {
+    color: #2563EB;
+    font-size: 18px;
+    transition: transform 0.3s;
+}
+
+.vsq-faq-item.active .vsq-faq-arrow {
+    transform: rotate(180deg);
+}
+
+.vsq-faq-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 22px;
+    font-size: 13px;
+    color: #64748B;
+    line-height: 1.6;
+}
+
+.vsq-faq-item.active .vsq-faq-body {
+    max-height: 200px;
+    padding: 0 22px 18px;
+}
+
+@media (max-width: 1023px) {
+    .vsq-lapangan-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 767px) {
+    .vsq-card { flex-direction: column; }
+    .vsq-card-img { width: 100%; height: 180px; }
+    .vsq-faq-grid { grid-template-columns: 1fr; }
+}

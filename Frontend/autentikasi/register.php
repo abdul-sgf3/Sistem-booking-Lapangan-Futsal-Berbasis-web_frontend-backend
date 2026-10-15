@@ -41,7 +41,9 @@ $hero_url = '/vincent-arena/Frontend/assets/uploads/lapangan/hero.jpeg';
 $error = '';
 $success = '';
 
-// Proses Form Registrasi
+// ============================================================
+// PROSES FORM REGISTRASI
+// ============================================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
@@ -58,8 +60,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($cek_email && mysqli_num_rows($cek_email) > 0) {
             $error = "Email sudah terdaftar! Silakan gunakan email lain.";
         } else {
+            // ============================================================
+            // ✅ FIX: Generate nama dari email (karena form tidak ada input nama)
+            // ============================================================
+            $nama = ucfirst(explode('@', $email)[0]);
+            $username = explode('@', $email)[0]; // username dari email
+            $no_hp = ''; // Kosongkan dulu (bisa diisi user nanti di profil)
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $query = "INSERT INTO users (email, password, role) VALUES ('$email', '$hashed_password', 'user')";
+            
+            // ✅ INSERT dengan kolom nama & username
+            $query = "INSERT INTO users (nama, username, email, no_hp, password, role) 
+                      VALUES ('$nama', '$username', '$email', '$no_hp', '$hashed_password', 'user')";
             
             if (mysqli_query($conn, $query)) {
                 $success = "Akun berhasil dibuat! Silakan login.";
@@ -79,6 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Akun - Vincent'SQ Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/vincent-arena/Frontend/assets/css/network.css">
     <style>
         :root {
             --vsq-title-blue: #2C437B;
@@ -317,7 +329,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="vsq-input-wrapper">
                     <input type="password" id="password" name="password" class="vsq-form-control" placeholder="Masukkan Password..." required autocomplete="new-password">
                     <button type="button" class="vsq-toggle-password" onclick="togglePassword('password', this)">
-                        <!-- Ikon default: mata tertutup (eyelash) -->
                         <svg viewBox="0 0 24 24" class="icon-eye-closed">
                             <path d="M3 10 Q12 18 21 10" />
                             <line x1="3" y1="10" x2="2" y2="13" />
@@ -326,7 +337,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <line x1="17" y1="13" x2="18.5" y2="16" />
                             <line x1="21" y1="10" x2="22" y2="13" />
                         </svg>
-                        <!-- Ikon alternate: mata terbuka (disembunyikan default) -->
                         <svg viewBox="0 0 24 24" class="icon-eye-open" style="display:none;">
                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                             <circle cx="12" cy="12" r="3"></circle>
@@ -340,7 +350,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="vsq-input-wrapper">
                     <input type="password" id="konfirmasi_password" name="konfirmasi_password" class="vsq-form-control" placeholder="Masukkan Password..." required autocomplete="new-password">
                     <button type="button" class="vsq-toggle-password" onclick="togglePassword('konfirmasi_password', this)">
-                        <!-- Ikon default: mata tertutup (eyelash) -->
                         <svg viewBox="0 0 24 24" class="icon-eye-closed">
                             <path d="M3 10 Q12 18 21 10" />
                             <line x1="3" y1="10" x2="2" y2="13" />
@@ -349,7 +358,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <line x1="17" y1="13" x2="18.5" y2="16" />
                             <line x1="21" y1="10" x2="22" y2="13" />
                         </svg>
-                        <!-- Ikon alternate: mata terbuka (disembunyikan default) -->
                         <svg viewBox="0 0 24 24" class="icon-eye-open" style="display:none;">
                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                             <circle cx="12" cy="12" r="3"></circle>
@@ -368,6 +376,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     </div>
 
+    <!-- ===== NETWORK OVERLAY ===== -->
+    <div id="network-overlay" class="network-overlay">
+        <div class="network-content">
+            <div class="network-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="80" height="80">
+                    <path d="M1 1l22 22"/>
+                    <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+                    <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+                    <path d="M10.71 5.05A16 16 0 0 1 22.58 9"/>
+                    <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                    <line x1="12" y1="20" x2="12.01" y2="20"/>
+                </svg>
+            </div>
+            <h2 class="network-title">Tidak Ada Koneksi Internet</h2>
+            <p class="network-message">Periksa koneksi Anda dan coba lagi</p>
+            <button onclick="retryConnection()" class="network-btn">Coba Lagi</button>
+        </div>
+    </div>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div id="toast-container" class="toast-container"></div>
+
     <script>
         function togglePassword(inputId, iconElement) {
             const input = document.getElementById(inputId);
@@ -375,18 +406,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             const iconOpen = iconElement.querySelector('.icon-eye-open');
             
             if (input.type === 'password') {
-                // Tampilkan password
                 input.type = 'text';
                 iconClosed.style.display = 'none';
                 iconOpen.style.display = 'block';
             } else {
-                // Sembunyikan password
                 input.type = 'password';
                 iconClosed.style.display = 'block';
                 iconOpen.style.display = 'none';
             }
         }
     </script>
+
+    <!-- ===== NETWORK JS ===== -->
+    <script src="/vincent-arena/Frontend/assets/js/network.js"></script>
 
 </body>
 </html>

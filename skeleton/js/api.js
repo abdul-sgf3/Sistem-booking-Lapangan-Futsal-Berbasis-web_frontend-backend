@@ -1,7 +1,6 @@
 // api.js - Fungsi Fetch ke API Backend
 
 async function fetchAPI(endpoint, method = 'GET', body = null) {
-    // Kalau mode dummy, langsung return data dummy
     if (APP_CONFIG.DATA_MODE === 'dummy') {
         return getDummyData(endpoint);
     }
@@ -25,26 +24,33 @@ async function fetchAPI(endpoint, method = 'GET', body = null) {
     }
 }
 
-// Data dummy untuk development
 function getDummyData(endpoint) {
+    if (endpoint.includes('/auth/login')) {
+        return {
+            status: 'success',
+            data: {
+                user_id: 1,
+                nama: 'Demo User',
+                username: 'demouser',
+                email: 'demo@test.com'
+            }
+        };
+    }
+    
+    if (endpoint.includes('/auth/register')) {
+        return {
+            status: 'success',
+            message: 'Registrasi berhasil',
+            data: { email: 'demo@test.com' }
+        };
+    }
+    
     if (endpoint.includes('/lapangan')) {
         return {
             status: 'success',
             data: [
-                {
-                    id: 1,
-                    nama_lapangan: 'Lapangan 1',
-                    harga_per_jam: 200000,
-                    deskripsi: 'Lapangan premium dengan fasilitas lengkap',
-                    foto_url: '/vincent-arena/Frontend/assets/uploads/lapangan/Lapangan1.jpeg'
-                },
-                {
-                    id: 2,
-                    nama_lapangan: 'Lapangan 2',
-                    harga_per_jam: 150000,
-                    deskripsi: 'Lapangan standar dengan harga terjangkau',
-                    foto_url: '/vincent-arena/Frontend/assets/uploads/lapangan/Lapangan2.jpeg'
-                }
+                { id: 1, nama_lapangan: 'Lapangan 1', harga_per_jam: 200000, foto_url: '/vincent-arena/Frontend/assets/uploads/lapangan/Lapangan1.jpeg' },
+                { id: 2, nama_lapangan: 'Lapangan 2', harga_per_jam: 150000, foto_url: '/vincent-arena/Frontend/assets/uploads/lapangan/Lapangan2.jpeg' }
             ]
         };
     }
@@ -53,10 +59,8 @@ function getDummyData(endpoint) {
         return {
             status: 'success',
             data: [
-                { id: 1, nama: 'Nasi Goreng', kategori: 'makanan', harga: 15000, deskripsi: 'Nasi goreng spesial', foto_url: '' },
-                { id: 2, nama: 'Mie Ayam', kategori: 'makanan', harga: 12000, deskripsi: 'Mie ayam gurih', foto_url: '' },
-                { id: 3, nama: 'Es Teh Manis', kategori: 'minuman', harga: 5000, deskripsi: 'Es teh segar', foto_url: '' },
-                { id: 4, nama: 'Air Mineral', kategori: 'minuman', harga: 4000, deskripsi: 'Air mineral dingin', foto_url: '' }
+                { id: 1, nama: 'Nasi Goreng', kategori: 'makanan', harga: 15000, deskripsi: 'Nasi goreng spesial' },
+                { id: 2, nama: 'Mie Ayam', kategori: 'makanan', harga: 12000, deskripsi: 'Mie ayam gurih' }
             ]
         };
     }
@@ -64,12 +68,10 @@ function getDummyData(endpoint) {
     return { status: 'success', data: [] };
 }
 
-// Helper: Format Rupiah
 function formatRupiah(angka) {
     return 'Rp ' + new Intl.NumberFormat('id-ID').format(angka);
 }
 
-// Helper: Tampilkan Alert
 function showAlert(containerId, tipe, pesan) {
     const container = document.getElementById(containerId);
     if (!container) return;

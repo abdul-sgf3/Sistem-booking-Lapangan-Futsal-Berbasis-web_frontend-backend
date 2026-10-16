@@ -1,1 +1,132 @@
-/* Style login/register — sama seperti PHP */
+/* auth.css - Style Login & Register */
+
+.auth-wrapper {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.auth-left {
+    flex: 1;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 30px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-logo {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.auth-logo h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #2C437B;
+    margin: 0;
+}
+
+.auth-logo p {
+    font-size: 13px;
+    font-weight: 800;
+    color: #DC2626;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.auth-welcome {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: #000;
+    margin: 30px 0 25px;
+}
+
+.auth-form-group {
+    margin-bottom: 16px;
+}
+
+.auth-form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
+    margin-bottom: 6px;
+}
+
+.auth-form-group label span { color: #DC2626; }
+
+.auth-input {
+    width: 100%;
+    padding: 11px 16px;
+    font-size: 13px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #000;
+    background-color: #DBEAFE;
+    border: 1.5px solid #BFDBFE;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.auth-input:focus {
+    background-color: #FFFFFF;
+    border-color: #2563EB;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+.auth-btn {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #FFFFFF;
+    background-color: #2563EB;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.auth-btn:hover {
+    background-color: #1D4ED8;
+}
+
+.auth-link {
+    text-align: center;
+    font-size: 12px;
+    color: #000;
+    margin-top: 20px;
+}
+
+.auth-link a {
+    color: #2563EB;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-link a:hover { text-decoration: underline; }
+
+.auth-right {
+    flex: 1;
+    background: 
+        linear-gradient(rgba(15, 23, 42, 0.35), rgba(15, 23, 42, 0.35)),
+        url('../../Frontend/assets/uploads/lapangan/hero.jpeg') center/cover no-repeat;
+}
+
+@media (max-width: 900px) {
+    .auth-wrapper { flex-direction: column; }
+    .auth-left { order: 2; }
+    .auth-right { min-height: 250px; order: 1; }
+}

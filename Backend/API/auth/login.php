@@ -34,9 +34,11 @@ if (!$user) {
 }
 
 // ===== CEK PASSWORD =====
+
 if (!password_verify($password, $user['password'])) {
     sendError('Password salah', 401);
 }
+
 
 // ===== CEK VERIFIKASI EMAIL =====
 if (!$user['is_verified']) {

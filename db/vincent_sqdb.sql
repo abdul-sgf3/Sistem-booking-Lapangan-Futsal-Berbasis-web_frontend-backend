@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.3
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Oct 13, 2026 at 09:52 AM
--- Server version: 8.4.3
--- PHP Version: 8.3.33
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 19 Okt 2026 pada 12.13
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,49 +24,52 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `booking`
+-- Struktur dari tabel `booking`
 --
 
 CREATE TABLE `booking` (
-  `id` int NOT NULL,
-  `id_user` int NOT NULL,
-  `id_lapangan` int NOT NULL,
-  `kode_booking` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_lapangan` int(11) NOT NULL,
+  `kode_booking` varchar(20) NOT NULL,
   `tanggal` date NOT NULL,
   `jam_mulai` time NOT NULL,
-  `durasi` int NOT NULL DEFAULT '1',
-  `total_harga` int NOT NULL,
-  `catatan` text COLLATE utf8mb4_general_ci,
-  `bukti_pembayaran` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `status` enum('pending','confirmed','completed','canceled') COLLATE utf8mb4_general_ci DEFAULT 'pending',
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
+  `durasi` int(11) NOT NULL DEFAULT 1,
+  `total_harga` int(11) NOT NULL,
+  `catatan` text DEFAULT NULL,
+  `metode_pembayaran` varchar(50) DEFAULT 'transfer',
+  `bukti_pembayaran` varchar(255) DEFAULT NULL,
+  `uploaded_at` datetime DEFAULT NULL,
+  `status` enum('pending','confirmed','completed','canceled') DEFAULT 'pending',
+  `canceled_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `booking`
+-- Dumping data untuk tabel `booking`
 --
 
-INSERT INTO `booking` (`id`, `id_user`, `id_lapangan`, `kode_booking`, `tanggal`, `jam_mulai`, `durasi`, `total_harga`, `catatan`, `bukti_pembayaran`, `status`, `created_at`) VALUES
-(3, 2, 1, 'BSK20260510315', '2026-05-12', '10:00:00', 2, 240000, '', '', 'canceled', '2026-05-11 01:51:38'),
-(4, 2, 2, 'BSK20260511976', '2026-05-21', '10:00:00', 1, 150000, '', '', 'completed', '2026-05-11 11:00:44');
+INSERT INTO `booking` (`id`, `id_user`, `id_lapangan`, `kode_booking`, `tanggal`, `jam_mulai`, `durasi`, `total_harga`, `catatan`, `metode_pembayaran`, `bukti_pembayaran`, `uploaded_at`, `status`, `canceled_at`, `created_at`) VALUES
+(3, 2, 1, 'BSK20260510315', '2026-05-12', '10:00:00', 2, 240000, '', 'transfer', '', NULL, 'canceled', NULL, '2026-05-11 01:51:38'),
+(4, 2, 2, 'BSK20260511976', '2026-05-21', '10:00:00', 1, 150000, '', 'transfer', '', NULL, 'completed', NULL, '2026-05-11 11:00:44');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jadwal`
+-- Struktur dari tabel `jadwal`
 --
 
 CREATE TABLE `jadwal` (
-  `id` int NOT NULL,
-  `id_lapangan` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `id_lapangan` int(11) NOT NULL,
   `tanggal` date NOT NULL,
   `jam` time NOT NULL,
-  `status` enum('available','booked','maintenance') COLLATE utf8mb4_general_ci DEFAULT 'available',
-  `booking_id` int DEFAULT NULL
+  `status` enum('available','booked','maintenance') DEFAULT 'available',
+  `booking_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `jadwal`
+-- Dumping data untuk tabel `jadwal`
 --
 
 INSERT INTO `jadwal` (`id`, `id_lapangan`, `tanggal`, `jam`, `status`, `booking_id`) VALUES
@@ -76,22 +79,22 @@ INSERT INTO `jadwal` (`id`, `id_lapangan`, `tanggal`, `jam`, `status`, `booking_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lapangan`
+-- Struktur dari tabel `lapangan`
 --
 
 CREATE TABLE `lapangan` (
-  `id` int NOT NULL,
-  `nama_lapangan` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `deskripsi` text COLLATE utf8mb4_general_ci,
-  `lokasi` text COLLATE utf8mb4_general_ci,
-  `harga_per_jam` int NOT NULL,
-  `foto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `status` enum('aktif','nonaktif') COLLATE utf8mb4_general_ci DEFAULT 'aktif',
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
+  `id` int(11) NOT NULL,
+  `nama_lapangan` varchar(100) NOT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `lokasi` text DEFAULT NULL,
+  `harga_per_jam` int(11) NOT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `status` enum('aktif','nonaktif') DEFAULT 'aktif',
+  `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `lapangan`
+-- Dumping data untuk tabel `lapangan`
 --
 
 INSERT INTO `lapangan` (`id`, `nama_lapangan`, `deskripsi`, `lokasi`, `harga_per_jam`, `foto`, `status`, `created_at`) VALUES
@@ -101,20 +104,20 @@ INSERT INTO `lapangan` (`id`, `nama_lapangan`, `deskripsi`, `lokasi`, `harga_per
 -- --------------------------------------------------------
 
 --
--- Table structure for table `makanan_minuman`
+-- Struktur dari tabel `makanan_minuman`
 --
 
 CREATE TABLE `makanan_minuman` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `kategori` enum('makanan','minuman') NOT NULL,
-  `harga` int NOT NULL,
-  `deskripsi` text,
+  `harga` int(11) NOT NULL,
+  `deskripsi` text DEFAULT NULL,
   `foto` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `makanan_minuman`
+-- Dumping data untuk tabel `makanan_minuman`
 --
 
 INSERT INTO `makanan_minuman` (`id`, `nama`, `kategori`, `harga`, `deskripsi`, `foto`) VALUES
@@ -126,19 +129,19 @@ INSERT INTO `makanan_minuman` (`id`, `nama`, `kategori`, `harga`, `deskripsi`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pengaturan`
+-- Struktur dari tabel `pengaturan`
 --
 
 CREATE TABLE `pengaturan` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `jam_buka` time DEFAULT '08:00:00',
   `jam_tutup` time DEFAULT '22:00:00',
-  `maksimal_durasi` int DEFAULT '2',
-  `biaya_booking` int DEFAULT '0'
+  `maksimal_durasi` int(11) DEFAULT 2,
+  `biaya_booking` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pengaturan`
+-- Dumping data untuk tabel `pengaturan`
 --
 
 INSERT INTO `pengaturan` (`id`, `jam_buka`, `jam_tutup`, `maksimal_durasi`, `biaya_booking`) VALUES
@@ -147,38 +150,43 @@ INSERT INTO `pengaturan` (`id`, `jam_buka`, `jam_tutup`, `maksimal_durasi`, `bia
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
-  `id` int NOT NULL,
-  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `username` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `no_hp` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `role` enum('admin','user') COLLATE utf8mb4_general_ci DEFAULT 'user',
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `is_active` tinyint DEFAULT '1'
+  `id` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `email` varchar(100) NOT NULL,
+  `whatsapp` varchar(20) DEFAULT NULL,
+  `foto_profil` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` enum('admin','user') DEFAULT 'user',
+  `created_at` datetime DEFAULT current_timestamp(),
+  `is_active` tinyint(4) DEFAULT 1,
+  `is_verified` tinyint(1) DEFAULT 0,
+  `otp_code` varchar(6) DEFAULT NULL,
+  `otp_expired_at` datetime DEFAULT NULL,
+  `last_login` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `nama`, `username`, `email`, `password`, `no_hp`, `role`, `created_at`, `is_active`) VALUES
-(1, 'King Nasir', 'admin', 'admin@tsubasa.com', '0192023a7bbd73250516f069df18b500', NULL, 'admin', '2026-05-08 21:14:20', 1),
-(2, 'Kurumi', 'kurumi', 'kurumi12@email.com', '5c21086fea6fae64471b7b37e80825dd', '083123456123', 'user', '2026-05-08 23:39:37', 1),
-(4, 'erreenn', 'asyaf', 'ashfahani@gmail.com', '4bd78d853053f1b7a83d7c5207f604ce', '93298r27427727', 'user', '2026-05-14 21:56:55', 1),
-(5, 'Asyaf', 'asyaf87', 'asyaf@gmail.com', '4bd78d853053f1b7a83d7c5207f604ce', '', 'user', '2026-10-09 10:36:52', 1),
-(6, 'Ashfahani77', 'ashfahani77', 'ashfahani77@gmail.com', 'efe8bf6dbc8ae0da501a40943bfa74de', '', 'user', '2026-10-09 10:46:30', 1);
+INSERT INTO `users` (`id`, `nama`, `username`, `email`, `whatsapp`, `foto_profil`, `password`, `role`, `created_at`, `is_active`, `is_verified`, `otp_code`, `otp_expired_at`, `last_login`) VALUES
+(1, 'King Nasir', 'admin', 'admin@tsubasa.com', NULL, NULL, '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe1HlCS4bZJ18JuywdBqmSPz0A0n6A1jW', 'admin', '2026-05-08 21:14:20', 1, 1, NULL, NULL, NULL),
+(2, 'Kurumi', 'kurumi', 'kurumi12@email.com', '083123456123', NULL, '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe1HlCS4bZJ18JuywdBqmSPz0A0n6A1jW', 'user', '2026-05-08 23:39:37', 1, 1, NULL, NULL, NULL),
+(4, 'erreenn', 'asyaf', 'ashfahani@gmail.com', '93298r27427727', NULL, '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe1HlCS4bZJ18JuywdBqmSPz0A0n6A1jW', 'user', '2026-05-14 21:56:55', 1, 1, NULL, NULL, NULL),
+(5, 'Asyaf', 'asyaf87', 'asyaf@gmail.com', '', NULL, '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe1HlCS4bZJ18JuywdBqmSPz0A0n6A1jW', 'user', '2026-10-09 10:36:52', 1, 1, NULL, NULL, NULL),
+(6, 'Ashfahani77', 'ashfahani77', 'ashfahani77@gmail.com', '', NULL, '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe1HlCS4bZJ18JuywdBqmSPz0A0n6A1jW', 'user', '2026-10-09 10:46:30', 1, 1, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `booking`
+-- Indeks untuk tabel `booking`
 --
 ALTER TABLE `booking`
   ADD PRIMARY KEY (`id`),
@@ -187,7 +195,7 @@ ALTER TABLE `booking`
   ADD KEY `id_lapangan` (`id_lapangan`);
 
 --
--- Indexes for table `jadwal`
+-- Indeks untuk tabel `jadwal`
 --
 ALTER TABLE `jadwal`
   ADD PRIMARY KEY (`id`),
@@ -195,25 +203,25 @@ ALTER TABLE `jadwal`
   ADD KEY `booking_id` (`booking_id`);
 
 --
--- Indexes for table `lapangan`
+-- Indeks untuk tabel `lapangan`
 --
 ALTER TABLE `lapangan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `makanan_minuman`
+-- Indeks untuk tabel `makanan_minuman`
 --
 ALTER TABLE `makanan_minuman`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pengaturan`
+-- Indeks untuk tabel `pengaturan`
 --
 ALTER TABLE `pengaturan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -221,58 +229,58 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `username` (`username`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `booking`
+-- AUTO_INCREMENT untuk tabel `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `jadwal`
+-- AUTO_INCREMENT untuk tabel `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `lapangan`
+-- AUTO_INCREMENT untuk tabel `lapangan`
 --
 ALTER TABLE `lapangan`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `makanan_minuman`
+-- AUTO_INCREMENT untuk tabel `makanan_minuman`
 --
 ALTER TABLE `makanan_minuman`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `pengaturan`
+-- AUTO_INCREMENT untuk tabel `pengaturan`
 --
 ALTER TABLE `pengaturan`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `booking`
+-- Ketidakleluasaan untuk tabel `booking`
 --
 ALTER TABLE `booking`
   ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`id_lapangan`) REFERENCES `lapangan` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `jadwal`
+-- Ketidakleluasaan untuk tabel `jadwal`
 --
 ALTER TABLE `jadwal`
   ADD CONSTRAINT `jadwal_ibfk_1` FOREIGN KEY (`id_lapangan`) REFERENCES `lapangan` (`id`) ON DELETE CASCADE,

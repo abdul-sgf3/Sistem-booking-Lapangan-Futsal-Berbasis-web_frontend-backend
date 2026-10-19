@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         :root {
             --vsq-navy: #131B2E;
             --vsq-blue: #477FEB;
-            --vsq-red: #FF0000;
+            --vsq-red: #e74c3c; /* Warna merah error disesuaikan dengan gambar */
             --vsq-gray: #848484;
         }
 
@@ -156,10 +156,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .vsq-form-group label span { color: var(--vsq-red); }
 
         .vsq-input-wrapper { position: relative; width: 100%; }
+        
         .vsq-form-control {
             width: 100%;
             padding: 10px 12px;
-            padding-right: 40px;
+            padding-right: 35px; /* Ruang untuk ikon error */
             font-size: 13px;
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #FFFFFF;
@@ -172,25 +173,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-color: var(--vsq-blue);
         }
 
-        /* Validasi Error */
+        /* --- GAYA VALIDASI ERROR SESUAI GAMBAR --- */
         .vsq-form-control.is-invalid {
-            border-color: var(--vsq-red);
+            border: 1px solid var(--vsq-red);
+            background-color: #fdf2f2; /* Sedikit kemerahan */
         }
+        
+        /* Ikon Error (SVG) */
+        .vsq-error-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            display: none; /* Sembunyikan default */
+            color: var(--vsq-red);
+        }
+        .vsq-error-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        /* Tampilkan ikon jika input invalid */
+        .vsq-form-control.is-invalid ~ .vsq-error-icon {
+            display: block;
+        }
+
+        /* Teks Error di bawah input */
         .error-message {
             color: var(--vsq-red);
             font-size: 10px;
             margin-top: 4px;
             display: none;
-            align-items: center;
-            gap: 4px;
+            font-weight: 500;
         }
-        .error-message::before {
-            content: "ⓘ";
-            font-size: 12px;
-        }
+        
         .vsq-form-control.is-invalid ~ .error-message {
-            display: flex;
+            display: block;
         }
+        /* ----------------------------------------- */
 
         .vsq-toggle-password {
             position: absolute;
@@ -273,8 +300,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="email">Email<span>*</span></label>
                 <div class="vsq-input-wrapper">
                     <input type="email" id="email" name="email" class="vsq-form-control" placeholder="Masukkan email..." required>
+                    <!-- Ikon Error SVG -->
+                    <span class="vsq-error-icon">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </span>
                 </div>
-                <div class="error-message" id="error-email">Email tidak boleh kosong atau format salah</div>
+                <div class="error-message" id="error-email">Format email tidak valid</div>
             </div>
 
             <!-- Password -->
@@ -346,7 +381,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         function validateEmail() {
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!re.test(emailInput.value)) {
+            if (!re.test(emailInput.value) && emailInput.value !== '') {
                 emailInput.classList.add('is-invalid');
                 return false;
             } else {
@@ -356,7 +391,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         function validatePassword() {
-            if (passwordInput.value.length < 6) {
+            if (passwordInput.value.length < 6 && passwordInput.value !== '') {
                 passwordInput.classList.add('is-invalid');
                 return false;
             } else {
@@ -366,7 +401,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         function validateConfirm() {
-            if (confirmInput.value !== passwordInput.value || confirmInput.value === '') {
+            if (confirmInput.value !== passwordInput.value && confirmInput.value !== '') {
                 confirmInput.classList.add('is-invalid');
                 return false;
             } else {

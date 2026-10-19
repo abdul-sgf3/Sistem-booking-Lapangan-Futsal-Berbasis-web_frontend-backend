@@ -445,7 +445,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <!-- Lupa Password -->
                     <div class="vsq-forgot-link">
-                        <a href="#">Lupa Password?</a>
+                        <a href="lupa_password.php">Lupa Password?</a>
                     </div>
 
                     <!-- reCAPTCHA Box -->

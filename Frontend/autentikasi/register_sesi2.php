@@ -1,9 +1,27 @@
 <?php
-// register_sesi2.php - Verifikasi Email (Sesuai Figma 100%)
+// register_sesi2.php - Verifikasi Email (Sesuai Figma 100% + Bypass BE)
 session_start();
 
+// ============================================================
+// LOGIKA BYPASS: Tangani submit form langsung di file ini
+// ============================================================
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Ambil kode OTP (tidak divalidasi karena BE belum siap)
+    $kode_input = $_POST['otp_code'] ?? '';
+    
+    // Set session sukses (opsional)
+    $_SESSION['register_success'] = "Verifikasi berhasil!";
+    
+    // Langsung arahkan ke halaman beranda
+    // Sesuaikan path ini jika struktur folder Anda berbeda.
+    header("Location: ../pages/index.php"); 
+    exit;
+}
+
+// Cek apakah ada session email (dari register.php)
 $email = $_SESSION['register_email'] ?? '';
 if (empty($email)) {
+    // Jika tidak ada session, kembalikan ke register awal
     header("Location: register.php");
     exit;
 }
@@ -83,10 +101,10 @@ if (empty($email)) {
             margin-top: 4px;
         }
 
-        /* Ikon Ilustrasi Kurir (Menggunakan File Asli) */
+        /* Ikon Ilustrasi Kurir */
         .verify-icon {
             margin: 10px auto 24px;
-            width: 180px; /* Ukuran disesuaikan */
+            width: 180px;
             height: 180px;
             display: flex;
             align-items: center;
@@ -186,7 +204,7 @@ if (empty($email)) {
             <p>SPORTS ARENA</p>
         </div>
 
-        <!-- Ilustrasi Kurir Asli -->
+        <!-- Ilustrasi Kurir -->
         <div class="verify-icon">
             <img src="/vincent-arena/Frontend/assets/images/ilustrasi-kurir.jpg" alt="Ilustrasi Kurir">
         </div>
@@ -197,8 +215,8 @@ if (empty($email)) {
             <strong><?= htmlspecialchars($email) ?></strong>
         </div>
 
-        <!-- Form OTP -->
-        <form action="proses_verifikasi.php" method="POST">
+        <!-- Form OTP (Action ke file ini sendiri) -->
+        <form action="" method="POST" id="otpForm">
             <div class="otp-container">
                 <input type="text" maxlength="1" class="otp-input" oninput="moveFocus(this, 1)" autofocus>
                 <input type="text" maxlength="1" class="otp-input" oninput="moveFocus(this, 2)">
@@ -213,7 +231,8 @@ if (empty($email)) {
                 Kode akan kadaluwarsa dalam <span id="timer">01:32</span>
             </div>
 
-            <button type="submit" class="btn-verify" onclick="combineOTP()">Verifikasi</button>
+            <!-- Tombol Submit memanggil JS combineOTP() -->
+            <button type="submit" class="btn-verify" onclick="return combineOTP()">Verifikasi</button>
         </form>
 
         <a href="#" class="resend-link">Kirim Ulang Kode</a>
@@ -230,14 +249,21 @@ if (empty($email)) {
             }
         }
 
+        // Fungsi ini menggabungkan 6 kotak input menjadi satu string
+        // dan memastikan form bisa di-submit.
         function combineOTP() {
             const inputs = document.querySelectorAll('.otp-input');
             let code = '';
             inputs.forEach(input => code += input.value);
+            
+            // Bypass: Kita izinkan user submit meskipun kotak kosong / asal isi
+            // Karena BE belum siap.
             document.getElementById('otp_code_hidden').value = code;
+            
+            return true; // Izinkan form untuk di-submit ke PHP
         }
 
-        // Timer disetel ke 01:32 sesuai screenshot
+        // Timer disetel ke 01:32
         let timeLeft = 92; 
         const timerEl = document.getElementById('timer');
         

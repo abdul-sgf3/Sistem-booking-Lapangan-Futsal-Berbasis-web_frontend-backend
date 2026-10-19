@@ -1,10 +1,9 @@
 <?php
-// index.php - Halaman Depan User (Final)
+// index.php - Halaman Depan User (Final - Sesuai Color Palette)
 session_start();
 
 // ============================================================
-// KONEKSI DATABASE (DIPERBAIKI)
-// Nama database yang benar: vincent_sqdb
+// KONEKSI DATABASE
 // ============================================================
 $db_paths = [
     __DIR__ . '/../../Backend/config/database.php',
@@ -27,9 +26,7 @@ if ($db_path) {
     include $db_path;
 }
 
-// Fallback: koneksi langsung jika $conn belum terdefinisi
 if (!isset($conn) || !$conn) {
-    // ✅ NAMA DATABASE: vincent_sqdb
     $conn = @mysqli_connect('localhost', 'root', '', 'vincent_sqdb');
     if ($conn) {
         mysqli_set_charset($conn, 'utf8mb4');
@@ -41,18 +38,20 @@ include '../includes/header.php';
 ?>
 
 <style>
+    /* ===== COLOR PALETTE (Sesuai Referensi) ===== */
     :root {
-        --vsq-navy: #0F172A;
-        --vsq-blue: #2563EB;
-        --vsq-red: #DC2626;
-        --vsq-gold: #FACC15;
-        --vsq-gray: #64748B;
-        --vsq-border: #E2E8F0;
-        --vsq-footer-bg: #0B1120;
+        --vsq-navy: #131B2E;      /* Primary 1 */
+        --vsq-blue: #477FEB;      /* Primary 2 */
+        --vsq-red: #FF0000;       /* Secondary 1 */
+        --vsq-gold: #FFD700;      /* Secondary 2 */
+        --vsq-gray: #848484;      /* Neutral 1 */
+        --vsq-lightgray: #D9D9D9; /* Neutral 2 */
+        --vsq-black: #000000;     /* Neutral 3 */
+        --vsq-white: #FFFFFF;     /* Neutral 4 */
     }
 
     body {
-        background-color: #ffffff;
+        background-color: var(--vsq-white);
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
@@ -60,56 +59,74 @@ include '../includes/header.php';
     .vsq-hero {
         position: relative;
         width: 100%;
-        min-height: 480px;
-        background: 
-            linear-gradient(to right, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.6) 50%, rgba(15, 23, 42, 0.3) 100%),
-            linear-gradient(to bottom, rgba(15, 23, 42, 0.6) 0%, rgba(15, 23, 42, 0.6) 100%),
-            url('../assets/uploads/lapangan/hero.jpeg') center/cover no-repeat;
-        display: flex;
-        align-items: center;
-        color: white;
-        padding: 0 20px;
-        box-sizing: border-box;
+        height: 633px;
+        background-color: var(--vsq-navy);
+        overflow: hidden;
     }
 
-    .vsq-hero-content {
-        max-width: 1200px;
-        margin: 0 auto;
+    .vsq-hero-image {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 75%; 
+        height: 100%;
+        background-image: url('../assets/uploads/lapangan/hero.jpeg');
+        background-size: cover;
+        background-position: center;
+        z-index: 1;
+    }
+
+    .vsq-hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        padding-top: 20px;
-        position: relative;
+        height: 100%;
+        background: linear-gradient(90deg, var(--vsq-navy) 25%, rgba(19, 27, 46, 0.85) 50%, rgba(19, 27, 46, 0) 100%);
         z-index: 2;
     }
 
-    .vsq-hero h1 {
-        font-size: 46px;
-        font-weight: 800;
-        line-height: 1.15;
-        margin: 0 0 20px 0;
-        max-width: 700px;
-        letter-spacing: -0.5px;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    .vsq-hero-content {
+        position: relative;
+        z-index: 3;
+        max-width: 1200px;
+        margin: 0 auto;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 54px;
+        box-sizing: border-box;
     }
 
-    .vsq-hero h1 span { 
+    .vsq-hero-content h1 {
+        font-size: 52px;
+        font-weight: 700;
+        line-height: 1.15;
+        margin: 0 0 24px 0;
+        color: var(--vsq-white);
+        max-width: 700px;
+        letter-spacing: -0.5px;
+    }
+
+    .vsq-hero-content h1 span { 
         color: var(--vsq-red); 
     }
 
-    .vsq-hero p {
-        font-size: 16px;
-        line-height: 1.6;
-        color: #E2E8F0;
+    .vsq-hero-content p {
+        font-size: 20px;
+        line-height: 1.5;
+        color: var(--vsq-lightgray);
         max-width: 550px;
         margin: 0;
         font-weight: 400;
-        text-shadow: 0 1px 5px rgba(0,0,0,0.3);
     }
 
     .vsq-location-badge {
         position: absolute;
         bottom: 30px;
         right: 40px;
-        background: #FFFFFF;
+        background: var(--vsq-white);
         color: var(--vsq-navy);
         padding: 10px 22px;
         border-radius: 50px;
@@ -125,13 +142,13 @@ include '../includes/header.php';
     /* ===== SECTION UMUM ===== */
     .vsq-section {
         padding: 50px 20px;
-        max-width: 1200px;
+        max-width: 1242px;
         margin: 0 auto;
         box-sizing: border-box;
     }
 
     .vsq-section.section-lapangan {
-        padding-top: 30px;
+        padding-top: 50px;
     }
 
     .vsq-section-title {
@@ -140,42 +157,40 @@ include '../includes/header.php';
     }
 
     .vsq-section-title h2 {
-        font-size: 36px;
-        font-weight: 800;
-        color: var(--vsq-navy);
+        font-size: 50px;
+        font-weight: 700;
+        line-height: 40px;
+        color: var(--vsq-black);
         margin: 0 0 12px 0;
     }
 
     .vsq-section-title.title-blue h2 { color: var(--vsq-blue); }
 
     .vsq-section-title p {
-        font-size: 15px;
-        color: var(--vsq-gray);
+        font-size: 20px;
+        color: var(--vsq-blue);
         margin: 0;
+        font-weight: 600;
     }
-
-    .vsq-section-title.title-blue p { color: var(--vsq-blue); }
 
     /* ===== KARTU LAPANGAN ===== */
     .vsq-lapangan-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 30px;
-        align-items: stretch;
-        max-width: 1000px;
+        display: flex;
+        flex-direction: column;
+        gap: 52px;
+        max-width: 1242px;
         margin: 0 auto;
     }
 
     .vsq-card {
-        background: white;
-        border: 1px solid var(--vsq-border);
+        background: var(--vsq-white);
+        border: 1px solid var(--vsq-gray);
         border-radius: 20px;
         overflow: hidden;
         display: flex;
         flex-direction: row;
+        min-height: 532px;
         transition: box-shadow 0.3s, transform 0.3s;
-        height: 320px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
     }
 
     .vsq-card:hover {
@@ -185,14 +200,15 @@ include '../includes/header.php';
 
     .vsq-card-img {
         position: relative;
-        width: 45%;
+        width: 50%;
         flex-shrink: 0;
         background-size: cover;
         background-position: center;
+        border-radius: 20px;
     }
 
     .vsq-card-body {
-        padding: 30px 40px;
+        padding: 33px 33px 33px 54px;
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -202,31 +218,34 @@ include '../includes/header.php';
     .vsq-card-header {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         gap: 16px;
-        margin-bottom: 35px;
+        margin-bottom: 30px;
         flex-wrap: wrap;
     }
 
     .vsq-card-header h3 {
-        font-size: 24px;
-        font-weight: 800;
-        color: var(--vsq-navy);
+        font-size: 35px;
+        font-weight: 600;
+        color: var(--vsq-black);
         margin: 0;
-        line-height: 1.2;
+        line-height: 22px;
     }
 
     .vsq-card-badge {
-        padding: 6px 20px;
-        border-radius: 50px;
-        font-size: 14px;
-        font-weight: 800;
+        padding: 23px 42px;
+        border-radius: 60px;
+        font-size: 35px;
+        font-weight: 600;
         white-space: nowrap;
-        display: inline-block;
-        letter-spacing: 0.5px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 22px;
     }
 
-    .badge-vip { background: var(--vsq-gold); color: var(--vsq-navy); }
-    .badge-regular { background: #E2E8F0; color: var(--vsq-navy); }
+    .badge-vip { background: var(--vsq-gold); color: var(--vsq-black); }
+    .badge-regular { background: var(--vsq-lightgray); color: var(--vsq-black); }
 
     .vsq-fasilitas {
         list-style: none;
@@ -234,30 +253,30 @@ include '../includes/header.php';
         margin: 0 0 30px 0;
         display: flex;
         flex-direction: column;
-        gap: 14px;
+        gap: 23px;
     }
 
     .vsq-fasilitas li {
-        font-size: 15px;
-        color: #1E293B;
+        font-size: 20px;
+        color: var(--vsq-black);
         display: flex;
         align-items: center;
-        gap: 12px;
-        line-height: 1.4;
-        font-weight: 500;
+        gap: 20px;
+        line-height: 22px;
+        font-weight: 400;
     }
 
     .vsq-fasilitas li::before {
         content: "✓";
-        color: white;
-        background: var(--vsq-navy);
-        width: 20px;
-        height: 20px;
+        color: var(--vsq-white);
+        background: var(--vsq-black);
+        width: 34px;
+        height: 34px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 11px;
+        font-size: 18px;
         font-weight: 900;
         flex-shrink: 0;
     }
@@ -268,66 +287,64 @@ include '../includes/header.php';
 
     .vsq-btn-booking {
         background: var(--vsq-red);
-        color: white;
+        color: var(--vsq-white);
         padding: 12px 24px;
-        border-radius: 8px;
+        border-radius: 10px;
         text-decoration: none;
-        font-size: 14px;
+        font-size: 25px;
         font-weight: 700;
+        line-height: 26px;
         transition: all 0.2s;
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 10px;
-        border: none;
+        border: 1px solid var(--vsq-gray);
         cursor: pointer;
+        width: 347px;
+        height: 59px;
+        box-sizing: border-box;
     }
 
     .vsq-btn-booking::after {
         content: "→";
-        font-size: 18px;
-        font-weight: 400;
+        font-size: 25px;
+        font-weight: 700;
         transition: transform 0.2s;
     }
 
-    .vsq-btn-booking:hover { background: #B91C1C; }
+    .vsq-btn-booking:hover { background: #D50000; }
     .vsq-btn-booking:hover::after { transform: translateX(5px); }
 
     /* ===== CARA BOOKING ===== */
     .vsq-steps {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 16px;
+        grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+        gap: 10px;
         align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
     }
-
-    .vsq-step-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-    }
-
-    .vsq-step-wrapper:last-child { gap: 0; }
 
     .vsq-step {
-        background: #FFFFFF;
-        border: 1px solid var(--vsq-border);
-        border-radius: 16px;
-        padding: 20px 16px 24px;
+        background: var(--vsq-white);
+        border: 1px solid var(--vsq-gray);
+        border-radius: 12px;
+        padding: 20px 15px;
         text-align: center;
-        flex: 1;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        min-height: 200px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        height: 100%;
+        min-height: 200px;
     }
 
     .vsq-step-header {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 12px;
-        margin-bottom: 14px;
+        gap: 8px;
+        margin-bottom: 20px;
         width: 100%;
     }
 
@@ -335,12 +352,12 @@ include '../includes/header.php';
         width: 36px;
         height: 36px;
         background: var(--vsq-blue);
-        color: white;
+        color: var(--vsq-white);
         border-radius: 50%;
         display: grid;
         place-items: center;
-        font-size: 16px;
-        font-weight: 800;
+        font-size: 18px;
+        font-weight: 700;
         flex-shrink: 0;
     }
 
@@ -363,24 +380,29 @@ include '../includes/header.php';
     }
 
     .vsq-step h4 {
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 700;
         color: var(--vsq-blue);
         margin: 0 0 8px 0;
+        line-height: 1.2;
     }
 
     .vsq-step p {
-        font-size: 12px;
-        color: var(--vsq-gray);
+        font-size: 13px;
+        color: var(--vsq-blue);
         margin: 0;
-        line-height: 1.5;
+        line-height: 1.4;
+        font-weight: 500;
     }
 
+    /* Tanda Panah (>) */
     .vsq-arrow {
         font-size: 32px;
         color: var(--vsq-blue);
-        font-weight: 300;
-        flex-shrink: 0;
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     /* ===== FAQ ===== */
@@ -389,29 +411,24 @@ include '../includes/header.php';
         grid-template-columns: 1fr 1fr;
         gap: 24px;
         align-items: start;
+        max-width: 1292px;
+        margin: 0 auto;
     }
 
     .vsq-faq-item {
-        background: #FFFFFF;
-        border: 1.5px solid #E2E8F0;
+        background: var(--vsq-white);
+        border: 1px solid var(--vsq-gray);
         border-radius: 16px;
-        padding: 0;
         cursor: pointer;
         transition: all 0.2s;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         overflow: hidden;
-    }
-
-    .vsq-faq-item:hover, 
-    .vsq-faq-item.active { 
-        border-color: var(--vsq-blue);
-        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.1);
     }
 
     .vsq-faq-header {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         padding: 24px 28px;
         gap: 16px;
         user-select: none;
@@ -419,31 +436,31 @@ include '../includes/header.php';
 
     .vsq-faq-header .faq-text {
         display: flex;
-        gap: 16px;
+        gap: 12px;
         align-items: flex-start;
-        font-size: 16px;
-        font-weight: 600;
-        color: #1E293B;
-        line-height: 1.4;
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--vsq-black);
+        line-height: 1.3;
     }
 
     .vsq-faq-header .faq-number {
-        color: #1E293B;
-        font-weight: 700;
+        color: var(--vsq-black);
+        font-weight: 500;
         flex-shrink: 0;
     }
 
     .vsq-faq-header .faq-arrow {
-        color: var(--vsq-blue);
-        font-size: 20px;
-        font-weight: 400;
+        color: var(--vsq-black);
+        font-size: 32px;
+        font-weight: 500;
         flex-shrink: 0;
         transition: transform 0.3s ease;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 24px;
-        height: 24px;
+        width: 32px;
+        height: 32px;
     }
 
     .vsq-faq-item.active .faq-arrow { transform: rotate(180deg); }
@@ -453,7 +470,7 @@ include '../includes/header.php';
         overflow: hidden;
         transition: max-height 0.3s ease, padding 0.3s ease;
         padding: 0 28px;
-        font-size: 14px;
+        font-size: 18px;
         color: var(--vsq-gray);
         line-height: 1.6;
     }
@@ -465,26 +482,29 @@ include '../includes/header.php';
 
     /* ===== FOOTER ===== */
     .vsq-footer {
-        background-color: var(--vsq-footer-bg);
-        color: #FFFFFF;
-        padding: 60px 20px 30px 20px;
+        background-color: var(--vsq-navy);
+        color: var(--vsq-white);
+        padding: 48px 0 30px 0;
         font-family: 'Plus Jakarta Sans', sans-serif;
+        margin-top: 60px;
     }
 
     .vsq-footer-content {
         max-width: 1200px;
         margin: 0 auto;
+        padding: 0 40px;
         display: grid;
-        grid-template-columns: 1.5fr 1fr 1.5fr;
+        grid-template-columns: 1fr 1fr 1.2fr;
         gap: 40px;
-        margin-bottom: 50px;
+        margin-bottom: 40px;
+        align-items: start;
     }
 
     .vsq-footer-brand {
         font-size: 24px;
-        font-weight: 800;
-        color: #FFFFFF;
-        letter-spacing: -0.5px;
+        font-weight: 700;
+        color: var(--vsq-white);
+        line-height: 1.2;
     }
 
     .vsq-footer-brand span {
@@ -494,14 +514,15 @@ include '../includes/header.php';
     .vsq-footer-menu {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 12px;
     }
 
     .vsq-footer-menu a {
-        color: #FFFFFF;
+        color: var(--vsq-white);
         text-decoration: none;
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 600;
+        line-height: 1.5;
         transition: color 0.2s;
     }
 
@@ -519,14 +540,15 @@ include '../includes/header.php';
         display: flex;
         align-items: center;
         gap: 12px;
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 600;
-        color: #FFFFFF;
+        line-height: 1.5;
+        color: var(--vsq-white);
     }
 
     .vsq-footer-contact-item svg {
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         stroke: var(--vsq-red);
         fill: none;
         stroke-width: 2;
@@ -539,88 +561,75 @@ include '../includes/header.php';
         max-width: 1200px;
         margin: 0 auto;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
-        padding-top: 30px;
+        padding-top: 24px;
         text-align: center;
-        font-size: 14px;
-        color: #94A3B8;
+        font-size: 16px;
         font-weight: 500;
+        color: rgba(255, 255, 255, 0.4);
     }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1023px) {
-        .vsq-steps { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        .vsq-step-wrapper { flex-direction: column; gap: 10px; }
-        .vsq-arrow { display: none; }
+        .vsq-hero-image { width: 100%; opacity: 0.6; }
+        .vsq-hero-overlay { background: linear-gradient(rgba(19, 27, 46, 0.9), rgba(19, 27, 46, 0.9)); }
+        .vsq-hero-content h1 { font-size: 40px; }
+        .vsq-hero-content p { font-size: 16px; }
         
-        .vsq-footer-content {
-            grid-template-columns: 1fr 1fr;
-        }
-        .vsq-footer-brand {
-            grid-column: 1 / -1;
-        }
+        .vsq-steps { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .vsq-arrow { display: none; }
+        .vsq-footer-content { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 767px) {
-        .vsq-hero { 
-            min-height: 400px; 
-            padding: 40px 20px;
-            background: 
-                linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)),
-                url('../assets/uploads/lapangan/hero.jpeg') center/cover no-repeat;
-        }
-        .vsq-hero h1 { font-size: 32px; max-width: 100%; }
-        .vsq-hero p { font-size: 14px; max-width: 100%; }
+        .vsq-hero { height: 500px; }
+        .vsq-hero-content h1 { font-size: 28px; }
+        .vsq-hero-content p { font-size: 14px; }
         .vsq-location-badge { position: static; margin-top: 30px; display: inline-flex; width: fit-content; }
         
-        .vsq-card { flex-direction: column; height: auto; }
-        .vsq-card-img { width: 100%; height: 200px; }
+        .vsq-card { flex-direction: column; min-height: auto; }
+        .vsq-card-img { width: 100%; height: 250px; }
         .vsq-card-body { padding: 20px; }
-        .vsq-card-header { margin-bottom: 20px; }
-        .vsq-card-header h3 { font-size: 20px; }
-        .vsq-fasilitas { gap: 10px; margin-bottom: 20px; }
-        .vsq-fasilitas li { font-size: 13px; }
-        .vsq-btn-booking { width: 100%; justify-content: center; }
+        .vsq-card-header h3 { font-size: 24px; }
+        .vsq-card-badge { padding: 10px 20px; font-size: 18px; }
+        .vsq-fasilitas li { font-size: 14px; gap: 10px; }
+        .vsq-fasilitas li::before { width: 24px; height: 24px; font-size: 13px; }
+        .vsq-btn-booking { width: 100%; font-size: 18px; height: 50px; }
         
         .vsq-faq-grid { grid-template-columns: 1fr; gap: 16px; }
         .vsq-faq-header { padding: 18px 20px; }
-        .vsq-faq-header .faq-text { font-size: 14px; gap: 10px; }
+        .vsq-faq-header .faq-text { font-size: 16px; gap: 10px; line-height: 1.5; }
         .vsq-faq-body { padding: 0 20px; }
         .vsq-faq-item.active .vsq-faq-body { padding: 0 20px 20px 20px; }
         
-        .vsq-steps { grid-template-columns: 1fr; gap: 20px; }
-        .vsq-section-title h2 { font-size: 24px; }
-        .vsq-section.section-lapangan { padding-top: 20px; }
+        .vsq-steps { grid-template-columns: 1fr; }
+        .vsq-section-title h2 { font-size: 28px; line-height: 1.3; }
+        .vsq-section-title p { font-size: 14px; }
         
         .vsq-footer-content {
             grid-template-columns: 1fr;
             gap: 30px;
             text-align: center;
         }
-        .vsq-footer-brand {
-            text-align: center;
-        }
-        .vsq-footer-menu {
-            align-items: center;
-        }
-        .vsq-footer-contact {
-            align-items: center;
-        }
-        .vsq-footer-contact-item {
-            justify-content: center;
-        }
+        .vsq-footer-brand { font-size: 24px; }
+        .vsq-footer-menu { align-items: center; }
+        .vsq-footer-contact { align-items: center; }
+        .vsq-footer-contact-item { justify-content: center; font-size: 16px; }
+        .vsq-footer-bottom { font-size: 14px; }
     }
 </style>
 
 <!-- HERO -->
 <section class="vsq-hero">
+    <div class="vsq-hero-image"></div>
+    <div class="vsq-hero-overlay"></div>
     <div class="vsq-hero-content">
         <h1>Sewa Lapangan Olahraga Favoritmu dengan Sekali <span>Klik</span></h1>
         <p>Vincent'SQ Arena hadir untuk lapangan Futsal dengan fasilitas standar nasional dan sistem konfirmasi realtime.</p>
     </div>
     <div class="vsq-location-badge">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 3.5 5.5 9.5 6.4 10.4.3.3.9.3 1.2 0C13.5 18.5 19 12.5 19 9c0-3.87-3.13-7-7-7z" stroke="#0F172A" stroke-width="2" fill="none"/>
-            <circle cx="12" cy="9" r="2.5" fill="#0F172A"/>
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 3.5 5.5 9.5 6.4 10.4.3.3.9.3 1.2 0C13.5 18.5 19 12.5 19 9c0-3.87-3.13-7-7-7z" stroke="#131B2E" stroke-width="2" fill="none"/>
+            <circle cx="12" cy="9" r="2.5" fill="#131B2E"/>
         </svg>
         <span>Tuparev, Kota Cirebon. Jawabarat</span>
     </div>
@@ -647,7 +656,7 @@ include '../includes/header.php';
                     $foto = (!empty($lapangan['foto']) && file_exists('../assets/uploads/lapangan/' . $lapangan['foto']))
                         ? '../assets/uploads/lapangan/' . rawurlencode($lapangan['foto']) : '';
                     
-                    $badge_text = ($lapangan['harga_per_jam'] >= 200000) ? 'VIP' : 'Regular';
+                    $badge_text = ($lapangan['harga_per_jam'] >= 200000) ? 'VIP' : 'Reguler';
                     $badge_class = ($badge_text == 'VIP') ? 'badge-vip' : 'badge-regular';
                     
                     if ($badge_text == 'VIP') {
@@ -697,88 +706,83 @@ include '../includes/header.php';
 <section class="vsq-section">
     <div class="vsq-section-title title-blue">
         <h2>Cara Booking Lapangan</h2>
-        <p>Booking lapangan di Vincent'SQ dapat dilakukan dengan beberapa langkah berikut</p>
+        <p>Booking Lapangan di Vincent'SQ dapat dilakukan dengan beberapa langkah berikut</p>
     </div>
     <div class="vsq-steps">
         
-        <div class="vsq-step-wrapper">
-            <div class="vsq-step">
-                <div class="vsq-step-header">
-                    <div class="vsq-step-number">1</div>
-                    <div class="vsq-step-svg">
-                        <svg viewBox="0 0 24 24">
-                            <rect x="3" y="5" width="18" height="14" rx="1.5"/>
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <circle cx="12" cy="12" r="3"/>
-                            <path d="M3 9h2v6H3"/>
-                            <path d="M21 9h-2v6h2"/>
-                        </svg>
-                    </div>
+        <div class="vsq-step">
+            <div class="vsq-step-header">
+                <div class="vsq-step-number">1</div>
+                <div class="vsq-step-svg">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="5" width="18" height="14" rx="1.5"/>
+                        <line x1="12" y1="5" x2="12" y2="19"/>
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M3 9h2v6H3"/>
+                        <path d="M21 9h-2v6h2"/>
+                    </svg>
                 </div>
-                <h4>Pilih Lapangan</h4>
-                <p>Pilih Lapangan yang digunakan di menu booking</p>
             </div>
-            <span class="vsq-arrow">›</span>
+            <h4>Pilih Lapangan</h4>
+            <p>Pilih Lapangan yang di gunakan di menu booking</p>
         </div>
 
-        <div class="vsq-step-wrapper">
-            <div class="vsq-step">
-                <div class="vsq-step-header">
-                    <div class="vsq-step-number">2</div>
-                    <div class="vsq-step-svg">
-                        <svg viewBox="0 0 24 24">
-                            <rect x="3" y="4" width="18" height="18" rx="2"/>
-                            <line x1="16" y1="2" x2="16" y2="6"/>
-                            <line x1="8" y1="2" x2="8" y2="6"/>
-                            <line x1="3" y1="10" x2="21" y2="10"/>
-                            <rect x="7" y="13" width="2" height="2" rx="0.5" fill="currentColor" stroke="none"/>
-                            <rect x="12" y="13" width="2" height="2" rx="0.5" fill="currentColor" stroke="none"/>
-                            <rect x="17" y="13" width="2" height="2" rx="0.5" fill="currentColor" stroke="none"/>
-                            <rect x="7" y="17" width="2" height="2" rx="0.5" fill="currentColor" stroke="none"/>
-                            <rect x="12" y="17" width="2" height="2" rx="0.5" fill="currentColor" stroke="none"/>
-                        </svg>
-                    </div>
+        <div class="vsq-arrow">›</div>
+
+        <div class="vsq-step">
+            <div class="vsq-step-header">
+                <div class="vsq-step-number">2</div>
+                <div class="vsq-step-svg">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="4" width="18" height="18" rx="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                        <rect x="7" y="13" width="2" height="2" rx="0.5" fill="currentColor" stroke="none"/>
+                        <rect x="12" y="13" width="2" height="2" rx="0.5" fill="currentColor" stroke="none"/>
+                        <rect x="17" y="13" width="2" height="2" rx="0.5" fill="currentColor" stroke="none"/>
+                        <rect x="7" y="17" width="2" height="2" rx="0.5" fill="currentColor" stroke="none"/>
+                        <rect x="12" y="17" width="2" height="2" rx="0.5" fill="currentColor" stroke="none"/>
+                    </svg>
                 </div>
-                <h4>Pilih Jadwal</h4>
-                <p>Pilih jadwal lapangan yang tersedia</p>
             </div>
-            <span class="vsq-arrow">›</span>
+            <h4>Pilih Jadwal</h4>
+            <p>Pilih jadwal lapangan yang tersedia</p>
         </div>
 
-        <div class="vsq-step-wrapper">
-            <div class="vsq-step">
-                <div class="vsq-step-header">
-                    <div class="vsq-step-number">3</div>
-                    <div class="vsq-step-svg">
-                        <svg viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="10"/>
-                            <rect x="8" y="7" width="8" height="10" rx="1"/>
-                            <line x1="9.5" y1="10" x2="14.5" y2="10"/>
-                            <line x1="9.5" y1="12" x2="14.5" y2="12"/>
-                            <line x1="9.5" y1="14" x2="12.5" y2="14"/>
-                        </svg>
-                    </div>
+        <div class="vsq-arrow">›</div>
+
+        <div class="vsq-step">
+            <div class="vsq-step-header">
+                <div class="vsq-step-number">3</div>
+                <div class="vsq-step-svg">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <rect x="8" y="7" width="8" height="10" rx="1"/>
+                        <line x1="9.5" y1="10" x2="14.5" y2="10"/>
+                        <line x1="9.5" y1="12" x2="14.5" y2="12"/>
+                        <line x1="9.5" y1="14" x2="12.5" y2="14"/>
+                    </svg>
                 </div>
-                <h4>Isi Data Booking</h4>
-                <p>Isi data diri anda untuk Melakukan pembookingan</p>
             </div>
-            <span class="vsq-arrow">›</span>
+            <h4>Isi Data Booking</h4>
+            <p>Isi data diri anda untuk Melakukan pembookingan</p>
         </div>
 
-        <div class="vsq-step-wrapper">
-            <div class="vsq-step">
-                <div class="vsq-step-header">
-                    <div class="vsq-step-number">4</div>
-                    <div class="vsq-step-svg">
-                        <svg viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="10"/>
-                            <polyline points="8 12 11 15 16 9"/>
-                        </svg>
-                    </div>
+        <div class="vsq-arrow">›</div>
+
+        <div class="vsq-step">
+            <div class="vsq-step-header">
+                <div class="vsq-step-number">4</div>
+                <div class="vsq-step-svg">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="8 12 11 15 16 9"/>
+                    </svg>
                 </div>
-                <h4>Konfirmasi</h4>
-                <p>Tunggu verifikasi dari admin</p>
             </div>
+            <h4>Konfirmasi</h4>
+            <p>Tunggu verifikasi dari admin</p>
         </div>
 
     </div>
@@ -798,7 +802,7 @@ include '../includes/header.php';
                     <span>Apakah booking dapat dibatalkan?</span>
                 </div>
                 <span class="faq-arrow">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                 </span>
@@ -815,7 +819,7 @@ include '../includes/header.php';
                     <span>Bagaimana cara saya mengetahui booking saya berhasil</span>
                 </div>
                 <span class="faq-arrow">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                 </span>
@@ -832,7 +836,7 @@ include '../includes/header.php';
                     <span>Apakah saya bisa mengubah jadwal lapangan</span>
                 </div>
                 <span class="faq-arrow">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                 </span>
@@ -849,7 +853,7 @@ include '../includes/header.php';
                     <span>Apakah bisa melakukan booking dengan beberapa jadwal sekaligus?</span>
                 </div>
                 <span class="faq-arrow">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                 </span>
@@ -919,11 +923,8 @@ function toggleFaq(element) {
 }
 </script>
 
-<!-- ===== NETWORK CSS ===== -->
-<link rel="stylesheet" href="/vincent-arena/Frontend/assets/css/network.css">
-
 <!-- ===== NETWORK OVERLAY ===== -->
-<div id="network-overlay" class="network-overlay">
+<div id="network-overlay" class="network-overlay" style="display: none;">
     <div class="network-content">
         <div class="network-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="80" height="80">
@@ -944,6 +945,9 @@ function toggleFaq(element) {
 
 <!-- ===== TOAST CONTAINER ===== -->
 <div id="toast-container" class="toast-container"></div>
+
+<!-- ===== NETWORK CSS ===== -->
+<link rel="stylesheet" href="/vincent-arena/Frontend/assets/css/network.css">
 
 <!-- ===== NETWORK JS ===== -->
 <script src="/vincent-arena/Frontend/assets/js/network.js"></script>

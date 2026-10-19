@@ -1,5 +1,5 @@
 <?php
-// login.php - Halaman Login User
+// login.php - Halaman Login User (Sesuai Figma 100%)
 session_start();
 
 // ============================================================
@@ -49,9 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result && mysqli_num_rows($result) > 0) {
             $user = mysqli_fetch_assoc($result);
             if (password_verify($password, $user['password'])) {
-                // ============================================================
-                // ✅ SET SESSION LENGKAP (nama + username)
-                // ============================================================
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['nama'] = $user['nama'] ?? $user['username'];
                 $_SESSION['username'] = $user['username'];
@@ -79,12 +76,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --vsq-title-blue: #2C437B;
-            --vsq-red: #DC2626;
-            --vsq-black: #000000;
-            --vsq-btn-blue: #2563EB;
-            --vsq-input-bg: #DBEAFE;
-            --vsq-input-border: #BFDBFE;
+            --vsq-navy: #131B2E;
+            --vsq-blue: #477FEB;
+            --vsq-red: #FF0000;
+            --vsq-gray: #848484;
+            --vsq-lightgray: #D9D9D9;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -104,6 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             width: 100%;
         }
 
+        /* KIRI: Area Form Putih */
         .vsq-login-left {
             flex: 1;
             background: #FFFFFF;
@@ -111,6 +108,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             align-items: center;
             justify-content: center;
             padding: 40px 30px;
+            position: relative;
+        }
+
+        /* Tombol Kembali di Pojok Kiri Atas */
+        .vsq-back-btn {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            color: #000000;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+        .vsq-back-btn:hover { transform: translateX(-4px); }
+        .vsq-back-btn svg {
+            width: 32px; height: 32px;
+            stroke: #000000; stroke-width: 2.5;
+            fill: none; stroke-linecap: round; stroke-linejoin: round;
         }
 
         .vsq-login-card {
@@ -118,22 +135,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             max-width: 400px;
         }
 
+        /* Logo Vincent'SQ */
         .vsq-logo {
             text-align: center;
             margin-bottom: 8px;
         }
 
         .vsq-logo h1 {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 800;
-            color: var(--vsq-title-blue);
+            color: var(--vsq-navy);
             letter-spacing: -0.5px;
             margin: 0;
             line-height: 1.2;
         }
 
         .vsq-logo p {
-            font-size: 13px;
+            font-size: 20px;
             font-weight: 800;
             color: var(--vsq-red);
             letter-spacing: 2px;
@@ -143,35 +161,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .vsq-welcome {
             text-align: center;
-            font-size: 15px;
+            font-size: 18px;
             font-weight: 700;
             color: #000000;
-            margin: 30px 0 25px 0;
+            margin: 40px 0 30px 0;
         }
 
-        .vsq-form-group { margin-bottom: 16px; }
+        .vsq-form-group { margin-bottom: 20px; }
 
         .vsq-form-group label {
             display: block;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 500;
-            color: var(--vsq-black);
-            margin-bottom: 6px;
+            color: #000000;
+            margin-bottom: 8px;
         }
 
         .vsq-form-group label span { color: var(--vsq-red); }
 
         .vsq-input-wrapper { position: relative; width: 100%; }
 
+        /* Input Form (Putih dengan Border Abu) */
         .vsq-form-control {
             width: 100%;
-            padding: 11px 16px;
+            padding: 12px 16px;
             padding-right: 45px;
-            font-size: 13px;
+            font-size: 14px;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            color: var(--vsq-black);
-            background-color: var(--vsq-input-bg);
-            border: 1.5px solid var(--vsq-input-border);
+            color: #000000;
+            background-color: #FFFFFF;
+            border: 1px solid var(--vsq-gray);
             border-radius: 8px;
             outline: none;
             transition: all 0.3s ease;
@@ -180,11 +199,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .vsq-form-control::placeholder { color: #94A3B8; }
 
         .vsq-form-control:focus {
-            background-color: #FFFFFF;
-            border-color: var(--vsq-btn-blue);
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+            border-color: var(--vsq-blue);
+            box-shadow: 0 0 0 2px rgba(71, 127, 235, 0.2);
         }
 
+        /* Ikon Mata */
         .vsq-toggle-password {
             position: absolute;
             right: 12px;
@@ -199,10 +218,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border: none;
             padding: 0;
             z-index: 2;
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
         }
-        .vsq-toggle-password:hover { color: var(--vsq-btn-blue); }
+        .vsq-toggle-password:hover { color: #000000; }
         .vsq-toggle-password svg {
             width: 20px; height: 20px;
             stroke: currentColor; stroke-width: 2;
@@ -212,16 +231,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .vsq-forgot-link {
             text-align: right;
             margin-top: 8px;
-            margin-bottom: 22px;
+            margin-bottom: 24px;
         }
         .vsq-forgot-link a {
-            font-size: 12px;
-            color: #2563EB;
+            font-size: 13px;
+            color: var(--vsq-blue);
             text-decoration: none;
             font-weight: 500;
         }
         .vsq-forgot-link a:hover { text-decoration: underline; }
 
+        /* reCAPTCHA Box */
         .vsq-recaptcha {
             background: #F9FAFB;
             border: 1px solid #E5E7EB;
@@ -230,7 +250,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 22px;
+            margin-bottom: 24px;
             height: 80px;
         }
 
@@ -254,8 +274,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             flex-shrink: 0;
         }
         .vsq-recaptcha-checkbox:checked {
-            background: #2563EB;
-            border-color: #2563EB;
+            background: var(--vsq-blue);
+            border-color: var(--vsq-blue);
         }
         .vsq-recaptcha-checkbox:checked::after {
             content: "✓";
@@ -269,63 +289,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .vsq-recaptcha-label {
-            font-size: 13px;
+            font-size: 14px;
             color: #374151;
             cursor: pointer;
             font-weight: 400;
         }
 
+        /* Logo reCAPTCHA (Menggunakan Gambar Sesuai Figma) */
         .vsq-recaptcha-logo {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 0;
-            line-height: 1;
+            justify-content: center;
+            width: 74.33px;
+            height: 74.33px;
         }
 
-        .vsq-recaptcha-logo svg {
-            width: 42px;
-            height: 42px;
-        }
-
-        .vsq-recaptcha-logo .recaptcha-text {
-            font-size: 9px;
-            color: #6B7280;
-            letter-spacing: 0.3px;
-            font-family: Arial, sans-serif;
-            margin-top: -2px;
+        .vsq-recaptcha-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .vsq-register-link {
             text-align: center;
-            font-size: 12px;
+            font-size: 13px;
             color: #000000;
-            margin-bottom: 22px;
+            margin-bottom: 24px;
         }
         .vsq-register-link a {
-            color: #2563EB;
+            color: var(--vsq-blue);
             text-decoration: none;
             font-weight: 600;
         }
         .vsq-register-link a:hover { text-decoration: underline; }
 
+        /* Tombol Masuk (Biru, Teks Putih) */
         .vsq-btn-submit {
             display: block;
             width: 100%;
-            padding: 12px 20px;
-            font-size: 14px;
+            padding: 14px 20px;
+            font-size: 16px;
             font-weight: 600;
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: #FFFFFF;
-            background-color: #2563EB;
+            background-color: var(--vsq-blue);
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+            box-shadow: 0 4px 10px rgba(71, 127, 235, 0.3);
         }
         .vsq-btn-submit:hover {
-            background-color: #1D4ED8;
+            background-color: #3B6AC4;
             transform: translateY(-1px);
         }
 
@@ -343,10 +358,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border: 1px solid #FECACA;
         }
 
+        /* KANAN: Gambar Hero dengan Overlay 70% */
         .vsq-login-right {
             flex: 1;
             background: 
-                linear-gradient(rgba(15, 23, 42, 0.35), rgba(15, 23, 42, 0.35)),
+                linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)),
                 url('<?= htmlspecialchars($hero_url) ?>') center/cover no-repeat;
             position: relative;
         }
@@ -355,9 +371,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .vsq-login-wrapper { flex-direction: column; }
             .vsq-login-left { padding: 40px 20px; order: 2; }
             .vsq-login-right { min-height: 250px; order: 1; }
+            .vsq-back-btn { top: 20px; left: 20px; }
         }
         @media (max-width: 480px) {
-            .vsq-logo h1 { font-size: 24px; }
+            .vsq-logo h1 { font-size: 28px; }
+            .vsq-logo p { font-size: 16px; }
             .vsq-login-left { padding: 30px 20px; }
         }
     </style>
@@ -366,12 +384,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="vsq-login-wrapper">
         
+        <!-- KIRI: Form -->
         <div class="vsq-login-left">
+            
+            <!-- Tombol Kembali -->
+            <a href="../pages/index.php" class="vsq-back-btn" title="Kembali ke Beranda">
+                <svg viewBox="0 0 24 24">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </a>
+
             <div class="vsq-login-card">
                 
+                <!-- Logo -->
                 <div class="vsq-logo">
                     <h1>Vincent'SQ</h1>
-                    <p>Sports Arena</p>
+                    <p>SPORTS ARENA</p>
                 </div>
 
                 <div class="vsq-welcome">Selamat Datang kembali!</div>
@@ -382,6 +411,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <form action="" method="POST">
                     
+                    <!-- Email -->
                     <div class="vsq-form-group">
                         <label for="email">Email<span>*</span></label>
                         <div class="vsq-input-wrapper">
@@ -389,11 +419,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     </div>
 
+                    <!-- Password -->
                     <div class="vsq-form-group">
                         <label for="password">Password<span>*</span></label>
                         <div class="vsq-input-wrapper">
                             <input type="password" id="password" name="password" class="vsq-form-control" placeholder="Masukkan Password..." required>
                             <button type="button" class="vsq-toggle-password" onclick="togglePassword('password', this)">
+                                <!-- Ikon Mata (Eyelash) -->
                                 <svg viewBox="0 0 24 24" class="icon-eye-closed">
                                     <path d="M3 10 Q12 18 21 10" />
                                     <line x1="3" y1="10" x2="2" y2="13" />
@@ -402,6 +434,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <line x1="17" y1="13" x2="18.5" y2="16" />
                                     <line x1="21" y1="10" x2="22" y2="13" />
                                 </svg>
+                                <!-- Ikon Mata Terbuka -->
                                 <svg viewBox="0 0 24 24" class="icon-eye-open" style="display:none;">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                     <circle cx="12" cy="12" r="3"></circle>
@@ -410,36 +443,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     </div>
 
+                    <!-- Lupa Password -->
                     <div class="vsq-forgot-link">
                         <a href="#">Lupa Password?</a>
                     </div>
 
+                    <!-- reCAPTCHA Box -->
                     <div class="vsq-recaptcha">
                         <div class="vsq-recaptcha-left">
                             <input type="checkbox" id="recaptcha" class="vsq-recaptcha-checkbox" required>
                             <label for="recaptcha" class="vsq-recaptcha-label">I'm not a robot</label>
                         </div>
                         <div class="vsq-recaptcha-logo">
-                            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M24 4 C35.05 4 44 12.95 44 24 L38 24 C38 16.27 31.73 10 24 10 L24 4 Z" fill="#1C3AA9"/>
-                                <path d="M44 24 L38 24 L41 18 L44 24 Z" fill="#1C3AA9"/>
-                                <path d="M24 4 L30 4 L24 10 L24 4 Z" fill="#1C3AA9"/>
-                                <path d="M24 44 C12.95 44 4 35.05 4 24 L10 24 C10 31.73 16.27 38 24 38 L24 44 Z" fill="#B0B0B0"/>
-                                <path d="M4 24 L10 24 L7 30 L4 24 Z" fill="#B0B0B0"/>
-                                <path d="M24 44 L18 44 L24 38 L24 44 Z" fill="#B0B0B0"/>
-                                <path d="M24 4 C16 4 9.5 8.5 6.5 14.5 L11.5 17.5 C13.5 13 18.5 10 24 10 L24 4 Z" fill="#4285F4"/>
-                                <circle cx="24" cy="24" r="9" fill="#F9FAFB"/>
-                                <path d="M24 15 A9 9 0 0 1 33 24 L28 24 A4 4 0 0 0 24 20 L24 15 Z" fill="#FFFFFF"/>
-                                <path d="M24 33 A9 9 0 0 1 15 24 L20 24 A4 4 0 0 0 24 28 L24 33 Z" fill="#FFFFFF"/>
-                            </svg>
-                            <div class="recaptcha-text">reCAPTCHA</div>
+                            <!-- PATH SUDAH DIPERBAIKI MENJADI 'images' -->
+                            <img src="/vincent-arena/Frontend/assets/images/recaptcha.png" alt="reCAPTCHA">
                         </div>
                     </div>
 
+                    <!-- Link Register -->
                     <div class="vsq-register-link">
                         Belum mempunyai akun? <a href="register.php">Daftar sekarang</a>
                     </div>
 
+                    <!-- Tombol Masuk -->
                     <button type="submit" class="vsq-btn-submit">Masuk</button>
 
                 </form>
@@ -447,6 +473,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
 
+        <!-- KANAN: Gambar -->
         <div class="vsq-login-right"></div>
 
     </div>

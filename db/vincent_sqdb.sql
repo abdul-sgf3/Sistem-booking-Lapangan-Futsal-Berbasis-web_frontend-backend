@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Okt 2026 pada 12.13
+-- Waktu pembuatan: 20 Okt 2026 pada 06.09
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -51,7 +51,8 @@ CREATE TABLE `booking` (
 
 INSERT INTO `booking` (`id`, `id_user`, `id_lapangan`, `kode_booking`, `tanggal`, `jam_mulai`, `durasi`, `total_harga`, `catatan`, `metode_pembayaran`, `bukti_pembayaran`, `uploaded_at`, `status`, `canceled_at`, `created_at`) VALUES
 (3, 2, 1, 'BSK20260510315', '2026-05-12', '10:00:00', 2, 240000, '', 'transfer', '', NULL, 'canceled', NULL, '2026-05-11 01:51:38'),
-(4, 2, 2, 'BSK20260511976', '2026-05-21', '10:00:00', 1, 150000, '', 'transfer', '', NULL, 'completed', NULL, '2026-05-11 11:00:44');
+(4, 2, 2, 'BSK20260511976', '2026-05-21', '10:00:00', 1, 150000, '', 'transfer', '', NULL, 'completed', NULL, '2026-05-11 11:00:44'),
+(5, 7, 1, 'BSK202610206521', '2026-12-01', '10:00:00', 1, 200000, '', 'transfer', NULL, NULL, 'pending', NULL, '2026-10-20 10:59:52');
 
 -- --------------------------------------------------------
 
@@ -167,19 +168,21 @@ CREATE TABLE `users` (
   `is_verified` tinyint(1) DEFAULT 0,
   `otp_code` varchar(6) DEFAULT NULL,
   `otp_expired_at` datetime DEFAULT NULL,
-  `last_login` datetime DEFAULT NULL
+  `last_login` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `nama`, `username`, `email`, `whatsapp`, `foto_profil`, `password`, `role`, `created_at`, `is_active`, `is_verified`, `otp_code`, `otp_expired_at`, `last_login`) VALUES
-(1, 'King Nasir', 'admin', 'admin@tsubasa.com', NULL, NULL, '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe1HlCS4bZJ18JuywdBqmSPz0A0n6A1jW', 'admin', '2026-05-08 21:14:20', 1, 1, NULL, NULL, NULL),
-(2, 'Kurumi', 'kurumi', 'kurumi12@email.com', '083123456123', NULL, '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe1HlCS4bZJ18JuywdBqmSPz0A0n6A1jW', 'user', '2026-05-08 23:39:37', 1, 1, NULL, NULL, NULL),
-(4, 'erreenn', 'asyaf', 'ashfahani@gmail.com', '93298r27427727', NULL, '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe1HlCS4bZJ18JuywdBqmSPz0A0n6A1jW', 'user', '2026-05-14 21:56:55', 1, 1, NULL, NULL, NULL),
-(5, 'Asyaf', 'asyaf87', 'asyaf@gmail.com', '', NULL, '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe1HlCS4bZJ18JuywdBqmSPz0A0n6A1jW', 'user', '2026-10-09 10:36:52', 1, 1, NULL, NULL, NULL),
-(6, 'Ashfahani77', 'ashfahani77', 'ashfahani77@gmail.com', '', NULL, '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe1HlCS4bZJ18JuywdBqmSPz0A0n6A1jW', 'user', '2026-10-09 10:46:30', 1, 1, NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `nama`, `username`, `email`, `whatsapp`, `foto_profil`, `password`, `role`, `created_at`, `is_active`, `is_verified`, `otp_code`, `otp_expired_at`, `last_login`, `updated_at`) VALUES
+(1, 'King Nasir', 'admin', 'admin@tsubasa.com', NULL, NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'admin', '2026-05-08 21:14:20', 1, 1, NULL, NULL, NULL, '2026-10-20 11:04:15'),
+(2, 'Kurumi', 'kurumi', 'kurumi12@email.com', '083123456123', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-05-08 23:39:37', 1, 1, NULL, NULL, NULL, '2026-10-20 11:04:15'),
+(4, 'erreenn', 'asyaf', 'ashfahani@gmail.com', '93298r27427727', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-05-14 21:56:55', 1, 1, NULL, NULL, NULL, '2026-10-20 11:04:15'),
+(5, 'Asyaf', 'asyaf87', 'asyaf@gmail.com', '', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-10-09 10:36:52', 1, 1, NULL, NULL, NULL, '2026-10-20 11:04:15'),
+(6, 'Ashfahani77', 'ashfahani77', 'ashfahani77@gmail.com', '', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-10-09 10:46:30', 1, 1, NULL, NULL, NULL, '2026-10-20 11:04:15'),
+(7, 'User Tes Lengkap', 'usertes', 'tes@gmail.com', '081234567890', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-10-19 17:41:08', 1, 1, NULL, NULL, '2026-10-20 10:47:00', '2026-10-20 11:04:52');
 
 --
 -- Indexes for dumped tables
@@ -236,7 +239,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `jadwal`
@@ -266,7 +269,7 @@ ALTER TABLE `pengaturan`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

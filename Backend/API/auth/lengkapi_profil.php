@@ -16,8 +16,15 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-$nama = trim($_POST['nama'] ?? '');
-$whatsapp = trim($_POST['whatsapp'] ?? '');
+$content_type = $_SERVER['CONTENT_TYPE'] ?? '';
+if (strpos($content_type, 'application/json') !== false) {
+    $input = getJsonInput();
+    $nama = trim($input['nama'] ?? '');
+    $whatsapp = trim($input['whatsapp'] ?? '');
+} else {
+    $nama = trim($_POST['nama'] ?? '');
+    $whatsapp = trim($_POST['whatsapp'] ?? '');
+}
 
 // ===== VALIDASI =====
 if (empty($nama)) {

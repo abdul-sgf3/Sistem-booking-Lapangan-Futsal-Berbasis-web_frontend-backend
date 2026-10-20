@@ -12,7 +12,7 @@ requireMethod('POST');
 $input = getJsonInput();
 $email = trim($input['email'] ?? '');
 $password = $input['password'] ?? '';
-$konfirmasi = $input['konfirmasi_password'] ?? $input['confirm_password'] ?? '';
+$konfirmasi = $input['konfirmasi_password'] ?? $input['confirm_password'] ?? $input['password'] ?? '';
 
 // ===== VALIDASI =====
 if (empty($email) || empty($password) || empty($konfirmasi)) {

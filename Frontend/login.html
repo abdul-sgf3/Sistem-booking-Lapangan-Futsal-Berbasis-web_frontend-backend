@@ -7,11 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --vsq-navy: #131B2E;
+            --vsq-navy: #2C437B;
             --vsq-blue: #477FEB;
             --vsq-red: #FF0000;
-            --vsq-gray: #848484;
-            --vsq-lightgray: #D9D9D9;
+            --vsq-gray: #D1D5DB;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -73,7 +72,7 @@
         }
 
         .vsq-logo h1 {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 800;
             color: var(--vsq-navy);
             letter-spacing: -0.5px;
@@ -82,30 +81,30 @@
         }
 
         .vsq-logo p {
-            font-size: 20px;
+            font-size: 14px;
             font-weight: 800;
             color: var(--vsq-red);
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            margin-top: 2px;
+            margin-top: 4px;
         }
 
         .vsq-welcome {
             text-align: center;
-            font-size: 18px;
-            font-weight: 700;
+            font-size: 15px;
+            font-weight: 600;
             color: #000000;
-            margin: 40px 0 30px 0;
+            margin: 30px 0 25px 0;
         }
 
-        .vsq-form-group { margin-bottom: 20px; }
+        .vsq-form-group { margin-bottom: 18px; }
 
         .vsq-form-group label {
             display: block;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             color: #000000;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .vsq-form-group label span { color: var(--vsq-red); }
@@ -127,7 +126,7 @@
             transition: all 0.3s ease;
         }
 
-        .vsq-form-control::placeholder { color: #94A3B8; }
+        .vsq-form-control::placeholder { color: #9CA3AF; }
 
         .vsq-form-control:focus {
             border-color: var(--vsq-blue);
@@ -137,20 +136,17 @@
         /* Ikon Mata */
         .vsq-toggle-password {
             position: absolute;
-            right: 12px;
+            right: 14px;
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             color: #64748B;
             background: transparent;
             border: none;
-            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             z-index: 2;
-            width: 24px;
-            height: 24px;
         }
         .vsq-toggle-password:hover { color: #000000; }
         .vsq-toggle-password svg {
@@ -162,10 +158,10 @@
         .vsq-forgot-link {
             text-align: right;
             margin-top: 8px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         .vsq-forgot-link a {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--vsq-blue);
             text-decoration: none;
             font-weight: 500;
@@ -177,12 +173,12 @@
             background: #F9FAFB;
             border: 1px solid #E5E7EB;
             border-radius: 4px;
-            padding: 12px 15px;
+            padding: 10px 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 24px;
-            height: 80px;
+            margin-bottom: 20px;
+            height: 70px;
         }
 
         .vsq-recaptcha-left {
@@ -192,8 +188,8 @@
         }
 
         .vsq-recaptcha-checkbox {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             border: 2px solid #9CA3AF;
             border-radius: 2px;
             background: #FFFFFF;
@@ -211,7 +207,7 @@
         .vsq-recaptcha-checkbox:checked::after {
             content: "✓";
             color: #FFFFFF;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             position: absolute;
             top: 50%;
@@ -220,7 +216,7 @@
         }
 
         .vsq-recaptcha-label {
-            font-size: 14px;
+            font-size: 13px;
             color: #374151;
             cursor: pointer;
             font-weight: 400;
@@ -231,8 +227,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 74.33px;
-            height: 74.33px;
+            width: 40px;
+            height: 40px;
         }
 
         .vsq-recaptcha-logo img {
@@ -243,9 +239,9 @@
 
         .vsq-register-link {
             text-align: center;
-            font-size: 13px;
+            font-size: 12px;
             color: #000000;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         .vsq-register-link a {
             color: var(--vsq-blue);
@@ -258,8 +254,8 @@
         .vsq-btn-submit {
             display: block;
             width: 100%;
-            padding: 14px 20px;
-            font-size: 16px;
+            padding: 12px 20px;
+            font-size: 14px;
             font-weight: 600;
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: #FFFFFF;
@@ -268,11 +264,9 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(71, 127, 235, 0.3);
         }
         .vsq-btn-submit:hover {
-            background-color: #3B6AC4;
-            transform: translateY(-1px);
+            background-color: #3564C6;
         }
 
         .vsq-alert {
@@ -289,7 +283,7 @@
             border: 1px solid #FECACA;
         }
 
-        /* KANAN: Gambar Hero dengan Overlay 70% */
+        /* KANAN: Gambar Hero dengan Overlay */
         .vsq-login-right {
             flex: 1;
             background: 
@@ -304,11 +298,6 @@
             .vsq-login-right { min-height: 250px; order: 1; }
             .vsq-back-btn { top: 20px; left: 20px; }
         }
-        @media (max-width: 480px) {
-            .vsq-logo h1 { font-size: 28px; }
-            .vsq-logo p { font-size: 16px; }
-            .vsq-login-left { padding: 30px 20px; }
-        }
     </style>
 </head>
 <body>
@@ -318,7 +307,6 @@
         <!-- KIRI: Form -->
         <div class="vsq-login-left">
             
-            <!-- Tombol Kembali -->
             <a href="index.html" class="vsq-back-btn" title="Kembali ke Beranda">
                 <svg viewBox="0 0 24 24">
                     <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -328,7 +316,6 @@
 
             <div class="vsq-login-card">
                 
-                <!-- Logo -->
                 <div class="vsq-logo">
                     <h1>Vincent'SQ</h1>
                     <p>SPORTS ARENA</p>
@@ -336,7 +323,6 @@
 
                 <div class="vsq-welcome">Selamat Datang kembali!</div>
 
-                <!-- Tempat menampilkan pesan error dari API -->
                 <div id="alert-box"></div>
 
                 <form id="login-form">
@@ -355,7 +341,6 @@
                         <div class="vsq-input-wrapper">
                             <input type="password" id="password" name="password" class="vsq-form-control" placeholder="Masukkan Password..." required>
                             <button type="button" class="vsq-toggle-password" onclick="togglePassword('password', this)">
-                                <!-- Ikon Mata (Eyelash) -->
                                 <svg viewBox="0 0 24 24" class="icon-eye-closed">
                                     <path d="M3 10 Q12 18 21 10" />
                                     <line x1="3" y1="10" x2="2" y2="13" />
@@ -364,7 +349,6 @@
                                     <line x1="17" y1="13" x2="18.5" y2="16" />
                                     <line x1="21" y1="10" x2="22" y2="13" />
                                 </svg>
-                                <!-- Ikon Mata Terbuka -->
                                 <svg viewBox="0 0 24 24" class="icon-eye-open" style="display:none;">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                     <circle cx="12" cy="12" r="3"></circle>
@@ -385,7 +369,7 @@
                             <label for="recaptcha" class="vsq-recaptcha-label">I'm not a robot</label>
                         </div>
                         <div class="vsq-recaptcha-logo">
-                            <!-- Pastikan gambar recaptcha ada di folder assets/images/ -->
+                            <!-- Path disesuaikan ke folder assets -->
                             <img src="assets/images/recaptcha.png" alt="reCAPTCHA">
                         </div>
                     </div>
@@ -409,9 +393,6 @@
     </div>
 
     <script>
-        // ============================================================
-        // 1. FUNGSI TOGGLE PASSWORD (Mata)
-        // ============================================================
         function togglePassword(inputId, iconElement) {
             const input = document.getElementById(inputId);
             const iconClosed = iconElement.querySelector('.icon-eye-closed');
@@ -428,49 +409,41 @@
             }
         }
 
-        // ============================================================
-        // 2. FUNGSI LOGIN KE API (Fetch)
-        // ============================================================
+        // Logic Login ke API
         const API_BASE = 'http://localhost/vincent-arena/Backend/API';
 
         document.getElementById('login-form').addEventListener('submit', async function(e) {
-            e.preventDefault(); // Mencegah reload halaman
+            e.preventDefault();
             
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const alertBox = document.getElementById('alert-box');
             const btn = this.querySelector('button[type="submit"]');
             
-            // Reset error & ubah tombol jadi loading
-            alertBox.innerHTML = '';
             btn.disabled = true;
             btn.textContent = 'Memproses...';
+            alertBox.innerHTML = '';
 
             try {
-                // Tembak API Login Back-End
                 const response = await fetch(API_BASE + '/auth/login.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email, password: password })
+                    body: JSON.stringify({ email, password })
                 });
                 
                 const result = await response.json();
 
                 if (result.status === 'success') {
-                    // Jika sukses, tampilkan pesan sukses
                     alertBox.innerHTML = `<div class="vsq-alert" style="background-color: #DCFCE7; color: #166534; border: 1px solid #BBF7D0;">Login Berhasil! Mengalihkan...</div>`;
                     
-                    // Simpan data user ke localStorage (pengganti $_SESSION di PHP)
                     localStorage.setItem('user_id', result.data.user_id);
                     localStorage.setItem('nama', result.data.nama);
                     localStorage.setItem('user_email', result.data.email);
                     
-                    // Alihkan ke halaman Beranda
                     setTimeout(() => {
                         window.location.href = 'index.html';
                     }, 1000);
                 } else {
-                    // Jika API mengembalikan error (Password salah / Email tidak terdaftar)
                     alertBox.innerHTML = `<div class="vsq-alert vsq-alert-error">${result.message || 'Login Gagal'}</div>`;
                     btn.disabled = false;
                     btn.textContent = 'Masuk';

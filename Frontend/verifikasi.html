@@ -3,70 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verifikasi Email - Vincent SQ Arena</title>
+    <title>Verifikasi Email - Vincent'SQ Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --vsq-navy: #131B2E; --vsq-blue: #477FEB; --vsq-red: #FF0000; }
+        :root { 
+            --vsq-navy: #2C437B; 
+            --vsq-blue: #477FEB; 
+            --vsq-red: #FF0000; 
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; background: #FFFFFF; display: flex; overflow: hidden; }
-        .vsq-left { width: 50%; display: flex; align-items: center; justify-content: center; padding: 40px; position: relative; }
-        .vsq-back-btn { position: absolute; top: 40px; left: 40px; color: #000; text-decoration: none; }
-        .vsq-back-btn svg { width: 32px; height: 32px; stroke: #000; stroke-width: 2.5; fill: none; }
-        .vsq-card { width: 100%; max-width: 400px; text-align: center; }
+        
+        /* 1. BACKGROUND GELAP (Gambar Lapangan) */
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            min-height: 100vh; 
+            background: linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)), 
+                        url('assets/uploads/lapangan/hero.jpeg') center/cover no-repeat fixed;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+        }
+
+        /* Tombol Kembali (Putih) */
+        .vsq-back-btn { 
+            position: absolute; 
+            top: 40px; 
+            left: 40px; 
+            color: #FFFFFF; 
+            text-decoration: none; 
+            z-index: 10;
+        }
+        .vsq-back-btn svg { 
+            width: 32px; 
+            height: 32px; 
+            stroke: #FFFFFF; 
+            stroke-width: 2.5; 
+            fill: none; 
+        }
+
+        /* 2. CARD PUTIH DI TENGAH (Bukan split screen) */
+        .vsq-verify-card { 
+            background: #FFFFFF; 
+            width: 100%; 
+            max-width: 420px; 
+            border-radius: 16px; 
+            padding: 40px 35px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3); 
+            text-align: center;
+        }
+
+        /* Logo */
         .vsq-logo { margin-bottom: 24px; }
-        .vsq-logo h1 { font-size: 28px; font-weight: 800; color: var(--vsq-navy); margin: 0; }
-        .vsq-logo p { font-size: 14px; font-weight: 800; color: var(--vsq-red); letter-spacing: 1.5px; margin-top: 4px; }
-        .vsq-illustration img { width: 180px; height: auto; margin-bottom: 24px; }
-        .vsq-text { font-size: 14px; color: #333; line-height: 1.5; margin-bottom: 24px; }
-        .vsq-text strong { color: var(--vsq-navy); font-weight: 700; display: block; margin-top: 4px; font-size: 15px; }
-        .vsq-otp-container { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
-        .vsq-otp-input { width: 45px; height: 55px; text-align: center; font-size: 22px; font-weight: 600; color: #333; border: 1px solid #D1D5DB; border-radius: 8px; outline: none; }
-        .vsq-otp-input:focus { border-color: var(--vsq-blue); box-shadow: 0 0 0 3px rgba(71, 127, 235, 0.15); }
-        .vsq-timer-text { font-size: 13px; color: #333; margin-bottom: 24px; }
-        .vsq-timer-text span { color: var(--vsq-blue); font-weight: 600; }
-        .vsq-btn { display: block; width: 100%; padding: 14px; font-size: 15px; font-weight: 600; color: #FFFFFF; background-color: var(--vsq-blue); border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s; }
-        .vsq-btn:hover { background-color: #3B6AC4; }
-        .vsq-right { width: 50%; background: url('assets/uploads/lapangan/hero.jpeg') center/cover no-repeat; position: relative; }
-        .vsq-right::before { content: ''; position: absolute; inset: 0; background: rgba(19, 27, 46, 0.4); }
-        
-        .vsq-alert { padding: 10px; border-radius: 6px; font-size: 13px; font-weight: 500; margin-bottom: 16px; text-align: center; display: none;}
-        .vsq-alert-error { background-color: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
-        
-        @media (max-width: 900px) { body { flex-direction: column; overflow: auto; } .vsq-left { width: 100%; padding: 30px 20px; } .vsq-right { width: 100%; height: 200px; order: -1; } }
+        .vsq-logo h1 { 
+            font-size: 28px; 
+            font-weight: 800; 
+            color: var(--vsq-navy); 
+            margin: 0; 
+        }
+        .vsq-logo p { 
+            font-size: 14px; 
+            font-weight: 800; 
+            color: var(--vsq-red); 
+            letter-spacing: 1.5px; 
+            margin-top: 4px; 
+        }
+
+        /* Ilustrasi Kurir */
+        .vsq-illustration img {
+            width: 150px;
+            height: auto;
+            margin-bottom: 24px;
+        }
+
+        /* Teks Verifikasi */
+        .vsq-text { 
+            font-size: 14px; 
+            color: #333; 
+            line-height: 1.5; 
+            margin-bottom: 24px; 
+        }
+        .vsq-text strong { 
+            color: var(--vsq-navy); 
+            font-weight: 700; 
+            display: block; 
+            margin-top: 4px; 
+            font-size: 15px; 
+        }
+
+        /* 3. KOTAK OTP (5 Kotak, Border Abu-abu) */
+        .vsq-otp-container { 
+            display: flex; 
+            justify-content: center; 
+            gap: 10px; 
+            margin-bottom: 24px; 
+        }
+        .vsq-otp-input { 
+            width: 50px; 
+            height: 60px; 
+            text-align: center; 
+            font-size: 22px; 
+            font-weight: 600; 
+            color: #333; 
+            border: 1px solid #D1D5DB; /* Border abu-abu tipis */
+            border-radius: 8px; 
+            outline: none; 
+            transition: all 0.2s;
+            background: #FFFFFF;
+        }
+        .vsq-otp-input:focus { 
+            border-color: var(--vsq-blue); 
+            box-shadow: 0 0 0 3px rgba(71, 127, 235, 0.15); 
+        }
+
+        /* Timer */
+        .vsq-timer-text { 
+            font-size: 13px; 
+            color: #4B5563; 
+            margin-bottom: 24px; 
+        }
+        .vsq-timer-text span { 
+            color: var(--vsq-blue); 
+            font-weight: 600; 
+        }
+
+        /* Tombol Verifikasi (Biru) */
+        .vsq-btn { 
+            display: block; 
+            width: 100%; 
+            padding: 14px; 
+            font-size: 15px; 
+            font-weight: 600; 
+            color: #FFFFFF; 
+            background-color: var(--vsq-blue); 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: background 0.2s; 
+        }
+        .vsq-btn:hover { 
+            background-color: #3564C6; 
+        }
     </style>
 </head>
 <body>
-    <div class="vsq-left">
-        <a href="register.html" class="vsq-back-btn"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a>
-        <div class="vsq-card">
-            <div class="vsq-logo"><h1>Vincent'SQ</h1><p>SPORTS ARENA</p></div>
-            <div class="vsq-illustration"><img src="assets/images/ilustrasi-kurir.jpg" alt="Ilustrasi Kurir" onerror="this.style.display='none'"></div>
-            <div class="vsq-text">
-                Kami telah mengirimkan kode verifikasi ke
-                <strong id="email-target">email@anda.com</strong>
-            </div>
-            
-            <div id="alert-box" class="vsq-alert vsq-alert-error"></div>
 
-            <form id="otpForm">
-                <div class="vsq-otp-container">
-                    <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 1)" autofocus>
-                    <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 2)">
-                    <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 3)">
-                    <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 4)">
-                    <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 5)">
-                    <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 6)">
-                </div>
-                <div class="vsq-timer-text">Kode akan kadaluwarsa dalam <span id="timer">01:32</span></div>
-                <button type="submit" class="vsq-btn" id="btnSubmit">Verifikasi</button>
-            </form>
+    <!-- Tombol Kembali -->
+    <a href="register.html" class="vsq-back-btn">
+        <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    </a>
+
+    <!-- Card Verifikasi -->
+    <div class="vsq-verify-card">
+        
+        <!-- Logo -->
+        <div class="vsq-logo">
+            <h1>Vincent'SQ</h1>
+            <p>SPORTS ARENA</p>
         </div>
+
+        <!-- Ilustrasi Kurir -->
+        <div class="vsq-illustration">
+            <img src="assets/images/ilustrasi-kurir.jpg" alt="Ilustrasi Kurir" onerror="this.src='https://illustrations.popsy.co/blue/forgot-password.svg'">
+        </div>
+
+        <!-- Teks -->
+        <div class="vsq-text">
+            Kami telah mengirimkan kode verifikasi ke
+            <strong id="email-target">email@anda.com</strong>
+        </div>
+
+        <!-- Form OTP -->
+        <form id="otpForm">
+            <!-- 5 Kotak OTP -->
+            <div class="vsq-otp-container">
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 1)" autofocus>
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 2)">
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 3)">
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 4)">
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 5)">
+            </div>
+
+            <div class="vsq-timer-text">Kode akan kadaluwarsa dalam <span id="timer">01:32</span></div>
+
+            <button type="submit" class="vsq-btn">Verifikasi</button>
+        </form>
+
     </div>
-    <div class="vsq-right"></div>
 
     <script>
-        // 1. Tampilkan email yang didaftarkan
+        // 1. Tampilkan Email dari halaman Register
         const savedEmail = localStorage.getItem('register_email');
         if(savedEmail) {
             document.getElementById('email-target').textContent = savedEmail;
@@ -74,20 +202,29 @@
             window.location.href = 'register.html';
         }
 
-        // 2. Auto pindah kotak saat mengetik
+        // 2. Auto-focus antar kotak OTP
         function moveFocus(current, nextIndex) {
             if (current.value.length === 1) {
                 const inputs = document.querySelectorAll('.vsq-otp-input');
-                if (nextIndex < inputs.length) inputs[nextIndex].focus();
+                if (nextIndex < inputs.length) {
+                    inputs[nextIndex].focus();
+                }
             }
         }
 
-        // 3. Timer hitung mundur
+        // 3. Timer Hitung Mundur
         let timeLeft = 92;
-        setInterval(() => {
-            if (timeLeft <= 0) return;
+        const timerEl = document.getElementById('timer');
+        const countdown = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                timerEl.textContent = "00:00";
+                return;
+            }
             timeLeft--;
-            document.getElementById('timer').textContent = `${Math.floor(timeLeft/60).toString().padStart(2,'0')}:${(timeLeft%60).toString().padStart(2,'0')}`;
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }, 1000);
 
         // 4. Proses Submit
@@ -99,26 +236,14 @@
             let code = '';
             inputs.forEach(input => code += input.value);
             
-            const alertBox = document.getElementById('alert-box');
-
-            // Validasi: Pastikan 6 kotak terisi semua
-            if (code.length < 6) {
-                alertBox.textContent = "Mohon isi semua 6 kotak kode verifikasi!";
-                alertBox.style.display = 'block';
+            // Validasi: Pastikan 5 kotak terisi
+            if (code.length < 5) {
+                alert("Mohon isi semua 5 kotak kode verifikasi!");
                 return;
             }
 
-            // ============================================================
-            // BYPASS: Apapun kodenya (asal 6 digit), kita anggap sukses
-            // dan langsung arahkan ke halaman lengkapi profil.
-            // ============================================================
-            
-            document.getElementById('btnSubmit').textContent = 'Memverifikasi...';
-            
-            setTimeout(() => {
-                // Alihkan ke halaman lengkapi profil
-                window.location.href = 'lengkapi_profil.html';
-            }, 800);
+            // BYPASS: Apapun kodenya, langsung ke halaman lengkapi profil
+            window.location.href = 'lengkapi_profil.html';
         });
     </script>
 </body>

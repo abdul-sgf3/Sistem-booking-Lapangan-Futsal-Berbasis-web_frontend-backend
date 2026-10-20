@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifikasi Lupa Password - Vincent'SQ Arena</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --vsq-navy: #2C437B; --vsq-blue: #477FEB; --vsq-red: #FF0000; --vsq-gray: #D1D5DB; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; margin: 0; padding: 0; }
+        .vsq-wrapper { display: flex; min-height: 100vh; width: 100%; }
+
+        /* Kiri: Form Putih */
+        .vsq-left { flex: 1; background: #FFFFFF; display: flex; align-items: center; justify-content: center; padding: 40px 30px; position: relative; }
+        .vsq-back-btn { position: absolute; top: 40px; left: 40px; color: #000; text-decoration: none; }
+        .vsq-back-btn svg { width: 32px; height: 32px; stroke: #000; stroke-width: 2.5; fill: none; }
+
+        .vsq-card { width: 100%; max-width: 400px; text-align: center; }
+        
+        .vsq-logo { margin-bottom: 20px; }
+        .vsq-logo h1 { font-size: 28px; font-weight: 800; color: var(--vsq-navy); margin: 0; }
+        .vsq-logo p { font-size: 14px; font-weight: 800; color: var(--vsq-red); letter-spacing: 1.5px; margin-top: 4px; }
+
+        .vsq-illustration { margin-bottom: 20px; }
+        .vsq-illustration img { width: 140px; height: auto; }
+
+        .vsq-text { font-size: 13px; color: #4B5563; line-height: 1.5; margin-bottom: 24px; }
+        .vsq-text strong { color: #1F2937; font-weight: 700; display: block; margin-top: 4px; font-size: 14px; }
+
+        .vsq-otp-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 12px; }
+        .vsq-otp-input { width: 50px; height: 60px; text-align: center; font-size: 22px; font-weight: 600; border: 1px solid var(--vsq-gray); border-radius: 8px; outline: none; transition: all 0.2s; background: #FFF; }
+        .vsq-otp-input:focus { border-color: var(--vsq-blue); }
+
+        .vsq-timer { font-size: 11px; color: #6B7280; margin-bottom: 6px; text-align: center; }
+        .vsq-timer span { color: var(--vsq-blue); font-weight: 600; }
+        .vsq-resend { font-size: 11px; color: #4B5563; margin-bottom: 24px; text-align: center; }
+        .vsq-resend a { color: var(--vsq-blue); text-decoration: none; font-weight: 600; }
+
+        .vsq-btn { display: block; width: 100%; padding: 12px 20px; font-size: 14px; font-weight: 600; color: #FFFFFF; background-color: var(--vsq-blue); border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s; }
+        .vsq-btn:hover { background-color: #3564C6; }
+
+        /* Kanan: Gambar */
+        .vsq-right { flex: 1; background: linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)), url('assets/uploads/lapangan/hero.jpeg') center/cover no-repeat; }
+
+        @media (max-width: 900px) { .vsq-wrapper { flex-direction: column; } .vsq-left { padding: 40px 20px; } .vsq-right { min-height: 200px; order: -1; } }
+    </style>
+</head>
+<body>
+    <div class="vsq-wrapper">
+        <div class="vsq-left">
+            <a href="lupa_password.html" class="vsq-back-btn"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a>
+            
+            <div class="vsq-card">
+                <div class="vsq-logo">
+                    <h1>Vincent'SQ</h1>
+                    <p>SPORTS ARENA</p>
+                </div>
+                
+                <div class="vsq-illustration">
+                    <img src="assets/images/ilustrasi-kurir.jpg" alt="Ilustrasi" onerror="this.src='https://illustrations.popsy.co/blue/delivery.svg'">
+                </div>
+
+                <div class="vsq-text">
+                    Kami telah mengirimkan kode verifikasi ke
+                    <strong id="email-target">email@anda.com</strong>
+                </div>
+
+                <form id="formOTP">
+                    <div class="vsq-otp-container">
+                        <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 1)" autofocus>
+                        <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 2)">
+                        <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 3)">
+                        <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 4)">
+                        <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 5)">
+                    </div>
+                    <div class="vsq-timer">Kode akan kadaluwarsa dalam <span>01:00</span></div>
+                    <div class="vsq-resend">Salah mengirim email? <a href="#">klik disini!</a></div>
+
+                    <button type="submit" class="vsq-btn">Melanjutkan</button>
+                </form>
+            </div>
+        </div>
+        <div class="vsq-right"></div>
+    </div>
+
+    <script>
+        // Tampilkan email dari halaman sebelumnya
+        const savedEmail = localStorage.getItem('reset_email');
+        if(savedEmail) { document.getElementById('email-target').textContent = savedEmail; }
+        else { window.location.href = 'lupa_password.html'; }
+
+        function moveFocus(current, nextIndex) {
+            if (current.value.length === 1) {
+                const inputs = document.querySelectorAll('.vsq-otp-input');
+                if (nextIndex < inputs.length) inputs[nextIndex].focus();
+            }
+        }
+
+        document.getElementById('formOTP').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Lanjut ke halaman input password baru
+            window.location.href = 'password_baru.html';
+        });
+    </script>
+</body>
+</html>

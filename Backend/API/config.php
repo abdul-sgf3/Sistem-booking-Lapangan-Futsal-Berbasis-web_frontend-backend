@@ -1,29 +1,17 @@
 <?php
 // ============================================
 // Backend/API/config.php
-// Konfigurasi Global API Vincent SQ Arena
+// KONFIGURASI GLOBAL (OTOMATIS LOKAL & HOSTING)
 // ============================================
 
-// --- CORS ---
-$allowed_origins = [
-    'http://localhost',
-    'http://127.0.0.1',
-    'http://localhost:3000',
-    'http://localhost:8080'
-];
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-if (in_array($origin, $allowed_origins)) {
-    header("Access-Control-Allow-Origin: $origin");
-} else {
-    header("Access-Control-Allow-Origin: http://localhost");
-}
-header("Access-Control-Allow-Origin: https://vincent-arena.infinityfreeapp.com");
+// --- CORS (Izinkan akses dari mana saja saat development) ---
+header("Access-Control-Allow-Origin: *"); 
 header("Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
 header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json; charset=UTF-8");
 
-// Handle preflight
+// Handle preflight request (Sangat penting untuk method POST)
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
@@ -34,12 +22,44 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// --- Koneksi Database ---
-$host = 'sqlXXX.infinityfree.com'; // Ganti XXX
-$user = 'if0_XXXXXXXX';            // Ganti
-$pass = 'PASSWORD_ANDA';           // Ganti
-$db   = 'if0_XXXXXXXX_vincent_sqdb'; // Ganti
+// ============================================
+// DETEKSI LINGKUNGAN (LOKAL VS HOSTING)
+// ============================================
+$is_localhost = ($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '127.0.0.1');
 
+if ($is_localhost) {
+    // ====== PENGATURAN LOKAL (XAMPP) ======
+    $host = 'localhost';
+    $user = 'root';
+    $pass = '';
+    $db   = 'vincent_sqdb';
+    
+    // URL dasar untuk lokal (sesuaikan dengan nama folder di htdocs)
+    define('BASE_URL', '/Futsal_Vincent_SQ'); 
+    
+    // Path absolut untuk upload file di lokal
+    define('ABS_UPLOAD_PROFIL', __DIR__ . '/../../Frontend/assets/uploads/profil/');
+    define('ABS_UPLOAD_BUKTI',  __DIR__ . '/../../Frontend/assets/uploads/bukti/');
+
+} else {
+    // ====== PENGATURAN HOSTING (INFINITYFREE) ======
+    // !!! GANTI NILAI DI BAWAH INI DENGAN KREDENSIAL DARI PANEL INFINITYFREE !!!
+    $host = 'sqlXXX.infinityfree.com'; // Ganti XXX dengan nomor server MySQL
+    $user = 'if0_XXXXXXXX';            // Ganti dengan Username Database
+    $pass = 'PASSWORD_ANDA';           // Ganti dengan Password Database
+    $db   = 'if0_XXXXXXXX_vincent_sqdb'; // Ganti dengan Nama Database
+    
+    // URL dasar untuk hosting
+    define('BASE_URL', 'https://vincent-arena.infinityfreeapp.com');
+    
+    // Path absolut untuk upload file di hosting
+    define('ABS_UPLOAD_PROFIL', __DIR__ . '/../../Frontend/assets/uploads/profil/');
+    define('ABS_UPLOAD_BUKTI',  __DIR__ . '/../../Frontend/assets/uploads/bukti/');
+}
+
+// ============================================
+// KONEKSI DATABASE
+// ============================================
 $conn = mysqli_connect($host, $user, $pass, $db);
 if (!$conn) {
     http_response_code(500);
@@ -52,21 +72,17 @@ if (!$conn) {
 }
 mysqli_set_charset($conn, 'utf8mb4');
 
-// --- Konstanta Path ---
-define('BASE_URL', 'https://vincent-arena.infinityfreeapp.com');
+// ============================================
+// KONSTANTA PATH UPLOAD (URL)
+// ============================================
 define('UPLOAD_LAPANGAN', BASE_URL . '/Frontend/assets/uploads/lapangan/');
 define('UPLOAD_MAKANAN',  BASE_URL . '/Frontend/assets/uploads/makanan/');
 define('UPLOAD_BUKTI',    BASE_URL . '/Frontend/assets/uploads/bukti/');
 define('UPLOAD_PROFIL',   BASE_URL . '/Frontend/assets/uploads/profil/');
 
-// --- Absolute Path untuk Upload ---
-define('ABS_UPLOAD_PROFIL', __DIR__ . '/../../Frontend/assets/uploads/profil/');
-define('ABS_UPLOAD_BUKTI',  __DIR__ . '/../../Frontend/assets/uploads/bukti/');
-
 // ============================================
 // HELPER: RESPONSE
 // ============================================
-
 function sendResponse($data = null, $message = 'Data berhasil diproses', $code = 200) {
     http_response_code($code);
     echo json_encode([
@@ -88,9 +104,8 @@ function sendError($message, $code = 400) {
 }
 
 // ============================================
-// HELPER: VALIDASI
+// HELPER: VALIDASI & LAINNYA
 // ============================================
-
 function requireMethod($method) {
     if ($_SERVER['REQUEST_METHOD'] !== $method) {
         sendError('Method tidak diizinkan. Gunakan ' . $method, 405);
@@ -98,16 +113,12 @@ function requireMethod($method) {
 }
 
 function requireUserLogin() {
-    if (!isset($_SESSION['user_id'])) {
-        sendError('Anda belum login', 401);
-    }
+    if (!isset($_SESSION['user_id'])) sendError('Anda belum login', 401);
     return $_SESSION['user_id'];
 }
 
 function requireAdminLogin() {
-    if (!isset($_SESSION['admin_id'])) {
-        sendError('Akses ditolak. Anda bukan admin.', 403);
-    }
+    if (!isset($_SESSION['admin_id'])) sendError('Akses ditolak. Anda bukan admin.', 403);
     return $_SESSION['admin_id'];
 }
 
@@ -116,30 +127,14 @@ function getJsonInput() {
     return $input ?? [];
 }
 
-// ============================================
-// HELPER: FORMAT URL
-// ============================================
-
-function fotoLapanganUrl($filename) {
-    return empty($filename) ? '' : UPLOAD_LAPANGAN . rawurlencode($filename);
-}
-
-function fotoMakananUrl($filename) {
-    return empty($filename) ? '' : UPLOAD_MAKANAN . rawurlencode($filename);
-}
-
-function buktiUrl($filename) {
-    return empty($filename) ? '' : UPLOAD_BUKTI . rawurlencode($filename);
-}
-
-function fotoProfilUrl($filename) {
-    return empty($filename) ? '' : UPLOAD_PROFIL . rawurlencode($filename);
-}
+function fotoLapanganUrl($filename) { return empty($filename) ? '' : UPLOAD_LAPANGAN . rawurlencode($filename); }
+function fotoMakananUrl($filename) { return empty($filename) ? '' : UPLOAD_MAKANAN . rawurlencode($filename); }
+function buktiUrl($filename) { return empty($filename) ? '' : UPLOAD_BUKTI . rawurlencode($filename); }
+function fotoProfilUrl($filename) { return empty($filename) ? '' : UPLOAD_PROFIL . rawurlencode($filename); }
 
 // ============================================
-// LOAD HELPERS (jika ada)
+// LOAD HELPERS
 // ============================================
-
 $helper_files = ['response.php', 'validator.php', 'otp_generator.php', 'uploader.php'];
 foreach ($helper_files as $helper) {
     $path = __DIR__ . '/helpers/' . $helper;

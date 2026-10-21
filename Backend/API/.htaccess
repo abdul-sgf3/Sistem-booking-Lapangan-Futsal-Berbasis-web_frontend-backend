@@ -1,0 +1,36 @@
+RewriteEngine On
+RewriteBase /Futsal_VincentSQ/Backend/API/
+
+# ============ PUBLIC API ============
+RewriteRule ^lapangan$                              public/lapangan.php [L,QSA]
+RewriteRule ^lapangan/([0-9]+)$                     public/lapangan_detail.php?id=$1 [L,QSA]
+RewriteRule ^jadwal$                                public/jadwal.php [L,QSA]
+RewriteRule ^pengaturan$                            public/pengaturan.php [L,QSA]
+RewriteRule ^makanan$                               public/makanan.php [L,QSA]
+
+# ============ AUTH API ============
+RewriteRule ^auth/register$                         auth/register.php [L,QSA]
+RewriteRule ^auth/login$                            auth/login.php [L,QSA]
+RewriteRule ^auth/logout$                           auth/logout.php [L,QSA]
+RewriteRule ^auth/captcha$                          auth/captcha.php [L,QSA]
+RewriteRule ^auth/check$                            auth/check.php [L,QSA]
+
+# ============ CUSTOMER API ============
+RewriteRule ^bookings$                              customer/booking.php [L,QSA]
+RewriteRule ^bookings/([0-9]+)$                     customer/booking_detail.php?id=$1 [L,QSA]
+RewriteRule ^bookings/([0-9]+)/cancel$              customer/booking_cancel.php?id=$1 [L,QSA]
+RewriteRule ^bookings/([0-9]+)/payment-proof$       customer/upload_bukti.php?id=$1 [L,QSA]
+
+# ============ ADMIN API ============
+RewriteRule ^admin/login$                           admin/login.php [L,QSA]
+RewriteRule ^admin/captcha$                         admin/captcha.php [L,QSA]
+RewriteRule ^admin/bookings$                        admin/booking_list.php [L,QSA]
+RewriteRule ^admin/bookings/([0-9]+)$               admin/booking_detail.php?id=$1 [L,QSA]
+RewriteRule ^admin/bookings/([0-9]+)/status$        admin/booking_status.php?id=$1 [L,QSA]
+RewriteRule ^admin/lapangan$                        admin/lapangan_list.php [L,QSA]
+RewriteRule ^admin/lapangan/([0-9]+)$               admin/lapangan_update.php?id=$1 [L,QSA]
+RewriteRule ^admin/lapangan/([0-9]+)/delete$        admin/lapangan_delete.php?id=$1 [L,QSA]
+RewriteRule ^admin/users$                           admin/user_list.php [L,QSA]
+RewriteRule ^admin/users/([0-9]+)/status$           admin/user_status.php?id=$1 [L,QSA]
+RewriteRule ^admin/users/([0-9]+)$                  admin/user_delete.php?id=$1 [L,QSA]
+RewriteRule ^admin/statistik$                       admin/statistik.php [L,QSA]

@@ -186,6 +186,8 @@
 
     <script>
         const emailUser = localStorage.getItem('register_email');
+        // URL API DIGANTI KE HOSTING
+        const API_BASE = 'https://vincent-arena.infinityfreeapp.com/Backend/API';
 
         // Preview Foto
         function previewImage(event) {
@@ -208,11 +210,19 @@
             btn.disabled = true; btn.textContent = 'Menyimpan...';
 
             const nama = document.getElementById('nama').value;
-            
+            const whatsapp = document.getElementById('whatsapp').value;
+
             // Simpan ke LocalStorage agar Navbar Beranda menampilkan nama
             localStorage.setItem('user_id', 'user-123');
             localStorage.setItem('nama', nama);
             localStorage.setItem('user_email', emailUser || 'user@email.com');
+
+            // Kirim data ke API Hosting (Opsional, karena bypass)
+            fetch(API_BASE + '/auth/lengkapi_profil.php', {
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: emailUser, nama: nama, whatsapp: whatsapp })
+            }).catch(err => console.log('BE error diabaikan'));
 
             // Pura-pura loading lalu masuk
             setTimeout(() => {

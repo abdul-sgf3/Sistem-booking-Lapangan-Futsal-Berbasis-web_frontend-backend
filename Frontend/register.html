@@ -218,7 +218,7 @@
         passwordInput.addEventListener('input', () => { validatePassword(); cekTombolAktif(); }); 
         confirmInput.addEventListener('input', () => { validateConfirm(); cekTombolAktif(); });
 
-        // Submit ke API
+        // Submit ke API (URL API SUDAH DIGANTI)
         document.getElementById('registerForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             if (btnSubmit.disabled) return; // Cegah jika tombol disabled
@@ -230,7 +230,8 @@
             alertBox.innerHTML = '';
 
             try {
-                const response = await fetch('http://localhost/vincent-arena/Backend/API/auth/register.php', {
+                // URL API DIGANTI KE HOSTING
+                const response = await fetch('https://vincent-arena.infinityfreeapp.com/Backend/API/auth/register.php', {
                     method: 'POST', 
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 

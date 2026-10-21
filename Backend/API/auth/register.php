@@ -55,11 +55,15 @@ if ($existing) {
     $user_id = $existing['id'];
 } else {
     // Insert user baru
+        $nama_default = explode('@', $email)[0]; // Ambil teks sebelum '@'
+    
     $stmt = mysqli_prepare($conn, 
-        "INSERT INTO users (email, password, role, otp_code, otp_expired_at, is_verified) 
-         VALUES (?, ?, 'user', ?, ?, 0)");
-    mysqli_stmt_bind_param($stmt, "ssss", 
-        $email, $hashed, $otp, $otp_expired);
+        "INSERT INTO users (nama, email, password, role, otp_code, otp_expired_at, is_verified) 
+         VALUES (?, ?, ?, 'user', ?, ?, 0)");
+    
+    // Perhatikan ada tambahan 's' pertama untuk $nama_default
+    mysqli_stmt_bind_param($stmt, "sssss", 
+        $nama_default, $email, $hashed, $otp, $otp_expired);
     
     if (!mysqli_stmt_execute($stmt)) {
         sendError('Gagal mendaftar: ' . mysqli_error($conn), 500);

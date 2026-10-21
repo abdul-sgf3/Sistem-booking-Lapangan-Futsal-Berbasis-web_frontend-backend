@@ -17,6 +17,7 @@ if (in_array($origin, $allowed_origins)) {
 } else {
     header("Access-Control-Allow-Origin: http://localhost");
 }
+header("Access-Control-Allow-Origin: https://vincent-arena.infinityfreeapp.com");
 header("Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
 header("Access-Control-Allow-Credentials: true");
@@ -34,10 +35,10 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // --- Koneksi Database ---
-$host = 'localhost';
-$user = 'root';
-$pass = '';
-$db   = 'vincent_sqdb';
+$host = 'sqlXXX.infinityfree.com'; // Ganti XXX
+$user = 'if0_XXXXXXXX';            // Ganti
+$pass = 'PASSWORD_ANDA';           // Ganti
+$db   = 'if0_XXXXXXXX_vincent_sqdb'; // Ganti
 
 $conn = mysqli_connect($host, $user, $pass, $db);
 if (!$conn) {
@@ -52,7 +53,7 @@ if (!$conn) {
 mysqli_set_charset($conn, 'utf8mb4');
 
 // --- Konstanta Path ---
-define('BASE_URL', '/Futsal_Vincent_SQ');
+define('BASE_URL', 'https://vincent-arena.infinityfreeapp.com');
 define('UPLOAD_LAPANGAN', BASE_URL . '/Frontend/assets/uploads/lapangan/');
 define('UPLOAD_MAKANAN',  BASE_URL . '/Frontend/assets/uploads/makanan/');
 define('UPLOAD_BUKTI',    BASE_URL . '/Frontend/assets/uploads/bukti/');

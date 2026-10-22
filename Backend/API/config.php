@@ -36,7 +36,6 @@ if ($is_localhost) {
     $db   = 'vincent_sqdb';
 } else {
     // --- KONFIGURASI HOSTING (INFINITYFREE) ---
-    // Data dari panel InfinityFree Anda
     $host = 'sql201.infinityfree.com'; 
     $user = 'if0_43234798';            
     $pass = 'ProjectKel3';             
@@ -65,7 +64,8 @@ if ($is_localhost) {
     define('BASE_URL', 'https://vincent-arena.infinityfreeapp.com');
 }
 
-define('BASE_URL', 'https://vincent-arena.infinityfreeapp.com');
+// PASTIKAN TIDAK ADA LAGI define('BASE_URL', ...) DI BAWAH SINI
+
 define('UPLOAD_LAPANGAN', BASE_URL . '/Frontend/assets/uploads/lapangan/');
 define('UPLOAD_MAKANAN',  BASE_URL . '/Frontend/assets/uploads/makanan/');
 define('UPLOAD_BUKTI',    BASE_URL . '/Frontend/assets/uploads/bukti/');

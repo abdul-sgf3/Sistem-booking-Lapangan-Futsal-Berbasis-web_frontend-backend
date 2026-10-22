@@ -6,49 +6,131 @@
     <title>Login - Vincent'SQ Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --vsq-navy: #2C437B; --vsq-blue: #477FEB; --vsq-red: #FF0000; --vsq-gray: #D1D5DB; }
+        :root { 
+            --vsq-navy: #2C437B; 
+            --vsq-blue: #477FEB; 
+            --vsq-red: #FF0000; 
+            --vsq-gray: #848484; 
+            --vsq-error: #FF5555;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; margin: 0; padding: 0; }
+        
         .vsq-login-wrapper { display: flex; min-height: 100vh; width: 100%; }
+        
+        /* Kiri: Form */
         .vsq-login-left { flex: 1; background: #FFFFFF; display: flex; align-items: center; justify-content: center; padding: 40px 30px; position: relative; }
-        .vsq-back-btn { position: absolute; top: 40px; left: 40px; color: #000000; text-decoration: none; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+        .vsq-back-btn { position: absolute; top: 30px; left: 30px; color: #000000; text-decoration: none; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
         .vsq-back-btn:hover { transform: translateX(-4px); }
-        .vsq-back-btn svg { width: 32px; height: 32px; stroke: #000000; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .vsq-back-btn svg { width: 40px; height: 40px; stroke: #000000; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        
         .vsq-login-card { width: 100%; max-width: 400px; }
-        .vsq-logo { text-align: center; margin-bottom: 8px; }
-        .vsq-logo h1 { font-size: 28px; font-weight: 800; color: var(--vsq-navy); letter-spacing: -0.5px; margin: 0; line-height: 1.2; }
-        .vsq-logo p { font-size: 14px; font-weight: 800; color: var(--vsq-red); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
-        .vsq-welcome { text-align: center; font-size: 15px; font-weight: 600; color: #000000; margin: 30px 0 25px 0; }
-        .vsq-form-group { margin-bottom: 18px; }
-        .vsq-form-group label { display: block; font-size: 13px; font-weight: 500; color: #000000; margin-bottom: 6px; }
+        
+        .vsq-logo { text-align: center; margin-bottom: 24px; }
+        .vsq-logo h1 { font-size: 32px; font-weight: 700; color: var(--vsq-navy); letter-spacing: -0.45px; margin: 0; line-height: 1.2; }
+        .vsq-logo p { font-size: 18px; font-weight: 700; color: var(--vsq-red); letter-spacing: 0.6px; text-transform: uppercase; margin-top: 4px; }
+        
+        .vsq-welcome { text-align: center; font-size: 15px; font-weight: 600; color: #000000; margin: 20px 0 24px 0; }
+        
+        .vsq-form-group { margin-bottom: 24px; position: relative; }
+        .vsq-form-group label { display: block; font-size: 14px; font-weight: 500; color: #000000; margin-bottom: 8px; }
         .vsq-form-group label span { color: var(--vsq-red); }
+        
         .vsq-input-wrapper { position: relative; width: 100%; }
-        .vsq-form-control { width: 100%; padding: 12px 16px; padding-right: 45px; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; color: #000000; background-color: #FFFFFF; border: 1px solid var(--vsq-gray); border-radius: 8px; outline: none; transition: all 0.3s ease; }
-        .vsq-form-control::placeholder { color: #9CA3AF; }
-        .vsq-form-control:focus { border-color: var(--vsq-blue); box-shadow: 0 0 0 2px rgba(71, 127, 235, 0.2); }
-        .vsq-toggle-password { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #64748B; background: transparent; border: none; display: flex; align-items: center; justify-content: center; z-index: 2; }
+        
+        .vsq-form-control { 
+            width: 100%; 
+            padding: 12px 16px; 
+            padding-right: 45px; 
+            font-size: 14px; 
+            font-weight: 400; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            color: #000000; 
+            background-color: #FFFFFF; 
+            border: 1px solid var(--vsq-gray); 
+            border-radius: 12px; 
+            outline: none; 
+            transition: all 0.3s ease; 
+        }
+        .vsq-form-control::placeholder { color: var(--vsq-gray); }
+        .vsq-form-control:focus { border-color: var(--vsq-blue); }
+        
+        /* Trik Autofill */
+        .vsq-form-control:-webkit-autofill,
+        .vsq-form-control:-webkit-autofill:hover, 
+        .vsq-form-control:-webkit-autofill:focus, 
+        .vsq-form-control:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px white inset !important;
+            box-shadow: 0 0 0 30px white inset !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+        
+        /* State Invalid */
+        .vsq-form-control.is-invalid { border: 1px solid var(--vsq-error) !important; }
+
+        /* Pesan Error */
+        .vsq-error-msg {
+            display: none;
+            align-items: flex-start;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--vsq-error);
+            margin-top: 6px;
+            font-weight: 500;
+        }
+        .vsq-error-msg.show { display: flex; }
+        .vsq-error-icon {
+            width: 12px; height: 12px;
+            background: transparent;
+            border: 2px solid var(--vsq-error);
+            color: var(--vsq-error);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 8px; font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        
+        .vsq-error-subtext {
+            font-size: 11px;
+            color: var(--vsq-gray);
+            margin-top: 4px;
+            display: none;
+            padding-left: 18px;
+        }
+        .vsq-error-subtext.show { display: block; }
+
+        /* Ikon Mata */
+        .vsq-toggle-password { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--vsq-gray); background: transparent; border: none; display: flex; align-items: center; justify-content: center; z-index: 2; }
         .vsq-toggle-password:hover { color: #000000; }
         .vsq-toggle-password svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-        .vsq-forgot-link { text-align: right; margin-top: 8px; margin-bottom: 20px; }
-        .vsq-forgot-link a { font-size: 12px; color: var(--vsq-blue); text-decoration: none; font-weight: 500; }
+        
+        .vsq-forgot-link { text-align: right; margin-top: -10px; margin-bottom: 24px; }
+        .vsq-forgot-link a { font-size: 12px; color: var(--vsq-blue); text-decoration: none; font-weight: 400; }
         .vsq-forgot-link a:hover { text-decoration: underline; }
-        .vsq-recaptcha { background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 4px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; height: 70px; }
-        .vsq-recaptcha-left { display: flex; align-items: center; gap: 12px; }
-        .vsq-recaptcha-checkbox { width: 22px; height: 22px; border: 2px solid #9CA3AF; border-radius: 2px; background: #FFFFFF; cursor: pointer; appearance: none; -webkit-appearance: none; transition: all 0.2s; position: relative; flex-shrink: 0; }
+        
+        /* reCAPTCHA */
+        .vsq-recaptcha { background: #FFFFFF; border: 1px solid var(--vsq-gray); border-radius: 4px; padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; height: 78px; }
+        .vsq-recaptcha-left { display: flex; align-items: center; gap: 12px; padding-left: 5px; }
+        .vsq-recaptcha-checkbox { width: 24px; height: 24px; border: 2px solid var(--vsq-gray); border-radius: 2px; background: #FFFFFF; cursor: pointer; appearance: none; -webkit-appearance: none; transition: all 0.2s; position: relative; flex-shrink: 0; }
         .vsq-recaptcha-checkbox:checked { background: var(--vsq-blue); border-color: var(--vsq-blue); }
-        .vsq-recaptcha-checkbox:checked::after { content: "✓"; color: #FFFFFF; font-size: 14px; font-weight: 700; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-        .vsq-recaptcha-label { font-size: 13px; color: #374151; cursor: pointer; font-weight: 400; }
-        .vsq-recaptcha-logo { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; }
+        .vsq-recaptcha-checkbox:checked::after { content: "✓"; color: #FFFFFF; font-size: 16px; font-weight: 700; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .vsq-recaptcha-label { font-size: 14px; color: #000000; cursor: pointer; font-weight: 400; }
+        .vsq-recaptcha-logo { display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; }
         .vsq-recaptcha-logo img { width: 100%; height: 100%; object-fit: contain; }
-        .vsq-register-link { text-align: center; font-size: 12px; color: #000000; margin-bottom: 20px; }
-        .vsq-register-link a { color: var(--vsq-blue); text-decoration: none; font-weight: 600; }
+        
+        .vsq-register-link { text-align: center; font-size: 12px; color: #000000; margin-bottom: 16px; }
+        .vsq-register-link a { color: var(--vsq-blue); text-decoration: none; font-weight: 400; }
         .vsq-register-link a:hover { text-decoration: underline; }
-        .vsq-btn-submit { display: block; width: 100%; padding: 12px 20px; font-size: 14px; font-weight: 600; font-family: 'Plus Jakarta Sans', sans-serif; color: #FFFFFF; background-color: var(--vsq-blue); border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        
+        /* Tombol Submit */
+        .vsq-btn-submit { display: flex; justify-content: center; align-items: center; width: 100%; padding: 12px 20px; font-size: 14px; font-weight: 600; font-family: 'Plus Jakarta Sans', sans-serif; color: #FFFFFF; background-color: var(--vsq-blue); border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; }
         .vsq-btn-submit:hover { background-color: #3564C6; }
-        .vsq-alert { padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; margin-bottom: 16px; text-align: center; }
-        .vsq-alert-error { background-color: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
+
+        /* Kanan: Gambar */
         .vsq-login-right { flex: 1; background: linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)), url('assets/uploads/lapangan/hero.jpeg') center/cover no-repeat; position: relative; }
+        
         @media (max-width: 900px) { .vsq-login-wrapper { flex-direction: column; } .vsq-login-left { padding: 40px 20px; order: 2; } .vsq-login-right { min-height: 250px; order: 1; } .vsq-back-btn { top: 20px; left: 20px; } }
     </style>
 </head>
@@ -61,22 +143,46 @@
                 <div class="vsq-welcome">Selamat Datang kembali!</div>
                 <div id="alert-box"></div>
                 <form id="login-form">
+                    <!-- Email -->
                     <div class="vsq-form-group">
                         <label for="email">Email<span>*</span></label>
-                        <div class="vsq-input-wrapper"><input type="email" id="email" name="email" class="vsq-form-control" placeholder="Masukkan email..." required></div>
+                        <div class="vsq-input-wrapper">
+                            <input type="email" id="email" name="email" class="vsq-form-control" placeholder="Masukkan email..." required>
+                        </div>
+                        <div class="vsq-error-msg" id="err-email">
+                            <span class="vsq-error-icon">!</span> Email tidak boleh kosong
+                        </div>
+                        <div class="vsq-error-msg" id="err-email-format">
+                            <span class="vsq-error-icon">!</span> Harus mengandung karakter @
+                        </div>
+                        <div class="vsq-error-msg" id="err-email-notfound">
+                            <span class="vsq-error-icon">!</span> Email belum terdaftar!
+                        </div>
                     </div>
+                    
+                    <!-- Password -->
                     <div class="vsq-form-group">
                         <label for="password">Password<span>*</span></label>
                         <div class="vsq-input-wrapper">
                             <input type="password" id="password" name="password" class="vsq-form-control" placeholder="Masukkan Password..." required>
                             <button type="button" class="vsq-toggle-password" onclick="togglePassword('password', this)"><svg viewBox="0 0 24 24" class="icon-eye-closed"><path d="M3 10 Q12 18 21 10" /><line x1="3" y1="10" x2="2" y2="13" /><line x1="7" y1="13" x2="5.5" y2="16" /><line x1="12" y1="15" x2="12" y2="18" /><line x1="17" y1="13" x2="18.5" y2="16" /><line x1="21" y1="10" x2="22" y2="13" /></svg><svg viewBox="0 0 24 24" class="icon-eye-open" style="display:none;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
                         </div>
+                        <div class="vsq-error-msg" id="err-password">
+                            <span class="vsq-error-icon">!</span> Password tidak boleh kosong!
+                        </div>
+                        <div class="vsq-error-msg" id="err-auth">
+                            <span class="vsq-error-icon">!</span> Email atau Password salah!
+                        </div>
+                        <div class="vsq-error-subtext" id="err-auth-sub">Periksa kembali data login Anda atau gunakan fitur Lupa Password.</div>
                     </div>
+                    
                     <div class="vsq-forgot-link"><a href="lupa_password.html">Lupa Password?</a></div>
+                    
                     <div class="vsq-recaptcha">
                         <div class="vsq-recaptcha-left"><input type="checkbox" id="recaptcha" class="vsq-recaptcha-checkbox" required><label for="recaptcha" class="vsq-recaptcha-label">I'm not a robot</label></div>
                         <div class="vsq-recaptcha-logo"><img src="assets/images/recaptcha.png" alt="reCAPTCHA"></div>
                     </div>
+                    
                     <div class="vsq-register-link">Belum mempunyai akun? <a href="register.html">Daftar sekarang</a></div>
                     <button type="submit" class="vsq-btn-submit">Masuk</button>
                 </form>
@@ -98,32 +204,119 @@
             else { input.type = 'password'; iconClosed.style.display = 'block'; iconOpen.style.display = 'none'; }
         }
 
-        document.getElementById('login-form').addEventListener('submit', async function(e) {
+        // Elemen
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const form = document.getElementById('login-form');
+        const alertBox = document.getElementById('alert-box');
+        const btnSubmit = form.querySelector('button[type="submit"]');
+
+        // Error Elements
+        const errEmailKosong = document.getElementById('err-email');
+        const errEmailFormat = document.getElementById('err-email-format');
+        const errEmailNotFound = document.getElementById('err-email-notfound');
+        const errPassword = document.getElementById('err-password');
+        const errAuth = document.getElementById('err-auth');
+        const errAuthSub = document.getElementById('err-auth-sub');
+
+        // Reset Errors
+        function resetErrors() {
+            emailInput.classList.remove('is-invalid');
+            passwordInput.classList.remove('is-invalid');
+            errEmailKosong.classList.remove('show');
+            errEmailFormat.classList.remove('show');
+            errEmailNotFound.classList.remove('show');
+            errPassword.classList.remove('show');
+            errAuth.classList.remove('show');
+            errAuthSub.classList.remove('show');
+        }
+
+        // Validasi Email (Hanya Cek Format)
+        function validateEmailFormat() {
+            resetErrors();
+            const val = emailInput.value;
+            if (val === '') {
+                emailInput.classList.add('is-invalid');
+                errEmailKosong.classList.add('show');
+                return false;
+            }
+            if (!val.includes('@')) {
+                emailInput.classList.add('is-invalid');
+                errEmailFormat.classList.add('show');
+                return false;
+            }
+            return true;
+        }
+
+        // Validasi Password (Cek Kosong)
+        function validatePasswordKosong() {
+            resetErrors();
+            if (passwordInput.value === '') {
+                passwordInput.classList.add('is-invalid');
+                errPassword.classList.add('show');
+                return false;
+            }
+            return true;
+        }
+
+        // Event Listener Real-time
+        emailInput.addEventListener('input', validateEmailFormat);
+        passwordInput.addEventListener('input', validatePasswordKosong);
+
+        // Submit Form
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const alertBox = document.getElementById('alert-box');
-            const btn = this.querySelector('button[type="submit"]');
-            btn.disabled = true; btn.textContent = 'Memproses...'; alertBox.innerHTML = '';
+            
+            // Cek validasi awal
+            const isEmailValid = validateEmailFormat();
+            const isPassValid = validatePasswordKosong();
+            if (!isEmailValid || !isPassValid) return;
+
+            btnSubmit.disabled = true; 
+            btnSubmit.textContent = 'Memproses...'; 
+            alertBox.innerHTML = '';
+
             try {
                 const response = await fetch(API_BASE + '/auth/login.php', {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: emailInput.value, password: passwordInput.value })
                 });
                 const result = await response.json();
+                
                 if (result.status === 'success') {
-                    alertBox.innerHTML = `<div class="vsq-alert" style="background-color: #DCFCE7; color: #166534; border: 1px solid #BBF7D0;">Login Berhasil! Mengalihkan...</div>`;
+                    alertBox.innerHTML = `<div style="background-color: #DCFCE7; color: #166534; border: 1px solid #BBF7D0; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 13px;">Login Berhasil! Mengalihkan...</div>`;
                     localStorage.setItem('user_id', result.data.user_id);
                     localStorage.setItem('nama', result.data.nama);
                     localStorage.setItem('user_email', result.data.email);
                     setTimeout(() => { window.location.href = 'index.html'; }, 1000);
                 } else {
-                    alertBox.innerHTML = `<div class="vsq-alert vsq-alert-error">${result.message || 'Login Gagal'}</div>`;
-                    btn.disabled = false; btn.textContent = 'Masuk';
+                    // Jika API bilang "Email tidak terdaftar"
+                    if (result.message && result.message.toLowerCase().includes('email tidak terdaftar')) {
+                        emailInput.classList.add('is-invalid');
+                        errEmailNotFound.classList.add('show');
+                    } 
+                    // Jika API bilang "Password salah"
+                    else if (result.message && result.message.toLowerCase().includes('password salah')) {
+                        passwordInput.classList.add('is-invalid');
+                        errAuth.classList.add('show');
+                        errAuthSub.classList.add('show');
+                    } 
+                    // Error umum lainnya
+                    else {
+                        emailInput.classList.add('is-invalid');
+                        passwordInput.classList.add('is-invalid');
+                        errAuth.classList.add('show');
+                        errAuthSub.classList.add('show');
+                    }
+                    
+                    btnSubmit.disabled = false; 
+                    btnSubmit.textContent = 'Masuk';
                 }
             } catch (error) {
-                alertBox.innerHTML = `<div class="vsq-alert vsq-alert-error">Terjadi kesalahan koneksi server.</div>`;
-                btn.disabled = false; btn.textContent = 'Masuk';
+                alertBox.innerHTML = `<div style="background-color: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 13px;">Terjadi kesalahan koneksi server.</div>`;
+                btnSubmit.disabled = false; 
+                btnSubmit.textContent = 'Masuk';
             }
         });
     </script>

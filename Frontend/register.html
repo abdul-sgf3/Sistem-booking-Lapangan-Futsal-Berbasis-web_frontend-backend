@@ -6,73 +6,246 @@
     <title>Register - Vincent'SQ Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --vsq-navy: #2C437B; --vsq-blue: #477FEB; --vsq-red: #FF0000; --vsq-gray: #D1D5DB; }
+        :root { 
+            --vsq-navy: #2C437B; 
+            --vsq-blue: #477FEB; 
+            --vsq-red: #FF0000; 
+            --vsq-gray: #848484; 
+            --vsq-error: #FF5555;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; background: linear-gradient(rgba(19, 27, 46, 0.6), rgba(19, 27, 46, 0.6)), url('assets/uploads/lapangan/hero.jpeg') center/cover no-repeat fixed; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .vsq-back-btn { position: absolute; top: 40px; left: 40px; color: #FFFFFF; text-decoration: none; }
-        .vsq-back-btn svg { width: 32px; height: 32px; stroke: #FFFFFF; stroke-width: 2.5; fill: none; }
-        .vsq-register-card { background: #FFFFFF; width: 100%; max-width: 400px; border-radius: 16px; padding: 40px 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .vsq-logo { text-align: center; margin-bottom: 30px; }
-        .vsq-logo h1 { font-size: 28px; font-weight: 800; color: var(--vsq-navy); margin: 0; letter-spacing: -0.5px; }
-        .vsq-logo p { font-size: 14px; font-weight: 800; color: var(--vsq-red); letter-spacing: 1.5px; margin-top: 4px; }
-        .vsq-form-group { margin-bottom: 20px; text-align: left; }
-        .vsq-form-group label { display: block; font-size: 14px; font-weight: 600; color: #111827; margin-bottom: 8px; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            min-height: 100vh; 
+            background: linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)), 
+                        url('assets/uploads/lapangan/hero.jpeg') center/cover no-repeat fixed;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+        }
+
+        /* Tombol Kembali */
+        .vsq-back-btn { position: absolute; top: 30px; left: 30px; color: #FFFFFF; text-decoration: none; }
+        .vsq-back-btn svg { width: 40px; height: 40px; stroke: #FFFFFF; stroke-width: 2.5; fill: none; }
+
+        /* Card Register (Proporsional) */
+        .vsq-register-card { 
+            background: #FFFFFF; 
+            width: 100%; 
+            max-width: 400px; 
+            border-radius: 20px; 
+            padding: 30px 35px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+            border: 1px solid #E2E8F0;
+        }
+
+        /* Logo */
+        .vsq-logo { text-align: center; margin-bottom: 24px; }
+        .vsq-logo h1 { font-size: 26px; font-weight: 700; color: var(--vsq-navy); margin: 0; letter-spacing: -0.45px; }
+        .vsq-logo p { font-size: 14px; font-weight: 700; color: var(--vsq-red); letter-spacing: 0.6px; margin-top: 4px; }
+
+        /* Form Group */
+        .vsq-form-group { margin-bottom: 18px; position: relative; text-align: left; }
+        .vsq-form-group label { display: block; font-size: 14px; font-weight: 500; color: #000000; margin-bottom: 6px; }
         .vsq-form-group label span { color: var(--vsq-red); }
+        
         .vsq-input-wrapper { position: relative; width: 100%; }
-        .vsq-form-control { width: 100%; padding: 12px 16px; padding-right: 45px; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; background-color: #FFFFFF !important; border: 1px solid var(--vsq-gray); border-radius: 8px; outline: none; transition: all 0.2s; color: #000000; }
-        .vsq-form-control::placeholder { color: #9CA3AF; }
+        
+        /* Input (Proporsional) */
+        .vsq-form-control { 
+            width: 100%; 
+            padding: 12px 16px; 
+            padding-right: 45px; 
+            font-size: 14px; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FFFFFF !important; 
+            border: 1px solid var(--vsq-gray); 
+            border-radius: 12px; 
+            outline: none; 
+            transition: all 0.2s; 
+            color: #000000;
+        }
+        .vsq-form-control::placeholder { color: var(--vsq-gray); }
         .vsq-form-control:focus { border-color: var(--vsq-blue); }
-        .vsq-form-control.is-invalid { border: 1px solid var(--vsq-red) !important; }
-        .vsq-form-control:-webkit-autofill, .vsq-form-control:-webkit-autofill:hover, .vsq-form-control:-webkit-autofill:focus, .vsq-form-control:-webkit-autofill:active { -webkit-box-shadow: 0 0 0 30px white inset !important; box-shadow: 0 0 0 30px white inset !important; transition: background-color 5000s ease-in-out 0s; }
-        .error-message { color: var(--vsq-red); font-size: 11px; margin-top: 6px; display: none; font-weight: 500; }
-        .vsq-form-control.is-invalid ~ .error-message { display: block; }
-        .vsq-toggle-password { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #000; background: transparent; border: none; display: flex; align-items: center; justify-content: center; }
-        .vsq-toggle-password svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-        .vsq-btn-submit { display: block; width: 100%; padding: 14px; font-size: 15px; font-weight: 600; color: #FFFFFF; background-color: #9CA3AF; border: none; border-radius: 8px; cursor: not-allowed; margin-top: 10px; transition: background 0.2s; }
-        .vsq-btn-submit:not(:disabled) { background-color: var(--vsq-blue); cursor: pointer; }
-        .vsq-btn-submit:not(:disabled):hover { background-color: #3564C6; }
-        .vsq-login-link { text-align: center; font-size: 13px; margin-top: 20px; color: #4B5563; }
-        .vsq-login-link a { color: var(--vsq-blue); text-decoration: none; font-weight: 600; }
+        
+        /* Trik Autofill */
+        .vsq-form-control:-webkit-autofill,
+        .vsq-form-control:-webkit-autofill:hover, 
+        .vsq-form-control:-webkit-autofill:focus, 
+        .vsq-form-control:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px white inset !important;
+            box-shadow: 0 0 0 30px white inset !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        /* State Invalid (Border Merah) */
+        .vsq-form-control.is-invalid { border: 1px solid var(--vsq-error) !important; }
+
+        /* Pesan Error */
+        .vsq-error-msg {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--vsq-error);
+            margin-top: 6px;
+            font-weight: 500;
+        }
+        .vsq-error-msg.show { display: flex; }
+        .vsq-error-icon {
+            width: 12px; height: 12px;
+            background: transparent;
+            border: 2px solid var(--vsq-error);
+            color: var(--vsq-error);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 8px; font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        /* Ikon Mata */
+        .vsq-toggle-password { 
+            position: absolute; 
+            right: 14px; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            cursor: pointer; 
+            color: #000; 
+            background: transparent; 
+            border: none; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            z-index: 2;
+        }
+        .vsq-toggle-password svg { 
+            width: 20px; 
+            height: 20px; 
+            stroke: currentColor; 
+            stroke-width: 2; 
+            fill: none; 
+            stroke-linecap: round; 
+            stroke-linejoin: round; 
+        }
+
+        /* Link Login */
+        .vsq-login-link { 
+            text-align: center; 
+            font-size: 12px; 
+            margin-top: 24px; 
+            color: #000000; 
+        }
+        .vsq-login-link a { 
+            color: var(--vsq-blue); 
+            text-decoration: none; 
+            font-weight: 600; 
+        }
         .vsq-login-link a:hover { text-decoration: underline; }
+
+        /* Tombol Submit */
+        .vsq-btn-submit { 
+            display: block; 
+            width: 100%; 
+            padding: 12px; 
+            font-size: 14px; 
+            font-weight: 600; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #FFFFFF; 
+            background-color: #9CA3AF; /* Default Abu-abu */
+            border: none; 
+            border-radius: 12px; 
+            cursor: not-allowed; 
+            margin-top: 20px; 
+            transition: background 0.2s; 
+        }
+        .vsq-btn-submit:not(:disabled) { 
+            background-color: var(--vsq-blue); 
+            cursor: pointer; 
+        }
+        .vsq-btn-submit:not(:disabled):hover { background-color: #3564C6; }
+
+        /* Alert Box */
         .vsq-alert { padding: 12px; border-radius: 8px; font-size: 13px; font-weight: 500; margin-bottom: 20px; text-align: center; }
         .vsq-alert-error { background-color: #FEE2E2; color: #991B1B; }
         .vsq-alert-success { background-color: #DCFCE7; color: #166534; }
+
+        @media (max-width: 480px) {
+            .vsq-register-card { padding: 24px 20px; }
+            .vsq-logo h1 { font-size: 22px; }
+            .vsq-logo p { font-size: 12px; }
+        }
     </style>
 </head>
 <body>
     <a href="index.html" class="vsq-back-btn"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a>
+    
     <div class="vsq-register-card">
         <div class="vsq-logo"><h1>Vincent'SQ</h1><p>SPORTS ARENA</p></div>
         <div id="alert-box"></div>
+        
         <form id="registerForm">
+            <!-- Email -->
             <div class="vsq-form-group">
                 <label for="email">Email<span>*</span></label>
-                <div class="vsq-input-wrapper"><input type="email" id="email" class="vsq-form-control" placeholder="Masukkan email..." required></div>
-                <div class="error-message" id="error-email">Format email tidak valid</div>
+                <div class="vsq-input-wrapper">
+                    <input type="email" id="email" class="vsq-form-control" placeholder="Masukkan email..." required>
+                </div>
+                <div class="vsq-error-msg" id="err-email-kosong">
+                    <span class="vsq-error-icon">!</span> Email tidak boleh kosong
+                </div>
+                <div class="vsq-error-msg" id="err-email-format">
+                    <span class="vsq-error-icon">!</span> Email Harus mengandung karakter @
+                </div>
+                <div class="vsq-error-msg" id="err-email-exists">
+                    <span class="vsq-error-icon">!</span> Email sudah digunakan!
+                </div>
             </div>
+
+            <!-- Password -->
             <div class="vsq-form-group">
                 <label for="password">Password<span>*</span></label>
                 <div class="vsq-input-wrapper">
                     <input type="password" id="password" class="vsq-form-control" placeholder="Masukkan Password..." required>
-                    <button type="button" class="vsq-toggle-password" onclick="togglePassword('password', this)"><svg viewBox="0 0 24 24" class="icon-eye-closed"><path d="M3 10 Q12 18 21 10" /><line x1="3" y1="10" x2="2" y2="13" /><line x1="7" y1="13" x2="5.5" y2="16" /><line x1="12" y1="15" x2="12" y2="18" /><line x1="17" y1="13" x2="18.5" y2="16" /><line x1="21" y1="10" x2="22" y2="13" /></svg><svg viewBox="0 0 24 24" class="icon-eye-open" style="display:none;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                    <button type="button" class="vsq-toggle-password" onclick="togglePassword('password', this)">
+                        <svg viewBox="0 0 24 24" class="icon-eye-closed"><path d="M3 10 Q12 18 21 10" /><line x1="3" y1="10" x2="2" y2="13" /><line x1="7" y1="13" x2="5.5" y2="16" /><line x1="12" y1="15" x2="12" y2="18" /><line x1="17" y1="13" x2="18.5" y2="16" /><line x1="21" y1="10" x2="22" y2="13" /></svg>
+                        <svg viewBox="0 0 24 24" class="icon-eye-open" style="display:none;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    </button>
                 </div>
-                <div class="error-message" id="error-password">Password minimal 6 karakter</div>
+                <div class="vsq-error-msg" id="err-pw-kosong">
+                    <span class="vsq-error-icon">!</span> Password tidak boleh kosong!
+                </div>
+                <div class="vsq-error-msg" id="err-pw-min">
+                    <span class="vsq-error-icon">!</span> Password harus terdiri dari minimal 8 karakter
+                </div>
             </div>
+
+            <!-- Konfirmasi Password -->
             <div class="vsq-form-group">
                 <label for="confirm_password">Konfirmasi Password<span>*</span></label>
                 <div class="vsq-input-wrapper">
                     <input type="password" id="confirm_password" class="vsq-form-control" placeholder="Ulangi Password..." required>
-                    <button type="button" class="vsq-toggle-password" onclick="togglePassword('confirm_password', this)"><svg viewBox="0 0 24 24" class="icon-eye-closed"><path d="M3 10 Q12 18 21 10" /><line x1="3" y1="10" x2="2" y2="13" /><line x1="7" y1="13" x2="5.5" y2="16" /><line x1="12" y1="15" x2="12" y2="18" /><line x1="17" y1="13" x2="18.5" y2="16" /><line x1="21" y1="10" x2="22" y2="13" /></svg><svg viewBox="0 0 24 24" class="icon-eye-open" style="display:none;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                    <button type="button" class="vsq-toggle-password" onclick="togglePassword('confirm_password', this)">
+                        <svg viewBox="0 0 24 24" class="icon-eye-closed"><path d="M3 10 Q12 18 21 10" /><line x1="3" y1="10" x2="2" y2="13" /><line x1="7" y1="13" x2="5.5" y2="16" /><line x1="12" y1="15" x2="12" y2="18" /><line x1="17" y1="13" x2="18.5" y2="16" /><line x1="21" y1="10" x2="22" y2="13" /></svg>
+                        <svg viewBox="0 0 24 24" class="icon-eye-open" style="display:none;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    </button>
                 </div>
-                <div class="error-message" id="error-confirm">Konfirmasi password tidak cocok</div>
+                <div class="vsq-error-msg" id="err-confirm-kosong">
+                    <span class="vsq-error-icon">!</span> Konfirmasi password tidak boleh kosong!
+                </div>
+                <div class="vsq-error-msg" id="err-confirm-match">
+                    <span class="vsq-error-icon">!</span> Password dan konfirmasi password tidak cocok!
+                </div>
             </div>
+
             <div class="vsq-login-link">Sudah memiliki akun? <a href="login.html">Login di sini</a></div>
             <button type="submit" class="vsq-btn-submit" id="btnSubmit" disabled>Daftar Akun</button>
         </form>
     </div>
 
     <script>
+        // KODE DETEKSI OTOMATIS URL API
         const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://localhost/vincent-arena/Backend/API'
             : 'https://vincent-arena.infinityfreeapp.com/Backend/API';
@@ -81,41 +254,129 @@
             const input = document.getElementById(inputId);
             const iconClosed = iconElement.querySelector('.icon-eye-closed');
             const iconOpen = iconElement.querySelector('.icon-eye-open');
-            if (input.type === 'password') { input.type = 'text'; iconClosed.style.display = 'none'; iconOpen.style.display = 'block'; } 
-            else { input.type = 'password'; iconClosed.style.display = 'block'; iconOpen.style.display = 'none'; }
+            if (input.type === 'password') { 
+                input.type = 'text'; iconClosed.style.display = 'none'; iconOpen.style.display = 'block'; 
+            } else { 
+                input.type = 'password'; iconClosed.style.display = 'block'; iconOpen.style.display = 'none'; 
+            }
         }
         
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
         const confirmInput = document.getElementById('confirm_password');
         const btnSubmit = document.getElementById('btnSubmit');
-        
-        function validateEmail() { const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; if (!re.test(emailInput.value) && emailInput.value !== '') { emailInput.classList.add('is-invalid'); return false; } else { emailInput.classList.remove('is-invalid'); return true; } }
-        function validatePassword() { if (passwordInput.value.length < 6 && passwordInput.value !== '') { passwordInput.classList.add('is-invalid'); return false; } else { passwordInput.classList.remove('is-invalid'); return true; } }
-        function validateConfirm() { if (confirmInput.value !== passwordInput.value && confirmInput.value !== '') { confirmInput.classList.add('is-invalid'); return false; } else { confirmInput.classList.remove('is-invalid'); return true; } }
 
-        function cekTombolAktif() {
-            const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
-            const isPassValid = passwordInput.value.length >= 6;
-            const isConfirmValid = confirmInput.value === passwordInput.value && confirmInput.value !== '';
-            if (isEmailValid && isPassValid && isConfirmValid) btnSubmit.disabled = false;
-            else btnSubmit.disabled = true;
+        // Elemen Error
+        const errEmailKosong = document.getElementById('err-email-kosong');
+        const errEmailFormat = document.getElementById('err-email-format');
+        const errEmailExists = document.getElementById('err-email-exists');
+        const errPwKosong = document.getElementById('err-pw-kosong');
+        const errPwMin = document.getElementById('err-pw-min');
+        const errConfirmKosong = document.getElementById('err-confirm-kosong');
+        const errConfirmMatch = document.getElementById('err-confirm-match');
+
+        // Reset Error
+        function resetErrors() {
+            emailInput.classList.remove('is-invalid');
+            passwordInput.classList.remove('is-invalid');
+            confirmInput.classList.remove('is-invalid');
+            errEmailKosong.classList.remove('show');
+            errEmailFormat.classList.remove('show');
+            errEmailExists.classList.remove('show');
+            errPwKosong.classList.remove('show');
+            errPwMin.classList.remove('show');
+            errConfirmKosong.classList.remove('show');
+            errConfirmMatch.classList.remove('show');
         }
-        
-        emailInput.addEventListener('input', () => { validateEmail(); cekTombolAktif(); }); 
-        passwordInput.addEventListener('input', () => { validatePassword(); cekTombolAktif(); }); 
+
+        // Validasi Email
+        function validateEmail() {
+            resetErrors();
+            const val = emailInput.value;
+            if (val === '') {
+                emailInput.classList.add('is-invalid');
+                errEmailKosong.classList.add('show');
+                return false;
+            }
+            if (!val.includes('@')) {
+                emailInput.classList.add('is-invalid');
+                errEmailFormat.classList.add('show');
+                return false;
+            }
+            return true;
+        }
+
+        // Validasi Password
+        function validatePassword() {
+            resetErrors();
+            const val = passwordInput.value;
+            if (val === '') {
+                passwordInput.classList.add('is-invalid');
+                errPwKosong.classList.add('show');
+                return false;
+            }
+            if (val.length < 8) {
+                passwordInput.classList.add('is-invalid');
+                errPwMin.classList.add('show');
+                return false;
+            }
+            return true;
+        }
+
+        // Validasi Konfirmasi
+        function validateConfirm() {
+            resetErrors();
+            const val = confirmInput.value;
+            if (val === '') {
+                confirmInput.classList.add('is-invalid');
+                errConfirmKosong.classList.add('show');
+                return false;
+            }
+            if (val !== passwordInput.value) {
+                confirmInput.classList.add('is-invalid');
+                errConfirmMatch.classList.add('show');
+                return false;
+            }
+            return true;
+        }
+
+        // Cek Tombol Aktif
+        function cekTombolAktif() {
+            const isEmailValid = emailInput.value.includes('@') && emailInput.value !== '';
+            const isPassValid = passwordInput.value.length >= 8;
+            const isConfirmValid = confirmInput.value === passwordInput.value && confirmInput.value !== '';
+            
+            if (isEmailValid && isPassValid && isConfirmValid) {
+                btnSubmit.disabled = false;
+            } else {
+                btnSubmit.disabled = true;
+            }
+        }
+
+        // Event Listener
+        emailInput.addEventListener('input', () => { validateEmail(); cekTombolAktif(); });
+        passwordInput.addEventListener('input', () => { validatePassword(); cekTombolAktif(); });
         confirmInput.addEventListener('input', () => { validateConfirm(); cekTombolAktif(); });
 
+        // Submit Form
         document.getElementById('registerForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             if (btnSubmit.disabled) return;
-            btnSubmit.disabled = true; btnSubmit.textContent = 'Memproses...';
-            const alertBox = document.getElementById('alert-box'); alertBox.innerHTML = '';
+            
+            btnSubmit.disabled = true; 
+            btnSubmit.textContent = 'Memproses...';
+            const alertBox = document.getElementById('alert-box'); 
+            alertBox.innerHTML = '';
 
             try {
                 const response = await fetch(API_BASE + '/auth/register.php', {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: emailInput.value, password: passwordInput.value, confirm_password: confirmInput.value })
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        email: emailInput.value, 
+                        password: passwordInput.value, 
+                        confirm_password: confirmInput.value 
+                    })
                 });
                 const responseText = await response.text();
                 let result;
@@ -126,8 +387,15 @@
                         localStorage.setItem('register_email', emailInput.value); 
                         setTimeout(() => { window.location.href = 'verifikasi.html'; }, 1500);
                     } else {
-                        alertBox.innerHTML = `<div class="vsq-alert vsq-alert-error">${result.message || 'Registrasi gagal'}</div>`;
-                        btnSubmit.disabled = false; btnSubmit.textContent = 'Daftar Akun';
+                        // Jika API bilang email sudah terdaftar
+                        if (result.message && result.message.toLowerCase().includes('sudah terdaftar')) {
+                            emailInput.classList.add('is-invalid');
+                            errEmailExists.classList.add('show');
+                        } else {
+                            alertBox.innerHTML = `<div class="vsq-alert vsq-alert-error">${result.message || 'Registrasi gagal'}</div>`;
+                        }
+                        btnSubmit.disabled = false; 
+                        btnSubmit.textContent = 'Daftar Akun';
                     }
                 } catch (parseError) {
                     console.warn("BE Error (Bypassed):", responseText);
@@ -137,7 +405,8 @@
                 }
             } catch (error) {
                 alertBox.innerHTML = `<div class="vsq-alert vsq-alert-error">Kesalahan jaringan internet Anda.</div>`;
-                btnSubmit.disabled = false; btnSubmit.textContent = 'Daftar Akun';
+                btnSubmit.disabled = false; 
+                btnSubmit.textContent = 'Daftar Akun';
             }
         });
     </script>

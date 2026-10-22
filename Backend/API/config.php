@@ -24,13 +24,24 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // ============================================
-// KONEKSI DATABASE (INFINITYFREE)
+// KONEKSI DATABASE (OTOMATIS LOKAL & HOSTING)
 // ============================================
-// Data diambil dari panel InfinityFree Anda
-$host = 'sql201.infinityfree.com';     // MySQL Hostname
-$user = 'if0_43234798';                // MySQL Username
-$pass = 'ProjectKel3';                 // MySQL Password
-$db   = 'if0_43234798_vincent_sqdb';   // MySQL Database Name (Pastikan ini sesuai dengan nama database yang sudah Anda buat di panel)
+$is_localhost = ($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '127.0.0.1');
+
+if ($is_localhost) {
+    // --- KONFIGURASI LOKAL (LARAGON/XAMPP) ---
+    $host = 'localhost';
+    $user = 'root';
+    $pass = '';
+    $db   = 'vincent_sqdb';
+} else {
+    // --- KONFIGURASI HOSTING (INFINITYFREE) ---
+    // Data dari panel InfinityFree Anda
+    $host = 'sql201.infinityfree.com'; 
+    $user = 'if0_43234798';            
+    $pass = 'ProjectKel3';             
+    $db   = 'if0_43234798_vincent_sqdb'; 
+}
 
 $conn = mysqli_connect($host, $user, $pass, $db);
 if (!$conn) {
@@ -47,6 +58,13 @@ mysqli_set_charset($conn, 'utf8mb4');
 // ============================================
 // KONSTANTA PATH (URL & FOLDER UPLOAD)
 // ============================================
+if ($is_localhost) {
+    // Ganti 'vincent-arena' sesuai nama folder Anda di Laragon
+    define('BASE_URL', '/vincent-arena'); 
+} else {
+    define('BASE_URL', 'https://vincent-arena.infinityfreeapp.com');
+}
+
 define('BASE_URL', 'https://vincent-arena.infinityfreeapp.com');
 define('UPLOAD_LAPANGAN', BASE_URL . '/Frontend/assets/uploads/lapangan/');
 define('UPLOAD_MAKANAN',  BASE_URL . '/Frontend/assets/uploads/makanan/');

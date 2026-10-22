@@ -6,9 +6,11 @@
     <title>Beranda - Vincent SQ Arena</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/network.css">
-
+    
     <style>
+        /* =========================================
+           1. CSS DASAR & NAVBAR (SESUAI FIGMA)
+           ========================================= */
         :root {
             --vsq-navy: #131B2E;
             --vsq-blue: #477FEB;
@@ -22,103 +24,29 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            background-color: var(--vsq-white);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+        body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', sans-serif; }
 
-        /* =========================================
-           NAVBAR STYLING (Sesuai Figma)
-           ========================================= */
-        .vsq-header { 
-            background: #FFFFFF; 
-            width: 100%; 
-            height: 106px; 
-            border-bottom: 1px solid #E2E8F0; 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            padding: 0 44px; 
-            box-sizing: border-box; 
-        }
-
-        /* Logo */
+        /* Navbar */
+        .vsq-header { background: #FFFFFF; width: 100%; height: 106px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
         .vsq-logo { display: flex; flex-direction: column; text-decoration: none; width: 115px; }
         .vsq-logo-title { font-size: 21px; font-weight: 700; color: #131B2E; line-height: 18px; letter-spacing: -0.45px; }
         .vsq-logo-sub { font-size: 14px; font-weight: 700; color: #FF0000; line-height: 16px; letter-spacing: 0.6px; margin-top: 4px; }
-
-        /* Menu Tengah */
         .vsq-nav-menu { display: flex; align-items: center; gap: 32px; flex: 1; margin-left: 40px; }
         .vsq-nav-link { font-size: 14px; font-weight: 600; color: #000000; text-decoration: none; transition: color 0.2s; }
         .vsq-nav-link:hover { color: var(--vsq-blue); }
-        
-        /* Menu Aktif (Beranda) */
-        .vsq-nav-link.active { 
-            color: #FFFFFF; 
-            background: #131B2E; 
-            padding: 15px 17px; 
-            border-radius: 15px; 
-            height: 54px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Sisi Kanan (Login/Register atau Profil) */
+        .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 15px 17px; border-radius: 15px; height: 54px; display: flex; align-items: center; justify-content: center; }
         .vsq-nav-right { display: flex; align-items: center; gap: 12px; }
-
-        /* Tombol Login & Register (Before Login) */
-        .vsq-btn-login { 
-            background: #477FEB; 
-            color: #FFF; 
-            width: 120px; 
-            height: 50px; 
-            border-radius: 15px; 
-            font-size: 16px; 
-            font-weight: 600; 
-            text-decoration: none; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-        }
-        .vsq-btn-register { 
-            background: #FF0000; 
-            color: #FFF; 
-            width: 120px; 
-            height: 50px; 
-            border-radius: 15px; 
-            font-size: 16px; 
-            font-weight: 600; 
-            text-decoration: none; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-        }
-
-        /* Kotak Profil & Notif (After Login) */
+        .vsq-btn-login { background: #477FEB; color: #FFF; width: 120px; height: 50px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        .vsq-btn-register { background: #FF0000; color: #FFF; width: 120px; height: 50px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
         .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 47px; height: 47px; }
         .vsq-notif-btn svg { width: 28px; height: 28px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-        
-        .vsq-profile-box { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            width: 153px; 
-            height: 63px; 
-            border: 1px solid #000000; 
-            border-radius: 20px; 
-            padding: 0 10px 0 17px; 
-            cursor: pointer; 
-            margin-left: 10px; 
-            text-decoration: none; 
-        }
+        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: 153px; height: 63px; border: 1px solid #000000; border-radius: 20px; padding: 0 10px 0 17px; cursor: pointer; margin-left: 10px; text-decoration: none; }
         .vsq-profile-name { font-size: 18px; color: #000; white-space: nowrap; font-weight: 400; }
         .vsq-profile-avatar { width: 42px; height: 42px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 600; }
 
-        /* ===== HERO SECTION ===== */
+        /* =========================================
+           2. CSS HERO SECTION
+           ========================================= */
         .vsq-hero { position: relative; width: 100%; height: 633px; background-color: var(--vsq-navy); overflow: hidden; }
         .vsq-hero-image { position: absolute; top: 0; right: 0; width: 75%; height: 100%; background-image: url('assets/uploads/lapangan/hero.jpeg'); background-size: cover; background-position: center; z-index: 1; }
         .vsq-hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, var(--vsq-navy) 25%, rgba(19, 27, 46, 0.85) 50%, rgba(19, 27, 46, 0) 100%); z-index: 2; }
@@ -127,37 +55,32 @@
         .vsq-hero-content h1 span { color: var(--vsq-red); }
         .vsq-hero-content p { font-size: 20px; line-height: 1.5; color: var(--vsq-lightgray); max-width: 550px; margin: 0; }
         
-        /* Badge Lokasi (Bisa Diklik) */
-        .vsq-location-badge { 
-            position: absolute; 
-            bottom: 30px; 
-            right: 40px; 
-            background: rgba(255, 255, 255, 0.75); 
-            backdrop-filter: blur(4px); 
-            color: #848484; 
-            padding: 10px 22px; 
-            border-radius: 10px; 
-            font-size: 12px; 
-            font-weight: 400; 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 8px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            z-index: 10; 
-            text-decoration: none; 
-            cursor: pointer;
-            transition: background 0.2s;
-        }
+        /* Badge Lokasi */
+        .vsq-location-badge { position: absolute; bottom: 30px; right: 40px; background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(4px); color: #848484; padding: 10px 22px; border-radius: 10px; font-size: 12px; font-weight: 400; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); z-index: 10; text-decoration: none; cursor: pointer; transition: background 0.2s; }
         .vsq-location-badge:hover { background: rgba(255, 255, 255, 0.95); }
 
-        /* ===== SECTION UMUM ===== */
+        /* =========================================
+           3. CSS SECTION & CARD LAPANGAN & SKELETON
+           ========================================= */
         .vsq-section { padding: 50px 20px; max-width: 1242px; margin: 0 auto; }
         .vsq-section-title { text-align: center; margin-bottom: 40px; }
         .vsq-section-title h2 { font-size: 50px; font-weight: 700; line-height: 40px; color: var(--vsq-black); margin: 0 0 12px 0; }
         .vsq-section-title.title-blue h2 { color: var(--vsq-blue); }
         .vsq-section-title p { font-size: 20px; color: var(--vsq-blue); margin: 0; font-weight: 600; }
 
-        /* ===== KARTU LAPANGAN ===== */
+        /* Skeleton Loading CSS */
+        .sl-skeleton { background-color: #E2E8F0; border-radius: 6px; position: relative; overflow: hidden; }
+        .sl-skeleton::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent); animation: shimmer 1.5s infinite; }
+        @keyframes shimmer { 100% { left: 100%; } }
+        .sl-card { display: flex; border: 1px solid #E2E8F0; border-radius: 20px; height: 280px; margin-bottom: 30px; background: white; overflow: hidden; }
+        .sl-img { width: 45%; height: 100%; background-color: #CBD5E1; }
+        .sl-content { padding: 30px; flex: 1; display: flex; flex-direction: column; gap: 15px; }
+        .sl-title { height: 28px; width: 50%; }
+        .sl-text { height: 16px; width: 100%; }
+        .sl-text.short { width: 70%; }
+        .sl-btn { height: 45px; width: 180px; margin-top: 20px; }
+
+        /* Card Lapangan */
         .vsq-lapangan-grid { display: flex; flex-direction: column; gap: 52px; max-width: 1242px; margin: 0 auto; }
         .vsq-card { background: var(--vsq-white); border: 1px solid var(--vsq-gray); border-radius: 20px; overflow: hidden; display: flex; flex-direction: row; min-height: 532px; transition: box-shadow 0.3s, transform 0.3s; }
         .vsq-card:hover { box-shadow: 0 15px 35px rgba(0,0,0,0.1); transform: translateY(-4px); }
@@ -177,87 +100,17 @@
         .vsq-btn-booking:hover { background: #D50000; }
 
         /* =========================================
-           CARA BOOKING (SESUAI UI/UX)
+           4. CSS CARA BOOKING, FAQ, FOOTER, DLL
            ========================================= */
-        .vsq-steps-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px; 
-            max-width: 1100px;
-            margin: 0 auto;
-            flex-wrap: wrap; 
-        }
+        .vsq-steps-container { display: flex; align-items: center; justify-content: center; gap: 20px; max-width: 1100px; margin: 0 auto; flex-wrap: wrap; }
+        .vsq-step-card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px 20px; width: 220px; text-align: center; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .vsq-step-header-row { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 16px; }
+        .vsq-step-number-circle { width: 30px; height: 30px; background: #477FEB; color: #FFFFFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; }
+        .vsq-step-icon-svg { width: 32px; height: 32px; stroke: #477FEB; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .vsq-step-card h4 { font-size: 14px; font-weight: 700; color: #477FEB; margin: 0 0 8px 0; }
+        .vsq-step-card p { font-size: 12px; color: #477FEB; margin: 0; line-height: 1.4; font-weight: 500; }
+        .vsq-arrow-icon { font-size: 28px; color: #477FEB; font-weight: 800; display: flex; align-items: center; justify-content: center; }
 
-        .vsq-step-card {
-            background: #FFFFFF;
-            border: 1px solid #E2E8F0;
-            border-radius: 12px;
-            padding: 24px 20px;
-            width: 220px; 
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-
-        .vsq-step-header-row {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .vsq-step-number-circle {
-            width: 30px;
-            height: 30px;
-            background: #477FEB;
-            color: #FFFFFF;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .vsq-step-icon-svg {
-            width: 32px;
-            height: 32px;
-            stroke: #477FEB;
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .vsq-step-card h4 {
-            font-size: 14px;
-            font-weight: 700;
-            color: #477FEB;
-            margin: 0 0 8px 0;
-        }
-
-        .vsq-step-card p {
-            font-size: 12px;
-            color: #477FEB;
-            margin: 0;
-            line-height: 1.4;
-            font-weight: 500;
-        }
-
-        .vsq-arrow-icon {
-            font-size: 28px;
-            color: #477FEB;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* ===== FAQ ===== */
         .vsq-faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; max-width: 1292px; margin: 0 auto; }
         .vsq-faq-item { background: var(--vsq-white); border: 1px solid var(--vsq-gray); border-radius: 16px; cursor: pointer; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); overflow: hidden; }
         .vsq-faq-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 24px 28px; gap: 16px; user-select: none; }
@@ -268,7 +121,6 @@
         .vsq-faq-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; padding: 0 28px; font-size: 18px; color: var(--vsq-gray); line-height: 1.6; }
         .vsq-faq-item.active .vsq-faq-body { max-height: 200px; padding: 0 28px 24px 28px; }
 
-        /* ===== FOOTER ===== */
         .vsq-footer { background-color: var(--vsq-navy); color: var(--vsq-white); padding: 48px 0 30px 0; margin-top: 60px; }
         .vsq-footer-content { max-width: 1200px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 40px; margin-bottom: 40px; }
         .vsq-footer-brand { font-size: 24px; font-weight: 700; line-height: 1.2; }
@@ -281,13 +133,28 @@
         .vsq-footer-contact-item svg { width: 24px; height: 24px; stroke: var(--vsq-red); fill: none; stroke-width: 2; flex-shrink: 0; }
         .vsq-footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 24px; text-align: center; font-size: 16px; color: rgba(255, 255, 255, 0.4); }
 
-        /* ===== RESPONSIVE ===== */
+        /* CSS Overlay Offline & Toast (Dari network.css) */
+        .network-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0F172A; z-index: 9999; display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
+        .network-content { text-align: center; color: white; max-width: 400px; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .network-icon { color: #DC2626; margin-bottom: 24px; animation: pulse 2s infinite; display: flex; justify-content: center; }
+        .network-title { font-size: 24px; font-weight: 800; margin: 0 0 12px 0; }
+        .network-message { font-size: 14px; color: #94A3B8; margin: 0 0 24px 0; }
+        .network-btn { background: #DC2626; color: white; border: none; padding: 12px 32px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        .toast-container { position: fixed; top: 20px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+        .toast { background: white; border-left: 4px solid #2563EB; padding: 14px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 14px; font-weight: 600; color: #0F172A; min-width: 280px; display: flex; align-items: center; gap: 12px; opacity: 0; transform: translateX(100%); transition: all 0.3s ease; pointer-events: auto; }
+        .toast.show { opacity: 1; transform: translateX(0); }
+        .toast.success { border-left-color: #16A34A; }
+        .toast.error { border-left-color: #DC2626; }
+        .toast.warning { border-left-color: #EAB308; }
+
+        /* Responsive */
         @media (max-width: 1023px) {
             .vsq-hero-image { width: 100%; opacity: 0.6; }
             .vsq-hero-overlay { background: linear-gradient(rgba(19, 27, 46, 0.9), rgba(19, 27, 46, 0.9)); }
             .vsq-hero-content h1 { font-size: 40px; }
             .vsq-footer-content { grid-template-columns: 1fr 1fr; }
-            
             .vsq-steps-container { gap: 10px; }
             .vsq-arrow-icon { display: none; }
             .vsq-step-card { width: 45%; } 
@@ -308,7 +175,6 @@
             .vsq-section-title h2 { font-size: 28px; }
             .vsq-footer-content { grid-template-columns: 1fr; text-align: center; }
             .vsq-footer-contact-item { justify-content: center; }
-
             .vsq-step-card { width: 100%; } 
         }
     </style>
@@ -324,8 +190,7 @@
             <h1>Sewa Lapangan Olahraga Favoritmu dengan Sekali <span>Klik</span></h1>
             <p>Vincent'SQ Arena hadir untuk lapangan Futsal dengan fasilitas standar nasional dan sistem konfirmasi realtime.</p>
         </div>
-        <!-- BADGE LOKASI (Langsung ke Google Maps) -->
-       <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Tuparev+No.64,+Kertawinangun,+Kec.+Kedawung,+Kabupaten+Cirebon,+Jawa+Barat+45153" target="_blank" class="vsq-location-badge">
+        <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Tuparev+No.64,+Kertawinangun,+Kec.+Kedawung,+Kabupaten+Cirebon,+Jawa+Barat+45153" target="_blank" class="vsq-location-badge">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 30px; height: 30px;">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 3.5 5.5 9.5 6.4 10.4.3.3.9.3 1.2 0C13.5 18.5 19 12.5 19 9c0-3.87-3.13-7-7-7z" stroke="#848484" stroke-width="2" fill="none" stroke-linejoin="round"/>
                 <circle cx="12" cy="9" r="2.5" fill="#848484"/>
@@ -339,7 +204,7 @@
             <h2>Pilihan Lapangan Tersedia</h2>
         </div>
         <div class="vsq-lapangan-grid" id="lapangan-container">
-            <p style="text-align: center; color: #888;">Memuat data lapangan...</p>
+            <!-- Skeleton akan dimuat disini -->
         </div>
     </section>
 
@@ -461,6 +326,7 @@
         <div class="vsq-footer-bottom">@ 2026 Vincent'SQ Arena. All Right Reserved</div>
     </footer>
 
+    <!-- Network Overlay -->
     <div id="network-overlay" class="network-overlay" style="display: none;">
         <div class="network-content">
             <div class="network-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="80" height="80"><path d="M1 1l22 22"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
@@ -472,11 +338,52 @@
     <div id="toast-container" class="toast-container"></div>
 
     <script>
-        // KODE DETEKSI OTOMATIS URL API
+        // =========================================
+        // 1. KONFIGURASI & LOGIKA JARINGAN (NETWORK)
+        // =========================================
         const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://localhost/vincent-arena/Backend/API'
             : 'https://vincent-arena.infinityfreeapp.com/Backend/API';
 
+        // Fungsi Fetch dengan Timeout 10 Detik
+        async function fetchWithTimeout(resource, options = {}) {
+            const { timeout = 10000 } = options;
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeout);
+            const response = await fetch(resource, {
+                ...options,
+                signal: controller.signal  
+            });
+            clearTimeout(id);
+            return response;
+        }
+
+        // Deteksi Offline/Online
+        window.addEventListener('offline', () => {
+            document.getElementById('network-overlay').style.display = 'flex';
+            setTimeout(() => document.getElementById('network-overlay').style.opacity = '1', 10);
+        });
+
+        window.addEventListener('online', () => {
+            const overlay = document.getElementById('network-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.style.display = 'none', 300);
+        });
+
+        function retryConnection() {
+            if (navigator.onLine) {
+                document.getElementById('network-overlay').style.opacity = '0';
+                setTimeout(() => document.getElementById('network-overlay').style.display = 'none', 300);
+                loadLapangan(); // Coba muat ulang data
+            } else {
+                alert('Masih offline. Periksa koneksi internet Anda.');
+            }
+        }
+
+
+        // =========================================
+        // 2. LOGIKA RENDER NAVBAR & LAPANGAN
+        // =========================================
         function toggleFaq(element) {
             const isActive = element.classList.contains('active');
             document.querySelectorAll('.vsq-faq-item').forEach(item => item.classList.remove('active'));
@@ -521,7 +428,30 @@
                 <div class="vsq-nav-right">${rightNavHTML}</div>
             </div>`;
 
-            loadLapangan();
+            // Tampilkan Skeleton dulu sebelum load data
+            document.getElementById('lapangan-container').innerHTML = `
+                <div class="sl-card">
+                    <div class="sl-skeleton sl-img"></div>
+                    <div class="sl-content">
+                        <div class="sl-skeleton sl-title"></div>
+                        <div class="sl-skeleton sl-text"></div>
+                        <div class="sl-skeleton sl-text short"></div>
+                        <div class="sl-skeleton sl-btn"></div>
+                    </div>
+                </div>
+                <div class="sl-card">
+                    <div class="sl-skeleton sl-img"></div>
+                    <div class="sl-content">
+                        <div class="sl-skeleton sl-title"></div>
+                        <div class="sl-skeleton sl-text"></div>
+                        <div class="sl-skeleton sl-text short"></div>
+                        <div class="sl-skeleton sl-btn"></div>
+                    </div>
+                </div>
+            `;
+
+            // Panggil data setelah 0.5 detik (opsional agar skeleton terlihat)
+            setTimeout(loadLapangan, 500);
         });
 
         function logout() {
@@ -534,7 +464,8 @@
         async function loadLapangan() {
             const container = document.getElementById('lapangan-container');
             try {
-                const response = await fetch(API_BASE + '/public/lapangan.php');
+                // Gunakan fetchWithTimeout
+                const response = await fetchWithTimeout(API_BASE + '/public/lapangan.php', { timeout: 10000 });
                 const result = await response.json();
 
                 if(result.status !== 'success' || !result.data) {
@@ -573,7 +504,15 @@
 
             } catch (error) {
                 console.error("Error asli:", error);
-                container.innerHTML = '<p style="text-align: center; color: #888;">Terjadi kesalahan koneksi ke server. Cek Console (F12).</p>';
+                
+                // Penanganan Error Jaringan
+                if (error.name === 'AbortError') {
+                    container.innerHTML = '<p style="text-align: center; color: #888;">Koneksi lambat. Gagal memuat data lapangan.</p>';
+                } else if (!navigator.onLine) {
+                    container.innerHTML = '<p style="text-align: center; color: #888;">Anda sedang offline. Periksa koneksi Anda.</p>';
+                } else {
+                    container.innerHTML = '<p style="text-align: center; color: #888;">Terjadi kesalahan koneksi ke server.</p>';
+                }
             }
         }
     </script>

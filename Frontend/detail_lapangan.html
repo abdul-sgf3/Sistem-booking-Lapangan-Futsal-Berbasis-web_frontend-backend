@@ -7,33 +7,72 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/network.css">
     <style>
-        :root { --vsq-navy: #131B2E; --vsq-blue: #477FEB; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #F8FAFC; }
 
         /* Skeleton CSS */
         .sl-skeleton { background-color: #E2E8F0; border-radius: 8px; position: relative; overflow: hidden; }
         .sl-skeleton::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent); animation: shimmer 1.5s infinite; }
         @keyframes shimmer { 100% { left: 100%; } }
-        
-        .detail-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; }
-        .detail-skeleton-img { height: 400px; border-radius: 16px; }
-        .detail-skeleton-form { height: 450px; border-radius: 16px; }
 
-        @media (max-width: 768px) {
-            .detail-container { grid-template-columns: 1fr; }
-        }
+        .detail-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; }
+        
+        /* Skeleton Layout */
+        .sk-img { height: 400px; width: 100%; border-radius: 16px; }
+        .sk-content { padding: 30px; background: white; border-radius: 16px; height: fit-content; }
+        .sk-title { height: 40px; width: 70%; margin-bottom: 20px; }
+        .sk-text { height: 20px; width: 100%; margin-bottom: 12px; }
+        .sk-text.short { width: 50%; }
+        .sk-box { height: 100px; width: 100%; margin-bottom: 20px; border-radius: 8px; }
+        .sk-btn { height: 50px; width: 100%; margin-top: 20px; border-radius: 8px; }
     </style>
 </head>
 <body>
-    <header id="navbar"></header>
-    <div class="detail-container">
-        <div class="sl-skeleton detail-skeleton-img"></div>
-        <div class="sl-skeleton detail-skeleton-form"></div>
+    <!-- Navbar placeholder -->
+    <header style="height: 90px; background: white; border-bottom: 1px solid #E2E8F0;"></header>
+
+    <div class="detail-container" id="detail-wrapper">
+        <!-- KIRI: Skeleton Gambar -->
+        <div class="sl-skeleton sk-img"></div>
+
+        <!-- KANAN: Skeleton Form Booking -->
+        <div class="sk-content">
+            <div class="sl-skeleton sk-title"></div>
+            <div class="sl-skeleton sk-text"></div>
+            <div class="sl-skeleton sk-text short"></div>
+            
+            <div style="margin-top: 30px;">
+                <div class="sl-skeleton sk-text short" style="margin-bottom: 8px;"></div>
+                <div class="sl-skeleton sk-box"></div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div class="sl-skeleton sk-text short" style="margin-bottom: 8px;"></div>
+                <div class="sl-skeleton sk-box"></div>
+            </div>
+
+            <div class="sl-skeleton sk-btn"></div>
+        </div>
     </div>
 
-    <script src="assets/js/config.js"></script>
-    <script src="assets/js/api.js"></script>
-    <script src="assets/js/components.js"></script>
+    <script>
+        // Simulasi pengambilan data dari API selama 1.5 detik
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.getElementById('detail-wrapper').innerHTML = `
+                    <div style="background: url('assets/uploads/lapangan/Lapangan1.jpeg') center/cover; height: 400px; border-radius: 16px;"></div>
+                    <div style="background: white; padding: 30px; border-radius: 16px;">
+                        <h1 style="font-size: 32px; color: #131B2E; margin-bottom: 10px;">Lapangan Futsal 1</h1>
+                        <p style="color: #FF0000; font-weight: 700; font-size: 24px; margin-bottom: 20px;">Rp 200.000 / Jam</p>
+                        <p style="color: #64748B; line-height: 1.6; margin-bottom: 30px;">Lapangan futsal premium bertema modern futuristik dengan pencahayaan LED profesional.</p>
+                        
+                        <button style="width: 100%; padding: 15px; background: #FF0000; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer;">
+                            Lanjut ke Pembayaran
+                        </button>
+                    </div>
+                `;
+            }, 1500); // 1.5 detik simulasi loading
+        });
+    </script>
 </body>
 </html>

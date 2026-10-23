@@ -6,9 +6,23 @@
     <title>Lengkapi Profil - Vincent'SQ Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --vsq-title-blue: #2C437B; --vsq-red: #DC2626; --vsq-black: #0F172A; --vsq-gray-border: #D1D5DB; --vsq-btn-blue: #3B82F6; }
+        :root { 
+            --vsq-title-blue: #2C437B; 
+            --vsq-red: #DC2626; 
+            --vsq-black: #0F172A; 
+            --vsq-gray-border: #D1D5DB; 
+            --vsq-btn-blue: #3B82F6; 
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)), url('assets/uploads/lapangan/hero.jpeg') center/cover no-repeat fixed; padding: 20px; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            background: linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)), url('assets/uploads/lapangan/hero.jpeg') center/cover no-repeat fixed; 
+            padding: 20px; 
+        }
         .vsq-profile-card { background: #FFFFFF; width: 100%; max-width: 400px; border-radius: 16px; padding: 30px 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .vsq-logo { text-align: center; margin-bottom: 8px; }
         .vsq-logo h1 { font-size: 24px; font-weight: 800; color: var(--vsq-title-blue); margin: 0; }
@@ -81,19 +95,31 @@
             e.preventDefault();
             const btn = document.getElementById('btnSubmit');
             btn.disabled = true; btn.textContent = 'Menyimpan...';
+            
             const nama = document.getElementById('nama').value;
             const whatsapp = document.getElementById('whatsapp').value;
 
+            // VALIDASI: Pastikan nama tidak kosong
+            if (!nama || !whatsapp) {
+                alert("Nama dan No. Whatsapp wajib diisi!");
+                btn.disabled = false;
+                btn.textContent = 'Simpan data';
+                return;
+            }
+
+            // SIMPAN KE LOCALSTORAGE
             localStorage.setItem('user_id', 'user-123');
-            localStorage.setItem('nama', nama);
+            localStorage.setItem('nama', nama); // Menyimpan nama asli user
             localStorage.setItem('user_email', emailUser || 'user@email.com');
 
+            // Panggil API (Opsional, karena kita bypass)
             fetch(API_BASE + '/auth/lengkapi_profil.php', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: emailUser, nama: nama, whatsapp: whatsapp })
             }).catch(err => console.log('BE error diabaikan'));
 
-            setTimeout(() => { window.location.href = 'index.html'; }, 1000);
+            // Arahkan ke Login setelah 1.5 detik
+            setTimeout(() => { window.location.href = 'login.html'; }, 1500);
         });
     </script>
 </body>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Okt 2026 pada 06.09
+-- Waktu pembuatan: 23 Okt 2026 pada 07.35
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -99,8 +99,8 @@ CREATE TABLE `lapangan` (
 --
 
 INSERT INTO `lapangan` (`id`, `nama_lapangan`, `deskripsi`, `lokasi`, `harga_per_jam`, `foto`, `status`, `created_at`) VALUES
-(1, 'Lapangan1', 'Lapangan futsal premium bertema modern futuristik dengan pencahayaan LED profesional dan desain eksklusif. Sangat cocok untuk pertandingan kompetitif dan pengalaman bermain kelas profesional.', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15849.280058054552!2d108.51720518715817!3d-6.730755099999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6ee20c7bee47bd%3A0x21163df67073f97b!2sTaman%20Cipto%20Sport%20Centre!5e0!3m2!1sid!2sid!4v1778769842575!5m2!1sid!2sid', 200000, 'Lapangan1.jpeg', 'aktif', '2026-05-08 21:14:20'),
-(2, 'Lapangan 2', 'Lapangan futsal bernuansa alam dengan rumput sintetis berkualitas tinggi dan sirkulasi udara terbuka. Memberikan pengalaman bermain yang segar, nyaman, dan aman untuk semua pemain.', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15849.280058054552!2d108.51720518715817!3d-6.730755099999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f1df112d84fef%3A0xbdd3db3590b4b3e9!2sGOR%20Bima%20Cirebon!5e0!3m2!1sid!2sid!4v1778769782634!5m2!1sid!2sid', 150000, 'Lapangan2.jpeg', 'aktif', '2026-05-08 21:14:20');
+(1, 'Lapangan Futsal 1', 'Lapangan futsal premium bertema modern futuristik dengan pencahayaan LED profesional dan desain eksklusif. Sangat cocok untuk pertandingan kompetitif dan pengalaman bermain kelas profesional.', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15849.280058054552!2d108.51720518715817!3d-6.730755099999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6ee20c7bee47bd%3A0x21163df67073f97b!2sTaman%20Cipto%20Sport%20Centre!5e0!3m2!1sid!2sid!4v1778769842575!5m2!1sid!2sid', 200000, 'Lapangan1.jpeg', 'aktif', '2026-05-08 21:14:20'),
+(2, 'Lapangan Futsal 2', 'Lapangan futsal bernuansa alam dengan rumput sintetis berkualitas tinggi dan sirkulasi udara terbuka. Memberikan pengalaman bermain yang segar, nyaman, dan aman untuk semua pemain.', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15849.280058054552!2d108.51720518715817!3d-6.730755099999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f1df112d84fef%3A0xbdd3db3590b4b3e9!2sGOR%20Bima%20Cirebon!5e0!3m2!1sid!2sid!4v1778769782634!5m2!1sid!2sid', 150000, 'Lapangan2.jpeg', 'aktif', '2026-05-08 21:14:20');
 
 -- --------------------------------------------------------
 
@@ -177,12 +177,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nama`, `username`, `email`, `whatsapp`, `foto_profil`, `password`, `role`, `created_at`, `is_active`, `is_verified`, `otp_code`, `otp_expired_at`, `last_login`, `updated_at`) VALUES
-(1, 'King Nasir', 'admin', 'admin@tsubasa.com', NULL, NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'admin', '2026-05-08 21:14:20', 1, 1, NULL, NULL, NULL, '2026-10-20 11:04:15'),
+(1, 'King Nasir', 'admin', 'admin@tsubasa.com', NULL, NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'admin', '2026-05-08 21:14:20', 1, 1, NULL, NULL, '2026-10-20 12:00:11', '2026-10-20 12:00:11'),
 (2, 'Kurumi', 'kurumi', 'kurumi12@email.com', '083123456123', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-05-08 23:39:37', 1, 1, NULL, NULL, NULL, '2026-10-20 11:04:15'),
 (4, 'erreenn', 'asyaf', 'ashfahani@gmail.com', '93298r27427727', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-05-14 21:56:55', 1, 1, NULL, NULL, NULL, '2026-10-20 11:04:15'),
 (5, 'Asyaf', 'asyaf87', 'asyaf@gmail.com', '', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-10-09 10:36:52', 1, 1, NULL, NULL, NULL, '2026-10-20 11:04:15'),
 (6, 'Ashfahani77', 'ashfahani77', 'ashfahani77@gmail.com', '', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-10-09 10:46:30', 1, 1, NULL, NULL, NULL, '2026-10-20 11:04:15'),
-(7, 'User Tes Lengkap', 'usertes', 'tes@gmail.com', '081234567890', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-10-19 17:41:08', 1, 1, NULL, NULL, '2026-10-20 10:47:00', '2026-10-20 11:04:52');
+(7, 'User Tes Lengkap', 'usertes', 'tes@gmail.com', '081234567890', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'admin', '2026-10-19 17:41:08', 1, 1, NULL, NULL, '2026-10-20 11:59:42', '2026-10-20 11:59:42');
 
 --
 -- Indexes for dumped tables

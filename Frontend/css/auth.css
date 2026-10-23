@@ -1,0 +1,171 @@
+:root { 
+    --vsq-navy: #2C437B; 
+    --vsq-blue: #477FEB; 
+    --vsq-red: #FF0000; 
+    --vsq-gray: #848484; 
+    --vsq-error: #FF5555;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+body { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    min-height: 100vh; 
+    /* Path gambar disesuaikan karena file css sekarang ada di dalam folder css/ */
+    background: linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)), 
+                url('../assets/uploads/lapangan/hero.jpeg') center/cover no-repeat fixed;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 20px; 
+}
+
+/* Tombol Kembali */
+.vsq-back-btn { position: absolute; top: 30px; left: 30px; color: #FFFFFF; text-decoration: none; }
+.vsq-back-btn svg { width: 40px; height: 40px; stroke: #FFFFFF; stroke-width: 2.5; fill: none; }
+
+/* Card Register (Proporsional) */
+.vsq-register-card { 
+    background: #FFFFFF; 
+    width: 100%; 
+    max-width: 400px; 
+    border-radius: 20px; 
+    padding: 30px 35px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+    border: 1px solid #E2E8F0;
+}
+
+/* Logo */
+.vsq-logo { text-align: center; margin-bottom: 24px; }
+.vsq-logo h1 { font-size: 26px; font-weight: 700; color: var(--vsq-navy); margin: 0; letter-spacing: -0.45px; }
+.vsq-logo p { font-size: 14px; font-weight: 700; color: var(--vsq-red); letter-spacing: 0.6px; margin-top: 4px; }
+
+/* Form Group */
+.vsq-form-group { margin-bottom: 18px; position: relative; text-align: left; }
+.vsq-form-group label { display: block; font-size: 14px; font-weight: 500; color: #000000; margin-bottom: 6px; }
+.vsq-form-group label span { color: var(--vsq-red); }
+
+.vsq-input-wrapper { position: relative; width: 100%; }
+
+/* Input (Proporsional) */
+.vsq-form-control { 
+    width: 100%; 
+    padding: 12px 16px; 
+    padding-right: 45px; 
+    font-size: 14px; 
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #FFFFFF !important; 
+    border: 1px solid var(--vsq-gray); 
+    border-radius: 12px; 
+    outline: none; 
+    transition: all 0.2s; 
+    color: #000000;
+}
+.vsq-form-control::placeholder { color: var(--vsq-gray); }
+.vsq-form-control:focus { border-color: var(--vsq-blue); }
+
+/* Trik Autofill */
+.vsq-form-control:-webkit-autofill,
+.vsq-form-control:-webkit-autofill:hover, 
+.vsq-form-control:-webkit-autofill:focus, 
+.vsq-form-control:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    box-shadow: 0 0 0 30px white inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* State Invalid (Border Merah) */
+.vsq-form-control.is-invalid { border: 1px solid var(--vsq-error) !important; }
+
+/* Pesan Error */
+.vsq-error-msg {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--vsq-error);
+    margin-top: 6px;
+    font-weight: 500;
+}
+.vsq-error-msg.show { display: flex; }
+.vsq-error-icon {
+    width: 12px; height: 12px;
+    background: transparent;
+    border: 2px solid var(--vsq-error);
+    color: var(--vsq-error);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px; font-weight: bold;
+    flex-shrink: 0;
+}
+
+/* Ikon Mata */
+.vsq-toggle-password { 
+    position: absolute; 
+    right: 14px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    cursor: pointer; 
+    color: #000; 
+    background: transparent; 
+    border: none; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 2;
+}
+.vsq-toggle-password svg { 
+    width: 20px; 
+    height: 20px; 
+    stroke: currentColor; 
+    stroke-width: 2; 
+    fill: none; 
+    stroke-linecap: round; 
+    stroke-linejoin: round; 
+}
+
+/* Link Login */
+.vsq-login-link { 
+    text-align: center; 
+    font-size: 12px; 
+    margin-top: 24px; 
+    color: #000000; 
+}
+.vsq-login-link a { 
+    color: var(--vsq-blue); 
+    text-decoration: none; 
+    font-weight: 600; 
+}
+.vsq-login-link a:hover { text-decoration: underline; }
+
+/* Tombol Submit */
+.vsq-btn-submit { 
+    display: block; 
+    width: 100%; 
+    padding: 12px; 
+    font-size: 14px; 
+    font-weight: 600; 
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #FFFFFF; 
+    background-color: #9CA3AF; /* Default Abu-abu */
+    border: none; 
+    border-radius: 12px; 
+    cursor: not-allowed; 
+    margin-top: 20px; 
+    transition: background 0.2s; 
+}
+.vsq-btn-submit:not(:disabled) { 
+    background-color: var(--vsq-blue); 
+    cursor: pointer; 
+}
+.vsq-btn-submit:not(:disabled):hover { background-color: #3564C6; }
+
+/* Alert Box */
+.vsq-alert { padding: 12px; border-radius: 8px; font-size: 13px; font-weight: 500; margin-bottom: 20px; text-align: center; }
+.vsq-alert-error { background-color: #FEE2E2; color: #991B1B; }
+.vsq-alert-success { background-color: #DCFCE7; color: #166534; }
+
+@media (max-width: 480px) {
+    .vsq-register-card { padding: 24px 20px; }
+    .vsq-logo h1 { font-size: 22px; }
+    .vsq-logo p { font-size: 12px; }
+}

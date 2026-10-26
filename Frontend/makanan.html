@@ -3,61 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Makanan & Minuman - Vincent SQ Arena</title>
+    <title>Makanan & Minuman - Vincent'SQ Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        /* CSS GLOBAL & NAVBAR */
-        :root { --vsq-navy: #131B2E; --vsq-blue: #477FEB; --vsq-red: #FF0000; --vsq-gray: #848484; }
+        /* CSS DASAR & NAVBAR */
+        :root { --vsq-navy: #131B2E; --vsq-blue: #477FEB; --vsq-red: #FF0000; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; }
-        .vsq-header { background: #FFFFFF; width: 100%; height: 90px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
-        .vsq-logo { display: flex; flex-direction: column; text-decoration: none; }
-        .vsq-logo-title { font-size: 22px; font-weight: 800; color: #131B2E; line-height: 1; }
-        .vsq-logo-sub { font-size: 10px; font-weight: 800; color: #FF0000; letter-spacing: 1px; margin-top: 2px; }
-        .vsq-nav-menu { display: flex; align-items: center; gap: 24px; flex: 1; margin-left: 40px; }
-        .vsq-nav-link { font-size: 14px; font-weight: 500; color: #64748B; text-decoration: none; }
-        .vsq-nav-link.active { font-weight: 600; color: #FFF; background: #131B2E; padding: 10px 18px; border-radius: 8px; }
+        body { background-color: #F8FAFC; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        /* Navbar */
+        .vsq-header { background: #FFFFFF; width: 100%; height: 106px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
+        .vsq-logo { display: flex; flex-direction: column; text-decoration: none; width: 115px; }
+        .vsq-logo-title { font-size: 21px; font-weight: 700; color: #131B2E; line-height: 18px; letter-spacing: -0.45px; }
+        .vsq-logo-sub { font-size: 14px; font-weight: 700; color: #FF0000; line-height: 16px; letter-spacing: 0.6px; margin-top: 4px; }
+        .vsq-nav-menu { display: flex; align-items: center; gap: 32px; flex: 1; margin-left: 40px; }
+        .vsq-nav-link { font-size: 14px; font-weight: 600; color: #000000; text-decoration: none; transition: color 0.2s; }
+        .vsq-nav-link:hover { color: var(--vsq-blue); }
+        .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 15px 17px; border-radius: 15px; height: 54px; display: flex; align-items: center; justify-content: center; }
+        
         .vsq-nav-right { display: flex; align-items: center; gap: 12px; }
-        .vsq-btn-login { background: #477FEB; color: #FFF; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; }
-        .vsq-btn-register { background: #FF0000; color: #FFF; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; }
-        .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; }
-        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: 200px; height: 50px; border: 1px solid #000; border-radius: 50px; padding: 0 5px 0 20px; cursor: pointer; text-decoration: none; }
-        .vsq-profile-name { font-size: 16px; color: #000; white-space: nowrap; }
-        .vsq-profile-avatar { width: 38px; height: 38px; background: #131B2E; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; }
+        .vsq-btn-login-outline { background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E; width: 120px; height: 50px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        .vsq-btn-register { background: #131B2E; color: #FFF; width: 120px; height: 50px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+
+        /* KONTEN UTAMA */
+        .vsq-section { padding: 50px 20px; max-width: 1000px; margin: 0 auto; text-align: center; }
+        .vsq-section-title h2 { font-size: 36px; font-weight: 700; color: #131B2E; margin-bottom: 20px; }
 
         /* SKELETON CSS */
         .sl-skeleton { background-color: #E2E8F0; border-radius: 8px; position: relative; overflow: hidden; }
         .sl-skeleton::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent); animation: shimmer 1.5s infinite; }
         @keyframes shimmer { 100% { left: 100%; } }
+        
+        /* Grid Skeleton untuk Makanan (4 Kotak) */
+        .skeleton-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px; margin-top: 20px; }
+        .skeleton-menu-card { border: 1px solid #E2E8F0; border-radius: 12px; padding: 15px; background: #fff; text-align: left; }
 
-        /* CONTENT CSS */
-        .vsq-section { padding: 50px 20px; max-width: 1200px; margin: 0 auto; }
-        .vsq-section-title h2 { font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 40px; }
-        .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px; }
-        .skeleton-menu-card { border: 1px solid #E2E8F0; border-radius: 12px; padding: 15px; }
+        /* RESPONSIVE */
+        @media (max-width: 767px) {
+            .vsq-header { padding: 15px 20px; flex-wrap: wrap; height: auto; }
+            .vsq-nav-menu { display: none; }
+        }
     </style>
 </head>
 <body>
-    <header id="navbar"></header>
+
+    <header class="vsq-header">
+        <a href="index.html" class="vsq-logo">
+            <span class="vsq-logo-title">Vincent'SQ</span>
+            <span class="vsq-logo-sub">SPORTS ARENA</span>
+        </a>
+        <nav class="vsq-nav-menu">
+            <a href="index.html" class="vsq-nav-link">Beranda</a>
+            <a href="lapangan.html" class="vsq-nav-link">Booking Lapangan</a>
+            <a href="riwayat.html" class="vsq-nav-link">Riwayat Booking</a>
+            <a href="makanan.html" class="vsq-nav-link active">Makanan Minuman</a>
+        </nav>
+        <div class="vsq-nav-right">
+            <a href="login.html" class="vsq-btn-login-outline">Login</a>
+            <a href="register.html" class="vsq-btn-register">Register</a>
+        </div>
+    </header>
+
     <section class="vsq-section">
-        <div class="vsq-section-title"><h2>Makanan & Minuman</h2></div>
-        <div class="menu-grid" id="makanan-container">
-            <!-- Skeleton Loading (4 kotak) -->
+        <div class="vsq-section-title">
+            <h2>Makanan & Minuman</h2>
+        </div>
+        
+        <!-- KONTAINER SKELETON -->
+        <div class="skeleton-grid" id="makanan-container">
+            <!-- Skeleton 1 -->
             <div class="skeleton-menu-card">
                 <div class="sl-skeleton" style="height: 180px; width: 100%; margin-bottom: 15px;"></div>
                 <div class="sl-skeleton" style="height: 20px; width: 70%; margin-bottom: 10px;"></div>
                 <div class="sl-skeleton" style="height: 16px; width: 50%;"></div>
             </div>
+            <!-- Skeleton 2 -->
             <div class="skeleton-menu-card">
                 <div class="sl-skeleton" style="height: 180px; width: 100%; margin-bottom: 15px;"></div>
                 <div class="sl-skeleton" style="height: 20px; width: 70%; margin-bottom: 10px;"></div>
                 <div class="sl-skeleton" style="height: 16px; width: 50%;"></div>
             </div>
+            <!-- Skeleton 3 -->
             <div class="skeleton-menu-card">
                 <div class="sl-skeleton" style="height: 180px; width: 100%; margin-bottom: 15px;"></div>
                 <div class="sl-skeleton" style="height: 20px; width: 70%; margin-bottom: 10px;"></div>
                 <div class="sl-skeleton" style="height: 16px; width: 50%;"></div>
             </div>
+            <!-- Skeleton 4 -->
             <div class="skeleton-menu-card">
                 <div class="sl-skeleton" style="height: 180px; width: 100%; margin-bottom: 15px;"></div>
                 <div class="sl-skeleton" style="height: 20px; width: 70%; margin-bottom: 10px;"></div>
@@ -67,35 +100,12 @@
     </section>
 
     <script>
-        // 1. RENDER NAVBAR
+        // Simulasi loading (1 detik) sebelum menampilkan teks kosong
         document.addEventListener('DOMContentLoaded', function() {
-            const navbarEl = document.getElementById('navbar');
-            const isLoggedIn = localStorage.getItem('user_id') !== null; 
-            const namaUser = localStorage.getItem('nama') || 'User'; 
-            let rightNavHTML = isLoggedIn ? `
-                <button class="vsq-notif-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" style="width: 28px; height: 28px;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></button>
-                <div class="vsq-profile-box" onclick="logout()"><span class="vsq-profile-name">Hai, ${namaUser}</span><div class="vsq-profile-avatar">${namaUser.charAt(0).toUpperCase()}</div></div>
-            ` : `<a href="login.html" class="vsq-btn-login">Login</a><a href="register.html" class="vsq-btn-register">Register</a>`;
-
-            navbarEl.innerHTML = `
-            <div class="vsq-header">
-                <a href="index.html" class="vsq-logo"><span class="vsq-logo-title">Vincent'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span></a>
-                <nav class="vsq-nav-menu">
-                    <a href="index.html" class="vsq-nav-link">Beranda</a>
-                    <a href="lapangan.html" class="vsq-nav-link">Booking Lapangan</a>
-                    <a href="riwayat.html" class="vsq-nav-link">Riwayat Booking</a>
-                    <a href="makanan.html" class="vsq-nav-link active">Makanan Minuman</a>
-                </nav>
-                <div class="vsq-nav-right">${rightNavHTML}</div>
-            </div>`;
-
-            // Simulasi: Hapus skeleton setelah 1 detik (karena BE belum siap)
             setTimeout(() => {
-                document.getElementById('makanan-container').innerHTML = '<p style="text-align:center; color:#888; grid-column: 1/-1;">Belum ada menu makanan tersedia.</p>';
+                document.getElementById('makanan-container').innerHTML = '<p style="text-align:center; color:#64748B; font-size:18px; margin-top:40px; grid-column: 1/-1;">Belum ada menu makanan tersedia.</p>';
             }, 1000);
         });
-
-        function logout() { if(confirm('Keluar?')) { localStorage.clear(); window.location.reload(); } }
     </script>
 </body>
 </html>

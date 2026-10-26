@@ -20,7 +20,14 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     sendError('Format email tidak valid', 400);
 }
 
-// Cari admin (role = 'admin')
+// Setelah validasi email & password, SEBELUM cek admin:
+if (!isset($_SESSION['admin_captcha_verified']) || !$_SESSION['admin_captcha_verified']) {
+    sendError('Silakan verifikasi CAPTCHA terlebih dahulu', 400);
+}
+// Reset flag setelah login berhasil
+unset($_SESSION['admin_captcha_verified']);
+
+// Cari admin di database (role = 'admin')
 $stmt = mysqli_prepare($conn, 
     "SELECT id, email, password, nama, role 
      FROM users WHERE email = ? AND role = 'admin' LIMIT 1");
@@ -48,12 +55,10 @@ mysqli_stmt_bind_param($stmt, "i", $admin['id']);
 mysqli_stmt_execute($stmt);
 
 sendResponse([
-    'admin' => [
-        'id' => (int)$admin['id'],
-        'email' => $admin['email'],
-        'nama' => $admin['nama'] ?? 'Admin',
-        'role' => 'admin'
-    ],
-    'redirect' => BASE_URL . '/Frontend/admin/index.php'
+    'admin_id' => (int)$admin['id'],
+    'email' => $admin['email'],
+    'nama' => $admin['nama'] ?? 'Admin',
+    'role' => 'admin',
+    'redirect' => BASE_URL . '/Frontend/admin/index.html'
 ], 'Login admin berhasil');
 ?>

@@ -78,19 +78,13 @@ mysqli_stmt_execute($stmt);
 
 // ===== RESPONSE =====
 sendResponse([
-    'user' => [
-        'id' => (int)$user['id'],
-        'email' => $user['email'],
-        'nama' => $user['nama'] ?? '',
-        'whatsapp' => $user['whatsapp'] ?? '',
-        'foto_profil' => $user['foto_profil'] ?? '',
-        'foto_profil_url' => fotoProfilUrl($user['foto_profil'] ?? ''),
-        'role' => $user['role'],
-        'initial' => strtoupper(substr($user['nama'] ?? $user['email'], 0, 1))
-    ],
+    'user_id' => (int)$user['id'],
+    'email' => $user['email'],
+    'nama' => $user['nama'] ?? '',
+    'role' => $user['role'],
     'need_profile' => $need_profile,
     'redirect' => $need_profile 
-        ? BASE_URL . '/Frontend/autentikasi/lengkapi_profil.php'
-        : BASE_URL . '/Frontend/pages/index.php'
+        ? BASE_URL . '/Frontend/autentikasi/lengkapi_profil.html'
+        : BASE_URL . '/Frontend/pages/index.html'
 ], 'Login berhasil');
 ?>

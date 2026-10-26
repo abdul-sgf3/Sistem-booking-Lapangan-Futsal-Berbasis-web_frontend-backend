@@ -109,6 +109,6 @@ sendResponse([
     'email' => $email,
     'otp_debug' => $otp, // HAPUS baris ini di production asli
     'expired_at' => $otp_expired,
-    'redirect' => BASE_URL . '/Frontend/verifikasi.html'
+    'redirect' => BASE_URL . '/Frontend/autentikasi/verifikasi_email.php'
 ], 'Registrasi berhasil. Silakan cek email/log untuk kode OTP.');
 ?>

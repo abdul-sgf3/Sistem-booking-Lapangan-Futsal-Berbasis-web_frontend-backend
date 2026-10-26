@@ -35,12 +35,23 @@
         .vsq-nav-link:hover { color: var(--vsq-blue); }
         .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 15px 17px; border-radius: 15px; height: 54px; display: flex; align-items: center; justify-content: center; }
         
-        .vsq-nav-right { display: flex; align-items: center; gap: 12px; }
+        .vsq-nav-right { display: flex; align-items: center; gap: 16px; }
+        
+        /* Ikon Lonceng (After Login) */
+        .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 47px; height: 47px; }
+        .vsq-notif-btn svg { width: 28px; height: 28px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        
+        /* Kotak Profil (After Login) */
+        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: 153px; height: 63px; border: 1px solid #000000; border-radius: 20px; padding: 0 10px 0 17px; cursor: pointer; text-decoration: none; }
+        .vsq-profile-name { font-size: 18px; color: #000; white-space: nowrap; font-weight: 400; }
+        .vsq-profile-avatar { width: 42px; height: 42px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 600; }
+
+        /* Tombol Login/Register (Before Login) */
         .vsq-btn-login-outline { background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E; width: 120px; height: 50px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
         .vsq-btn-register { background: #131B2E; color: #FFF; width: 120px; height: 50px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
 
         /* =========================================
-           2. HERO SECTION
+           2. CSS HERO SECTION
            ========================================= */
         .vsq-hero { position: relative; width: 100%; height: 633px; background-color: var(--vsq-navy); overflow: hidden; }
         .vsq-hero-image { position: absolute; top: 0; right: 0; width: 75%; height: 100%; background-image: url('assets/uploads/lapangan/hero.jpeg'); background-size: cover; background-position: center; z-index: 1; }
@@ -65,7 +76,7 @@
         .sl-skeleton::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent); animation: shimmer 1.5s infinite; }
         @keyframes shimmer { 100% { left: 100%; } }
         .sl-card { display: flex; border: 1px solid #E2E8F0; border-radius: 20px; height: 280px; margin-bottom: 30px; background: white; overflow: hidden; }
-        .sl-img { width: 45%; height: 100%; background-color: #CBD5E1; }
+        .sl-img { width: 50%; height: 100%; background-color: #CBD5E1; }
         .sl-content { padding: 30px; flex: 1; display: flex; flex-direction: column; gap: 15px; }
         .sl-title { height: 28px; width: 50%; }
         .sl-text { height: 16px; width: 100%; }
@@ -94,64 +105,16 @@
         .vsq-btn-booking:hover { background: #0a0e1a; }
 
         /* =========================================
-           4. CSS CARA BOOKING (SESUAI GAMBAR UI/UX)
+           4. CSS CARA BOOKING
            ========================================= */
-        .vsq-steps-wrapper { 
-            display: flex; 
-            flex-direction: row; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 20px; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-        }
-        
-        .vsq-step-card { 
-            background: #FFFFFF; 
-            border: 1px solid #848484; 
-            border-radius: 15px; 
-            width: 271px; 
-            height: 194px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-        }
-        
-        .vsq-step-header { 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-            margin-bottom: 15px; 
-        }
-        
-        .vsq-step-number { 
-            width: 36px; 
-            height: 36px; 
-            background: #131B2E; 
-            color: #FFFFFF; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 16px; 
-            font-weight: 500; 
-        }
-        
+        .vsq-steps-wrapper { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .vsq-step-card { background: #FFFFFF; border: 1px solid #848484; border-radius: 15px; width: 271px; height: 194px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .vsq-step-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+        .vsq-step-number { width: 36px; height: 36px; background: #131B2E; color: #FFFFFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 500; }
         .vsq-step-icon { width: 50px; height: 50px; stroke: #131B2E; }
-        
         .vsq-step-card h4 { font-size: 18px; font-weight: 600; color: #131B2E; margin: 0 0 8px 0; text-align: center; }
-        
         .vsq-step-card p { font-size: 14px; color: #131B2E; line-height: 18px; text-align: center; width: 187px; margin: 0; }
-        
-        .vsq-arrow-icon { 
-            color: #131B2E; 
-            width: 25px; 
-            height: 46px; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .vsq-arrow-icon { color: #131B2E; width: 25px; height: 46px; display: flex; align-items: center; justify-content: center; }
 
         /* =========================================
            5. FAQ
@@ -249,9 +212,7 @@
             <p>Booking Lapangan di Vincent'SQ dapat dilakukan dengan beberapa langkah berikut</p>
         </div>
         
-        <!-- LAYOUT SEJAJAR (1 BARIS) -->
         <div class="vsq-steps-wrapper">
-            <!-- Step 1 -->
             <div class="vsq-step-card">
                 <div class="vsq-step-header">
                     <div class="vsq-step-number">1</div>
@@ -260,13 +221,7 @@
                 <h4>Pilih Lapangan</h4>
                 <p>Pilih Lapangan yang di gunakan di menu booking</p>
             </div>
-
-            <!-- Panah 1 -->
-            <div class="vsq-arrow-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </div>
-
-            <!-- Step 2 -->
+            <div class="vsq-arrow-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
             <div class="vsq-step-card">
                 <div class="vsq-step-header">
                     <div class="vsq-step-number">2</div>
@@ -275,13 +230,7 @@
                 <h4>Pilih Jadwal</h4>
                 <p>Pilih jadwal lapangan yang tersedia</p>
             </div>
-
-            <!-- Panah 2 -->
-            <div class="vsq-arrow-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </div>
-
-            <!-- Step 3 -->
+            <div class="vsq-arrow-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
             <div class="vsq-step-card">
                 <div class="vsq-step-header">
                     <div class="vsq-step-number">3</div>
@@ -290,13 +239,7 @@
                 <h4>Isi Data Booking</h4>
                 <p>Isi data diri anda untuk Melakukan pembookingan</p>
             </div>
-
-            <!-- Panah 3 -->
-            <div class="vsq-arrow-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </div>
-
-            <!-- Step 4 -->
+            <div class="vsq-arrow-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
             <div class="vsq-step-card">
                 <div class="vsq-step-header">
                     <div class="vsq-step-number">4</div>
@@ -419,6 +362,7 @@
             let rightNavHTML = '';
 
             if (isLoggedIn) {
+                // TAMPILAN AFTER LOGIN (Kotak Profil + Lonceng)
                 rightNavHTML = `
                     <button class="vsq-notif-btn">
                         <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path><path d="M4 3L2 5"></path><path d="M20 3L22 5"></path></svg>
@@ -429,6 +373,7 @@
                     </div>
                 `;
             } else {
+                // TAMPILAN BEFORE LOGIN (Tombol Login/Register)
                 rightNavHTML = `
                     <a href="login.html" class="vsq-btn-login-outline">Login</a>
                     <a href="register.html" class="vsq-btn-register">Register</a>

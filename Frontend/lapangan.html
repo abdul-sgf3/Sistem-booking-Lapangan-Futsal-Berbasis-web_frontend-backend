@@ -3,162 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Lapangan - Vincent SQ Arena</title>
+    <title>Booking Lapangan - Vincent'SQ Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        /* CSS GLOBAL & NAVBAR */
-        :root { --vsq-navy: #131B2E; --vsq-blue: #477FEB; --vsq-red: #FF0000; --vsq-gold: #FFD700; --vsq-gray: #848484; --vsq-lightgray: #D9D9D9; }
+        /* =========================================
+           1. CSS NAVBAR (SAMA PERSIS DENGAN INDEX)
+           ========================================= */
+        :root {
+            --vsq-navy: #131B2E;
+            --vsq-blue: #477FEB;
+            --vsq-red: #FF0000;
+            --vsq-gray: #848484;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; }
-        
-        .vsq-header { background: #FFFFFF; width: 100%; height: 90px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
-        .vsq-logo { display: flex; flex-direction: column; text-decoration: none; }
-        .vsq-logo-title { font-size: 22px; font-weight: 800; color: #131B2E; line-height: 1; }
-        .vsq-logo-sub { font-size: 10px; font-weight: 800; color: #FF0000; letter-spacing: 1px; margin-top: 2px; }
-        .vsq-nav-menu { display: flex; align-items: center; gap: 24px; flex: 1; margin-left: 40px; }
-        .vsq-nav-link { font-size: 14px; font-weight: 500; color: #64748B; text-decoration: none; }
-        .vsq-nav-link:hover { color: #131B2E; }
-        .vsq-nav-link.active { font-weight: 600; color: #FFF; background: #131B2E; padding: 10px 18px; border-radius: 8px; }
-        .vsq-nav-right { display: flex; align-items: center; gap: 12px; }
-        .vsq-btn-login { background: #477FEB; color: #FFF; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; }
-        .vsq-btn-register { background: #FF0000; color: #FFF; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; }
-        .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; }
-        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: 200px; height: 50px; border: 1px solid #000; border-radius: 50px; padding: 0 5px 0 20px; cursor: pointer; text-decoration: none; }
-        .vsq-profile-name { font-size: 16px; color: #000; white-space: nowrap; }
-        .vsq-profile-avatar { width: 38px; height: 38px; background: #131B2E; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F8FAFC; }
 
-        /* SKELETON CSS */
+        .vsq-header { 
+            background: #FFFFFF; 
+            width: 100%; 
+            height: 106px; 
+            border-bottom: 1px solid #E2E8F0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 0 44px; 
+            box-sizing: border-box; 
+        }
+        .vsq-logo { display: flex; flex-direction: column; text-decoration: none; width: 115px; }
+        .vsq-logo-title { font-size: 21px; font-weight: 700; color: #131B2E; line-height: 18px; letter-spacing: -0.45px; }
+        .vsq-logo-sub { font-size: 14px; font-weight: 700; color: #FF0000; line-height: 16px; letter-spacing: 0.6px; margin-top: 4px; }
+        
+        .vsq-nav-menu { display: flex; align-items: center; gap: 32px; flex: 1; margin-left: 40px; }
+        .vsq-nav-link { font-size: 14px; font-weight: 600; color: #000000; text-decoration: none; transition: color 0.2s; display: flex; align-items: center; justify-content: center; }
+        .vsq-nav-link:hover { color: var(--vsq-blue); }
+        /* Ini styling active yang bikin bentuk kapsul sama persis */
+        .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 15px 17px; border-radius: 15px; height: 54px; }
+        
+        .vsq-nav-right { display: flex; align-items: center; gap: 12px; }
+        .vsq-btn-login { background: #477FEB; color: #FFF; width: 120px; height: 50px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        .vsq-btn-register { background: #FF0000; color: #FFF; width: 120px; height: 50px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        
+        .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 47px; height: 47px; }
+        .vsq-notif-btn svg { width: 28px; height: 28px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: 153px; height: 63px; border: 1px solid #000000; border-radius: 20px; padding: 0 10px 0 17px; cursor: pointer; margin-left: 10px; text-decoration: none; }
+        .vsq-profile-name { font-size: 18px; color: #000; white-space: nowrap; font-weight: 400; }
+        .vsq-profile-avatar { width: 42px; height: 42px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 600; }
+
+        /* =========================================
+           2. CSS SECTION & CARD LAPANGAN
+           ========================================= */
+        .vsq-section { padding: 50px 20px; max-width: 1200px; margin: 0 auto; }
+        .vsq-section-title { text-align: center; margin-bottom: 40px; }
+        .vsq-section-title h2 { font-size: 32px; font-weight: 700; color: #131B2E; margin-bottom: 8px; }
+        .vsq-section-title p { font-size: 16px; color: #64748B; }
+
+        .vsq-lapangan-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+        .vsq-card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+        .vsq-card-img { width: 100%; height: 200px; background-color: #CBD5E1; background-size: cover; background-position: center; }
+        .vsq-card-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+        .vsq-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .vsq-card-header h3 { font-size: 20px; font-weight: 700; color: #0F172A; margin: 0; }
+        .vsq-card-badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+        .badge-vip { background: #FEF08A; color: #854D0E; }
+        .badge-regular { background: #E2E8F0; color: #475569; }
+        .vsq-card-price { font-size: 18px; font-weight: 800; color: #DC2626; margin-bottom: 16px; }
+        .vsq-card-price span { font-size: 14px; font-weight: 500; color: #64748B; }
+        .vsq-card-footer { margin-top: auto; }
+        .vsq-btn-booking { display: block; width: 100%; padding: 12px; text-align: center; background: #477FEB; color: #FFFFFF; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px; transition: background 0.2s; }
+        .vsq-btn-booking:hover { background: #3564C6; }
+
+        /* SKELETON LOADING */
         .sl-skeleton { background-color: #E2E8F0; border-radius: 6px; position: relative; overflow: hidden; }
         .sl-skeleton::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent); animation: shimmer 1.5s infinite; }
         @keyframes shimmer { 100% { left: 100%; } }
-        .sl-card { display: flex; border: 1px solid #E2E8F0; border-radius: 20px; height: 280px; margin-bottom: 30px; background: white; overflow: hidden; }
-        .sl-img { width: 45%; height: 100%; background-color: #CBD5E1; }
-        .sl-content { padding: 30px; flex: 1; display: flex; flex-direction: column; gap: 15px; }
-        .sl-title { height: 28px; width: 50%; }
+        .sl-card { border: 1px solid #E2E8F0; border-radius: 16px; overflow: hidden; background: #FFF; height: 380px; }
+        .sl-img { height: 200px; width: 100%; background-color: #CBD5E1; }
+        .sl-content { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+        .sl-title { height: 24px; width: 60%; }
         .sl-text { height: 16px; width: 100%; }
-        .sl-text.short { width: 70%; }
-        .sl-btn { height: 45px; width: 180px; margin-top: 20px; }
-
-        /* CONTENT CSS */
-        .vsq-section { padding: 50px 20px; max-width: 1200px; margin: 0 auto; }
-        .vsq-section-title h2 { font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 40px; }
-        .vsq-lapangan-grid { display: flex; flex-direction: column; gap: 30px; }
-        .vsq-card { background: white; border: 1px solid #E2E8F0; border-radius: 16px; overflow: hidden; display: flex; min-height: 280px; }
-        .vsq-card-img { width: 45%; background-size: cover; background-position: center; background-color: #E2E8F0; }
-        .vsq-card-body { padding: 30px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .vsq-card-header { display: flex; justify-content: space-between; margin-bottom: 20px; }
-        .vsq-card-header h3 { font-size: 22px; font-weight: 700; }
-        .vsq-card-badge { padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; }
-        .badge-vip { background: #FCD34D; color: #78350F; }
-        .badge-regular { background: #E2E8F0; color: #131B2E; }
-        .vsq-fasilitas { list-style: none; margin-bottom: 24px; }
-        .vsq-fasilitas li { font-size: 14px; color: #64748B; margin-bottom: 10px; }
-        .vsq-btn-booking { background: #FF0000; color: white; padding: 10px 24px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 600; display: inline-block; width: fit-content; }
+        .sl-text.short { width: 40%; }
+        .sl-btn { height: 40px; width: 100%; margin-top: 20px; }
     </style>
 </head>
 <body>
+
+    <!-- WADAH NAVBAR -->
     <header id="navbar"></header>
+
+    <!-- KONTEN UTAMA -->
     <section class="vsq-section">
-        <div class="vsq-section-title"><h2>Booking Lapangan</h2></div>
+        <div class="vsq-section-title">
+            <h2>Pilihan Lapangan Tersedia</h2>
+            <p>Pilih lapangan favoritmu dan mulai bermain!</p>
+        </div>
+        
+        <!-- Wadah Render Card -->
         <div class="vsq-lapangan-grid" id="lapangan-container">
-            <!-- Skeleton Loading -->
-            <div class="sl-card">
-                <div class="sl-skeleton sl-img"></div>
-                <div class="sl-content">
-                    <div class="sl-skeleton sl-title"></div>
-                    <div class="sl-skeleton sl-text"></div>
-                    <div class="sl-skeleton sl-text short"></div>
-                    <div class="sl-skeleton sl-btn"></div>
-                </div>
-            </div>
-            <div class="sl-card">
-                <div class="sl-skeleton sl-img"></div>
-                <div class="sl-content">
-                    <div class="sl-skeleton sl-title"></div>
-                    <div class="sl-skeleton sl-text"></div>
-                    <div class="sl-skeleton sl-text short"></div>
-                    <div class="sl-skeleton sl-btn"></div>
-                </div>
-            </div>
+            <!-- Skeleton/Data akan masuk ke sini -->
         </div>
     </section>
 
+    <!-- =========================================
+         3. JAVASCRIPT (RENDER NAVBAR & DATA)
+         ========================================= -->
     <script>
-        // 1. RENDER NAVBAR (Dinamis Login/Logout)
+        // A. LOGIKA RENDER NAVBAR (Sama dengan components.js)
         document.addEventListener('DOMContentLoaded', function() {
             const navbarEl = document.getElementById('navbar');
-            const isLoggedIn = localStorage.getItem('user_id') !== null; 
-            const namaUser = localStorage.getItem('nama') || 'User'; 
-            let rightNavHTML = '';
+            const isLoggedIn = localStorage.getItem('user_id');
+            const nama = localStorage.getItem('nama') || 'User'; 
+            const currentPage = window.location.pathname.split('/').pop() || 'lapangan.html';
+            
+            function navClass(page) {
+                return currentPage === page ? 'vsq-nav-link active' : 'vsq-nav-link';
+            }
 
+            let rightNavHTML = '';
             if (isLoggedIn) {
                 rightNavHTML = `
-                    <button class="vsq-notif-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" style="width: 28px; height: 28px;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></button>
+                    <button class="vsq-notif-btn">
+                        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                    </button>
                     <div class="vsq-profile-box" onclick="logout()" title="Logout">
-                        <span class="vsq-profile-name">Hai, ${namaUser}</span>
-                        <div class="vsq-profile-avatar">${namaUser.charAt(0).toUpperCase()}</div>
+                        <span class="vsq-profile-name">Hai ${nama}</span>
+                        <div class="vsq-profile-avatar">${nama.charAt(0).toUpperCase()}</div>
                     </div>
                 `;
             } else {
-                rightNavHTML = `<a href="login.html" class="vsq-btn-login">Login</a><a href="register.html" class="vsq-btn-register">Register</a>`;
+                rightNavHTML = `
+                    <a href="login.html" class="vsq-btn-login">Login</a>
+                    <a href="register.html" class="vsq-btn-register">Register</a>
+                `;
             }
 
-            navbarEl.innerHTML = `
-            <div class="vsq-header">
-                <a href="index.html" class="vsq-logo"><span class="vsq-logo-title">Vincent'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span></a>
-                <nav class="vsq-nav-menu">
-                    <a href="index.html" class="vsq-nav-link">Beranda</a>
-                    <a href="lapangan.html" class="vsq-nav-link active">Booking Lapangan</a>
-                    <a href="riwayat.html" class="vsq-nav-link">Riwayat Booking</a>
-                    <a href="makanan.html" class="vsq-nav-link">Makanan Minuman</a>
-                </nav>
-                <div class="vsq-nav-right">${rightNavHTML}</div>
-            </div>`;
-            
-            loadLapangan(); // Panggil data
+            if (navbarEl) {
+                navbarEl.innerHTML = `
+                <div class="vsq-header">
+                    <a href="index.html" class="vsq-logo">
+                        <span class="vsq-logo-title">Vincent'SQ</span>
+                        <span class="vsq-logo-sub">SPORTS ARENA</span>
+                    </a>
+                    <nav class="vsq-nav-menu">
+                        <a href="index.html" class="${navClass('index.html')}">Beranda</a>
+                        <a href="lapangan.html" class="${navClass('lapangan.html')}">Booking Lapangan</a>
+                        <a href="riwayat.html" class="${navClass('riwayat.html')}">Riwayat Booking</a>
+                        <a href="makanan.html" class="${navClass('makanan.html')}">Makanan Minuman</a>
+                    </nav>
+                    <div class="vsq-nav-right">${rightNavHTML}</div>
+                </div>`;
+            }
         });
 
-        function logout() { if(confirm('Keluar?')) { localStorage.clear(); window.location.reload(); } }
-
-        // 2. FETCH DATA LAPANGAN
-        async function loadLapangan() {
-            const container = document.getElementById('lapangan-container');
-            const API_BASE = 'http://localhost/vincent-arena/Backend/API';
-            try {
-                const response = await fetch(API_BASE + '/public/lapangan.php');
-                const result = await response.json();
-                if(result.status !== 'success' || !result.data) {
-                    container.innerHTML = '<p style="text-align: center; color: #888;">Gagal memuat data lapangan.</p>'; return;
-                }
-                
-                container.innerHTML = result.data.map(function(l) {
-                    const isVIP = l.harga_per_jam >= 200000;
-                    const badge = isVIP ? 'VIP' : 'Regular';
-                    const badgeClass = isVIP ? 'badge-vip' : 'badge-regular';
-                    let imgUrl = l.foto_url ? l.foto_url.replace('/Futsal_Vincent_SQ/Frontend/', '/vincent-arena/Frontend/') : 'assets/uploads/lapangan/hero.jpeg';
-
-                    return `
-                    <article class="vsq-card">
-                        <div class="vsq-card-img" style="background-image: url('${imgUrl}');"></div>
-                        <div class="vsq-card-body">
-                            <div>
-                                <div class="vsq-card-header">
-                                    <h3>${l.nama_lapangan}</h3>
-                                    <span class="vsq-card-badge ${badgeClass}">${badge}</span>
-                                </div>
-                                <ul class="vsq-fasilitas">
-                                    <li>✓ Lapangan indoor</li>
-                                    <li>✓ Sirkulasi udara baik</li>
-                                </ul>
-                            </div>
-                            <a href="detail_lapangan.html?id=${l.id}" class="vsq-btn-booking">Booking Sekarang</a>
-                        </div>
-                    </article>`;
-                }).join('');
-            } catch (error) {
-                container.innerHTML = '<p style="text-align: center; color: #888;">Terjadi kesalahan koneksi.</p>';
+        function logout() {
+            if(confirm('Apakah Anda yakin ingin keluar?')) {
+                localStorage.clear(); 
+                window.location.reload(); 
             }
         }
     </script>
+
+    <!-- B. PANGGIL LOGIKA DATA LAPANGAN (Dari file eksternal) -->
+    <script type="module" src="js/pages/lapangan.js"></script>
+
 </body>
 </html>

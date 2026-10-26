@@ -1,7 +1,27 @@
-// IMPORT DEPENDENCY (SMART DEPENDENCY)
+// js/pages/register.js
 import { daftarAkun } from '../services/authService.js';
 
-function togglePassword(inputId, iconElement) {
+// DOM Elements
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const confirmInput = document.getElementById('confirm_password');
+const btnSubmit = document.getElementById('btnSubmit');
+const registerForm = document.getElementById('registerForm');
+const alertBox = document.getElementById('alert-box');
+
+// Elemen Error
+const errEmailKosong = document.getElementById('err-email-kosong');
+const errEmailFormat = document.getElementById('err-email-format');
+const errEmailSpasi = document.getElementById('err-email-spasi'); // Elemen baru
+const errEmailExists = document.getElementById('err-email-exists');
+const errPwKosong = document.getElementById('err-pw-kosong');
+const errPwMin = document.getElementById('err-pw-min');
+const errPwKompleks = document.getElementById('err-pw-kompleks');
+const errConfirmKosong = document.getElementById('err-confirm-kosong');
+const errConfirmMatch = document.getElementById('err-confirm-match');
+
+// Toggle Password
+window.togglePassword = function(inputId, iconElement) {
     const input = document.getElementById(inputId);
     const iconClosed = iconElement.querySelector('.icon-eye-closed');
     const iconOpen = iconElement.querySelector('.icon-eye-open');
@@ -11,22 +31,6 @@ function togglePassword(inputId, iconElement) {
         input.type = 'password'; iconClosed.style.display = 'block'; iconOpen.style.display = 'none'; 
     }
 }
-// Daftarkan ke window agar bisa dipanggil dari atribut onclick di HTML
-window.togglePassword = togglePassword;
-
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-const confirmInput = document.getElementById('confirm_password');
-const btnSubmit = document.getElementById('btnSubmit');
-
-// Elemen Error
-const errEmailKosong = document.getElementById('err-email-kosong');
-const errEmailFormat = document.getElementById('err-email-format');
-const errEmailExists = document.getElementById('err-email-exists');
-const errPwKosong = document.getElementById('err-pw-kosong');
-const errPwMin = document.getElementById('err-pw-min');
-const errConfirmKosong = document.getElementById('err-confirm-kosong');
-const errConfirmMatch = document.getElementById('err-confirm-match');
 
 // Reset Error
 function resetErrors() {
@@ -35,20 +39,33 @@ function resetErrors() {
     confirmInput.classList.remove('is-invalid');
     errEmailKosong.classList.remove('show');
     errEmailFormat.classList.remove('show');
+    errEmailSpasi.classList.remove('show');
     errEmailExists.classList.remove('show');
     errPwKosong.classList.remove('show');
     errPwMin.classList.remove('show');
+    errPwKompleks.classList.remove('show');
     errConfirmKosong.classList.remove('show');
     errConfirmMatch.classList.remove('show');
 }
 
-// Validasi Email
+// Validasi Email (Sesuai UI/UX: Kosong, Harus ada @, Tidak boleh spasi)
 function validateEmail() {
-    resetErrors();
+    emailInput.classList.remove('is-invalid');
+    errEmailKosong.classList.remove('show');
+    errEmailFormat.classList.remove('show');
+    errEmailSpasi.classList.remove('show');
+    errEmailExists.classList.remove('show');
+
     const val = emailInput.value;
+
     if (val === '') {
         emailInput.classList.add('is-invalid');
         errEmailKosong.classList.add('show');
+        return false;
+    }
+    if (val.includes(' ')) {
+        emailInput.classList.add('is-invalid');
+        errEmailSpasi.classList.add('show');
         return false;
     }
     if (!val.includes('@')) {
@@ -59,10 +76,15 @@ function validateEmail() {
     return true;
 }
 
-// Validasi Password
+// Validasi Password (Sesuai UI/UX: Kosong, Min 8, Huruf besar/kecil/angka)
 function validatePassword() {
-    resetErrors();
+    passwordInput.classList.remove('is-invalid');
+    errPwKosong.classList.remove('show');
+    errPwMin.classList.remove('show');
+    errPwKompleks.classList.remove('show');
+
     const val = passwordInput.value;
+
     if (val === '') {
         passwordInput.classList.add('is-invalid');
         errPwKosong.classList.add('show');
@@ -73,12 +95,26 @@ function validatePassword() {
         errPwMin.classList.add('show');
         return false;
     }
+    
+    // Cek huruf besar, huruf kecil, angka
+    const hasUppercase = /[A-Z]/.test(val);
+    const hasLowercase = /[a-z]/.test(val);
+    const hasNumber = /[0-9]/.test(val);
+    
+    if (!hasUppercase || !hasLowercase || !hasNumber) {
+        passwordInput.classList.add('is-invalid');
+        errPwKompleks.classList.add('show');
+        return false;
+    }
     return true;
 }
 
-// Validasi Konfirmasi
+// Validasi Konfirmasi (Sesuai UI/UX: Kosong, Tidak cocok)
 function validateConfirm() {
-    resetErrors();
+    confirmInput.classList.remove('is-invalid');
+    errConfirmKosong.classList.remove('show');
+    errConfirmMatch.classList.remove('show');
+
     const val = confirmInput.value;
     if (val === '') {
         confirmInput.classList.add('is-invalid');
@@ -95,9 +131,18 @@ function validateConfirm() {
 
 // Cek Tombol Aktif
 function cekTombolAktif() {
-    const isEmailValid = emailInput.value.includes('@') && emailInput.value !== '';
-    const isPassValid = passwordInput.value.length >= 8;
-    const isConfirmValid = confirmInput.value === passwordInput.value && confirmInput.value !== '';
+    const valEmail = emailInput.value;
+    const valPw = passwordInput.value;
+    const valConfirm = confirmInput.value;
+    
+    const isEmailValid = valEmail !== '' && !valEmail.includes(' ') && valEmail.includes('@');
+    
+    const hasUppercase = /[A-Z]/.test(valPw);
+    const hasLowercase = /[a-z]/.test(valPw);
+    const hasNumber = /[0-9]/.test(valPw);
+    const isPassValid = valPw.length >= 8 && hasUppercase && hasLowercase && hasNumber;
+    
+    const isConfirmValid = valConfirm === valPw && valConfirm !== '';
     
     if (isEmailValid && isPassValid && isConfirmValid) {
         btnSubmit.disabled = false;
@@ -108,21 +153,19 @@ function cekTombolAktif() {
 
 // Event Listener
 emailInput.addEventListener('input', () => { validateEmail(); cekTombolAktif(); });
-passwordInput.addEventListener('input', () => { validatePassword(); cekTombolAktif(); });
+passwordInput.addEventListener('input', () => { validatePassword(); validateConfirm(); cekTombolAktif(); });
 confirmInput.addEventListener('input', () => { validateConfirm(); cekTombolAktif(); });
 
-// Submit Form
-document.getElementById('registerForm').addEventListener('submit', async function(e) {
+// Submit Form (Logika tidak berubah)
+registerForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     if (btnSubmit.disabled) return;
     
     btnSubmit.disabled = true; 
     btnSubmit.textContent = 'Memproses...';
-    const alertBox = document.getElementById('alert-box'); 
     alertBox.innerHTML = '';
 
     try {
-        // Memanggil dependensi dari authService.js
         const responseText = await daftarAkun({ 
             email: emailInput.value, 
             password: passwordInput.value, 

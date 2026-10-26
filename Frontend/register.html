@@ -6,7 +6,6 @@
     <title>Register - Vincent'SQ Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- PANGGIL CSS EKSTERNAL -->
     <link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
@@ -23,14 +22,18 @@
                 <div class="vsq-input-wrapper">
                     <input type="email" id="email" class="vsq-form-control" placeholder="Masukkan email..." required>
                 </div>
+                <!-- TEKS ERROR EMAIL PERSIS UI/UX -->
                 <div class="vsq-error-msg" id="err-email-kosong">
-                    <span class="vsq-error-icon">!</span> Email tidak boleh kosong.
+                    <span class="vsq-error-icon">!</span> Email tidak boleh kosong
                 </div>
                 <div class="vsq-error-msg" id="err-email-format">
-                    <span class="vsq-error-icon">!</span> Format email tidak valid.
+                    <span class="vsq-error-icon">!</span> Email Harus mengandung karakter @
+                </div>
+                <div class="vsq-error-msg" id="err-email-spasi">
+                    <span class="vsq-error-icon">!</span> Email tidak boleh mengandung spasi!
                 </div>
                 <div class="vsq-error-msg" id="err-email-exists">
-                    <span class="vsq-error-icon">!</span> Email sudah digunakan.
+                    <span class="vsq-error-icon">!</span> Email sudah digunakan!
                 </div>
             </div>
 
@@ -44,11 +47,15 @@
                         <svg viewBox="0 0 24 24" class="icon-eye-open" style="display:none;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                     </button>
                 </div>
+                <!-- TEKS ERROR PASSWORD PERSIS UI/UX -->
                 <div class="vsq-error-msg" id="err-pw-kosong">
-                    <span class="vsq-error-icon">!</span> Password tidak boleh kosong.
+                    <span class="vsq-error-icon">!</span> Password tidak boleh kosong!
                 </div>
                 <div class="vsq-error-msg" id="err-pw-min">
-                    <span class="vsq-error-icon">!</span> Password minimal 8 karakter.
+                    <span class="vsq-error-icon">!</span> Password harus terdiri dari minimal 8 karakter
+                </div>
+                <div class="vsq-error-msg" id="err-pw-kompleks">
+                    <span class="vsq-error-icon">!</span> Password harus berupa huruf besar, huruf kecil, angka
                 </div>
             </div>
 
@@ -62,11 +69,12 @@
                         <svg viewBox="0 0 24 24" class="icon-eye-open" style="display:none;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                     </button>
                 </div>
+                <!-- TEKS ERROR KONFIRMASI PERSIS UI/UX -->
                 <div class="vsq-error-msg" id="err-confirm-kosong">
-                    <span class="vsq-error-icon">!</span> Konfirmasi password tidak boleh kosong.
+                    <span class="vsq-error-icon">!</span> Konfirmasi Password tidak boleh kosong
                 </div>
                 <div class="vsq-error-msg" id="err-confirm-match">
-                    <span class="vsq-error-icon">!</span> Konfirmasi password tidak cocok.
+                    <span class="vsq-error-icon">!</span> Password dan konfirmasi password tidak cocok!
                 </div>
             </div>
 
@@ -75,7 +83,6 @@
         </form>
     </div>
 
-    <!-- PANGGIL JS EKSTERNAL (WAJIB PAKAI TYPE="MODULE") -->
     <script type="module" src="js/pages/register.js"></script>
 </body>
 </html>

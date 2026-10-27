@@ -36,33 +36,80 @@
         .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 15px 17px; border-radius: 15px; height: 54px; display: flex; align-items: center; justify-content: center; }
         
         .vsq-nav-right { display: flex; align-items: center; gap: 16px; }
-        
-        /* Ikon Lonceng (After Login) */
         .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 47px; height: 47px; }
         .vsq-notif-btn svg { width: 28px; height: 28px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-        
-        /* Kotak Profil (After Login) */
         .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: 153px; height: 63px; border: 1px solid #000000; border-radius: 20px; padding: 0 10px 0 17px; cursor: pointer; text-decoration: none; }
         .vsq-profile-name { font-size: 18px; color: #000; white-space: nowrap; font-weight: 400; }
         .vsq-profile-avatar { width: 42px; height: 42px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 600; }
-
-        /* Tombol Login/Register (Before Login) */
+        
         .vsq-btn-login-outline { background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E; width: 120px; height: 50px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
         .vsq-btn-register { background: #131B2E; color: #FFF; width: 120px; height: 50px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
 
         /* =========================================
-           2. CSS HERO SECTION
+           2. HERO SECTION
            ========================================= */
         .vsq-hero { position: relative; width: 100%; height: 633px; background-color: var(--vsq-navy); overflow: hidden; }
         .vsq-hero-image { position: absolute; top: 0; right: 0; width: 75%; height: 100%; background-image: url('assets/uploads/lapangan/hero.jpeg'); background-size: cover; background-position: center; z-index: 1; }
-        .vsq-hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, var(--vsq-navy) 25%, rgba(19, 27, 46, 0.85) 50%, rgba(19, 27, 46, 0) 100%); z-index: 2; }
-        .vsq-hero-content { position: relative; z-index: 3; max-width: 1200px; margin: 0 auto; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 54px; }
-        .vsq-hero-content h1 { font-size: 50px; font-weight: 700; line-height: 63px; margin: 0 0 24px 0; color: var(--vsq-white); max-width: 700px; }
-        .vsq-hero-content h1 span { color: var(--vsq-red); }
-        .vsq-hero-content p { font-size: 18px; line-height: 23px; color: var(--vsq-lightgray); max-width: 550px; margin: 0; text-align: justify; }
+        .vsq-hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, var(--vsq-navy) 40%, rgba(19, 27, 46, 0.85) 60%, rgba(19, 27, 46, 0) 100%); z-index: 2; }
         
-        .vsq-location-badge { position: absolute; bottom: 30px; right: 40px; background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(4px); color: #848484; padding: 10px 22px; border-radius: 10px; font-size: 12px; font-weight: 400; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); z-index: 10; text-decoration: none; cursor: pointer; transition: background 0.2s; width: auto; height: 41px; }
-        .vsq-location-badge:hover { background: rgba(255, 255, 255, 0.95); }
+        .vsq-hero-content { 
+            position: relative; z-index: 3; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            height: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            padding: 0 44px; 
+        }
+        
+        .vsq-hero-content h1 { 
+            font-size: 50px; 
+            font-weight: 700; 
+            line-height: 63px; 
+            margin: 0 0 24px 0; 
+            color: var(--vsq-white); 
+            max-width: 800px; 
+        }
+        .vsq-hero-content h1 span { color: var(--vsq-red); }
+        
+        .vsq-hero-content p { 
+            font-size: 18px; 
+            line-height: 23px; 
+            color: var(--vsq-lightgray); 
+            max-width: 500px; 
+            margin: 0; 
+            text-align: left; 
+        }
+        
+        /* Badge Lokasi (Menggunakan Gambar) */
+        .vsq-location-badge { 
+            position: absolute; 
+            bottom: 30px; 
+            right: 40px; 
+            background: #E5E7EB; 
+            color: #4B5563; 
+            padding: 10px 20px; 
+            border-radius: 12px; 
+            font-size: 14px; 
+            font-weight: 400; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            z-index: 10; 
+            text-decoration: none; 
+            cursor: pointer; 
+            width: auto; 
+            height: 45px; 
+        }
+        .vsq-location-badge:hover { background: #D1D5DB; }
+        
+        /* Styling untuk gambar ikon lokasi */
+        .vsq-location-badge img { 
+            width: 20px; 
+            height: 20px; 
+            object-fit: contain; 
+        }
 
         /* =========================================
            3. SECTION & CARD LAPANGAN
@@ -83,25 +130,22 @@
         .sl-text.short { width: 70%; }
         .sl-btn { height: 45px; width: 180px; margin-top: 20px; }
 
-        .vsq-lapangan-grid { display: flex; flex-direction: column; gap: 52px; max-width: 1242px; margin: 0 auto; }
-        .vsq-card { background: var(--vsq-white); border: 1px solid #848484; border-radius: 20px; overflow: hidden; display: flex; flex-direction: row; min-height: 532px; transition: box-shadow 0.3s, transform 0.3s; }
+        .vsq-lapangan-grid { display: flex; flex-direction: column; gap: 30px; width: 100%; }
+        .vsq-card { background: var(--vsq-white); border: 1px solid #D1D5DB; border-radius: 20px; overflow: hidden; display: flex; flex-direction: row; width: 100%; height: 350px; transition: box-shadow 0.3s, transform 0.3s; }
         .vsq-card:hover { box-shadow: 0 15px 35px rgba(0,0,0,0.1); transform: translateY(-4px); }
-        .vsq-card-img { position: relative; width: 50%; flex-shrink: 0; background-size: cover; background-position: center; border-radius: 15px; background-color: #ccc; margin: 15px; }
-        .vsq-card-body { padding: 33px 33px 33px 54px; flex: 1; display: flex; flex-direction: column; min-width: 0; }
-        .vsq-card-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 30px; flex-wrap: wrap; }
-        .vsq-card-header h3 { font-size: 24px; font-weight: 600; color: var(--vsq-black); margin: 0; line-height: 30px; }
-        
-        .vsq-card-badge { padding: 12px 24px; border-radius: 60px; font-size: 16px; font-weight: 500; white-space: nowrap; display: inline-flex; justify-content: center; align-items: center; }
+        .vsq-card-img { position: relative; width: 50%; flex-shrink: 0; background-size: cover; background-position: center; border-radius: 20px 0 0 20px; }
+        .vsq-card-body { padding: 40px 40px 40px 50px; flex: 1; display: flex; flex-direction: column; }
+        .vsq-card-header { display: flex; align-items: center; gap: 20px; margin-bottom: 30px; }
+        .vsq-card-header h3 { font-size: 24px; font-weight: 600; color: var(--vsq-black); margin: 0; }
+        .vsq-card-badge { padding: 8px 24px; border-radius: 60px; font-size: 14px; font-weight: 500; white-space: nowrap; display: inline-flex; justify-content: center; align-items: center; }
         .badge-vip { background: var(--vsq-gold); color: var(--vsq-black); }
         .badge-regular { background: var(--vsq-lightgray); color: var(--vsq-black); }
-        
         .vsq-fasilitas { list-style: none; padding: 0; margin: 0 0 30px 0; display: flex; flex-direction: column; gap: 20px; }
-        .vsq-fasilitas li { font-size: 18px; color: var(--vsq-black); display: flex; align-items: center; gap: 15px; line-height: 23px; }
-        .vsq-fasilitas li::before { content: "✓"; color: var(--vsq-white); background: var(--vsq-black); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; flex-shrink: 0; }
-        
+        .vsq-fasilitas li { font-size: 16px; color: var(--vsq-black); display: flex; align-items: center; gap: 15px; line-height: 20px; }
+        .vsq-fasilitas li::before { content: "✓"; color: var(--vsq-white); background: var(--vsq-black); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; flex-shrink: 0; }
         .vsq-card-footer { margin-top: auto; display: flex; justify-content: flex-end; }
-        .vsq-btn-booking { background: var(--vsq-navy); color: var(--vsq-white); padding: 8px 16px; border-radius: 10px; text-decoration: none; font-size: 16px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: none; cursor: pointer; width: 220px; height: 59px; transition: background 0.2s; }
-        .vsq-btn-booking::after { content: "→"; font-size: 24px; font-weight: 400; }
+        .vsq-btn-booking { background: var(--vsq-navy); color: var(--vsq-white); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: none; cursor: pointer; width: auto; height: 45px; transition: background 0.2s; }
+        .vsq-btn-booking::after { content: "→"; font-size: 18px; font-weight: 400; }
         .vsq-btn-booking:hover { background: #0a0e1a; }
 
         /* =========================================
@@ -159,8 +203,8 @@
             .vsq-nav-menu { display: none; }
             .vsq-hero { height: 500px; }
             .vsq-hero-content h1 { font-size: 28px; }
-            .vsq-card { flex-direction: column; min-height: auto; }
-            .vsq-card-img { width: 90%; height: 250px; margin: 15px auto; }
+            .vsq-card { flex-direction: column; height: auto; }
+            .vsq-card-img { width: 100%; height: 250px; border-radius: 20px 20px 0 0; }
             .vsq-card-body { padding: 20px; }
             .vsq-card-header h3 { font-size: 24px; }
             .vsq-card-badge { padding: 10px 20px; font-size: 18px; }
@@ -186,11 +230,9 @@
             <h1>Sewa Lapangan Olahraga Favoritmu dengan Sekali <span>Klik</span></h1>
             <p>Vincent'SQ Arena hadir untuk lapangan Futsal dengan fasilitas standar nasional dan sistem konfirmasi realtime.</p>
         </div>
+        <!-- BADGE LOKASI MENGGUNAKAN GAMBAR ICON -->
         <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Tuparev+No.64,+Kertawinangun,+Kec.+Kedawung,+Kabupaten+Cirebon,+Jawa+Barat+45153" target="_blank" class="vsq-location-badge">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px;">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 3.5 5.5 9.5 6.4 10.4.3.3.9.3 1.2 0C13.5 18.5 19 12.5 19 9c0-3.87-3.13-7-7-7z" stroke="#848484" stroke-width="2" fill="none" stroke-linejoin="round"/>
-                <circle cx="12" cy="9" r="2.5" fill="#848484"/>
-            </svg>
+            <img src="assets/images/icon-lokasi.png" alt="Icon Lokasi">
             <span>Tuparev, Kota Cirebon. Jawabarat</span>
         </a>
     </section>
@@ -362,7 +404,6 @@
             let rightNavHTML = '';
 
             if (isLoggedIn) {
-                // TAMPILAN AFTER LOGIN (Kotak Profil + Lonceng)
                 rightNavHTML = `
                     <button class="vsq-notif-btn">
                         <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path><path d="M4 3L2 5"></path><path d="M20 3L22 5"></path></svg>
@@ -373,7 +414,6 @@
                     </div>
                 `;
             } else {
-                // TAMPILAN BEFORE LOGIN (Tombol Login/Register)
                 rightNavHTML = `
                     <a href="login.html" class="vsq-btn-login-outline">Login</a>
                     <a href="register.html" class="vsq-btn-register">Register</a>

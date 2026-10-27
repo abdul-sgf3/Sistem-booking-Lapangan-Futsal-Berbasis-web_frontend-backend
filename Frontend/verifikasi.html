@@ -5,17 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verifikasi Email - Vincent'SQ Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        :root { 
-            --vsq-navy: #2C437B; 
-            --vsq-blue: #477FEB; 
-            --vsq-red: #FF0000; 
-        }
-
+        /* CSS DASAR */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { height: 100%; }
         
-        /* 1. BACKGROUND GELAP (Gambar Lapangan) */
+        /* BACKGROUND GELAP (Gambar Lapangan) */
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             min-height: 100vh; 
@@ -27,157 +22,112 @@
             padding: 20px; 
         }
 
-        /* Tombol Kembali (Putih) */
-        .vsq-back-btn { 
-            position: absolute; 
-            top: 40px; 
-            left: 40px; 
-            color: #FFFFFF; 
-            text-decoration: none; 
-            z-index: 10;
-        }
-        .vsq-back-btn svg { 
-            width: 32px; 
-            height: 32px; 
-            stroke: #FFFFFF; 
-            stroke-width: 2.5; 
-            fill: none; 
-        }
+        /* Tombol Kembali */
+        .vsq-back-btn { position: absolute; top: 40px; left: 40px; color: #FFFFFF; text-decoration: none; z-index: 10; }
+        .vsq-back-btn svg { width: 32px; height: 32px; stroke: #FFFFFF; stroke-width: 2.5; fill: none; }
 
-        /* 2. CARD PUTIH DI TENGAH (Bukan split screen) */
+        /* Card Abu-Abu (Sesuai Wireframe) */
         .vsq-verify-card { 
-            background: #FFFFFF; 
+            background: #D9D9D9; 
             width: 100%; 
-            max-width: 420px; 
-            border-radius: 16px; 
+            max-width: 460px; 
+            height: 658px; 
+            border-radius: 20px; 
             padding: 40px 35px; 
             box-shadow: 0 15px 40px rgba(0,0,0,0.3); 
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
         }
 
         /* Logo */
-        .vsq-logo { margin-bottom: 24px; }
-        .vsq-logo h1 { 
-            font-size: 28px; 
-            font-weight: 800; 
-            color: var(--vsq-navy); 
-            margin: 0; 
-        }
-        .vsq-logo p { 
-            font-size: 14px; 
-            font-weight: 800; 
-            color: var(--vsq-red); 
-            letter-spacing: 1.5px; 
-            margin-top: 4px; 
-        }
+        .vsq-logo { margin-bottom: 20px; }
+        .vsq-logo h1 { font-size: 28px; font-weight: 800; color: #131B2E; margin: 0; }
+        .vsq-logo p { font-size: 14px; font-weight: 800; color: #FF0000; letter-spacing: 1.5px; margin-top: 4px; }
 
-        /* Ilustrasi Kurir */
-        .vsq-illustration img {
-            width: 150px;
-            height: auto;
-            margin-bottom: 24px;
+        /* Kotak Gambar Ilustrasi 188x188 (Sesuai Wireframe) */
+        .vsq-illustration { 
+            width: 188px; 
+            height: 188px; 
+            background: #FFFFFF; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-bottom: 20px;
         }
+        .vsq-illustration img { width: 100%; height: 100%; object-fit: contain; }
 
         /* Teks Verifikasi */
-        .vsq-text { 
-            font-size: 14px; 
-            color: #333; 
-            line-height: 1.5; 
-            margin-bottom: 24px; 
-        }
-        .vsq-text strong { 
-            color: var(--vsq-navy); 
-            font-weight: 700; 
-            display: block; 
-            margin-top: 4px; 
-            font-size: 15px; 
-        }
+        .vsq-text { font-size: 14px; color: #333; line-height: 1.5; margin-bottom: 20px; }
+        .vsq-text strong { color: #131B2E; font-weight: 700; display: block; margin-top: 4px; font-size: 15px; }
 
-        /* 3. KOTAK OTP (5 Kotak, Border Abu-abu) */
-        .vsq-otp-container { 
-            display: flex; 
-            justify-content: center; 
-            gap: 10px; 
-            margin-bottom: 24px; 
-        }
+        /* Kotak OTP (Sesuai Wireframe: 45x60) */
+        .vsq-otp-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; }
         .vsq-otp-input { 
-            width: 50px; 
+            width: 45px; 
             height: 60px; 
             text-align: center; 
             font-size: 22px; 
             font-weight: 600; 
             color: #333; 
-            border: 1px solid #D1D5DB; /* Border abu-abu tipis */
+            border: 1px solid rgba(0, 0, 0, 0.3); 
             border-radius: 8px; 
             outline: none; 
-            transition: all 0.2s;
             background: #FFFFFF;
         }
-        .vsq-otp-input:focus { 
-            border-color: var(--vsq-blue); 
-            box-shadow: 0 0 0 3px rgba(71, 127, 235, 0.15); 
-        }
+        .vsq-otp-input:focus { border-color: #477FEB; }
 
         /* Timer */
-        .vsq-timer-text { 
-            font-size: 13px; 
-            color: #4B5563; 
-            margin-bottom: 24px; 
-        }
-        .vsq-timer-text span { 
-            color: var(--vsq-blue); 
-            font-weight: 600; 
-        }
+        .vsq-timer-text { font-size: 13px; color: #4B5563; margin-bottom: 20px; }
+        .vsq-timer-text span { color: #477FEB; font-weight: 600; }
 
-        /* Tombol Verifikasi (Biru) */
+        /* Tombol Verifikasi (Sesuai Wireframe: Putih 222x53) */
         .vsq-btn { 
-            display: block; 
-            width: 100%; 
-            padding: 14px; 
-            font-size: 15px; 
+            background: #FFFFFF; 
+            color: #131B2E; 
+            border: 1px solid #FFFFFF; 
+            width: 222px; 
+            height: 53px; 
+            border-radius: 15px; 
+            font-size: 16px; 
             font-weight: 600; 
-            color: #FFFFFF; 
-            background-color: var(--vsq-blue); 
-            border: none; 
-            border-radius: 8px; 
             cursor: pointer; 
-            transition: background 0.2s; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            bottom: 40px;
         }
-        .vsq-btn:hover { 
-            background-color: #3564C6; 
-        }
+        .vsq-btn:hover { background: #F3F4F6; }
+
     </style>
 </head>
 <body>
 
-    <!-- Tombol Kembali -->
     <a href="register.html" class="vsq-back-btn">
         <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
     </a>
 
-    <!-- Card Verifikasi -->
     <div class="vsq-verify-card">
         
-        <!-- Logo -->
         <div class="vsq-logo">
             <h1>Vincent'SQ</h1>
             <p>SPORTS ARENA</p>
         </div>
 
-        <!-- Ilustrasi Kurir -->
+        <!-- ILUSTRASI KURIR DIPANGGIL DARI FOLDER ASSETS -->
         <div class="vsq-illustration">
-            <img src="assets/images/ilustrasi-kurir.jpg" alt="Ilustrasi Kurir" onerror="this.src='https://illustrations.popsy.co/blue/forgot-password.svg'">
+            <img src="assets/images/ilustrasi-kurir.png" alt="Ilustrasi Kurir">
         </div>
 
-        <!-- Teks -->
         <div class="vsq-text">
             Kami telah mengirimkan kode verifikasi ke
             <strong id="email-target">email@anda.com</strong>
         </div>
 
-        <!-- Form OTP -->
-        <form id="otpForm">
-            <!-- 5 Kotak OTP -->
+        <form id="otpForm" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
             <div class="vsq-otp-container">
                 <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 1)" autofocus>
                 <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 2)">

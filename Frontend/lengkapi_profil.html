@@ -5,121 +5,212 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lengkapi Profil - Vincent'SQ Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        :root { 
-            --vsq-title-blue: #2C437B; 
-            --vsq-red: #DC2626; 
-            --vsq-black: #0F172A; 
-            --vsq-gray-border: #D1D5DB; 
-            --vsq-btn-blue: #3B82F6; 
-        }
+        /* CSS DASAR */
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             min-height: 100vh; 
+            background: linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)), 
+                        url('assets/uploads/lapangan/hero.jpeg') center/cover no-repeat fixed;
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            background: linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)), url('assets/uploads/lapangan/hero.jpeg') center/cover no-repeat fixed; 
             padding: 20px; 
         }
-        .vsq-profile-card { background: #FFFFFF; width: 100%; max-width: 400px; border-radius: 16px; padding: 30px 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .vsq-logo { text-align: center; margin-bottom: 8px; }
-        .vsq-logo h1 { font-size: 24px; font-weight: 800; color: var(--vsq-title-blue); margin: 0; }
-        .vsq-logo p { font-size: 12px; font-weight: 800; color: var(--vsq-red); letter-spacing: 1.5px; margin-top: 2px; }
-        .vsq-title { text-align: center; font-size: 15px; font-weight: 600; color: #000; margin-bottom: 24px; }
-        .vsq-upload-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; }
-        .vsq-avatar-container { position: relative; width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; }
-        .vsq-avatar-circle { width: 80px; height: 80px; border-radius: 50%; border: 2px dashed #93C5FD; display: flex; align-items: center; justify-content: center; background: #FFFFFF; overflow: hidden; }
-        .vsq-avatar-circle img { width: 100%; height: 100%; object-fit: cover; display: none; }
-        .vsq-avatar-circle .default-avatar { width: 40px; height: 40px; stroke: #2563EB; fill: none; stroke-width: 2; }
-        .vsq-camera-btn { position: absolute; bottom: 5px; right: 5px; width: 28px; height: 28px; background: #2563EB; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid #FFFFFF; }
-        .vsq-camera-btn svg { width: 14px; height: 14px; stroke: #FFFFFF; fill: none; stroke-width: 2; }
-        .vsq-upload-text { font-size: 11px; color: #2563EB; font-weight: 600; margin-top: 8px; cursor: pointer; text-align: center; }
-        .vsq-upload-hint { font-size: 10px; color: #6B7280; margin-top: 2px; text-align: center; }
-        .vsq-instruction { font-size: 11px; color: #4B5563; line-height: 1.5; margin: 20px 0 20px 0; text-align: left; }
-        .vsq-form-group { margin-bottom: 16px; text-align: left; }
+
+        /* Tombol Kembali */
+        .vsq-back-btn { position: absolute; top: 40px; left: 40px; color: #FFFFFF; text-decoration: none; z-index: 10; }
+        .vsq-back-btn svg { width: 32px; height: 32px; stroke: #FFFFFF; stroke-width: 2.5; fill: none; }
+
+        /* Card Putih */
+        .vsq-profile-card { 
+            background: #FFFFFF; 
+            width: 100%; 
+            max-width: 400px; 
+            border-radius: 15px; 
+            padding: 35px 30px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2); 
+            text-align: center;
+        }
+
+        /* Logo */
+        .vsq-logo { margin-bottom: 2px; }
+        .vsq-logo h1 { font-size: 24px; font-weight: 800; color: #131B2E; margin: 0; letter-spacing: -0.5px; }
+        .vsq-logo p { font-size: 13px; font-weight: 800; color: #FF0000; letter-spacing: 1px; margin-top: 2px; text-transform: uppercase; }
+
+        /* Judul */
+        .vsq-title { font-size: 15px; font-weight: 600; color: #000; margin-bottom: 20px; margin-top: 10px; }
+
+        /* Ikon Upload Profil */
+        .vsq-upload-container { margin-bottom: 15px; display: flex; flex-direction: column; align-items: center; }
+        .vsq-avatar-wrapper { position: relative; width: 90px; height: 90px; margin-bottom: 10px; cursor: pointer; }
+        .vsq-avatar-circle { 
+            width: 100%; height: 100%; 
+            border: 1.5px dashed #477FEB; 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            overflow: hidden; /* Agar gambar tidak keluar dari lingkaran */
+        }
+        .vsq-avatar-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none; /* Sembunyikan gambar sebelum diupload */
+        }
+        .vsq-avatar-circle svg { display: block; }
+        
+        .vsq-camera-badge { 
+            position: absolute; bottom: 0px; right: 0px; 
+            background: #477FEB; width: 28px; height: 28px; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            border: 2px solid #FFF; cursor: pointer;
+        }
+        .vsq-upload-text { color: #477FEB; font-size: 12px; font-weight: 500; cursor: pointer; }
+        .vsq-upload-hint { color: #000; font-size: 10px; margin-top: 2px; }
+
+        /* Teks Info */
+        .vsq-info-text { font-size: 12px; color: #000; margin-bottom: 15px; line-height: 1.5; text-align: left; }
+
+        /* Form Input */
+        .vsq-form-group { margin-bottom: 12px; text-align: left; }
         .vsq-form-group label { display: block; font-size: 13px; font-weight: 500; color: #000; margin-bottom: 6px; }
-        .vsq-form-group label span { color: var(--vsq-red); }
-        .vsq-form-control { width: 100%; padding: 12px 16px; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; color: #000; background-color: #FFFFFF; border: 1px solid var(--vsq-gray-border); border-radius: 8px; outline: none; transition: all 0.3s ease; }
-        .vsq-form-control:focus { border-color: var(--vsq-btn-blue); }
-        .vsq-btn-submit { display: block; width: 100%; padding: 12px 20px; font-size: 14px; font-weight: 600; color: #FFFFFF; background-color: var(--vsq-btn-blue); border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s; margin-top: 10px; }
-        .vsq-btn-submit:hover { background-color: #2563EB; }
+        .vsq-form-group label span { color: #FF0000; }
+        .vsq-form-control { 
+            width: 100%; height: 40px; padding: 10px 14px; 
+            font-size: 12px; font-family: 'Plus Jakarta Sans', sans-serif;
+            border: 1px solid #CBD5E1; border-radius: 8px; outline: none; color: #000;
+            background-color: #FFFFFF;
+        }
+        .vsq-form-control:focus { border-color: #477FEB; }
+        .vsq-form-control::placeholder { color: #94A3B8; }
+
+        /* Anti Autofill Browser */
+        .vsq-form-control:-webkit-autofill,
+        .vsq-form-control:-webkit-autofill:hover, 
+        .vsq-form-control:-webkit-autofill:focus, 
+        .vsq-form-control:-webkit-autofill:active{
+            -webkit-box-shadow: 0 0 0 30px white inset !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        /* Tombol Simpan Data */
+        .vsq-btn-submit { 
+            width: 100%; padding: 12px; margin-top: 10px;
+            background: #131B2E; 
+            color: #FFF; 
+            border: none; border-radius: 8px; 
+            font-size: 14px; font-weight: 600; cursor: pointer;
+            transition: background 0.2s;
+        }
+        .vsq-btn-submit:hover { background: #1E293B; }
     </style>
 </head>
 <body>
+
+    <a href="verifikasi.html" class="vsq-back-btn">
+        <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    </a>
+
     <div class="vsq-profile-card">
-        <div class="vsq-logo"><h1>Vincent'SQ</h1><p>SPORTS ARENA</p></div>
-        <div class="vsq-title">Lengkapi Profil data anda</div>
-        <form id="profilForm">
-            <div class="vsq-upload-wrapper">
-                <div class="vsq-avatar-container">
-                    <div class="vsq-avatar-circle" id="avatarPreview">
-                        <svg class="default-avatar" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"></path></svg>
-                        <img id="avatarImage" src="" alt="Preview">
-                    </div>
-                    <div class="vsq-camera-btn" onclick="document.getElementById('fotoProfil').click()"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg></div>
-                    <input type="file" id="fotoProfil" style="display:none;" onchange="previewImage(event)">
+        
+        <div class="vsq-logo">
+            <h1>Vincent'SQ</h1>
+            <p>SPORTS ARENA</p>
+        </div>
+        
+        <h2 class="vsq-title">Lengkapi Profil data anda</h2>
+
+        <!-- Upload Foto -->
+        <div class="vsq-upload-container">
+            <!-- Input file disembunyikan, akan dipicu oleh klik pada wrapper -->
+            <input type="file" id="fileUpload" accept="image/png, image/jpeg" style="display: none;">
+            
+            <div class="vsq-avatar-wrapper" onclick="document.getElementById('fileUpload').click()">
+                <div class="vsq-avatar-circle">
+                    <!-- Ikon User Biru (Default) -->
+                    <svg id="icon-user" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#477FEB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <!-- Preview Gambar (Tersembunyi awalnya) -->
+                    <img id="preview-img" src="" alt="Preview Foto">
                 </div>
-                <div class="vsq-upload-text" onclick="document.getElementById('fotoProfil').click()">Unggah foto profil</div>
-                <div class="vsq-upload-hint">(JPG atau PNG, maks 2 MB)</div>
+                <!-- Ikon Kamera Biru -->
+                <div class="vsq-camera-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                </div>
             </div>
-            <div class="vsq-instruction">Email sudah terverifikasi. Isi data singkat ini untuk menyelesaikan register</div>
-            <div class="vsq-form-group"><label for="nama">Nama<span>*</span></label><input type="text" id="nama" class="vsq-form-control" required placeholder=""></div>
-            <div class="vsq-form-group"><label for="whatsapp">No. Whatsapp<span>*</span></label><input type="tel" id="whatsapp" class="vsq-form-control" required placeholder=""></div>
-            <button type="submit" class="vsq-btn-submit" id="btnSubmit">Simpan data</button>
+            
+            <span class="vsq-upload-text" onclick="document.getElementById('fileUpload').click()">Unggah foto profil</span>
+            <span class="vsq-upload-hint">(JPG atau PNG, maks 2 MB)</span>
+        </div>
+
+        <p class="vsq-info-text">
+            Email sudah terverifikasi. Isi data singkat ini untuk menyelesaikan register
+        </p>
+
+        <form id="profileForm">
+            <div class="vsq-form-group">
+                <label for="nama">Nama<span>*</span></label>
+                <input type="text" id="nama" class="vsq-form-control" placeholder="Masukkan nama..." required>
+            </div>
+
+            <div class="vsq-form-group">
+                <label for="wa">No. Whatsapp<span>*</span></label>
+                <input type="text" id="wa" class="vsq-form-control" placeholder="Masukkan no WA..." required>
+            </div>
+
+            <button type="submit" class="vsq-btn-submit" id="btnSimpan">Simpan data</button>
         </form>
     </div>
 
     <script>
-        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? 'http://localhost/vincent-arena/Backend/API'
-            : 'https://vincent-arena.infinityfreeapp.com/Backend/API';
+        // --- LOGIKA UPLOAD FOTO ---
+        const fileInput = document.getElementById('fileUpload');
+        const previewImg = document.getElementById('preview-img');
+        const iconUser = document.getElementById('icon-user');
 
-        const emailUser = localStorage.getItem('register_email');
-
-        function previewImage(event) {
+        fileInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
+            
             if (file) {
+                // Validasi ukuran (maks 2 MB)
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('Ukuran foto terlalu besar! Maksimal 2 MB.');
+                    fileInput.value = ''; // Reset input
+                    return;
+                }
+
+                // Tampilkan preview
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatarImage').src = e.target.result;
-                    document.getElementById('avatarImage').style.display = 'block';
-                    document.querySelector('.default-avatar').style.display = 'none';
-                };
+                    previewImg.src = e.target.result;
+                    previewImg.style.display = 'block'; // Munculkan gambar
+                    iconUser.style.display = 'none';    // Sembunyikan ikon user
+                }
                 reader.readAsDataURL(file);
             }
-        }
+        });
 
-        document.getElementById('profilForm').addEventListener('submit', function(e) {
+        // --- LOGIKA SIMPAN DATA ---
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const btn = document.getElementById('btnSubmit');
-            btn.disabled = true; btn.textContent = 'Menyimpan...';
             
-            const nama = document.getElementById('nama').value;
-            const whatsapp = document.getElementById('whatsapp').value;
+            const btn = document.getElementById('btnSimpan');
+            btn.textContent = 'Menyimpan...';
+            btn.disabled = true;
 
-            // VALIDASI: Pastikan nama tidak kosong
-            if (!nama || !whatsapp) {
-                alert("Nama dan No. Whatsapp wajib diisi!");
-                btn.disabled = false;
-                btn.textContent = 'Simpan data';
-                return;
-            }
-
-            // SIMPAN KE LOCALSTORAGE
-            localStorage.setItem('user_id', 'user-123');
-            localStorage.setItem('nama', nama); // Menyimpan nama asli user
-            localStorage.setItem('user_email', emailUser || 'user@email.com');
-
-            // Panggil API (Opsional, karena kita bypass)
-            fetch(API_BASE + '/auth/lengkapi_profil.php', {
-                method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: emailUser, nama: nama, whatsapp: whatsapp })
-            }).catch(err => console.log('BE error diabaikan'));
-
-            // Arahkan ke Login setelah 1.5 detik
-            setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+            // Simulasi loading
+            setTimeout(() => {
+                localStorage.removeItem('register_email'); // Bersihkan session
+                 window.location.href = 'login.html'; 
+            }, 1000);
         });
     </script>
 </body>

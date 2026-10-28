@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profil (Skeleton) - Vincent'SQ Arena</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS DASAR */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            min-height: 100vh; 
+            background: #F3F4F6; /* Background abu-abu polos untuk skeleton */
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+        }
+
+        /* Card Skeleton (Polos) */
+        .vsq-skeleton-card { 
+            background: #FFFFFF; 
+            width: 100%; 
+            max-width: 400px; 
+            border-radius: 15px; 
+            padding: 35px 30px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+            text-align: center;
+            border: 1px solid #E5E7EB;
+        }
+
+        /* Animasi Shimmer (Efek Loading) */
+        .skeleton-box {
+            background-color: #E5E7EB;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        .skeleton-box::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer { 100% { left: 100%; } }
+
+        /* Skeleton Elemen */
+        .sk-logo-title { width: 120px; height: 24px; margin: 0 auto 8px; }
+        .sk-logo-sub { width: 80px; height: 14px; margin: 0 auto 20px; }
+        
+        .sk-title { width: 150px; height: 18px; margin: 0 auto 20px; }
+
+        .sk-avatar-wrapper { display: flex; justify-content: center; margin-bottom: 10px; }
+        .sk-avatar { width: 90px; height: 90px; border-radius: 50%; }
+        
+        .sk-text-small { width: 100px; height: 12px; margin: 0 auto 5px; }
+        .sk-text-tiny { width: 60px; height: 10px; margin: 0 auto 25px; }
+
+        /* Skeleton Form */
+        .sk-form-group { margin-bottom: 15px; text-align: left; }
+        .sk-label { width: 60px; height: 14px; margin-bottom: 8px; }
+        .sk-input { width: 100%; height: 40px; }
+
+        /* Skeleton Button */
+        .sk-button { width: 100%; height: 42px; margin-top: 15px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="vsq-skeleton-card">
+        
+        <!-- Skeleton Logo -->
+        <div class="skeleton-box sk-logo-title"></div>
+        <div class="skeleton-box sk-logo-sub"></div>
+        
+        <!-- Skeleton Judul -->
+        <div class="skeleton-box sk-title"></div>
+
+        <!-- Skeleton Avatar -->
+        <div class="sk-avatar-wrapper">
+            <div class="skeleton-box sk-avatar"></div>
+        </div>
+        <div class="skeleton-box sk-text-small"></div>
+        <div class="skeleton-box sk-text-tiny"></div>
+
+        <!-- Skeleton Form -->
+        <form>
+            <div class="sk-form-group">
+                <div class="skeleton-box sk-label"></div>
+                <div class="skeleton-box sk-input"></div>
+            </div>
+
+            <div class="sk-form-group">
+                <div class="skeleton-box sk-label"></div>
+                <div class="skeleton-box sk-input"></div>
+            </div>
+
+            <div class="skeleton-box sk-button"></div>
+        </form>
+    </div>
+
+</body>
+</html>

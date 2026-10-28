@@ -35,15 +35,71 @@
         .vsq-nav-link:hover { color: var(--vsq-blue); }
         .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 15px 17px; border-radius: 15px; height: 54px; display: flex; align-items: center; justify-content: center; }
         
-        .vsq-nav-right { display: flex; align-items: center; gap: 16px; }
+        .vsq-nav-right { display: flex; align-items: center; gap: 16px; position: relative; }
         .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 47px; height: 47px; }
         .vsq-notif-btn svg { width: 28px; height: 28px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: 153px; height: 63px; border: 1px solid #000000; border-radius: 20px; padding: 0 10px 0 17px; cursor: pointer; text-decoration: none; }
+        
+        /* Kotak Profil Saat Login */
+        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: 153px; height: 63px; border: 1px solid #000000; border-radius: 20px; padding: 0 10px 0 17px; text-decoration: none; cursor: pointer; transition: background 0.2s; }
+        .vsq-profile-box:hover { background: #F8FAFC; }
         .vsq-profile-name { font-size: 18px; color: #000; white-space: nowrap; font-weight: 400; }
         .vsq-profile-avatar { width: 42px; height: 42px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 600; }
         
+        /* Tombol Logout di Navbar */
+        .vsq-btn-logout { background: #131B2E; color: #FFF; width: 120px; height: 50px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; }
+        .vsq-btn-logout:hover { background: #0a0e1a; }
+
+        /* Tombol Login/Register */
         .vsq-btn-login-outline { background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E; width: 120px; height: 50px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
         .vsq-btn-register { background: #131B2E; color: #FFF; width: 120px; height: 50px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+
+        /* =========================================
+           CSS DROPDOWN PROFIL (MODERN SKELETON)
+           ========================================= */
+        .vsq-profile-dropdown {
+            position: absolute;
+            top: 80px;
+            right: 136px;
+            width: 280px;
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+            padding: 0;
+            display: none;
+            flex-direction: column;
+            z-index: 1001;
+            overflow: hidden;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .vsq-profile-dropdown.show { display: flex; }
+        
+        .vsq-dd-header { background: linear-gradient(135deg, #131B2E 0%, #2C437B 100%); padding: 20px; display: flex; align-items: center; gap: 15px; color: #FFFFFF; }
+        .vsq-dd-avatar { width: 50px; height: 50px; background: #477FEB; color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; border: 2px solid #FFFFFF; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .vsq-dd-info h4 { font-size: 16px; font-weight: 700; margin: 0; color: #FFFFFF; }
+        .vsq-dd-info p { font-size: 12px; margin: 4px 0 0 0; color: #CBD5E1; }
+        
+        .vsq-badge-verified { display: inline-flex; align-items: center; gap: 4px; background: rgba(22, 163, 74, 0.2); color: #4ADE80; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-top: 6px; }
+
+        .vsq-dd-body { padding: 15px 20px; display: flex; flex-direction: column; gap: 12px; }
+        .vsq-dd-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #131B2E; }
+        .vsq-dd-item svg { width: 16px; height: 16px; stroke: #64748B; flex-shrink: 0; }
+        .vsq-dd-item .value { font-weight: 600; color: #131B2E; margin-left: auto; }
+
+        .vsq-dd-divider { height: 1px; background: #E2E8F0; margin: 5px 20px; }
+
+        .vsq-dd-footer { padding: 15px 20px; display: flex; flex-direction: column; gap: 10px; background: #F8FAFC; }
+        .vsq-btn-edit-profile { background: #477FEB; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .vsq-btn-edit-profile:hover { background: #3564C6; }
+        
+        .vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .vsq-btn-logout-dropdown:hover { background: #FEF2F2; border-color: #EF4444; }
 
         /* =========================================
            2. HERO SECTION
@@ -52,64 +108,14 @@
         .vsq-hero-image { position: absolute; top: 0; right: 0; width: 75%; height: 100%; background-image: url('assets/uploads/lapangan/hero.jpeg'); background-size: cover; background-position: center; z-index: 1; }
         .vsq-hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, var(--vsq-navy) 40%, rgba(19, 27, 46, 0.85) 60%, rgba(19, 27, 46, 0) 100%); z-index: 2; }
         
-        .vsq-hero-content { 
-            position: relative; z-index: 3; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            height: 100%; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            padding: 0 44px; 
-        }
-        
-        .vsq-hero-content h1 { 
-            font-size: 50px; 
-            font-weight: 700; 
-            line-height: 63px; 
-            margin: 0 0 24px 0; 
-            color: var(--vsq-white); 
-            max-width: 800px; 
-        }
+        .vsq-hero-content { position: relative; z-index: 3; max-width: 1200px; margin: 0 auto; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 44px; }
+        .vsq-hero-content h1 { font-size: 50px; font-weight: 700; line-height: 63px; margin: 0 0 24px 0; color: var(--vsq-white); max-width: 800px; }
         .vsq-hero-content h1 span { color: var(--vsq-red); }
+        .vsq-hero-content p { font-size: 18px; line-height: 23px; color: var(--vsq-lightgray); max-width: 500px; margin: 0; text-align: left; }
         
-        .vsq-hero-content p { 
-            font-size: 18px; 
-            line-height: 23px; 
-            color: var(--vsq-lightgray); 
-            max-width: 500px; 
-            margin: 0; 
-            text-align: left; 
-        }
-        
-        /* Badge Lokasi (Menggunakan Gambar) */
-        .vsq-location-badge { 
-            position: absolute; 
-            bottom: 30px; 
-            right: 40px; 
-            background: #E5E7EB; 
-            color: #4B5563; 
-            padding: 10px 20px; 
-            border-radius: 12px; 
-            font-size: 14px; 
-            font-weight: 400; 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 8px; 
-            z-index: 10; 
-            text-decoration: none; 
-            cursor: pointer; 
-            width: auto; 
-            height: 45px; 
-        }
+        .vsq-location-badge { position: absolute; bottom: 30px; right: 40px; background: #E5E7EB; color: #4B5563; padding: 10px 20px; border-radius: 12px; font-size: 14px; font-weight: 400; display: inline-flex; align-items: center; gap: 8px; z-index: 10; text-decoration: none; cursor: pointer; height: 45px; }
         .vsq-location-badge:hover { background: #D1D5DB; }
-        
-        /* Styling untuk gambar ikon lokasi */
-        .vsq-location-badge img { 
-            width: 20px; 
-            height: 20px; 
-            object-fit: contain; 
-        }
+        .vsq-location-badge img { width: 20px; height: 20px; object-fit: contain; }
 
         /* =========================================
            3. SECTION & CARD LAPANGAN
@@ -188,6 +194,56 @@
         .vsq-footer-contact-item svg { width: 24px; height: 24px; stroke: var(--vsq-red); fill: none; stroke-width: 2; flex-shrink: 0; }
         .vsq-footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 24px; text-align: center; font-size: 16px; color: rgba(255, 255, 255, 0.4); }
 
+        /* =========================================
+           CSS MODAL LOGOUT (PROFESIONAL)
+           ========================================= */
+        .vsq-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(19, 27, 46, 0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .vsq-modal-overlay.show { display: flex; opacity: 1; }
+
+        .vsq-modal-box {
+            background: #FFFFFF;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        .vsq-modal-overlay.show .vsq-modal-box { transform: translateY(0); }
+
+        .vsq-modal-icon {
+            width: 60px; height: 60px;
+            background: #FEE2E2;
+            color: #EF4444;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px;
+        }
+        .vsq-modal-icon svg { width: 30px; height: 30px; stroke: currentColor; stroke-width: 2; }
+
+        .vsq-modal-title { font-size: 20px; font-weight: 700; color: #131B2E; margin-bottom: 10px; }
+        .vsq-modal-text { font-size: 14px; color: #64748B; margin-bottom: 25px; line-height: 1.5; }
+
+        .vsq-modal-actions { display: flex; gap: 12px; justify-content: center; }
+        .vsq-modal-actions button { flex: 1; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .vsq-btn-cancel { background: #FFFFFF; color: #131B2E; border: 1px solid #CBD5E1; }
+        .vsq-btn-cancel:hover { background: #F8FAFC; border-color: #94A3B8; }
+        .vsq-btn-confirm-logout { background: #EF4444; color: #FFFFFF; border: 1px solid #EF4444; }
+        .vsq-btn-confirm-logout:hover { background: #DC2626; border-color: #DC2626; }
+
         /* Responsive */
         @media (max-width: 1023px) {
             .vsq-hero-image { width: 100%; opacity: 0.6; }
@@ -215,6 +271,7 @@
             .vsq-footer-content { grid-template-columns: 1fr; text-align: center; }
             .vsq-footer-contact-item { justify-content: center; }
             .vsq-step-card { width: 100%; } 
+            .vsq-profile-dropdown { right: 20px; width: 200px; }
         }
     </style>
 </head>
@@ -230,7 +287,6 @@
             <h1>Sewa Lapangan Olahraga Favoritmu dengan Sekali <span>Klik</span></h1>
             <p>Vincent'SQ Arena hadir untuk lapangan Futsal dengan fasilitas standar nasional dan sistem konfirmasi realtime.</p>
         </div>
-        <!-- BADGE LOKASI MENGGUNAKAN GAMBAR ICON -->
         <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Tuparev+No.64,+Kertawinangun,+Kec.+Kedawung,+Kabupaten+Cirebon,+Jawa+Barat+45153" target="_blank" class="vsq-location-badge">
             <img src="assets/images/icon-lokasi.png" alt="Icon Lokasi">
             <span>Tuparev, Kota Cirebon. Jawabarat</span>
@@ -347,6 +403,25 @@
     </div>
     <div id="toast-container" class="toast-container"></div>
 
+    <!-- MODAL LOGOUT -->
+    <div class="vsq-modal-overlay" id="logoutModal">
+        <div class="vsq-modal-box">
+            <div class="vsq-modal-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+            </div>
+            <h3 class="vsq-modal-title">Konfirmasi Keluar</h3>
+            <p class="vsq-modal-text">Apakah Anda yakin ingin keluar dari akun ini? Anda harus login kembali untuk melakukan booking.</p>
+            <div class="vsq-modal-actions">
+                <button class="vsq-btn-cancel" onclick="closeLogoutModal()">Batal</button>
+                <button class="vsq-btn-confirm-logout" onclick="confirmLogout()">Ya, Keluar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://localhost/vincent-arena/Backend/API'
@@ -391,15 +466,22 @@
             if (!isActive) element.classList.add('active');
         }
 
+        // --- LOGIKA NAVBAR & DROPDOWN PROFIL ---
         document.addEventListener('DOMContentLoaded', function() {
             const navbarEl = document.getElementById('navbar');
-            const isLoggedIn = localStorage.getItem('user_id') !== null; 
+            
             const rawNama = localStorage.getItem('nama'); 
+            const userId = localStorage.getItem('user_id');
+            const userEmail = localStorage.getItem('register_email') || 'user@email.com';
+            const userWa = localStorage.getItem('no_wa') || '08123456789';
+            
+            const isLoggedIn = (rawNama !== null && rawNama !== 'undefined' && rawNama !== '') || userId !== null;
             
             let displayName = 'User';
             if (rawNama && rawNama !== 'undefined' && rawNama !== 'null' && rawNama.trim() !== '') {
                 displayName = rawNama;
             }
+            let avatarInitial = displayName.charAt(0).toUpperCase();
 
             let rightNavHTML = '';
 
@@ -408,9 +490,56 @@
                     <button class="vsq-notif-btn">
                         <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path><path d="M4 3L2 5"></path><path d="M20 3L22 5"></path></svg>
                     </button>
-                    <div class="vsq-profile-box" onclick="logout()" title="Logout">
+                    
+                    <!-- Kotak Profil (bisa diklik) -->
+                    <div class="vsq-profile-box" id="profileToggle">
                         <span class="vsq-profile-name">Hai ${displayName}</span>
-                        <div class="vsq-profile-avatar">${displayName.charAt(0).toUpperCase()}</div>
+                        <div class="vsq-profile-avatar">${avatarInitial}</div>
+                    </div>
+                    
+                    <!-- Tombol Logout di Navbar -->
+                    <button class="vsq-btn-logout" onclick="logout()">Logout</button>
+
+                    <!-- DROPDOWN PROFIL MODERN -->
+                    <div class="vsq-profile-dropdown" id="profileDropdown">
+                        
+                        <!-- Header Gradient -->
+                        <div class="vsq-dd-header">
+                            <div class="vsq-dd-avatar">${avatarInitial}</div>
+                            <div class="vsq-dd-info">
+                                <h4>${displayName}</h4>
+                                <div class="vsq-badge-verified">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    Terverifikasi
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Body Info -->
+                        <div class="vsq-dd-body">
+                            <div class="vsq-dd-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                <span class="value">${userEmail}</span>
+                            </div>
+                            <div class="vsq-dd-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                <span class="value">${userWa}</span>
+                            </div>
+                        </div>
+
+                        <div class="vsq-dd-divider"></div>
+
+                        <!-- Footer Tombol -->
+                        <div class="vsq-dd-footer">
+                            <a href="profil_user.html" class="vsq-btn-edit-profile">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                Edit Profil
+                            </a>
+                            <button class="vsq-btn-logout-dropdown" onclick="logout()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                                Keluar
+                            </button>
+                        </div>
                     </div>
                 `;
             } else {
@@ -434,6 +563,23 @@
                 </nav>
                 <div class="vsq-nav-right">${rightNavHTML}</div>
             </div>`;
+
+            // Logika buka/tutup dropdown profil
+            const profileToggle = document.getElementById('profileToggle');
+            const profileDropdown = document.getElementById('profileDropdown');
+
+            if (profileToggle && profileDropdown) {
+                profileToggle.addEventListener('click', function(e) {
+                    e.stopPropagation(); 
+                    profileDropdown.classList.toggle('show');
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!profileDropdown.contains(e.target) && !profileToggle.contains(e.target)) {
+                        profileDropdown.classList.remove('show');
+                    }
+                });
+            }
 
             document.getElementById('lapangan-container').innerHTML = `
                 <div class="sl-card">
@@ -459,12 +605,28 @@
             setTimeout(loadLapangan, 500);
         });
 
+        // --- LOGIKA MODAL LOGOUT ---
         function logout() {
-            if(confirm('Apakah Anda yakin ingin keluar?')) {
-                localStorage.clear(); 
-                window.location.reload(); 
-            }
+            const modal = document.getElementById('logoutModal');
+            modal.classList.add('show');
         }
+
+        function closeLogoutModal() {
+            const modal = document.getElementById('logoutModal');
+            modal.classList.remove('show');
+        }
+
+        function confirmLogout() {
+            localStorage.clear(); 
+            window.location.href = 'login.html'; 
+        }
+
+        // Tutup modal jika user klik di luar area kotak modal
+        document.getElementById('logoutModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLogoutModal();
+            }
+        });
 
         async function loadLapangan() {
             const container = document.getElementById('lapangan-container');

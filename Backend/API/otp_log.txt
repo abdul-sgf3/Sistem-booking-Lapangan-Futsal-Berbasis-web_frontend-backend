@@ -35,3 +35,7 @@
 2026-10-28 03:46:15 | OTP untuk errenn@gmail.com: 198857
 2026-10-28 03:53:20 | OTP untuk errenn@gmail.com: 324625
 2026-10-28 04:03:05 | OTP untuk errenn@gmail.com: 494337
+2026-10-28 14:33:31 | OTP untuk tes@gmail.com: 200541 | Status: GAGAL | Code: 401 | Response: {"message":"Key not found","code":"unauthorized"}
+
+2026-10-28 14:51:21 | OTP untuk tes@gmail.com: 562307 | Status: TERKIRIM | Code: 201 | Response: {"messageId":"<202610281351.47057622842@smtp-relay.mailin.fr>"}
+

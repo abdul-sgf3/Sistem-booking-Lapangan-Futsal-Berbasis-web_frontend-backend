@@ -73,8 +73,9 @@ sendResponse([
     'user_id' => (int)$user['id'],
     'email' => $user['email'],
     'need_profile' => $need_profile,
+// BENAR:
 'redirect' => $need_profile 
-    ? BASE_URL . '/Frontend/autentikasi/lengkapi_profil.php' 
-    : BASE_URL . '/Frontend/pages/index.php'
+    ? BASE_URL . '/Frontend/autentikasi/lengkapi_profil.html' 
+    : BASE_URL . '/Frontend/pages/index.html'
 ], 'Verifikasi berhasil');
 ?>

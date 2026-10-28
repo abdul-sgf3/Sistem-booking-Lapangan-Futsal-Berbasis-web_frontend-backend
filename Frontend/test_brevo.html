@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Integrasi Brevo OTP</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 40px; background: #f4f4f4; }
+        .box { background: white; padding: 20px; border-radius: 8px; max-width: 500px; margin: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #477FEB; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #3564C6; }
+        pre { background: #222; color: #0f0; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h2>📧 Test Kirim OTP Brevo</h2>
+        <p>Masukkan email tujuan untuk menerima kode OTP asli.</p>
+        
+        <input type="email" id="emailTujuan" placeholder="Masukkan email Gmail tujuan..." value="">
+        
+        <button onclick="kirimOTP()">Kirim OTP Sekarang!</button>
+
+        <h3>Response dari Backend:</h3>
+        <pre id="output">Menunggu perintah...</pre>
+    </div>
+
+    <script>
+        async function kirimOTP() {
+            const email = document.getElementById('emailTujuan').value;
+            const output = document.getElementById('output');
+            
+            if (!email) {
+                alert('Isi email dulu ya!');
+                return;
+            }
+
+            output.textContent = 'Sedang memproses... Mohon tunggu.';
+            
+            try {
+                // Menembak endpoint auth/lupa_password.php (atau register.php)
+                const response = await fetch('http://localhost/vincent-arena/Backend/API/auth/lupa_password.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: email })
+                });
+                
+                const result = await response.json();
+                
+                // Tampilkan response JSON dari BE
+                output.textContent = JSON.stringify(result, null, 4);
+                
+                if(result.status === 'success') {
+                    output.style.color = '#0f0';
+                    alert('✅ Berhasil! Silakan cek Inbox/Spam di Gmail: ' + email);
+                } else {
+                    output.style.color = '#f00';
+                    alert('❌ Gagal: ' + result.message);
+                }
+                
+            } catch (error) {
+                output.textContent = 'Error Jaringan: ' + error.message;
+                output.style.color = '#f00';
+            }
+        }
+    </script>
+
+</body>
+</html>

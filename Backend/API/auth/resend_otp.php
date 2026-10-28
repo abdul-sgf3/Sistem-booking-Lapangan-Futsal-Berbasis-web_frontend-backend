@@ -39,8 +39,10 @@ if (!mysqli_stmt_execute($stmt)) {
     sendError('Gagal mengirim ulang OTP', 500);
 }
 
-// TODO: Kirim OTP via email
-// Untuk development, tampilkan OTP di response
+// Panggil fungsi kirim email (sebelum sendResponse)
+$user_nama = $user['nama'] ?? 'User'; // Jika ada nama di hasil query, atau ambil dari DB
+sendOtpEmail($email, $otp, $user_nama);
+
 sendResponse([
     'email' => $email,
     'otp_debug' => $otp, // HAPUS DI PRODUCTION!

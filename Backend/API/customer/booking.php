@@ -138,9 +138,9 @@ if ($method === 'POST') {
         "INSERT INTO booking 
          (id_user, id_lapangan, kode_booking, tanggal, jam_mulai, durasi, total_harga, catatan, metode_pembayaran, status) 
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')");
-    mysqli_stmt_bind_param($stmt, "iissssiss", 
-        $id_user, $id_lapangan, $kode_booking, $tanggal, 
-        $jam_mulai, $durasi, $total_harga, $catatan, $metode_pembayaran);
+mysqli_stmt_bind_param($stmt, "iisssiiiss", 
+    $id_user, $id_lapangan, $kode_booking, $tanggal, 
+    $jam_mulai, $durasi, $total_harga, $catatan, $metode_pembayaran);
     
     if (!mysqli_stmt_execute($stmt)) {
         sendError('Gagal membuat booking: ' . mysqli_error($conn), 500);

@@ -1,5 +1,12 @@
 <?php
 // ============================================
+// KONFIGURASI BREVO (Email OTP)
+// ============================================
+define('BREVO_API_KEY', getenv('BREVO_API_KEY') ?: '');
+define('BREVO_FROM_EMAIL', 'abdullah.sgff3@gmail.com'); // GANTI dengan email Gmail Anda yang tadi didaftarkan di Brevo
+define('BREVO_FROM_NAME', 'Vincent SQ Arena');
+
+// ============================================
 // Backend/API/config.php
 // KONFIGURASI GLOBAL API VINCENT SQ ARENA
 // (FINAL - SIAP HOSTING INFINITYFREE)
@@ -10,7 +17,7 @@ $allowed_origins = [
     'http://localhost',
     'http://localhost:8080', // Port Live Server (VS Code)
     'http://127.0.0.1',
-    'https://vincent-arena.infinityfreeapp.com'
+//  'https://vincent-arena.vercel.app' // <-- Nanti aktifkan ini jika Vercel sudah jadi
 ];
 
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
@@ -36,25 +43,29 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // ============================================
-// KONEKSI DATABASE (OTOMATIS LOKAL & HOSTING)
+// KONEKSI DATABASE (OTOMATIS LOKAL & RAILWAY)
 // ============================================
 $is_localhost = ($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '127.0.0.1');
 
 if ($is_localhost) {
-    // --- KONFIGURASI LOKAL (LARAGON/XAMPP) ---
+    // --- KONFIGURASI LOKAL (LARAGON / XAMPP) ---
     $host = 'localhost';
     $user = 'root';
-    $pass = '';
+    $pass = ''; // Di XAMPP biasanya kosong
     $db   = 'vincent_sqdb';
+    $port = 3306;
 } else {
-    // --- KONFIGURASI HOSTING (INFINITYFREE) ---
-    $host = 'sql201.infinityfree.com'; 
-    $user = 'if0_43234798';            
-    $pass = 'ProjectKel3';             
-    $db   = 'if0_43234798_vincent_sqdb'; 
+    // --- KONFIGURASI RAILWAY ---
+    // Railway akan otomatis mengisi nilai getenv() ini
+    $host = getenv('MYSQLHOST') ?: 'sql201.infinityfree.com'; 
+    $user = getenv('MYSQLUSER') ?: 'if0_43234798';            
+    $pass = getenv('MYSQLPASSWORD') ?: 'ProjectKel3';             
+    $db   = getenv('MYSQLDATABASE') ?: 'if0_43234798_vincent_sqdb'; 
+    $port = getenv('MYSQLPORT') ?: 3306;
 }
 
-$conn = mysqli_connect($host, $user, $pass, $db);
+// Tambahkan parameter $port di akhir mysqli_connect
+$conn = mysqli_connect($host, $user, $pass, $db, (int)$port);
 if (!$conn) {
     http_response_code(500);
     echo json_encode([
@@ -69,23 +80,40 @@ mysqli_set_charset($conn, 'utf8mb4');
 // ============================================
 // KONSTANTA PATH (URL & FOLDER UPLOAD)
 // ============================================
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+$host_url = $_SERVER['HTTP_HOST'] ?? 'localhost';
+
 if ($is_localhost) {
-    // Ganti 'vincent-arena' sesuai nama folder Anda di Laragon
+    // Ganti 'vincent-arena' jika nama folder di htdocs XAMPP Anda berbeda
     define('BASE_URL', '/vincent-arena'); 
 } else {
-    define('BASE_URL', 'https://vincent-arena.infinityfreeapp.com');
+    define('BASE_URL', $protocol . '://' . $host_url);
 }
 
-// PASTIKAN TIDAK ADA LAGI define('BASE_URL', ...) DI BAWAH SINI
+// --- URL GAMBAR UNTUK FRONTEND ---
+// Saat lokal, gambar ada di Frontend. Saat di Railway, gambar ada di Backend/uploads
+if ($is_localhost) {
+    define('UPLOAD_LAPANGAN', BASE_URL . '/Frontend/assets/uploads/lapangan/');
+    define('UPLOAD_MAKANAN',  BASE_URL . '/Frontend/assets/uploads/makanan/');
+    define('UPLOAD_BUKTI',    BASE_URL . '/Frontend/assets/uploads/bukti/');
+    define('UPLOAD_PROFIL',   BASE_URL . '/Frontend/assets/uploads/profil/');
+} else {
+    define('UPLOAD_LAPANGAN', BASE_URL . '/uploads/lapangan/');
+    define('UPLOAD_MAKANAN',  BASE_URL . '/uploads/makanan/');
+    define('UPLOAD_BUKTI',    BASE_URL . '/uploads/bukti/');
+    define('UPLOAD_PROFIL',   BASE_URL . '/uploads/profil/');
+}
 
-define('UPLOAD_LAPANGAN', BASE_URL . '/Frontend/assets/uploads/lapangan/');
-define('UPLOAD_MAKANAN',  BASE_URL . '/Frontend/assets/uploads/makanan/');
-define('UPLOAD_BUKTI',    BASE_URL . '/Frontend/assets/uploads/bukti/');
-define('UPLOAD_PROFIL',   BASE_URL . '/Frontend/assets/uploads/profil/');
-
-// Absolute Path (untuk proses upload file di server)
-define('ABS_UPLOAD_PROFIL', __DIR__ . '/../../Frontend/assets/uploads/profil/');
-define('ABS_UPLOAD_BUKTI',  __DIR__ . '/../../Frontend/assets/uploads/bukti/');
+// --- ABSOLUTE PATH UNTUK PROSES UPLOAD ---
+if ($is_localhost) {
+    // Jika di lokal (XAMPP), simpan ke folder Frontend
+    define('ABS_UPLOAD_PROFIL', __DIR__ . '/../../Frontend/assets/uploads/profil/');
+    define('ABS_UPLOAD_BUKTI',  __DIR__ . '/../../Frontend/assets/uploads/bukti/');
+} else {
+    // Jika di Railway, simpan ke folder Backend/uploads
+    define('ABS_UPLOAD_PROFIL', __DIR__ . '/../uploads/profil/');
+    define('ABS_UPLOAD_BUKTI',  __DIR__ . '/../uploads/bukti/');
+}
 
 // ============================================
 // HELPER: RESPONSE (JSON)

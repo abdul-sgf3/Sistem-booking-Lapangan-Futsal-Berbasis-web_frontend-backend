@@ -8,9 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* =========================================
-           1. CSS DASAR & NAVBAR
-           ========================================= */
+        /* CSS DASAR & NAVBAR */
         :root {
             --vsq-navy: #131B2E;
             --vsq-blue: #477FEB;
@@ -66,9 +64,7 @@
         .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; }
         .vsq-notif-btn svg { width: 24px; height: 24px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
-        /* =========================================
-           CSS DROPDOWN PROFIL
-           ========================================= */
+        /* DROPDOWN PROFIL */
         .vsq-profile-dropdown {
             position: absolute; top: 60px; right: 0; width: 280px;
             background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px;
@@ -94,9 +90,7 @@
         .vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .vsq-btn-logout-dropdown:hover { background: #FEF2F2; border-color: #EF4444; }
 
-        /* =========================================
-           2. HERO SECTION
-           ========================================= */
+        /* HERO SECTION */
         .vsq-hero { position: relative; width: 100%; height: 633px; background-color: var(--vsq-navy); overflow: hidden; }
         .vsq-hero-image { position: absolute; top: 0; right: 0; width: 75%; height: 100%; background-image: url('assets/uploads/lapangan/hero.jpeg'); background-size: cover; background-position: center; z-index: 1; }
         .vsq-hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, var(--vsq-navy) 40%, rgba(19, 27, 46, 0.85) 60%, rgba(19, 27, 46, 0) 100%); z-index: 2; }
@@ -108,9 +102,7 @@
         .vsq-location-badge:hover { background: #D1D5DB; }
         .vsq-location-badge img { width: 20px; height: 20px; object-fit: contain; }
 
-        /* =========================================
-           3. SECTION & CARD LAPANGAN
-           ========================================= */
+        /* SECTION & CARD LAPANGAN */
         .vsq-section { padding: 50px 20px; max-width: 1242px; margin: 0 auto; }
         .vsq-section-title { text-align: center; margin-bottom: 40px; }
         .vsq-section-title h2 { font-size: 36px; font-weight: 700; line-height: 45px; color: var(--vsq-navy); margin: 0 0 12px 0; }
@@ -145,9 +137,7 @@
         .vsq-btn-booking::after { content: "→"; font-size: 18px; font-weight: 400; }
         .vsq-btn-booking:hover { background: #0a0e1a; }
 
-        /* =========================================
-           4. CSS CARA BOOKING
-           ========================================= */
+        /* CARA BOOKING */
         .vsq-steps-wrapper { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto; }
         .vsq-step-card { background: #FFFFFF; border: 1px solid #848484; border-radius: 15px; width: 271px; height: 194px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .vsq-step-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
@@ -157,9 +147,7 @@
         .vsq-step-card p { font-size: 14px; color: #131B2E; line-height: 18px; text-align: center; width: 187px; margin: 0; }
         .vsq-arrow-icon { color: #131B2E; width: 25px; height: 46px; display: flex; align-items: center; justify-content: center; }
 
-        /* =========================================
-           5. FAQ
-           ========================================= */
+        /* FAQ */
         .vsq-faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; max-width: 1292px; margin: 0 auto; }
         .vsq-faq-item { background: var(--vsq-white); border: 1px solid var(--vsq-gray); border-radius: 20px; cursor: pointer; box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.25); overflow: hidden; }
         .vsq-faq-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 28px; gap: 16px; user-select: none; }
@@ -170,9 +158,7 @@
         .vsq-faq-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; padding: 0 28px; font-size: 18px; color: var(--vsq-gray); line-height: 1.6; }
         .vsq-faq-item.active .vsq-faq-body { max-height: 200px; padding: 0 28px 24px 28px; }
 
-        /* =========================================
-           6. FOOTER
-           ========================================= */
+        /* FOOTER */
         .vsq-footer { background-color: var(--vsq-navy); color: var(--vsq-white); padding: 60px 0 40px 0; margin-top: 60px; }
         .vsq-footer-content { 
             max-width: 1200px; 
@@ -191,12 +177,10 @@
         .vsq-footer-menu a:hover { color: var(--vsq-red); }
         .vsq-footer-contact { display: flex; flex-direction: column; gap: 20px; }
         .vsq-footer-contact-item { display: flex; align-items: center; gap: 15px; font-size: 18px; font-weight: 500; }
-        .vsq-footer-contact-item img { width: 24px; height: 24px; object-fit: contain; flex-shrink: 0; } /* CSS untuk gambar ikon footer */
+        .vsq-footer-contact-item img { width: 24px; height: 24px; object-fit: contain; flex-shrink: 0; }
         .vsq-footer-bottom { max-width: 1200px; margin: 0 auto; text-align: center; font-size: 16px; color: #64748B; }
 
-        /* =========================================
-           CSS MODAL LOGOUT
-           ========================================= */
+        /* MODAL LOGOUT */
         .vsq-modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(19, 27, 46, 0.6); backdrop-filter: blur(4px);
@@ -217,9 +201,7 @@
         .vsq-btn-confirm-logout { background: #EF4444; color: #FFFFFF; border: 1px solid #EF4444; }
         .vsq-btn-confirm-logout:hover { background: #DC2626; border-color: #DC2626; }
 
-        /* =========================================
-           CSS NETWORK OVERLAY (SESUAI GAMBAR)
-           ========================================= */
+        /* NETWORK OVERLAY */
         .network-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #131B2E;
@@ -231,22 +213,17 @@
         .network-overlay[style*="opacity: 1"] { opacity: 1 !important; }
         
         .network-content { text-align: center; max-width: 500px; width: 100%; display: flex; flex-direction: column; align-items: center; }
-
         .network-icon { width: 150px; height: 150px; margin-bottom: 30px; display: flex; align-items: center; justify-content: center; }
         .network-icon svg { width: 100%; height: 100%; stroke: #FF3B30; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-
         .network-title { font-size: 32px; font-weight: 700; color: #FFFFFF; margin: 0 0 15px 0; font-family: 'Plus Jakarta Sans', sans-serif; }
         .network-message { font-size: 20px; color: #E2E8F0; margin: 0 0 40px 0; line-height: 1.5; font-weight: 500; }
         .network-btn { background: #FF3B30; color: #FFFFFF; border: none; padding: 16px 48px; border-radius: 12px; font-size: 18px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-family: inherit; }
         .network-btn:hover { background: #D32F2F; }
 
-        /* =========================================
-           7. CSS RESPONSIVE (MOBILE)
-           ========================================= */
+        /* RESPONSIVE */
         @media screen and (max-width: 768px) {
             .vsq-header { height: 80px; padding: 0 16px; }
             .vsq-nav-menu { display: none; }
-            
             .vsq-nav-right { gap: 8px; }
             .vsq-profile-box { max-width: 60px; padding: 0 6px; height: 40px; justify-content: center; border-radius: 8px; }
             .vsq-profile-name { display: none; }
@@ -428,48 +405,26 @@
     <footer class="vsq-footer">
         <div class="vsq-footer-content">
             <div class="vsq-footer-brand">Vincent'SQ <span>Arena</span></div>
-            
             <div class="vsq-footer-menu">
                 <a href="index.html">Beranda</a>
                 <a href="lapangan.html">Booking lapangan</a>
                 <a href="riwayat.html">Riwayat Booking</a>
                 <a href="makanan.html">Makanan & Minuman</a>
             </div>
-            
             <div class="vsq-footer-contact">
-                <div class="vsq-footer-contact-item">
-                    <!-- Menggunakan gambar ikon WA -->
-                    <img src="assets/images/icon-wa.png" alt="Icon WA">
-                    <span>WA: 0893-3283-4839</span>
-                </div>
-                <div class="vsq-footer-contact-item">
-                    <!-- Menggunakan gambar ikon Email -->
-                    <img src="assets/images/icon-email.png" alt="Icon Email">
-                    <span>Email: vincenttt3@gmail.com</span>
-                </div>
-                <div class="vsq-footer-contact-item">
-                    <!-- Menggunakan gambar ikon Lokasi -->
-                    <img src="assets/images/icon-maps.png" alt="Icon Lokasi">
-                    <span>Lokasi: Tuparev, Kota Cirebon</span>
-                </div>
+                <div class="vsq-footer-contact-item"><img src="assets/images/icon-wa.png" alt="Icon WA"><span>WA: 0893-3283-4839</span></div>
+                <div class="vsq-footer-contact-item"><img src="assets/images/icon-email.png" alt="Icon Email"><span>Email: vincenttt3@gmail.com</span></div>
+                <div class="vsq-footer-contact-item"><img src="assets/images/icon-maps.png" alt="Icon Lokasi"><span>Lokasi: Tuparev, Kota Cirebon</span></div>
             </div>
         </div>
         <div class="vsq-footer-bottom">@ 2026 Vincent'SQ Arena. All Right Reserved</div>
     </footer>
 
-    <!-- NETWORK OVERLAY (NO CONNECTION) -->
+    <!-- NETWORK OVERLAY -->
     <div id="network-overlay" class="network-overlay" style="display: none; opacity: 0;">
         <div class="network-content">
             <div class="network-icon">
-                <svg viewBox="0 0 24 24">
-                    <path d="M1 1l22 22"/>
-                    <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
-                    <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
-                    <path d="M10.71 5.05A16 16 0 0 1 22.58 9"/>
-                    <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
-                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
-                    <line x1="12" y1="20" x2="12.01" y2="20"/>
-                </svg>
+                <svg viewBox="0 0 24 24"><path d="M1 1l22 22"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
             </div>
             <h2 class="network-title">Tidak Ada Koneksi Internet</h2>
             <p class="network-message">Periksa Koneksi Anda Kembali</p>
@@ -482,11 +437,7 @@
     <div class="vsq-modal-overlay" id="logoutModal">
         <div class="vsq-modal-box">
             <div class="vsq-modal-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                    <polyline points="16 17 21 12 16 7"></polyline>
-                    <line x1="21" y1="12" x2="9" y2="12"></line>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
             </div>
             <h3 class="vsq-modal-title">Konfirmasi Keluar</h3>
             <p class="vsq-modal-text">Apakah Anda yakin ingin keluar dari akun ini? Anda harus login kembali untuk melakukan booking.</p>
@@ -498,12 +449,12 @@
     </div>
 
     <script>
-        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? 'http://localhost/vincent-arena/Backend/API'
-            : 'https://URL-RAILWAY-BE-ANDA.up.railway.app';
-
         // =========================================
-        // FETCH WITH TIMEOUT
+        // KONFIGURASI URL API RAILWAY
+        // =========================================
+       const API_BASE = 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
+        // =========================================
+        // FETCH DENGAN TIMEOUT
         // =========================================
         async function fetchWithTimeout(resource, options = {}) {
             const { timeout = 10000 } = options;
@@ -517,9 +468,6 @@
             return response;
         }
 
-        // =========================================
-        // SAFE FETCH
-        // =========================================
         async function safeFetch(url, options = {}) {
             try {
                 return await fetchWithTimeout(url, options);
@@ -532,7 +480,7 @@
         }
 
         // =========================================
-        // FUNGSI NETWORK OVERLAY (OFFLINE)
+        // FUNGSI NETWORK OVERLAY
         // =========================================
         function showNetworkOverlay() {
             const overlay = document.getElementById('network-overlay');
@@ -549,25 +497,10 @@
             setTimeout(() => { overlay.style.display = 'none'; }, 300);
         }
 
-        window.addEventListener('offline', () => {
-            showNetworkOverlay();
-        });
-
-        window.addEventListener('online', () => {
-            hideNetworkOverlay();
-        });
-
-        window.addEventListener('load', () => {
-            if (!navigator.onLine) {
-                showNetworkOverlay();
-            }
-        });
-
-        setInterval(() => {
-            if (!navigator.onLine) {
-                showNetworkOverlay();
-            }
-        }, 3000);
+        window.addEventListener('offline', () => { showNetworkOverlay(); });
+        window.addEventListener('online', () => { hideNetworkOverlay(); });
+        window.addEventListener('load', () => { if (!navigator.onLine) showNetworkOverlay(); });
+        setInterval(() => { if (!navigator.onLine) showNetworkOverlay(); }, 3000);
 
         function retryConnection() {
             if (navigator.onLine) {
@@ -575,13 +508,8 @@
                 loadLapangan();
             } else {
                 const img = new Image();
-                img.onload = () => {
-                    hideNetworkOverlay();
-                    loadLapangan();
-                };
-                img.onerror = () => {
-                    alert('Masih offline. Periksa koneksi internet Anda.');
-                };
+                img.onload = () => { hideNetworkOverlay(); loadLapangan(); };
+                img.onerror = () => { alert('Masih offline. Periksa koneksi internet Anda.'); };
                 img.src = 'https://www.google.com/favicon.ico?_=' + Date.now();
             }
         }
@@ -596,17 +524,14 @@
         }
 
         // =========================================
-        // NAVBAR & DROPDOWN PROFIL
+        // NAVBAR & PROFIL
         // =========================================
         async function updateNavbar() {
             const navbarEl = document.getElementById('navbar');
             let user = null;
 
             try {
-                const response = await safeFetch(API_BASE + '/auth/check.php', {
-                    method: 'GET',
-                    credentials: 'include' 
-                });
+                const response = await safeFetch(API_BASE + '/auth/check.php', { credentials: 'include' });
                 const result = await response.json();
                 
                 if (result.status === 'success' && result.data.logged_in) {
@@ -625,43 +550,23 @@
                 avatarInitial = user.initial || 'U';
                 
                 rightNavHTML = `
-                    <button class="vsq-notif-btn">
-                        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                    </button>
-                    <div class="vsq-profile-box" id="profileToggle">
-                        <span class="vsq-profile-name">Hai ${displayName}</span>
-                        <div class="vsq-profile-avatar">${avatarInitial}</div>
-                    </div>
+                    <button class="vsq-notif-btn"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></button>
+                    <div class="vsq-profile-box" id="profileToggle"><span class="vsq-profile-name">Hai ${displayName}</span><div class="vsq-profile-avatar">${avatarInitial}</div></div>
                     <button class="vsq-btn-logout" onclick="logout()">Logout</button>
                     
                     <div class="vsq-profile-dropdown" id="profileDropdown">
                         <div class="vsq-dd-header">
                             <div class="vsq-dd-avatar">${avatarInitial}</div>
-                            <div class="vsq-dd-info">
-                                <h4>${displayName}</h4>
-                                <div class="vsq-badge-verified">
-                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Terverifikasi
-                                </div>
-                            </div>
+                            <div class="vsq-dd-info"><h4>${displayName}</h4><div class="vsq-badge-verified"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Terverifikasi</div></div>
                         </div>
                         <div class="vsq-dd-body">
-                            <div class="vsq-dd-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                <span class="value">${user.email}</span>
-                            </div>
-                            <div class="vsq-dd-item">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                                <span class="value">${user.whatsapp || '-'}</span>
-                            </div>
+                            <div class="vsq-dd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg><span class="value">${user.email}</span></div>
+                            <div class="vsq-dd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg><span class="value">${user.whatsapp || '-'}</span></div>
                         </div>
                         <div class="vsq-dd-divider"></div>
                         <div class="vsq-dd-footer">
-                            <a href="profil_user.html" class="vsq-btn-edit-profile">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> Edit Profil
-                            </a>
-                            <button class="vsq-btn-logout-dropdown" onclick="logout()">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> Keluar
-                            </button>
+                            <a href="profil_user.html" class="vsq-btn-edit-profile"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> Edit Profil</a>
+                            <button class="vsq-btn-logout-dropdown" onclick="logout()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> Keluar</button>
                         </div>
                     </div>
                 `;
@@ -675,10 +580,7 @@
             navbarEl.innerHTML = `
             <div class="vsq-header">
                 <div class="vsq-nav-left">
-                    <a href="index.html" class="vsq-logo">
-                        <span class="vsq-logo-title">Vincent'SQ</span>
-                        <span class="vsq-logo-sub">SPORTS ARENA</span>
-                    </a>
+                    <a href="index.html" class="vsq-logo"><span class="vsq-logo-title">Vincent'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span></a>
                     <nav class="vsq-nav-menu">
                         <a href="index.html" class="vsq-nav-link active">Beranda</a>
                         <a href="lapangan.html" class="vsq-nav-link">Booking Lapangan</a>
@@ -707,14 +609,8 @@
         // =========================================
         // MODAL LOGOUT
         // =========================================
-        function logout() {
-            const modal = document.getElementById('logoutModal');
-            modal.classList.add('show');
-        }
-        function closeLogoutModal() {
-            const modal = document.getElementById('logoutModal');
-            modal.classList.remove('show');
-        }
+        function logout() { document.getElementById('logoutModal').classList.add('show'); }
+        function closeLogoutModal() { document.getElementById('logoutModal').classList.remove('show'); }
         async function confirmLogout() {
             try {
                 await fetch(API_BASE + '/auth/logout.php', {

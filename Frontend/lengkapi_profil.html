@@ -52,13 +52,13 @@
             border: 1.5px dashed #477FEB; 
             border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; 
-            overflow: hidden; /* Agar gambar tidak keluar dari lingkaran */
+            overflow: hidden;
         }
         .vsq-avatar-circle img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: none; /* Sembunyikan gambar sebelum diupload */
+            display: none;
         }
         .vsq-avatar-circle svg { display: block; }
         
@@ -87,7 +87,6 @@
         .vsq-form-control:focus { border-color: #477FEB; }
         .vsq-form-control::placeholder { color: #94A3B8; }
 
-        /* Anti Autofill Browser */
         .vsq-form-control:-webkit-autofill,
         .vsq-form-control:-webkit-autofill:hover, 
         .vsq-form-control:-webkit-autofill:focus, 
@@ -106,6 +105,7 @@
             transition: background 0.2s;
         }
         .vsq-btn-submit:hover { background: #1E293B; }
+        .vsq-btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -125,20 +125,16 @@
 
         <!-- Upload Foto -->
         <div class="vsq-upload-container">
-            <!-- Input file disembunyikan, akan dipicu oleh klik pada wrapper -->
             <input type="file" id="fileUpload" accept="image/png, image/jpeg" style="display: none;">
             
             <div class="vsq-avatar-wrapper" onclick="document.getElementById('fileUpload').click()">
                 <div class="vsq-avatar-circle">
-                    <!-- Ikon User Biru (Default) -->
                     <svg id="icon-user" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#477FEB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                         <circle cx="12" cy="7" r="4"></circle>
                     </svg>
-                    <!-- Preview Gambar (Tersembunyi awalnya) -->
                     <img id="preview-img" src="" alt="Preview Foto">
                 </div>
-                <!-- Ikon Kamera Biru -->
                 <div class="vsq-camera-badge">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
@@ -171,6 +167,11 @@
     </div>
 
     <script>
+        // Konfigurasi API Base
+        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost/vincent-arena/Backend/API'
+            : 'https://URL-RAILWAY-BE-ANDA.up.railway.app'; // GANTI NANTI DENGAN URL RAILWAY
+
         // --- LOGIKA UPLOAD FOTO ---
         const fileInput = document.getElementById('fileUpload');
         const previewImg = document.getElementById('preview-img');
@@ -180,37 +181,67 @@
             const file = event.target.files[0];
             
             if (file) {
-                // Validasi ukuran (maks 2 MB)
                 if (file.size > 2 * 1024 * 1024) {
                     alert('Ukuran foto terlalu besar! Maksimal 2 MB.');
-                    fileInput.value = ''; // Reset input
+                    fileInput.value = ''; 
                     return;
                 }
 
-                // Tampilkan preview
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     previewImg.src = e.target.result;
-                    previewImg.style.display = 'block'; // Munculkan gambar
-                    iconUser.style.display = 'none';    // Sembunyikan ikon user
+                    previewImg.style.display = 'block'; 
+                    iconUser.style.display = 'none';    
                 }
                 reader.readAsDataURL(file);
             }
         });
 
-        // --- LOGIKA SIMPAN DATA ---
-        document.getElementById('profileForm').addEventListener('submit', function(e) {
+        // --- LOGIKA SIMPAN DATA KE BACKEND ---
+        document.getElementById('profileForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const btn = document.getElementById('btnSimpan');
             btn.textContent = 'Menyimpan...';
             btn.disabled = true;
 
-            // Simulasi loading
-            setTimeout(() => {
-                localStorage.removeItem('register_email'); // Bersihkan session
-                 window.location.href = 'login.html'; 
-            }, 1000);
+            const nama = document.getElementById('nama').value;
+            const whatsapp = document.getElementById('wa').value;
+
+            // Gunakan FormData karena kita mengirim file (opsional)
+            const formData = new FormData();
+            formData.append('nama', nama);
+            formData.append('whatsapp', whatsapp);
+            
+            // Jika user mengupload foto, masukkan ke formData
+            if (fileInput.files.length > 0) {
+                formData.append('foto_profil', fileInput.files[0]);
+            }
+
+            try {
+                // Tembak API
+                const response = await fetch(API_BASE + '/auth/lengkapi_profil.php', {
+                    method: 'POST',
+                    body: formData,
+                    credentials: 'include' // WAJIB untuk menyimpan Session PHP
+                });
+                
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    alert('Profil berhasil disimpan! Silakan login.');
+                    localStorage.removeItem('register_email'); // Bersihkan email sementara
+                    window.location.href = 'login.html'; 
+                } else {
+                    alert('Gagal menyimpan profil: ' + result.message);
+                    btn.textContent = 'Simpan data';
+                    btn.disabled = false;
+                }
+            } catch (error) {
+                alert('Terjadi kesalahan koneksi ke server.');
+                btn.textContent = 'Simpan data';
+                btn.disabled = false;
+            }
         });
     </script>
 </body>

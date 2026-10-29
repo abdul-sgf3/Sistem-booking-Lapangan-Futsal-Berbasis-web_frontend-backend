@@ -1,6 +1,12 @@
 const APP_CONFIG = {
-    // Pastikan URL ini sesuai dengan folder Laragon Anda
-    API_BASE: 'http://localhost/vincent-arena/Backend/API',
-    ASSETS_BASE: '/vincent-arena/Frontend/assets',
-    DATA_MODE: 'live' // Ubah dari 'dummy' ke 'live' karena BE sudah siap!
+    // Deteksi otomatis: Jika di localhost pakai local, jika di Vercel pakai URL Railway
+    API_BASE: (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? 'http://localhost/vincent-arena/Backend/API'
+        : 'https://URL-RAILWAY-BE-ANDA.up.railway.app', // <--- Pastikan nanti diganti URL dari BE!
+        
+    ASSETS_BASE: (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? '/vincent-arena/Frontend/assets'
+        : 'https://URL-VERCEL-FE-ANDA.vercel.app/assets', // Sesuaikan nanti
+        
+    DATA_MODE: 'live'
 };

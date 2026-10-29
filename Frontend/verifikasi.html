@@ -13,7 +13,6 @@
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             min-height: 100vh; 
-            /* Pastikan path background ini sesuai dengan folder Anda */
             background: linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)), 
                         url('assets/uploads/lapangan/hero.jpeg') center/cover no-repeat fixed;
             display: flex; 
@@ -60,17 +59,17 @@
         .vsq-text { font-size: 12px; color: #333; line-height: 1.5; margin-bottom: 15px; }
         .vsq-text strong { color: #131B2E; font-weight: 700; display: block; margin-top: 2px; font-size: 13px; }
 
-        /* Kotak OTP (Diperbaiki: Lebih Panjang ke Bawah, Jarak Lebih Rapat) */
+        /* Kotak OTP (6 Digit) */
         .vsq-otp-container { 
             display: flex; 
             justify-content: center; 
-            gap: 8px; /* Jarak antar kotak lebih rapat */
+            gap: 8px; 
             margin-bottom: 12px; 
             width: 100%;
         }
         .vsq-otp-input { 
-            width: 50px; /* Lebar proporsional */
-            height: 60px; /* Tinggi lebih panjang ke bawah */
+            width: 45px; 
+            height: 55px; 
             text-align: center; 
             font-size: 22px; 
             font-weight: 600; 
@@ -102,7 +101,7 @@
         .vsq-change-email { font-size: 11px; color: #000; margin-bottom: 20px; }
         .vsq-change-email a { color: #477FEB; text-decoration: none; font-weight: 500; }
 
-        /* Tombol Verifikasi (Hitam/Gelap Sesuai UI/UX) */
+        /* Tombol Verifikasi */
         .vsq-btn { 
             background: #131B2E; 
             color: #FFFFFF; 
@@ -116,6 +115,7 @@
             transition: background 0.2s;
         }
         .vsq-btn:hover { background: #1E293B; }
+        .vsq-btn:disabled { opacity: 0.7; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -131,9 +131,7 @@
             <p>SPORTS ARENA</p>
         </div>
 
-        <!-- ILUSTRASI KURIR -->
         <div class="vsq-illustration">
-            <!-- Pastikan gambar ini ada di folder Anda -->
             <img src="assets/images/ilustrasi-kurir.png" alt="Ilustrasi Kurir">
         </div>
 
@@ -143,29 +141,36 @@
         </div>
 
         <form id="otpForm" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <!-- Diperbaiki menjadi 6 kotak sesuai backend -->
             <div class="vsq-otp-container">
                 <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 1)" autofocus>
                 <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 2)">
                 <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 3)">
                 <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 4)">
                 <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 5)">
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 6)">
             </div>
 
             <!-- PESAN ERROR OTP -->
             <div class="vsq-error-msg" id="err-otp">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                Kode OTP belum dimasukan!
+                <span id="err-otp-text">Kode OTP belum dimasukan!</span>
             </div>
 
             <div class="vsq-timer-text">Kirim ulang kode dalam <span id="timer">01:00</span></div>
             <div class="vsq-change-email">Salah Email? <a href="register.html">Ganti email</a></div>
 
-            <button type="submit" class="vsq-btn">Verifikasi</button>
+            <button type="submit" class="vsq-btn" id="btnVerifikasi">Verifikasi</button>
         </form>
 
     </div>
 
     <script>
+        // Konfigurasi API Base
+        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost/vincent-arena/Backend/API'
+            : 'https://URL-RAILWAY-BE-ANDA.up.railway.app'; // GANTI NANTI DENGAN URL RAILWAY
+
         // 1. Tampilkan Email dari halaman Register
         const savedEmail = localStorage.getItem('register_email');
         if(savedEmail) {
@@ -192,7 +197,7 @@
         });
 
         // 3. Timer Hitung Mundur
-        let timeLeft = 60; // Sesuai teks di UI/UX (01:00)
+        let timeLeft = 60; 
         const timerEl = document.getElementById('timer');
         const countdown = setInterval(() => {
             if (timeLeft <= 0) {
@@ -206,22 +211,52 @@
             timerEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }, 1000);
 
-        // 4. Proses Submit
-        document.getElementById('otpForm').addEventListener('submit', function(e) {
+        // 4. Proses Submit ke Backend
+        document.getElementById('otpForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const inputs = document.querySelectorAll('.vsq-otp-input');
             let code = '';
             inputs.forEach(input => code += input.value);
             
-            // Validasi: Pastikan 5 kotak terisi
-            if (code.length < 5) {
+            // Validasi: Pastikan 6 kotak terisi
+            if (code.length < 6) {
+                document.getElementById('err-otp-text').textContent = "Kode OTP belum lengkap (harus 6 digit)!";
                 document.getElementById('err-otp').classList.add('show');
                 return;
             }
 
-            // Pindah ke halaman lengkapi profil
-            window.location.href = 'lengkapi_profil.html';
+            const btn = document.getElementById('btnVerifikasi');
+            btn.disabled = true;
+            btn.textContent = 'Memverifikasi...';
+
+            try {
+                const response = await fetch(API_BASE + '/auth/verify_otp.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        email: savedEmail, 
+                        otp: code 
+                    })
+                });
+                
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    // Berhasil verifikasi, lanjut ke lengkapi profil
+                    window.location.href = 'lengkapi_profil.html';
+                } else {
+                    // Tampilkan pesan error dari BE (misal: OTP salah / kadaluarsa)
+                    document.getElementById('err-otp-text').textContent = result.message;
+                    document.getElementById('err-otp').classList.add('show');
+                    btn.disabled = false;
+                    btn.textContent = 'Verifikasi';
+                }
+            } catch (error) {
+                alert('Terjadi kesalahan koneksi ke server.');
+                btn.disabled = false;
+                btn.textContent = 'Verifikasi';
+            }
         });
     </script>
 </body>

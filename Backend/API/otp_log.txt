@@ -39,3 +39,7 @@
 
 2026-10-28 14:51:21 | OTP untuk tes@gmail.com: 562307 | Status: TERKIRIM | Code: 201 | Response: {"messageId":"<202610281351.47057622842@smtp-relay.mailin.fr>"}
 
+2026-10-29 02:32:54 | OTP untuk ashfahani24@gmail.com: 236911
+2026-10-29 02:46:23 | OTP untuk ashfahani24@gmail.com: 974659
+2026-10-29 03:00:21 | OTP untuk ashfahani24@gmail.com: 903239
+2026-10-29 03:09:32 | OTP untuk ashfahani24@gmail.com: 391308

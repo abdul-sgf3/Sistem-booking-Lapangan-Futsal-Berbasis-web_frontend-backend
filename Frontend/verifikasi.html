@@ -25,7 +25,7 @@
         .vsq-back-btn { position: absolute; top: 40px; left: 40px; color: #FFFFFF; text-decoration: none; z-index: 10; }
         .vsq-back-btn svg { width: 32px; height: 32px; stroke: #FFFFFF; stroke-width: 2.5; fill: none; }
 
-        /* Card Putih (Proporsi Pas) */
+        /* Card Putih */
         .vsq-verify-card { 
             background: #FFFFFF; 
             width: 100%; 
@@ -141,7 +141,6 @@
         </div>
 
         <form id="otpForm" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-            <!-- Diperbaiki menjadi 6 kotak sesuai backend -->
             <div class="vsq-otp-container">
                 <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 1)" autofocus>
                 <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 2)">
@@ -151,7 +150,6 @@
                 <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 6)">
             </div>
 
-            <!-- PESAN ERROR OTP -->
             <div class="vsq-error-msg" id="err-otp">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                 <span id="err-otp-text">Kode OTP belum dimasukan!</span>
@@ -166,10 +164,10 @@
     </div>
 
     <script>
-        // Konfigurasi API Base
+        // URL Backend (Otomatis mendeteksi localhost atau hosting)
         const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://localhost/vincent-arena/Backend/API'
-            : 'https://URL-RAILWAY-BE-ANDA.up.railway.app'; // GANTI NANTI DENGAN URL RAILWAY
+            : 'https://URL-RAILWAY-BE-ANDA.up.railway.app'; // Ganti nanti jika sudah deploy
 
         // 1. Tampilkan Email dari halaman Register
         const savedEmail = localStorage.getItem('register_email');
@@ -219,7 +217,7 @@
             let code = '';
             inputs.forEach(input => code += input.value);
             
-            // Validasi: Pastikan 6 kotak terisi
+            // Validasi 6 digit
             if (code.length < 6) {
                 document.getElementById('err-otp-text').textContent = "Kode OTP belum lengkap (harus 6 digit)!";
                 document.getElementById('err-otp').classList.add('show');
@@ -231,19 +229,33 @@
             btn.textContent = 'Memverifikasi...';
 
             try {
+                // Tembak API POST
                 const response = await fetch(API_BASE + '/auth/verify_otp.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include', 
                     body: JSON.stringify({ 
                         email: savedEmail, 
                         otp: code 
                     })
                 });
                 
-                const result = await response.json();
+                // AMBIL TEKS MENTAH (Untuk melihat jika server error)
+                const rawText = await response.text();
+                console.log("Respon Backend:", rawText); // <--- LIHAT DI CONSOLE (F12) JIKA GAGAL
+
+                let result;
+                try {
+                    result = JSON.parse(rawText); // Ubah ke JSON
+                } catch (err) {
+                    alert("Server Error (Bukan JSON). Cek Console (F12) untuk detail.");
+                    btn.disabled = false;
+                    btn.textContent = 'Verifikasi';
+                    return;
+                }
 
                 if (result.status === 'success') {
-                    // Berhasil verifikasi, lanjut ke lengkapi profil
+                    // Berhasil, pindah ke lengkapi profil
                     window.location.href = 'lengkapi_profil.html';
                 } else {
                     // Tampilkan pesan error dari BE (misal: OTP salah / kadaluarsa)
@@ -252,8 +264,10 @@
                     btn.disabled = false;
                     btn.textContent = 'Verifikasi';
                 }
+                
             } catch (error) {
-                alert('Terjadi kesalahan koneksi ke server.');
+                console.error("Error Asli:", error);
+                alert('Gagal Terhubung: ' + error.message); 
                 btn.disabled = false;
                 btn.textContent = 'Verifikasi';
             }

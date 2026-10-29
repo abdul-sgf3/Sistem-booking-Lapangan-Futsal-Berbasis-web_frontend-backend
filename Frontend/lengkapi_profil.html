@@ -167,10 +167,10 @@
     </div>
 
     <script>
-        // Konfigurasi API Base
+        // GANTI DENGAN URL RAILWAY NANTI
         const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://localhost/vincent-arena/Backend/API'
-            : 'https://URL-RAILWAY-BE-ANDA.up.railway.app'; // GANTI NANTI DENGAN URL RAILWAY
+            : 'https://URL-RAILWAY-BE-ANDA.up.railway.app';
 
         // --- LOGIKA UPLOAD FOTO ---
         const fileInput = document.getElementById('fileUpload');
@@ -208,29 +208,26 @@
             const nama = document.getElementById('nama').value;
             const whatsapp = document.getElementById('wa').value;
 
-            // Gunakan FormData karena kita mengirim file (opsional)
             const formData = new FormData();
             formData.append('nama', nama);
             formData.append('whatsapp', whatsapp);
             
-            // Jika user mengupload foto, masukkan ke formData
             if (fileInput.files.length > 0) {
                 formData.append('foto_profil', fileInput.files[0]);
             }
 
             try {
-                // Tembak API
                 const response = await fetch(API_BASE + '/auth/lengkapi_profil.php', {
                     method: 'POST',
                     body: formData,
-                    credentials: 'include' // WAJIB untuk menyimpan Session PHP
+                    credentials: 'include' // <--- WAJIB: Agar PHP Session valid
                 });
                 
                 const result = await response.json();
 
                 if (result.status === 'success') {
                     alert('Profil berhasil disimpan! Silakan login.');
-                    localStorage.removeItem('register_email'); // Bersihkan email sementara
+                    localStorage.removeItem('register_email'); 
                     window.location.href = 'login.html'; 
                 } else {
                     alert('Gagal menyimpan profil: ' + result.message);

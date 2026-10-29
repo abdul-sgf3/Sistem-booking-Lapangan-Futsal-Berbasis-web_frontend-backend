@@ -1,10 +1,9 @@
-FROM php:8.2-apache
+# ... (kode Dockerfile Anda sebelumnya) ...
 
-# Install ekstensi mysqli untuk koneksi database
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+# Copy entrypoint script dan beri izin eksekusi
+COPY entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Copy semua file backend ke folder server
-COPY . /var/www/html/
-
-# Beri izin akses agar PHP bisa upload file gambar
-RUN chown -R www-data:www-data /var/www/html
+# Gunakan entrypoint script kita
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["apache2-foreground"]

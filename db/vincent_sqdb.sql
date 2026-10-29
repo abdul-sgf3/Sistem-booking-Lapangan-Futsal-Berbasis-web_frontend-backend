@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 23 Okt 2026 pada 07.35
+-- Waktu pembuatan: 29 Okt 2026 pada 04.30
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -168,6 +168,7 @@ CREATE TABLE `users` (
   `is_verified` tinyint(1) DEFAULT 0,
   `otp_code` varchar(6) DEFAULT NULL,
   `otp_expired_at` datetime DEFAULT NULL,
+  `verified_at` datetime DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -176,13 +177,13 @@ CREATE TABLE `users` (
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `nama`, `username`, `email`, `whatsapp`, `foto_profil`, `password`, `role`, `created_at`, `is_active`, `is_verified`, `otp_code`, `otp_expired_at`, `last_login`, `updated_at`) VALUES
-(1, 'King Nasir', 'admin', 'admin@tsubasa.com', NULL, NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'admin', '2026-05-08 21:14:20', 1, 1, NULL, NULL, '2026-10-20 12:00:11', '2026-10-20 12:00:11'),
-(2, 'Kurumi', 'kurumi', 'kurumi12@email.com', '083123456123', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-05-08 23:39:37', 1, 1, NULL, NULL, NULL, '2026-10-20 11:04:15'),
-(4, 'erreenn', 'asyaf', 'ashfahani@gmail.com', '93298r27427727', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-05-14 21:56:55', 1, 1, NULL, NULL, NULL, '2026-10-20 11:04:15'),
-(5, 'Asyaf', 'asyaf87', 'asyaf@gmail.com', '', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-10-09 10:36:52', 1, 1, NULL, NULL, NULL, '2026-10-20 11:04:15'),
-(6, 'Ashfahani77', 'ashfahani77', 'ashfahani77@gmail.com', '', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-10-09 10:46:30', 1, 1, NULL, NULL, NULL, '2026-10-20 11:04:15'),
-(7, 'User Tes Lengkap', 'usertes', 'tes@gmail.com', '081234567890', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'admin', '2026-10-19 17:41:08', 1, 1, NULL, NULL, '2026-10-20 11:59:42', '2026-10-20 11:59:42');
+INSERT INTO `users` (`id`, `nama`, `username`, `email`, `whatsapp`, `foto_profil`, `password`, `role`, `created_at`, `is_active`, `is_verified`, `otp_code`, `otp_expired_at`, `verified_at`, `last_login`, `updated_at`) VALUES
+(1, 'King Nasir', 'admin', 'admin@tsubasa.com', NULL, NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'admin', '2026-05-08 21:14:20', 1, 1, NULL, NULL, NULL, '2026-10-20 12:00:11', '2026-10-20 12:00:11'),
+(2, 'Kurumi', 'kurumi', 'kurumi12@email.com', '083123456123', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-05-08 23:39:37', 1, 1, NULL, NULL, NULL, NULL, '2026-10-20 11:04:15'),
+(4, 'erreenn', 'asyaf', 'ashfahani@gmail.com', '93298r27427727', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-05-14 21:56:55', 1, 1, NULL, NULL, NULL, NULL, '2026-10-20 11:04:15'),
+(5, 'Asyaf', 'asyaf87', 'asyaf@gmail.com', '', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-10-09 10:36:52', 1, 1, NULL, NULL, NULL, NULL, '2026-10-20 11:04:15'),
+(6, 'Ashfahani77', 'ashfahani77', 'ashfahani77@gmail.com', '', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'user', '2026-10-09 10:46:30', 1, 1, NULL, NULL, NULL, NULL, '2026-10-20 11:04:15'),
+(7, 'User Tes Lengkap', 'usertes', 'tes@gmail.com', '081234567890', NULL, '$2y$10$OrWCbHcIxD/uSuQTuaeHsO43tvC4UFNQqlUpVhXWQBkqhCuBJzNDW', 'admin', '2026-10-19 17:41:08', 1, 1, '562307', '2026-10-28 14:56:20', NULL, '2026-10-20 11:59:42', '2026-10-28 20:51:20');
 
 --
 -- Indexes for dumped tables

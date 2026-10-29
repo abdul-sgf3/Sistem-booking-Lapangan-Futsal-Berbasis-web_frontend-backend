@@ -56,7 +56,7 @@ if (strtotime($user['otp_expired_at']) < time()) {
 // Update user
 $stmt = mysqli_prepare($conn,
     "UPDATE users 
-     SET is_verified = 1, otp_code = NULL, otp_expired_at = NULL, verified_at = NOW() 
+     SET is_verified = 1, otp_code = NULL, otp_expired_at = NULL
      WHERE id = ?");
 mysqli_stmt_bind_param($stmt, "i", $user['id']);
 mysqli_stmt_execute($stmt);

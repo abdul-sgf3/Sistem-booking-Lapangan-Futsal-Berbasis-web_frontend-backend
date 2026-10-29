@@ -5,7 +5,165 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Vincent'SQ Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/auth.css">
+    
+    <style>
+        :root { 
+            --vsq-navy: #131B2E;
+            --vsq-red: #FF0000; 
+            --vsq-gray-text: #848484;
+            --vsq-gray-border: #848484;
+            --vsq-dark-btn: #131B2E; 
+            --vsq-error: #FF5555; /* Sesuai Figma */
+            --vsq-error-bg: #FEE2E2;
+            --vsq-success-bg: #DCFCE7;
+            --vsq-success-text: #166534;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            min-height: 100vh; 
+            background: linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)), 
+                        url('assets/uploads/lapangan/hero.jpeg') center/cover no-repeat fixed;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+        }
+
+        /* Tombol Kembali */
+        .vsq-back-btn { position: absolute; top: 36px; left: 38px; color: #FFFFFF; text-decoration: none; z-index: 10; }
+        .vsq-back-btn svg { width: 40px; height: 40px; stroke: #FFFFFF; stroke-width: 2.5; fill: none; }
+
+        /* Card Register */
+        .vsq-register-card { 
+            background: #FFFFFF; 
+            width: 100%; 
+            max-width: 460px; 
+            border-radius: 20px; 
+            padding: 40px 41px 50px 41px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
+            border: 1px solid var(--vsq-gray-border);
+            position: relative;
+        }
+
+        /* Logo */
+        .vsq-logo { text-align: center; margin-bottom: 30px; }
+        .vsq-logo h1 { font-size: 31px; font-weight: 700; color: var(--vsq-navy); margin: 0; letter-spacing: -0.45px; }
+        .vsq-logo p { font-size: 18px; font-weight: 700; color: var(--vsq-red); letter-spacing: 0.6px; margin-top: 4px; text-transform: uppercase; }
+
+        /* Alert Box (Untuk respons dari server) */
+        .vsq-alert { 
+            padding: 10px 15px; 
+            border-radius: 10px; 
+            font-size: 13px; 
+            font-weight: 500; 
+            margin-bottom: 20px; 
+            display: none;
+            text-align: center;
+        }
+        .vsq-alert.show { display: block; }
+        .vsq-alert-success { background-color: var(--vsq-success-bg); color: var(--vsq-success-text); }
+        .vsq-alert-error { background-color: var(--vsq-error-bg); color: #991B1B; border: 1px solid var(--vsq-error); }
+
+        /* Form Group */
+        .vsq-form-group { margin-bottom: 24px; position: relative; text-align: left; }
+        .vsq-form-group label { display: block; font-size: 14px; font-weight: 500; color: #000000; margin-bottom: 8px; }
+        .vsq-form-group label span { color: var(--vsq-red); margin-left: 2px; }
+
+        .vsq-input-wrapper { position: relative; width: 100%; }
+
+        /* Input Field */
+        .vsq-form-control { 
+            width: 100%; 
+            height: 48px; 
+            padding: 12px 16px; 
+            padding-right: 45px; 
+            font-size: 14px; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FFFFFF;
+            border: 1px solid var(--vsq-gray-border); 
+            border-radius: 10px; 
+            outline: none; 
+            transition: all 0.2s; 
+            color: #000000;
+            font-weight: 400;
+            -webkit-box-shadow: 0 0 0 30px white inset !important;
+        }
+        .vsq-form-control::placeholder { color: var(--vsq-gray-text); font-weight: 400; font-size: 14px; }
+        .vsq-form-control:focus { border-color: var(--vsq-navy); }
+
+        /* State Invalid (Border Merah Sesuai Figma) */
+        .vsq-form-control.is-invalid { border: 1px solid var(--vsq-error) !important; }
+
+        /* Pesan Error (Sesuai Figma) */
+        .vsq-error-msg {
+            display: none;
+            align-items: flex-start;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--vsq-error);
+            margin-top: 8px;
+            line-height: 15px;
+        }
+        .vsq-error-msg.show { display: flex; }
+        
+        /* Ikon Alert Figma */
+        .vsq-error-icon svg { 
+            width: 14px; 
+            height: 14px; 
+            stroke: var(--vsq-error); 
+            fill: none; 
+            stroke-width: 2; 
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* Ikon Mata */
+        .vsq-toggle-password { 
+            position: absolute; 
+            right: 14px; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            cursor: pointer; 
+            background: transparent; 
+            border: none; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            z-index: 2;
+            padding: 0;
+        }
+        .vsq-toggle-password svg { width: 20px; height: 20px; }
+
+        /* Link Login */
+        .vsq-login-link { 
+            text-align: center; 
+            font-size: 13px; 
+            margin-top: 20px; 
+            margin-bottom: 20px;
+            color: #000000; 
+        }
+        .vsq-login-link a { color: #477FEB; text-decoration: none; }
+
+        /* Tombol Submit (Selalu Gelap Sesuai Figma) */
+        .vsq-btn-submit { 
+            display: block; 
+            width: 100%; 
+            padding: 14px; 
+            font-size: 15px; 
+            font-weight: 600; 
+            color: #FFFFFF; 
+            background-color: var(--vsq-dark-btn); 
+            border: none; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            transition: opacity 0.2s; 
+        }
+        .vsq-btn-submit:hover { opacity: 0.9; }
+        .vsq-btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+    </style>
 </head>
 <body>
     <a href="index.html" class="vsq-back-btn">
@@ -22,28 +180,48 @@
         </div>
         
         <!-- Alert Box -->
-        <div id="alert-box"></div>
+        <div id="alert-box" class="vsq-alert"></div>
         
-        <form id="registerForm">
+        <form id="registerForm" novalidate>
             <!-- Email -->
             <div class="vsq-form-group">
                 <label for="email">Email<span>*</span></label>
                 <div class="vsq-input-wrapper">
-                    <input type="email" id="email" class="vsq-form-control" placeholder="Masukkan email..." required>
+                    <input type="email" id="email" class="vsq-form-control" placeholder="Masukkan email...">
                 </div>
-                <div class="vsq-error-msg" id="err-email-kosong"><span class="vsq-error-icon">!</span> Email tidak boleh kosong</div>
-                <div class="vsq-error-msg" id="err-email-format"><span class="vsq-error-icon">!</span> Email Harus mengandung karakter @</div>
-                <div class="vsq-error-msg" id="err-email-spasi"><span class="vsq-error-icon">!</span> Email tidak boleh mengandung spasi!</div>
-                <div class="vsq-error-msg" id="err-email-exists"><span class="vsq-error-icon">!</span> Email sudah digunakan!</div>
+                <!-- Pesan Error Email -->
+                <div class="vsq-error-msg" id="err-email-kosong">
+                    <span class="vsq-error-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    </span> 
+                    Email tidak boleh kosong
+                </div>
+                <div class="vsq-error-msg" id="err-email-format">
+                    <span class="vsq-error-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    </span> 
+                    Email Harus mengandung karakter @
+                </div>
+                <div class="vsq-error-msg" id="err-email-spasi">
+                    <span class="vsq-error-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    </span> 
+                    Email tidak boleh mengandung spasi!
+                </div>
+                <div class="vsq-error-msg" id="err-email-exists">
+                    <span class="vsq-error-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    </span> 
+                    Email sudah digunakan!
+                </div>
             </div>
 
             <!-- Password -->
             <div class="vsq-form-group">
                 <label for="password">Password<span>*</span></label>
                 <div class="vsq-input-wrapper">
-                    <input type="password" id="password" class="vsq-form-control" placeholder="Masukkan Password..." required>
+                    <input type="password" id="password" class="vsq-form-control" placeholder="Masukkan Password...">
                     <button type="button" class="vsq-toggle-password" onclick="togglePassword('password', this)">
-                        <!-- Ikon Mata Tertutup -->
                         <svg viewBox="0 0 24 24" class="icon-eye-closed" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M 3 11 C 8 16, 16 16, 21 11"></path>
                             <line x1="5" y1="14" x2="3" y2="18"></line>
@@ -51,25 +229,33 @@
                             <line x1="15" y1="16" x2="16" y2="20"></line>
                             <line x1="19" y1="14" x2="21" y2="18"></line>
                         </svg>
-                        <!-- Ikon Mata Terbuka -->
                         <svg viewBox="0 0 24 24" class="icon-eye-open" style="display:none;" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M 2 12 C 6 5, 18 5, 22 12 C 18 19, 6 19, 2 12 Z"></path>
                             <circle cx="12" cy="12" r="3.5"></circle>
                         </svg>
                     </button>
                 </div>
-                <div class="vsq-error-msg" id="err-pw-kosong"><span class="vsq-error-icon">!</span> Password tidak boleh kosong!</div>
-                <div class="vsq-error-msg" id="err-pw-min"><span class="vsq-error-icon">!</span> Password harus terdiri dari minimal 8 karakter</div>
-                <div class="vsq-error-msg" id="err-pw-kompleks"><span class="vsq-error-icon">!</span> Password harus berupa huruf besar, huruf kecil, angka</div>
+                <!-- Pesan Error Password -->
+                <div class="vsq-error-msg" id="err-pw-kosong">
+                    <span class="vsq-error-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span> 
+                    Password tidak boleh kosong!
+                </div>
+                <div class="vsq-error-msg" id="err-pw-min">
+                    <span class="vsq-error-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span> 
+                    Password harus terdiri dari minimal 8 karakter
+                </div>
+                <div class="vsq-error-msg" id="err-pw-kompleks">
+                    <span class="vsq-error-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span> 
+                    Password harus berupa huruf besar, huruf kecil, angka
+                </div>
             </div>
 
             <!-- Konfirmasi Password -->
             <div class="vsq-form-group">
                 <label for="confirm_password">Konfirmasi Password<span>*</span></label>
                 <div class="vsq-input-wrapper">
-                    <input type="password" id="confirm_password" class="vsq-form-control" placeholder="Ulangi Password..." required>
+                    <input type="password" id="confirm_password" class="vsq-form-control" placeholder="Ulangi Password...">
                     <button type="button" class="vsq-toggle-password" onclick="togglePassword('confirm_password', this)">
-                        <!-- Ikon Mata Tertutup -->
                         <svg viewBox="0 0 24 24" class="icon-eye-closed" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M 3 11 C 8 16, 16 16, 21 11"></path>
                             <line x1="5" y1="14" x2="3" y2="18"></line>
@@ -77,22 +263,185 @@
                             <line x1="15" y1="16" x2="16" y2="20"></line>
                             <line x1="19" y1="14" x2="21" y2="18"></line>
                         </svg>
-                        <!-- Ikon Mata Terbuka -->
                         <svg viewBox="0 0 24 24" class="icon-eye-open" style="display:none;" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M 2 12 C 6 5, 18 5, 22 12 C 18 19, 6 19, 2 12 Z"></path>
                             <circle cx="12" cy="12" r="3.5"></circle>
                         </svg>
                     </button>
                 </div>
-                <div class="vsq-error-msg" id="err-confirm-kosong"><span class="vsq-error-icon">!</span> Konfirmasi Password tidak boleh kosong</div>
-                <div class="vsq-error-msg" id="err-confirm-match"><span class="vsq-error-icon">!</span> Password dan konfirmasi password tidak cocok!</div>
+                <!-- Pesan Error Konfirmasi -->
+                <div class="vsq-error-msg" id="err-confirm-kosong">
+                    <span class="vsq-error-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span> 
+                    Konfirmasi Password tidak boleh kosong
+                </div>
+                <div class="vsq-error-msg" id="err-confirm-match">
+                    <span class="vsq-error-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span> 
+                    Password dan konfirmasi password tidak cocok!
+                </div>
             </div>
 
             <div class="vsq-login-link">Sudah memiliki akun? <a href="login.html">Login di sini</a></div>
-            <button type="submit" class="vsq-btn-submit" id="btnSubmit" disabled>Daftar Akun</button>
+            
+            <!-- Tombol TIDAK DISABLED dari awal -->
+            <button type="submit" class="vsq-btn-submit" id="btnSubmit">Daftar Akun</button>
         </form>
     </div>
 
-    <script type="module" src="js/pages/register.js"></script>
+    <script>
+        // Konfigurasi API Base
+        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost/vincent-arena/Backend/API'
+            : 'https://URL-RAILWAY-BE-ANDA.up.railway.app'; // Ganti nanti dengan URL Railway
+
+        // Toggle Password
+        function togglePassword(inputId, iconElement) {
+            const input = document.getElementById(inputId);
+            const iconClosed = iconElement.querySelector('.icon-eye-closed');
+            const iconOpen = iconElement.querySelector('.icon-eye-open');
+            if (input.type === 'password') { 
+                input.type = 'text'; iconClosed.style.display = 'none'; iconOpen.style.display = 'block'; 
+            } else { 
+                input.type = 'password'; iconClosed.style.display = 'block'; iconOpen.style.display = 'none'; 
+            }
+        }
+
+        // Elemen DOM
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmInput = document.getElementById('confirm_password');
+        const btnSubmit = document.getElementById('btnSubmit');
+        const registerForm = document.getElementById('registerForm');
+        const alertBox = document.getElementById('alert-box');
+
+        // Elemen Error
+        const errEmailKosong = document.getElementById('err-email-kosong');
+        const errEmailFormat = document.getElementById('err-email-format');
+        const errEmailSpasi = document.getElementById('err-email-spasi');
+        const errEmailExists = document.getElementById('err-email-exists');
+        const errPwKosong = document.getElementById('err-pw-kosong');
+        const errPwMin = document.getElementById('err-pw-min');
+        const errPwKompleks = document.getElementById('err-pw-kompleks');
+        const errConfirmKosong = document.getElementById('err-confirm-kosong');
+        const errConfirmMatch = document.getElementById('err-confirm-match');
+
+        // Reset Errors & Borders
+        function resetErrors() {
+            document.querySelectorAll('.vsq-form-control').forEach(el => el.classList.remove('is-invalid'));
+            document.querySelectorAll('.vsq-error-msg').forEach(el => el.classList.remove('show'));
+            alertBox.classList.remove('show');
+        }
+
+        // Hilangkan error saat user mulai mengetik ulang
+        emailInput.addEventListener('input', () => {
+            emailInput.classList.remove('is-invalid');
+            errEmailKosong.classList.remove('show');
+            errEmailFormat.classList.remove('show');
+            errEmailSpasi.classList.remove('show');
+            errEmailExists.classList.remove('show');
+        });
+        passwordInput.addEventListener('input', () => {
+            passwordInput.classList.remove('is-invalid');
+            errPwKosong.classList.remove('show');
+            errPwMin.classList.remove('show');
+            errPwKompleks.classList.remove('show');
+        });
+        confirmInput.addEventListener('input', () => {
+            confirmInput.classList.remove('is-invalid');
+            errConfirmKosong.classList.remove('show');
+            errConfirmMatch.classList.remove('show');
+        });
+
+        // Validasi Form (Dijalankan saat tombol diklik)
+        function validateForm() {
+            resetErrors();
+            let isValid = true;
+            const emailVal = emailInput.value;
+            const pwVal = passwordInput.value;
+            const confirmVal = confirmInput.value;
+
+            // Cek Email
+            if (emailVal === '') {
+                emailInput.classList.add('is-invalid'); errEmailKosong.classList.add('show'); isValid = false;
+            } else if (emailVal.includes(' ')) {
+                emailInput.classList.add('is-invalid'); errEmailSpasi.classList.add('show'); isValid = false;
+            } else if (!emailVal.includes('@')) {
+                emailInput.classList.add('is-invalid'); errEmailFormat.classList.add('show'); isValid = false;
+            }
+
+            // Cek Password
+            if (pwVal === '') {
+                passwordInput.classList.add('is-invalid'); errPwKosong.classList.add('show'); isValid = false;
+            } else if (pwVal.length < 8) {
+                passwordInput.classList.add('is-invalid'); errPwMin.classList.add('show'); isValid = false;
+            } else {
+                const hasUppercase = /[A-Z]/.test(pwVal);
+                const hasLowercase = /[a-z]/.test(pwVal);
+                const hasNumber = /[0-9]/.test(pwVal);
+                if (!hasUppercase || !hasLowercase || !hasNumber) {
+                    passwordInput.classList.add('is-invalid'); errPwKompleks.classList.add('show'); isValid = false;
+                }
+            }
+
+            // Cek Konfirmasi Password
+            if (confirmVal === '') {
+                confirmInput.classList.add('is-invalid'); errConfirmKosong.classList.add('show'); isValid = false;
+            } else if (confirmVal !== pwVal) {
+                confirmInput.classList.add('is-invalid'); errConfirmMatch.classList.add('show'); isValid = false;
+            }
+
+            return isValid;
+        }
+
+        // Submit Form
+        registerForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Jika validasi JS gagal, hentikan proses ke server
+            if (!validateForm()) return;
+
+            // Loading State
+            btnSubmit.disabled = true; 
+            btnSubmit.textContent = 'Memproses...';
+
+            try {
+                // Tembak API Register
+                const response = await fetch(API_BASE + '/auth/register.php', {
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        email: emailInput.value, 
+                        password: passwordInput.value, 
+                        confirm_password: confirmInput.value 
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    alertBox.innerHTML = `Registrasi berhasil! Mengalihkan ke verifikasi...`;
+                    alertBox.className = 'vsq-alert vsq-alert-success show';
+                    
+                    localStorage.setItem('register_email', emailInput.value); 
+                    setTimeout(() => { window.location.href = 'verifikasi.html'; }, 1500);
+                } else {
+                    // Jika server bilang "Email sudah digunakan"
+                    if (result.message.toLowerCase().includes('sudah terdaftar')) {
+                        emailInput.classList.add('is-invalid');
+                        errEmailExists.classList.add('show');
+                    } else {
+                        alertBox.innerHTML = result.message || 'Registrasi gagal';
+                        alertBox.className = 'vsq-alert vsq-alert-error show';
+                    }
+                    btnSubmit.disabled = false; 
+                    btnSubmit.textContent = 'Daftar Akun';
+                }
+            } catch (error) {
+                alertBox.innerHTML = 'Kesalahan jaringan internet. Pastikan server menyala.';
+                alertBox.className = 'vsq-alert vsq-alert-error show';
+                btnSubmit.disabled = false; 
+                btnSubmit.textContent = 'Daftar Akun';
+            }
+        });
+    </script>
 </body>
 </html>

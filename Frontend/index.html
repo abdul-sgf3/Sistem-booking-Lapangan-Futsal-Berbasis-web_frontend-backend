@@ -25,79 +25,72 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', sans-serif; }
 
-        /* Navbar */
-        .vsq-header { background: #FFFFFF; width: 100%; height: 106px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
-        .vsq-logo { display: flex; flex-direction: column; text-decoration: none; width: 115px; }
-        .vsq-logo-title { font-size: 21px; font-weight: 700; color: #131B2E; line-height: 18px; letter-spacing: -0.45px; }
-        .vsq-logo-sub { font-size: 14px; font-weight: 700; color: #FF0000; line-height: 16px; letter-spacing: 0.6px; margin-top: 4px; }
-        .vsq-nav-menu { display: flex; align-items: center; gap: 32px; flex: 1; margin-left: 40px; }
-        .vsq-nav-link { font-size: 14px; font-weight: 600; color: #000000; text-decoration: none; transition: color 0.2s; }
+        /* --- NAVBAR DESKTOP --- */
+        .vsq-header { 
+            background: #FFFFFF; 
+            width: 100%; 
+            height: 106px; 
+            border-bottom: 1px solid #E2E8F0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 0 44px; 
+            box-sizing: border-box; 
+        }
+        
+        .vsq-nav-left { display: flex; align-items: center; gap: 40px; }
+        .vsq-logo { display: flex; flex-direction: column; text-decoration: none; width: 130px; flex-shrink: 0; }
+        .vsq-logo-title { font-size: 22px; font-weight: 800; color: #131B2E; line-height: 1.1; letter-spacing: -0.5px; }
+        .vsq-logo-sub { font-size: 13px; font-weight: 800; color: #FF0000; line-height: 1.2; letter-spacing: 0.5px; margin-top: 2px; }
+        
+        .vsq-nav-menu { display: flex; align-items: center; gap: 32px; }
+        .vsq-nav-link { font-size: 15px; font-weight: 600; color: #000000; text-decoration: none; transition: color 0.2s; white-space: nowrap; }
         .vsq-nav-link:hover { color: var(--vsq-blue); }
-        .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 15px 17px; border-radius: 15px; height: 54px; display: flex; align-items: center; justify-content: center; }
+        .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 14px 24px; border-radius: 12px; height: auto; display: flex; align-items: center; justify-content: center; }
         
-        .vsq-nav-right { display: flex; align-items: center; gap: 16px; position: relative; }
-        .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 47px; height: 47px; }
-        .vsq-notif-btn svg { width: 28px; height: 28px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .vsq-nav-right { display: flex; align-items: center; gap: 16px; position: relative; flex-shrink: 0; }
         
-        /* Kotak Profil Saat Login */
-        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: 153px; height: 63px; border: 1px solid #000000; border-radius: 20px; padding: 0 10px 0 17px; text-decoration: none; cursor: pointer; transition: background 0.2s; }
-        .vsq-profile-box:hover { background: #F8FAFC; }
-        .vsq-profile-name { font-size: 18px; color: #000; white-space: nowrap; font-weight: 400; }
-        .vsq-profile-avatar { width: 42px; height: 42px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 600; }
-        
-        /* Tombol Logout di Navbar */
-        .vsq-btn-logout { background: #131B2E; color: #FFF; width: 120px; height: 50px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; }
-        .vsq-btn-logout:hover { background: #0a0e1a; }
+        .vsq-btn-login-outline { background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        .vsq-btn-register { background: #131B2E; color: #FFF; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
 
-        /* Tombol Login/Register */
-        .vsq-btn-login-outline { background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E; width: 120px; height: 50px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
-        .vsq-btn-register { background: #131B2E; color: #FFF; width: 120px; height: 50px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: auto; max-width: 160px; height: 42px; border: 1px solid #000000; border-radius: 10px; padding: 0 8px 0 12px; text-decoration: none; cursor: pointer; transition: background 0.2s; flex-shrink: 1; overflow: hidden; }
+        .vsq-profile-box:hover { background: #F8FAFC; }
+        .vsq-profile-name { font-size: 14px; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; margin-right: 8px; }
+        .vsq-profile-avatar { width: 28px; height: 28px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+        
+        .vsq-btn-logout { background: #131B2E; color: #FFF; width: auto; padding: 0 16px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+        
+        .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; }
+        .vsq-notif-btn svg { width: 24px; height: 24px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
         /* =========================================
            CSS DROPDOWN PROFIL
            ========================================= */
         .vsq-profile-dropdown {
-            position: absolute;
-            top: 80px;
-            right: 136px;
-            width: 280px;
-            background: #FFFFFF;
-            border: 1px solid #E2E8F0;
-            border-radius: 16px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-            padding: 0;
-            display: none;
-            flex-direction: column;
-            z-index: 1001;
-            overflow: hidden;
+            position: absolute; top: 60px; right: 0; width: 280px;
+            background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12); padding: 0;
+            display: none; flex-direction: column; z-index: 1001; overflow: hidden;
             animation: slideDown 0.3s ease;
         }
-        
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         .vsq-profile-dropdown.show { display: flex; }
-        
         .vsq-dd-header { background: linear-gradient(135deg, #131B2E 0%, #2C437B 100%); padding: 20px; display: flex; align-items: center; gap: 15px; color: #FFFFFF; }
-        .vsq-dd-avatar { width: 50px; height: 50px; background: #477FEB; color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; border: 2px solid #FFFFFF; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        .vsq-dd-info h4 { font-size: 16px; font-weight: 700; margin: 0; color: #FFFFFF; }
-        .vsq-dd-info p { font-size: 12px; margin: 4px 0 0 0; color: #CBD5E1; }
-        
+        .vsq-dd-avatar { width: 50px; height: 50px; background: #477FEB; color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; border: 2px solid #FFFFFF; box-shadow: 0 4px 10px rgba(0,0,0,0.2); flex-shrink: 0; }
+        .vsq-dd-info { overflow: hidden; }
+        .vsq-dd-info h4 { font-size: 16px; font-weight: 700; margin: 0; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .vsq-badge-verified { display: inline-flex; align-items: center; gap: 4px; background: rgba(22, 163, 74, 0.2); color: #4ADE80; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-top: 6px; }
-
         .vsq-dd-body { padding: 15px 20px; display: flex; flex-direction: column; gap: 12px; }
         .vsq-dd-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #131B2E; }
         .vsq-dd-item svg { width: 16px; height: 16px; stroke: #64748B; flex-shrink: 0; }
-        .vsq-dd-item .value { font-weight: 600; color: #131B2E; margin-left: auto; }
-
+        .vsq-dd-item .value { font-weight: 600; color: #131B2E; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
         .vsq-dd-divider { height: 1px; background: #E2E8F0; margin: 5px 20px; }
-
         .vsq-dd-footer { padding: 15px 20px; display: flex; flex-direction: column; gap: 10px; background: #F8FAFC; }
         .vsq-btn-edit-profile { background: #477FEB; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .vsq-btn-edit-profile:hover { background: #3564C6; }
-        
         .vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .vsq-btn-logout-dropdown:hover { background: #FEF2F2; border-color: #EF4444; }
 
@@ -107,12 +100,10 @@
         .vsq-hero { position: relative; width: 100%; height: 633px; background-color: var(--vsq-navy); overflow: hidden; }
         .vsq-hero-image { position: absolute; top: 0; right: 0; width: 75%; height: 100%; background-image: url('assets/uploads/lapangan/hero.jpeg'); background-size: cover; background-position: center; z-index: 1; }
         .vsq-hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, var(--vsq-navy) 40%, rgba(19, 27, 46, 0.85) 60%, rgba(19, 27, 46, 0) 100%); z-index: 2; }
-        
         .vsq-hero-content { position: relative; z-index: 3; max-width: 1200px; margin: 0 auto; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 44px; }
         .vsq-hero-content h1 { font-size: 50px; font-weight: 700; line-height: 63px; margin: 0 0 24px 0; color: var(--vsq-white); max-width: 800px; }
         .vsq-hero-content h1 span { color: var(--vsq-red); }
         .vsq-hero-content p { font-size: 18px; line-height: 23px; color: var(--vsq-lightgray); max-width: 500px; margin: 0; text-align: left; }
-        
         .vsq-location-badge { position: absolute; bottom: 30px; right: 40px; background: #E5E7EB; color: #4B5563; padding: 10px 20px; border-radius: 12px; font-size: 14px; font-weight: 400; display: inline-flex; align-items: center; gap: 8px; z-index: 10; text-decoration: none; cursor: pointer; height: 45px; }
         .vsq-location-badge:hover { background: #D1D5DB; }
         .vsq-location-badge img { width: 20px; height: 20px; object-fit: contain; }
@@ -129,7 +120,7 @@
         .sl-skeleton::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent); animation: shimmer 1.5s infinite; }
         @keyframes shimmer { 100% { left: 100%; } }
         .sl-card { display: flex; border: 1px solid #E2E8F0; border-radius: 20px; height: 280px; margin-bottom: 30px; background: white; overflow: hidden; }
-        .sl-img { width: 50%; height: 100%; background-color: #CBD5E1; }
+        .sl-img { width: 50%; height: 100%; background-color: #CBD5E1; flex-shrink: 0; }
         .sl-content { padding: 30px; flex: 1; display: flex; flex-direction: column; gap: 15px; }
         .sl-title { height: 28px; width: 50%; }
         .sl-text { height: 16px; width: 100%; }
@@ -182,61 +173,43 @@
         /* =========================================
            6. FOOTER
            ========================================= */
-        .vsq-footer { background-color: var(--vsq-navy); color: var(--vsq-white); padding: 48px 0 30px 0; margin-top: 60px; }
-        .vsq-footer-content { max-width: 1200px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 40px; margin-bottom: 40px; }
+        .vsq-footer { background-color: var(--vsq-navy); color: var(--vsq-white); padding: 60px 0 40px 0; margin-top: 60px; }
+        .vsq-footer-content { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 40px; 
+            display: grid; 
+            grid-template-columns: 1fr 1fr 1.2fr; 
+            gap: 40px; 
+            margin-bottom: 50px; 
+            align-items: center;
+        }
         .vsq-footer-brand { font-size: 24px; font-weight: 700; line-height: 1.2; }
         .vsq-footer-brand span { color: var(--vsq-red); }
-        .vsq-footer-menu { display: flex; flex-direction: column; gap: 12px; }
-        .vsq-footer-menu a { color: var(--vsq-white); text-decoration: none; font-size: 18px; font-weight: 600; }
+        .vsq-footer-menu { display: flex; flex-direction: column; gap: 20px; }
+        .vsq-footer-menu a { color: var(--vsq-white); text-decoration: none; font-size: 18px; font-weight: 500; transition: color 0.2s; }
         .vsq-footer-menu a:hover { color: var(--vsq-red); }
-        .vsq-footer-contact { display: flex; flex-direction: column; gap: 16px; }
-        .vsq-footer-contact-item { display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 600; }
-        .vsq-footer-contact-item svg { width: 24px; height: 24px; stroke: var(--vsq-red); fill: none; stroke-width: 2; flex-shrink: 0; }
-        .vsq-footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 24px; text-align: center; font-size: 16px; color: rgba(255, 255, 255, 0.4); }
+        .vsq-footer-contact { display: flex; flex-direction: column; gap: 20px; }
+        .vsq-footer-contact-item { display: flex; align-items: center; gap: 15px; font-size: 18px; font-weight: 500; }
+        .vsq-footer-contact-item img { width: 24px; height: 24px; object-fit: contain; flex-shrink: 0; } /* CSS untuk gambar ikon footer */
+        .vsq-footer-bottom { max-width: 1200px; margin: 0 auto; text-align: center; font-size: 16px; color: #64748B; }
 
         /* =========================================
-           CSS MODAL LOGOUT (PROFESIONAL)
+           CSS MODAL LOGOUT
            ========================================= */
         .vsq-modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(19, 27, 46, 0.6);
-            backdrop-filter: blur(4px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(19, 27, 46, 0.6); backdrop-filter: blur(4px);
+            display: none; align-items: center; justify-content: center; z-index: 9999;
+            opacity: 0; transition: opacity 0.3s ease;
         }
         .vsq-modal-overlay.show { display: flex; opacity: 1; }
-
-        .vsq-modal-box {
-            background: #FFFFFF;
-            width: 90%;
-            max-width: 400px;
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-        }
+        .vsq-modal-box { background: #FFFFFF; width: 90%; max-width: 400px; border-radius: 16px; padding: 30px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.3s ease; }
         .vsq-modal-overlay.show .vsq-modal-box { transform: translateY(0); }
-
-        .vsq-modal-icon {
-            width: 60px; height: 60px;
-            background: #FEE2E2;
-            color: #EF4444;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 20px;
-        }
+        .vsq-modal-icon { width: 60px; height: 60px; background: #FEE2E2; color: #EF4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
         .vsq-modal-icon svg { width: 30px; height: 30px; stroke: currentColor; stroke-width: 2; }
-
         .vsq-modal-title { font-size: 20px; font-weight: 700; color: #131B2E; margin-bottom: 10px; }
         .vsq-modal-text { font-size: 14px; color: #64748B; margin-bottom: 25px; line-height: 1.5; }
-
         .vsq-modal-actions { display: flex; gap: 12px; justify-content: center; }
         .vsq-modal-actions button { flex: 1; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
         .vsq-btn-cancel { background: #FFFFFF; color: #131B2E; border: 1px solid #CBD5E1; }
@@ -244,34 +217,94 @@
         .vsq-btn-confirm-logout { background: #EF4444; color: #FFFFFF; border: 1px solid #EF4444; }
         .vsq-btn-confirm-logout:hover { background: #DC2626; border-color: #DC2626; }
 
-        /* Responsive */
-        @media (max-width: 1023px) {
-            .vsq-hero-image { width: 100%; opacity: 0.6; }
-            .vsq-hero-overlay { background: linear-gradient(rgba(19, 27, 46, 0.9), rgba(19, 27, 46, 0.9)); }
-            .vsq-hero-content h1 { font-size: 40px; }
-            .vsq-footer-content { grid-template-columns: 1fr 1fr; }
-            .vsq-steps-wrapper { flex-wrap: wrap; }
-            .vsq-arrow-icon { display: none; }
-            .vsq-step-card { width: 45%; } 
+        /* =========================================
+           CSS NETWORK OVERLAY (SESUAI GAMBAR)
+           ========================================= */
+        .network-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #131B2E;
+            display: none; align-items: center; justify-content: center; z-index: 10000;
+            opacity: 0; transition: opacity 0.3s ease; padding: 20px;
+            flex-direction: column;
         }
-        @media (max-width: 767px) {
-            .vsq-header { padding: 15px 20px; flex-wrap: wrap; height: auto; }
+        .network-overlay[style*="display: flex"] { display: flex !important; }
+        .network-overlay[style*="opacity: 1"] { opacity: 1 !important; }
+        
+        .network-content { text-align: center; max-width: 500px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+
+        .network-icon { width: 150px; height: 150px; margin-bottom: 30px; display: flex; align-items: center; justify-content: center; }
+        .network-icon svg { width: 100%; height: 100%; stroke: #FF3B30; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+        .network-title { font-size: 32px; font-weight: 700; color: #FFFFFF; margin: 0 0 15px 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .network-message { font-size: 20px; color: #E2E8F0; margin: 0 0 40px 0; line-height: 1.5; font-weight: 500; }
+        .network-btn { background: #FF3B30; color: #FFFFFF; border: none; padding: 16px 48px; border-radius: 12px; font-size: 18px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-family: inherit; }
+        .network-btn:hover { background: #D32F2F; }
+
+        /* =========================================
+           7. CSS RESPONSIVE (MOBILE)
+           ========================================= */
+        @media screen and (max-width: 768px) {
+            .vsq-header { height: 80px; padding: 0 16px; }
             .vsq-nav-menu { display: none; }
-            .vsq-hero { height: 500px; }
-            .vsq-hero-content h1 { font-size: 28px; }
-            .vsq-card { flex-direction: column; height: auto; }
-            .vsq-card-img { width: 100%; height: 250px; border-radius: 20px 20px 0 0; }
+            
+            .vsq-nav-right { gap: 8px; }
+            .vsq-profile-box { max-width: 60px; padding: 0 6px; height: 40px; justify-content: center; border-radius: 8px; }
+            .vsq-profile-name { display: none; }
+            .vsq-profile-avatar { width: 26px; height: 26px; font-size: 11px; }
+            .vsq-btn-logout, .vsq-btn-login-outline, .vsq-btn-register { padding: 0 12px; height: 40px; font-size: 12px; border-radius: 8px; width: auto; }
+            .vsq-profile-dropdown { position: fixed; top: 85px; right: 16px; left: 16px; width: auto; }
+
+            .vsq-hero { height: 450px; }
+            .vsq-hero-image { width: 100%; opacity: 0.5; }
+            .vsq-hero-overlay { background: linear-gradient(180deg, rgba(19,27,46,0.85) 0%, rgba(19,27,46,0.7) 100%); }
+            .vsq-hero-content { padding: 0 20px; }
+            .vsq-hero-content h1 { font-size: 30px; line-height: 38px; margin-bottom: 16px; }
+            .vsq-hero-content p { font-size: 15px; line-height: 22px; }
+            .vsq-location-badge { display: none; }
+
+            .vsq-section { padding: 35px 16px; }
+            .vsq-section-title h2 { font-size: 24px; line-height: 32px; }
+            .vsq-section-title p { font-size: 14px; }
+
+            .vsq-card { flex-direction: column; height: auto; border-radius: 16px; }
+            .vsq-card-img { width: 100%; height: 200px; border-radius: 16px 16px 0 0; }
             .vsq-card-body { padding: 20px; }
-            .vsq-card-header h3 { font-size: 24px; }
-            .vsq-card-badge { padding: 10px 20px; font-size: 18px; }
-            .vsq-fasilitas li { font-size: 14px; }
-            .vsq-btn-booking { width: 100%; font-size: 18px; height: 50px; }
+            .vsq-card-header { flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+            .vsq-card-header h3 { font-size: 20px; }
+            .vsq-fasilitas { gap: 12px; margin-bottom: 20px; }
+            .vsq-fasilitas li { font-size: 14px; gap: 10px; }
+            .vsq-card-footer { justify-content: stretch; }
+            .vsq-btn-booking { width: 100%; }
+
+            .sl-card { flex-direction: column; height: auto; }
+            .sl-img { width: 100%; height: 180px; }
+
+            .vsq-steps-wrapper { flex-direction: column; gap: 16px; }
+            .vsq-arrow-icon { display: none; }
+            .vsq-step-card { width: 100%; max-width: 320px; }
+
             .vsq-faq-grid { grid-template-columns: 1fr; gap: 16px; }
-            .vsq-section-title h2 { font-size: 28px; }
-            .vsq-footer-content { grid-template-columns: 1fr; text-align: center; }
-            .vsq-footer-contact-item { justify-content: center; }
-            .vsq-step-card { width: 100%; } 
-            .vsq-profile-dropdown { right: 20px; width: 200px; }
+            .vsq-faq-header { padding: 16px 18px; }
+            .vsq-faq-header .faq-text { font-size: 16px; line-height: 22px; }
+            .vsq-faq-header .faq-arrow svg { width: 28px; height: 28px; }
+            .vsq-faq-body { font-size: 14px; padding: 0 18px; }
+            .vsq-faq-item.active .vsq-faq-body { padding: 0 18px 18px 18px; }
+
+            .vsq-footer { padding: 35px 0 24px 0; margin-top: 40px; }
+            .vsq-footer-content { grid-template-columns: 1fr; text-align: center; gap: 24px; padding: 0 20px; }
+            .vsq-footer-brand { font-size: 22px; }
+            .vsq-footer-menu { align-items: center; }
+            .vsq-footer-contact-item { font-size: 15px; justify-content: center; }
+            .vsq-footer-bottom { font-size: 13px; padding: 20px 16px 0; }
+
+            .network-title { font-size: 24px; }
+            .network-message { font-size: 16px; }
+            .network-btn { padding: 14px 36px; font-size: 16px; }
+            .network-icon { width: 120px; height: 120px; margin-bottom: 20px; }
+        }
+
+        @media screen and (max-width: 400px) {
+            .vsq-hero-content h1 { font-size: 26px; line-height: 34px; }
         }
     </style>
 </head>
@@ -299,7 +332,24 @@
             <h2>Pilihan Lapangan Tersedia</h2>
         </div>
         <div class="vsq-lapangan-grid" id="lapangan-container">
-            <!-- Skeleton dimuat oleh JS -->
+            <div class="sl-card">
+                <div class="sl-img sl-skeleton"></div>
+                <div class="sl-content">
+                    <div class="sl-title sl-skeleton"></div>
+                    <div class="sl-text sl-skeleton"></div>
+                    <div class="sl-text short sl-skeleton"></div>
+                    <div class="sl-btn sl-skeleton"></div>
+                </div>
+            </div>
+            <div class="sl-card">
+                <div class="sl-img sl-skeleton"></div>
+                <div class="sl-content">
+                    <div class="sl-title sl-skeleton"></div>
+                    <div class="sl-text sl-skeleton"></div>
+                    <div class="sl-text short sl-skeleton"></div>
+                    <div class="sl-btn sl-skeleton"></div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -378,26 +428,51 @@
     <footer class="vsq-footer">
         <div class="vsq-footer-content">
             <div class="vsq-footer-brand">Vincent'SQ <span>Arena</span></div>
+            
             <div class="vsq-footer-menu">
                 <a href="index.html">Beranda</a>
                 <a href="lapangan.html">Booking lapangan</a>
                 <a href="riwayat.html">Riwayat Booking</a>
                 <a href="makanan.html">Makanan & Minuman</a>
             </div>
+            
             <div class="vsq-footer-contact">
-                <div class="vsq-footer-contact-item"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path><path d="M14.05 2a9 9 0 0 1 8 7.94"></path><path d="M14.05 6A5 5 0 0 1 18 10"></path></svg><span>WA: 0893-3283-4839</span></div>
-                <div class="vsq-footer-contact-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg><span>Email: vincenttt3@gmail.com</span></div>
-                <div class="vsq-footer-contact-item"><svg viewBox="0 0 24 24" style="fill: var(--vsq-red); stroke: none;"><path d="M12 2C8.13 2 5 5.13 5 9c0 3.5 5.5 9.5 6.4 10.4.3.3.9.3 1.2 0C13.5 18.5 19 12.5 19 9c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span>Lokasi: Tuparev, Kota Cirebon</span></div>
+                <div class="vsq-footer-contact-item">
+                    <!-- Menggunakan gambar ikon WA -->
+                    <img src="assets/images/icon-wa.png" alt="Icon WA">
+                    <span>WA: 0893-3283-4839</span>
+                </div>
+                <div class="vsq-footer-contact-item">
+                    <!-- Menggunakan gambar ikon Email -->
+                    <img src="assets/images/icon-email.png" alt="Icon Email">
+                    <span>Email: vincenttt3@gmail.com</span>
+                </div>
+                <div class="vsq-footer-contact-item">
+                    <!-- Menggunakan gambar ikon Lokasi -->
+                    <img src="assets/images/icon-maps.png" alt="Icon Lokasi">
+                    <span>Lokasi: Tuparev, Kota Cirebon</span>
+                </div>
             </div>
         </div>
         <div class="vsq-footer-bottom">@ 2026 Vincent'SQ Arena. All Right Reserved</div>
     </footer>
 
-    <div id="network-overlay" class="network-overlay" style="display: none;">
+    <!-- NETWORK OVERLAY (NO CONNECTION) -->
+    <div id="network-overlay" class="network-overlay" style="display: none; opacity: 0;">
         <div class="network-content">
-            <div class="network-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="80" height="80"><path d="M1 1l22 22"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
+            <div class="network-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M1 1l22 22"/>
+                    <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+                    <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+                    <path d="M10.71 5.05A16 16 0 0 1 22.58 9"/>
+                    <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                    <line x1="12" y1="20" x2="12.01" y2="20"/>
+                </svg>
+            </div>
             <h2 class="network-title">Tidak Ada Koneksi Internet</h2>
-            <p class="network-message">Periksa koneksi Anda dan coba lagi</p>
+            <p class="network-message">Periksa Koneksi Anda Kembali</p>
             <button onclick="retryConnection()" class="network-btn">Coba Lagi</button>
         </div>
     </div>
@@ -427,6 +502,9 @@
             ? 'http://localhost/vincent-arena/Backend/API'
             : 'https://URL-RAILWAY-BE-ANDA.up.railway.app';
 
+        // =========================================
+        // FETCH WITH TIMEOUT
+        // =========================================
         async function fetchWithTimeout(resource, options = {}) {
             const { timeout = 10000 } = options;
             const controller = new AbortController();
@@ -439,43 +517,95 @@
             return response;
         }
 
-        window.addEventListener('offline', () => {
-            document.getElementById('network-overlay').style.display = 'flex';
-            setTimeout(() => document.getElementById('network-overlay').style.opacity = '1', 10);
-        });
-
-        window.addEventListener('online', () => {
-            const overlay = document.getElementById('network-overlay');
-            overlay.style.opacity = '0';
-            setTimeout(() => overlay.style.display = 'none', 300);
-        });
-
-        function retryConnection() {
-            if (navigator.onLine) {
-                document.getElementById('network-overlay').style.opacity = '0';
-                setTimeout(() => document.getElementById('network-overlay').style.display = 'none', 300);
-                loadLapangan(); 
-            } else {
-                alert('Masih offline. Periksa koneksi internet Anda.');
+        // =========================================
+        // SAFE FETCH
+        // =========================================
+        async function safeFetch(url, options = {}) {
+            try {
+                return await fetchWithTimeout(url, options);
+            } catch (err) {
+                if (err.name === 'TypeError' && !navigator.onLine) {
+                    showNetworkOverlay();
+                }
+                throw err;
             }
         }
 
+        // =========================================
+        // FUNGSI NETWORK OVERLAY (OFFLINE)
+        // =========================================
+        function showNetworkOverlay() {
+            const overlay = document.getElementById('network-overlay');
+            if (!overlay) return;
+            overlay.style.display = 'flex';
+            void overlay.offsetWidth;
+            overlay.style.opacity = '1';
+        }
+
+        function hideNetworkOverlay() {
+            const overlay = document.getElementById('network-overlay');
+            if (!overlay) return;
+            overlay.style.opacity = '0';
+            setTimeout(() => { overlay.style.display = 'none'; }, 300);
+        }
+
+        window.addEventListener('offline', () => {
+            showNetworkOverlay();
+        });
+
+        window.addEventListener('online', () => {
+            hideNetworkOverlay();
+        });
+
+        window.addEventListener('load', () => {
+            if (!navigator.onLine) {
+                showNetworkOverlay();
+            }
+        });
+
+        setInterval(() => {
+            if (!navigator.onLine) {
+                showNetworkOverlay();
+            }
+        }, 3000);
+
+        function retryConnection() {
+            if (navigator.onLine) {
+                hideNetworkOverlay();
+                loadLapangan();
+            } else {
+                const img = new Image();
+                img.onload = () => {
+                    hideNetworkOverlay();
+                    loadLapangan();
+                };
+                img.onerror = () => {
+                    alert('Masih offline. Periksa koneksi internet Anda.');
+                };
+                img.src = 'https://www.google.com/favicon.ico?_=' + Date.now();
+            }
+        }
+
+        // =========================================
+        // FAQ TOGGLE
+        // =========================================
         function toggleFaq(element) {
             const isActive = element.classList.contains('active');
             document.querySelectorAll('.vsq-faq-item').forEach(item => item.classList.remove('active'));
             if (!isActive) element.classList.add('active');
         }
 
-        // --- LOGIKA NAVBAR & DROPDOWN PROFIL (DIPERBAIKI) ---
+        // =========================================
+        // NAVBAR & DROPDOWN PROFIL
+        // =========================================
         async function updateNavbar() {
             const navbarEl = document.getElementById('navbar');
             let user = null;
 
             try {
-                // Cek status login ke Backend
-                const response = await fetch(API_BASE + '/auth/check.php', {
+                const response = await safeFetch(API_BASE + '/auth/check.php', {
                     method: 'GET',
-                    credentials: 'include' // <--- WAJIB: Agar PHP Session terbaca
+                    credentials: 'include' 
                 });
                 const result = await response.json();
                 
@@ -494,8 +624,10 @@
                 displayName = user.nama || 'User';
                 avatarInitial = user.initial || 'U';
                 
-                // Tampilkan Profil & Tombol Logout
                 rightNavHTML = `
+                    <button class="vsq-notif-btn">
+                        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                    </button>
                     <div class="vsq-profile-box" id="profileToggle">
                         <span class="vsq-profile-name">Hai ${displayName}</span>
                         <div class="vsq-profile-avatar">${avatarInitial}</div>
@@ -534,7 +666,6 @@
                     </div>
                 `;
             } else {
-                // Tampilkan Tombol Login/Register
                 rightNavHTML = `
                     <a href="login.html" class="vsq-btn-login-outline">Login</a>
                     <a href="register.html" class="vsq-btn-register">Register</a>
@@ -543,20 +674,21 @@
 
             navbarEl.innerHTML = `
             <div class="vsq-header">
-                <a href="index.html" class="vsq-logo">
-                    <span class="vsq-logo-title">Vincent'SQ</span>
-                    <span class="vsq-logo-sub">SPORTS ARENA</span>
-                </a>
-                <nav class="vsq-nav-menu">
-                    <a href="index.html" class="vsq-nav-link active">Beranda</a>
-                    <a href="lapangan.html" class="vsq-nav-link">Booking Lapangan</a>
-                    <a href="riwayat.html" class="vsq-nav-link">Riwayat Booking</a>
-                    <a href="makanan.html" class="vsq-nav-link">Makanan Minuman</a>
-                </nav>
+                <div class="vsq-nav-left">
+                    <a href="index.html" class="vsq-logo">
+                        <span class="vsq-logo-title">Vincent'SQ</span>
+                        <span class="vsq-logo-sub">SPORTS ARENA</span>
+                    </a>
+                    <nav class="vsq-nav-menu">
+                        <a href="index.html" class="vsq-nav-link active">Beranda</a>
+                        <a href="lapangan.html" class="vsq-nav-link">Booking Lapangan</a>
+                        <a href="riwayat.html" class="vsq-nav-link">Riwayat Booking</a>
+                        <a href="makanan.html" class="vsq-nav-link">Makanan Minuman</a>
+                    </nav>
+                </div>
                 <div class="vsq-nav-right">${rightNavHTML}</div>
             </div>`;
 
-            // Logika Dropdown
             const profileToggle = document.getElementById('profileToggle');
             const profileDropdown = document.getElementById('profileDropdown');
             if (profileToggle && profileDropdown) {
@@ -572,7 +704,9 @@
             }
         }
 
-        // --- LOGIKA MODAL LOGOUT ---
+        // =========================================
+        // MODAL LOGOUT
+        // =========================================
         function logout() {
             const modal = document.getElementById('logoutModal');
             modal.classList.add('show');
@@ -583,17 +717,15 @@
         }
         async function confirmLogout() {
             try {
-                // Tembak API Logout Backend
                 await fetch(API_BASE + '/auth/logout.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    credentials: 'include', // <--- WAJIB
-                    body: JSON.stringify({ type: 'user' }) // Hapus session user saja
+                    credentials: 'include',
+                    body: JSON.stringify({ type: 'user' })
                 });
                 localStorage.clear();
                 window.location.href = 'login.html';
             } catch (error) {
-                // Jika gagal koneksi, tetap hapus lokal
                 localStorage.clear();
                 window.location.href = 'login.html';
             }
@@ -602,13 +734,15 @@
             if (e.target === this) closeLogoutModal();
         });
 
-        // --- LOAD LAPANGAN ---
+        // =========================================
+        // LOAD LAPANGAN
+        // =========================================
         async function loadLapangan() {
             const container = document.getElementById('lapangan-container');
             try {
-                const response = await fetchWithTimeout(API_BASE + '/public/lapangan.php', {
+                const response = await safeFetch(API_BASE + '/public/lapangan.php', {
                     method: 'GET',
-                    credentials: 'include' // <--- Tambahkan ini agar konsisten
+                    credentials: 'include' 
                 });
                 const result = await response.json();
 
@@ -651,6 +785,7 @@
                 if (error.name === 'AbortError') {
                     container.innerHTML = '<p style="text-align: center; color: #888;">Koneksi lambat. Gagal memuat data lapangan.</p>';
                 } else if (!navigator.onLine) {
+                    showNetworkOverlay();
                     container.innerHTML = '<p style="text-align: center; color: #888;">Anda sedang offline. Periksa koneksi Anda.</p>';
                 } else {
                     container.innerHTML = '<p style="text-align: center; color: #888;">Terjadi kesalahan koneksi ke server.</p>';
@@ -658,10 +793,12 @@
             }
         }
 
-        // --- INIT ---
+        // =========================================
+        // INIT
+        // =========================================
         document.addEventListener('DOMContentLoaded', function() {
-            updateNavbar(); // Panggil update navbar async
-            setTimeout(loadLapangan, 500); // Tampilkan skeleton dulu
+            updateNavbar(); 
+            loadLapangan();
         });
     </script>
 </body>

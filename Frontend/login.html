@@ -83,6 +83,7 @@
         
         .vsq-btn-submit { display: flex; justify-content: center; align-items: center; width: 100%; padding: 12px 20px; font-size: 14px; font-weight: 600; font-family: 'Plus Jakarta Sans', sans-serif; color: #FFFFFF; background-color: var(--vsq-blue); border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; }
         .vsq-btn-submit:hover { background-color: #3564C6; }
+        .vsq-btn-submit:disabled { background-color: #93C5FD; cursor: not-allowed; }
 
         .vsq-login-right { flex: 1; background: linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)), url('assets/uploads/lapangan/hero.jpeg') center/cover no-repeat; position: relative; }
         
@@ -127,7 +128,7 @@
                     </div>
                     
                     <div class="vsq-register-link">Belum mempunyai akun? <a href="register.html">Daftar sekarang</a></div>
-                    <button type="submit" class="vsq-btn-submit">Masuk</button>
+                    <button type="submit" class="vsq-btn-submit" id="btn-submit">Masuk</button>
                 </form>
             </div>
         </div>
@@ -136,9 +137,10 @@
 
     <script>
         // =========================================
-        // KONFIGURASI URL API RAILWAY
+        // KONFIGURASI URL API (LOKAL)
         // =========================================
-       const API_BASE = 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
+        // Sesuaikan 'vincent-arena' dengan nama folder project Anda di htdocs/laragon
+        const API_BASE = 'http://localhost/vincent-arena/Backend/API'; 
 
         function togglePassword(inputId, iconElement) {
             const input = document.getElementById(inputId);
@@ -152,7 +154,7 @@
         const passwordInput = document.getElementById('password');
         const form = document.getElementById('login-form');
         const alertBox = document.getElementById('alert-box');
-        const btnSubmit = form.querySelector('button[type="submit"]');
+        const btnSubmit = document.getElementById('btn-submit');
 
         const errEmailKosong = document.getElementById('err-email');
         const errEmailFormat = document.getElementById('err-email-format');
@@ -203,27 +205,42 @@
             try {
                 const response = await fetch(API_BASE + '/auth/login.php', {
                     method: 'POST', 
-                    headers: { 'Content-Type': 'application/json' },
-                    credentials: 'include', // <--- WAJIB: Agar PHP Session tersimpan di browser
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    mode: 'cors',
+                    credentials: 'include', 
                     body: JSON.stringify({ email: emailInput.value, password: passwordInput.value })
                 });
+
+                const contentType = response.headers.get("content-type");
+                if (!contentType || !contentType.includes("application/json")) {
+                    throw new Error("Server membalas dengan format yang salah (Bukan JSON). Cek Console untuk detail.");
+                }
+
                 const result = await response.json();
                 
-                if (result.status === 'success') {
+                if (response.ok && result.status === 'success') {
                     alertBox.innerHTML = `<div style="background-color: #DCFCE7; color: #166534; border: 1px solid #BBF7D0; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 13px;">Login Berhasil! Mengalihkan...</div>`;
                     
                     localStorage.setItem('user_id', result.data.user_id);
                     localStorage.setItem('nama', result.data.nama);
                     localStorage.setItem('user_email', result.data.email);
 
-                    const redirectUrl = result.data.need_profile ? 'lengkapi_profil.html' : 'index.html';
-                    
+                    let redirectUrl = 'index.html';
+                    if(result.data.redirect) {
+                        redirectUrl = result.data.redirect.split('/').pop();
+                    }
+
                     setTimeout(() => { window.location.href = redirectUrl; }, 1000);
                 } else {
-                    if (result.message && result.message.toLowerCase().includes('email tidak terdaftar')) {
+                    const msg = result.message ? result.message.toLowerCase() : '';
+                    
+                    if (msg.includes('email tidak terdaftar')) {
                         emailInput.classList.add('is-invalid');
                         errEmailNotFound.classList.add('show');
-                    } else if (result.message && result.message.toLowerCase().includes('password salah')) {
+                    } else if (msg.includes('password salah')) {
                         passwordInput.classList.add('is-invalid');
                         errAuth.classList.add('show');
                         errAuthSub.classList.add('show');
@@ -231,13 +248,17 @@
                         emailInput.classList.add('is-invalid');
                         passwordInput.classList.add('is-invalid');
                         errAuth.classList.add('show');
+                        errAuthSub.innerText = result.message || "Terjadi kesalahan saat login.";
                         errAuthSub.classList.add('show');
                     }
                     btnSubmit.disabled = false; 
                     btnSubmit.textContent = 'Masuk';
                 }
             } catch (error) {
-                alertBox.innerHTML = `<div style="background-color: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 13px;">Terjadi kesalahan koneksi ke server.</div>`;
+                console.error("Detail Error:", error);
+                alertBox.innerHTML = `<div style="background-color: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 13px;">
+                    Gagal terhubung ke server. <br><small>Pastikan Backend PHP (XAMPP/Laragon) menyala dan URL API_BASE benar.</small>
+                </div>`;
                 btnSubmit.disabled = false; 
                 btnSubmit.textContent = 'Masuk';
             }

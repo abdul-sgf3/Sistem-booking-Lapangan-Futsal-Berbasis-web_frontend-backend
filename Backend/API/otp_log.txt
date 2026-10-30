@@ -45,3 +45,5 @@
 2026-10-29 03:09:32 | OTP untuk ashfahani24@gmail.com: 391308
 2026-10-29 03:42:59 | OTP untuk ashfahani24@gmail.com: 371693
 2026-10-29 14:48:00 | OTP untuk errenn@gmail.com: 291761
+2026-10-30 07:41:19 | OTP untuk errenn@gmail.com: 262134 | Status: GAGAL | Code: 401 | Response: {"message":"authentication not found in headers","code":"unauthorized"}
+

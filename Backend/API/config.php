@@ -1,4 +1,8 @@
 <?php
+// TAMBAHKAN 2 BARIS INI UNTUK DEBUGGING DI RAILWAY
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 // ============================================
 // KONFIGURASI BREVO (Email OTP)
 // ============================================

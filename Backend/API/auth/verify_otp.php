@@ -1,9 +1,22 @@
 <?php
 // ============================================================
-// auth/verify_otp.php - Verifikasi Kode OTP
+// auth/verify_otp.php - Verifikasi Kode OTP (FIX CORS)
 // POST /api/auth/verify_otp.php
 // Body: { email, otp }
 // ============================================================
+
+// --- TAMBAHAN CORS UNTUK MENGIZINKAN FRONTEND LOKAL/RAILWAY ---
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Access-Control-Allow-Credentials: true");
+
+// Tangani preflight request dari browser
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+// -------------------------------------------------------------
 
 require_once '../config.php';
 
@@ -21,8 +34,10 @@ if (empty($otp)) sendError('Kode OTP wajib diisi', 400);
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     sendError('Format email tidak valid', 400);
 }
-if (!preg_match('/^\d{6}$/', $otp)) {
-    sendError('Kode OTP harus 6 digit angka', 400);
+
+// PERUBAHAN: Izinkan 5 atau 6 digit (untuk menyesuaikan UI/UX Frontend)
+if (!preg_match('/^\d{5,6}$/', $otp)) {
+    sendError('Kode OTP harus berupa angka', 400);
 }
 
 // Cari user
@@ -73,9 +88,8 @@ sendResponse([
     'user_id' => (int)$user['id'],
     'email' => $user['email'],
     'need_profile' => $need_profile,
-// BENAR:
-'redirect' => $need_profile 
-    ? BASE_URL . '/Frontend/autentikasi/lengkapi_profil.html' 
-    : BASE_URL . '/Frontend/pages/index.html'
+    'redirect' => $need_profile 
+        ? BASE_URL . '/Frontend/autentikasi/lengkapi_profil.html' 
+        : BASE_URL . '/Frontend/pages/index.html'
 ], 'Verifikasi berhasil');
 ?>

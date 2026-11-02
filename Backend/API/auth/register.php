@@ -1,9 +1,22 @@
 <?php
 // ============================================================
-// auth/register.php - Registrasi User (FINAL FIX)
+// auth/register.php - Registrasi User (FIX CORS)
 // POST /api/auth/register.php
 // Body: { email, password, confirm_password }
 // ============================================================
+
+// --- TAMBAHAN CORS UNTUK MENGIZINKAN FRONTEND LOKAL/RAILWAY ---
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Access-Control-Allow-Credentials: true");
+
+// Tangani preflight request dari browser
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+// -------------------------------------------------------------
 
 // Panggil config utama
 require_once '../config.php';
@@ -73,7 +86,6 @@ if ($existing) {
 
 } else {
     // Insert user BARU
-    // PERBAIKAN: Tambahkan kolom 'nama' dengan mengambil nama depan dari email
     $nama_default = explode('@', $email)[0]; 
     
     $stmt = mysqli_prepare($conn, 
@@ -98,8 +110,6 @@ $_SESSION['register_email'] = $email;
 $_SESSION['register_user_id'] = $user_id;
 
 // ===== KIRIM OTP (SIMULASI) =====
-// Karena BE belum terhubung ke SMTP, kita simpan OTP di log file
-// (File otp_log.txt akan muncul di folder Backend/API/)
 $log_msg = date('Y-m-d H:i:s') . " | OTP untuk $email: $otp\n";
 @file_put_contents(__DIR__ . '/../otp_log.txt', $log_msg, FILE_APPEND);
 
@@ -107,7 +117,7 @@ $log_msg = date('Y-m-d H:i:s') . " | OTP untuk $email: $otp\n";
 sendResponse([
     'user_id' => (int)$user_id,
     'email' => $email,
-    'otp_debug' => $otp, // HAPUS baris ini di production asli
+    'otp_debug' => $otp, 
     'expired_at' => $otp_expired,
     'redirect' => BASE_URL . '/Frontend/autentikasi/verifikasi_email.php'
 ], 'Registrasi berhasil. Silakan cek email/log untuk kode OTP.');

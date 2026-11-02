@@ -47,3 +47,9 @@
 2026-10-29 14:48:00 | OTP untuk errenn@gmail.com: 291761
 2026-10-30 07:41:19 | OTP untuk errenn@gmail.com: 262134 | Status: GAGAL | Code: 401 | Response: {"message":"authentication not found in headers","code":"unauthorized"}
 
+2026-11-01 16:31:28 | OTP untuk asaf678@gmail.com: 206960
+2026-11-01 16:35:03 | OTP untuk asaf678@gmail.com: 129687
+2026-11-01 16:40:24 | OTP untuk ashfahani.77@gmail.com: 484733
+2026-11-01 16:51:36 | OTP untuk ashfahani10@gmail.com: 688198
+2026-11-01 17:05:17 | OTP untuk errenn@gmail.com: 148430 | Status: GAGAL | Code: 401 | Response: {"message":"authentication not found in headers","code":"unauthorized"}
+

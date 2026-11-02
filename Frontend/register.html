@@ -14,9 +14,9 @@
             --vsq-gray-border: #848484;
             --vsq-dark-btn: #131B2E; 
             --vsq-error: #FF5555; /* Sesuai Figma */
-            --vsq-error-bg: #FEE2E2;
             --vsq-success-bg: #DCFCE7;
             --vsq-success-text: #166534;
+            --vsq-blue-focus: #477FEB; /* Warna biru saat input aktif */
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; }
@@ -52,7 +52,7 @@
         .vsq-logo h1 { font-size: 31px; font-weight: 700; color: var(--vsq-navy); margin: 0; letter-spacing: -0.45px; }
         .vsq-logo p { font-size: 18px; font-weight: 700; color: var(--vsq-red); letter-spacing: 0.6px; margin-top: 4px; text-transform: uppercase; }
 
-        /* Alert Box (Untuk respons dari server) */
+        /* Alert Box HANYA untuk Notifikasi Sukses/Server */
         .vsq-alert { 
             padding: 10px 15px; 
             border-radius: 10px; 
@@ -61,10 +61,13 @@
             margin-bottom: 20px; 
             display: none;
             text-align: center;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-        .vsq-alert.show { display: block; }
+        .vsq-alert.show { display: flex; }
         .vsq-alert-success { background-color: var(--vsq-success-bg); color: var(--vsq-success-text); }
-        .vsq-alert-error { background-color: var(--vsq-error-bg); color: #991B1B; border: 1px solid var(--vsq-error); }
+        .vsq-alert-icon-success svg { width: 16px; height: 16px; stroke: var(--vsq-success-text); fill: none; stroke-width: 2; }
 
         /* Form Group */
         .vsq-form-group { margin-bottom: 24px; position: relative; text-align: left; }
@@ -91,12 +94,14 @@
             -webkit-box-shadow: 0 0 0 30px white inset !important;
         }
         .vsq-form-control::placeholder { color: var(--vsq-gray-text); font-weight: 400; font-size: 14px; }
-        .vsq-form-control:focus { border-color: var(--vsq-navy); }
+        
+        /* Focus State (Biru Sesuai Figma) */
+        .vsq-form-control:focus { border-color: var(--vsq-blue-focus); }
 
-        /* State Invalid (Border Merah Sesuai Figma) */
+        /* State Invalid (Border Merah) */
         .vsq-form-control.is-invalid { border: 1px solid var(--vsq-error) !important; }
 
-        /* Pesan Error (Sesuai Figma) */
+        /* Pesan Error di Bawah Input */
         .vsq-error-msg {
             display: none;
             align-items: flex-start;
@@ -109,7 +114,6 @@
         }
         .vsq-error-msg.show { display: flex; }
         
-        /* Ikon Alert Figma */
         .vsq-error-icon svg { 
             width: 14px; 
             height: 14px; 
@@ -147,7 +151,7 @@
         }
         .vsq-login-link a { color: #477FEB; text-decoration: none; }
 
-        /* Tombol Submit (Selalu Gelap Sesuai Figma) */
+        /* Tombol Submit */
         .vsq-btn-submit { 
             display: block; 
             width: 100%; 
@@ -179,7 +183,7 @@
             <p>SPORTS ARENA</p>
         </div>
         
-        <!-- Alert Box -->
+        <!-- Alert Box HANYA untuk Server (Sukses / Error Jaringan) -->
         <div id="alert-box" class="vsq-alert"></div>
         
         <form id="registerForm" novalidate>
@@ -189,29 +193,28 @@
                 <div class="vsq-input-wrapper">
                     <input type="email" id="email" class="vsq-form-control" placeholder="Masukkan email...">
                 </div>
-                <!-- Pesan Error Email -->
+                
+                <!-- Error Bawah: Kosong -->
                 <div class="vsq-error-msg" id="err-email-kosong">
-                    <span class="vsq-error-icon">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                    </span> 
+                    <span class="vsq-error-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span> 
                     Email tidak boleh kosong
                 </div>
+                
+                <!-- Error Bawah: Format Salah (@ dan .) -->
                 <div class="vsq-error-msg" id="err-email-format">
-                    <span class="vsq-error-icon">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                    </span> 
-                    Email Harus mengandung karakter @
+                    <span class="vsq-error-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span> 
+                    Email Harus mengandung karakter @ dan .
                 </div>
+                
+                <!-- Error Bawah: Spasi -->
                 <div class="vsq-error-msg" id="err-email-spasi">
-                    <span class="vsq-error-icon">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                    </span> 
+                    <span class="vsq-error-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span> 
                     Email tidak boleh mengandung spasi!
                 </div>
+                
+                <!-- Error Bawah: Sudah Digunakan (Dari Server) -->
                 <div class="vsq-error-msg" id="err-email-exists">
-                    <span class="vsq-error-icon">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                    </span> 
+                    <span class="vsq-error-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span> 
                     Email sudah digunakan!
                 </div>
             </div>
@@ -235,7 +238,6 @@
                         </svg>
                     </button>
                 </div>
-                <!-- Pesan Error Password -->
                 <div class="vsq-error-msg" id="err-pw-kosong">
                     <span class="vsq-error-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span> 
                     Password tidak boleh kosong!
@@ -269,10 +271,9 @@
                         </svg>
                     </button>
                 </div>
-                <!-- Pesan Error Konfirmasi -->
                 <div class="vsq-error-msg" id="err-confirm-kosong">
                     <span class="vsq-error-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span> 
-                    Konfirmasi Password tidak boleh kosong
+                    Konfirmasi Password tidak boleh kosong!
                 </div>
                 <div class="vsq-error-msg" id="err-confirm-match">
                     <span class="vsq-error-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span> 
@@ -282,18 +283,15 @@
 
             <div class="vsq-login-link">Sudah memiliki akun? <a href="login.html">Login di sini</a></div>
             
-            <!-- Tombol TIDAK DISABLED dari awal -->
             <button type="submit" class="vsq-btn-submit" id="btnSubmit">Daftar Akun</button>
         </form>
     </div>
 
     <script>
-        // Konfigurasi API Base
         const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://localhost/vincent-arena/Backend/API'
-            : 'https://URL-RAILWAY-BE-ANDA.up.railway.app'; // Ganti nanti dengan URL Railway
+            : 'https://URL-RAILWAY-BE-ANDA.up.railway.app'; 
 
-        // Toggle Password
         function togglePassword(inputId, iconElement) {
             const input = document.getElementById(inputId);
             const iconClosed = iconElement.querySelector('.icon-eye-closed');
@@ -305,7 +303,6 @@
             }
         }
 
-        // Elemen DOM
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
         const confirmInput = document.getElementById('confirm_password');
@@ -313,7 +310,6 @@
         const registerForm = document.getElementById('registerForm');
         const alertBox = document.getElementById('alert-box');
 
-        // Elemen Error
         const errEmailKosong = document.getElementById('err-email-kosong');
         const errEmailFormat = document.getElementById('err-email-format');
         const errEmailSpasi = document.getElementById('err-email-spasi');
@@ -324,92 +320,142 @@
         const errConfirmKosong = document.getElementById('err-confirm-kosong');
         const errConfirmMatch = document.getElementById('err-confirm-match');
 
-        // Reset Errors & Borders
-        function resetErrors() {
-            document.querySelectorAll('.vsq-form-control').forEach(el => el.classList.remove('is-invalid'));
-            document.querySelectorAll('.vsq-error-msg').forEach(el => el.classList.remove('show'));
-            alertBox.classList.remove('show');
-        }
-
-        // Hilangkan error saat user mulai mengetik ulang
-        emailInput.addEventListener('input', () => {
+        // --- FUNGSI RESET ERROR ---
+        function resetEmailErrors() {
             emailInput.classList.remove('is-invalid');
             errEmailKosong.classList.remove('show');
             errEmailFormat.classList.remove('show');
             errEmailSpasi.classList.remove('show');
             errEmailExists.classList.remove('show');
-        });
-        passwordInput.addEventListener('input', () => {
+        }
+        function resetPwErrors() {
             passwordInput.classList.remove('is-invalid');
             errPwKosong.classList.remove('show');
             errPwMin.classList.remove('show');
             errPwKompleks.classList.remove('show');
-        });
-        confirmInput.addEventListener('input', () => {
+        }
+        function resetConfirmErrors() {
             confirmInput.classList.remove('is-invalid');
             errConfirmKosong.classList.remove('show');
             errConfirmMatch.classList.remove('show');
-        });
+        }
 
-        // Validasi Form (Dijalankan saat tombol diklik)
-        function validateForm() {
-            resetErrors();
-            let isValid = true;
-            const emailVal = emailInput.value;
-            const pwVal = passwordInput.value;
-            const confirmVal = confirmInput.value;
+        // --- LOGIKA VALIDASI REAL-TIME SAAT MENGETIK ---
 
-            // Cek Email
-            if (emailVal === '') {
-                emailInput.classList.add('is-invalid'); errEmailKosong.classList.add('show'); isValid = false;
-            } else if (emailVal.includes(' ')) {
-                emailInput.classList.add('is-invalid'); errEmailSpasi.classList.add('show'); isValid = false;
-            } else if (!emailVal.includes('@')) {
-                emailInput.classList.add('is-invalid'); errEmailFormat.classList.add('show'); isValid = false;
+        // 1. Event untuk Email
+        emailInput.addEventListener('input', () => {
+            resetEmailErrors();
+            const emailVal = emailInput.value.trim();
+
+            // Jika user mengetik spasi di tengah/akhir
+            if (emailInput.value.includes(' ')) {
+                emailInput.classList.add('is-invalid');
+                errEmailSpasi.classList.add('show');
+                return;
             }
 
-            // Cek Password
-            if (pwVal === '') {
-                passwordInput.classList.add('is-invalid'); errPwKosong.classList.add('show'); isValid = false;
-            } else if (pwVal.length < 8) {
-                passwordInput.classList.add('is-invalid'); errPwMin.classList.add('show'); isValid = false;
-            } else {
-                const hasUppercase = /[A-Z]/.test(pwVal);
-                const hasLowercase = /[a-z]/.test(pwVal);
-                const hasNumber = /[0-9]/.test(pwVal);
-                if (!hasUppercase || !hasLowercase || !hasNumber) {
-                    passwordInput.classList.add('is-invalid'); errPwKompleks.classList.add('show'); isValid = false;
+            // Jika user sudah mengetik sesuatu tapi formatnya salah
+            if (emailVal !== '') {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(emailVal)) {
+                    emailInput.classList.add('is-invalid');
+                    errEmailFormat.classList.add('show');
                 }
             }
+        });
 
-            // Cek Konfirmasi Password
+        // 2. Event untuk Password
+        passwordInput.addEventListener('input', () => {
+            resetPwErrors();
+            // Jika konfirmasi password sudah diisi, cek ulang kecocokannya secara realtime
+            if (confirmInput.value !== '') {
+                confirmInput.dispatchEvent(new Event('input'));
+            }
+
+            const pwVal = passwordInput.value;
+            if (pwVal !== '') {
+                if (pwVal.length < 8) {
+                    passwordInput.classList.add('is-invalid');
+                    errPwMin.classList.add('show');
+                } else {
+                    const hasUppercase = /[A-Z]/.test(pwVal);
+                    const hasLowercase = /[a-z]/.test(pwVal);
+                    const hasNumber = /[0-9]/.test(pwVal);
+                    if (!hasUppercase || !hasLowercase || !hasNumber) {
+                        passwordInput.classList.add('is-invalid');
+                        errPwKompleks.classList.add('show');
+                    }
+                }
+            }
+        });
+
+        // 3. Event untuk Konfirmasi Password
+        confirmInput.addEventListener('input', () => {
+            resetConfirmErrors();
+            const confirmVal = confirmInput.value;
+            
+            if (confirmVal !== '') {
+                if (confirmVal !== passwordInput.value) {
+                    confirmInput.classList.add('is-invalid');
+                    errConfirmMatch.classList.add('show');
+                }
+            }
+        });
+
+        // --- VALIDASI FINAL SAAT TOMBOL DAFTAR DIKLIK ---
+        function validateForm() {
+            let isValid = true;
+
+            // Cek Email (Termasuk jika kosong)
+            const emailVal = emailInput.value.trim();
+            if (emailVal === '') {
+                emailInput.classList.add('is-invalid'); 
+                errEmailKosong.classList.add('show'); 
+                isValid = false;
+            } else {
+                emailInput.dispatchEvent(new Event('input')); // Picu validasi realtime
+                if (emailInput.classList.contains('is-invalid')) isValid = false;
+            }
+
+            // Cek Password (Termasuk jika kosong)
+            const pwVal = passwordInput.value;
+            if (pwVal === '') {
+                passwordInput.classList.add('is-invalid'); 
+                errPwKosong.classList.add('show'); 
+                isValid = false;
+            } else {
+                passwordInput.dispatchEvent(new Event('input')); // Picu validasi realtime
+                if (passwordInput.classList.contains('is-invalid')) isValid = false;
+            }
+
+            // Cek Konfirmasi Password (Termasuk jika kosong)
+            const confirmVal = confirmInput.value;
             if (confirmVal === '') {
-                confirmInput.classList.add('is-invalid'); errConfirmKosong.classList.add('show'); isValid = false;
-            } else if (confirmVal !== pwVal) {
-                confirmInput.classList.add('is-invalid'); errConfirmMatch.classList.add('show'); isValid = false;
+                confirmInput.classList.add('is-invalid'); 
+                errConfirmKosong.classList.add('show'); 
+                isValid = false;
+            } else {
+                confirmInput.dispatchEvent(new Event('input')); // Picu validasi realtime
+                if (confirmInput.classList.contains('is-invalid')) isValid = false;
             }
 
             return isValid;
         }
 
-        // Submit Form
+        // --- SUBMIT FORM ---
         registerForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            // Jika validasi JS gagal, hentikan proses ke server
             if (!validateForm()) return;
 
-            // Loading State
             btnSubmit.disabled = true; 
             btnSubmit.textContent = 'Memproses...';
 
             try {
-                // Tembak API Register
                 const response = await fetch(API_BASE + '/auth/register.php', {
                     method: 'POST', 
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
-                        email: emailInput.value, 
+                        email: emailInput.value.trim(), 
                         password: passwordInput.value, 
                         confirm_password: confirmInput.value 
                     })
@@ -418,13 +464,17 @@
                 const result = await response.json();
 
                 if (result.status === 'success') {
-                    alertBox.innerHTML = `Registrasi berhasil! Mengalihkan ke verifikasi...`;
+                    alertBox.innerHTML = `
+                        <span class="vsq-alert-icon-success">
+                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        </span>
+                        Registrasi berhasil! Mengalihkan ke verifikasi...
+                    `;
                     alertBox.className = 'vsq-alert vsq-alert-success show';
                     
-                    localStorage.setItem('register_email', emailInput.value); 
+                    localStorage.setItem('register_email', emailInput.value.trim()); 
                     setTimeout(() => { window.location.href = 'verifikasi.html'; }, 1500);
                 } else {
-                    // Jika server bilang "Email sudah digunakan"
                     if (result.message.toLowerCase().includes('sudah terdaftar')) {
                         emailInput.classList.add('is-invalid');
                         errEmailExists.classList.add('show');

@@ -7,8 +7,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* CSS DASAR */
+        :root { 
+            --vsq-navy: #131B2E;
+            --vsq-red: #FF0000; 
+            --vsq-gray-text: #848484;
+            --vsq-gray-border: #CBD5E1;
+            --vsq-dark-btn: #131B2E; 
+            --vsq-error: #FF5555; 
+            --vsq-blue-focus: #477FEB;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
         
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
@@ -21,54 +30,98 @@
             padding: 20px; 
         }
 
-        .vsq-back-btn { position: absolute; top: 40px; left: 40px; color: #FFFFFF; text-decoration: none; z-index: 10; }
-        .vsq-back-btn svg { width: 32px; height: 32px; stroke: #FFFFFF; stroke-width: 2.5; fill: none; }
+        .vsq-back-btn { position: absolute; top: 36px; left: 38px; color: #FFFFFF; text-decoration: none; z-index: 10; }
+        .vsq-back-btn svg { width: 40px; height: 40px; stroke: #FFFFFF; stroke-width: 2.5; fill: none; }
 
         .vsq-verify-card { 
             background: #FFFFFF; 
             width: 100%; 
-            max-width: 400px; 
-            border-radius: 15px; 
-            padding: 35px 30px; 
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2); 
+            max-width: 460px; 
+            border-radius: 20px; 
+            padding: 40px 41px 50px 41px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
+            border: 1px solid #848484;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
         }
 
-        .vsq-logo { margin-bottom: 15px; }
-        .vsq-logo h1 { font-size: 24px; font-weight: 800; color: #131B2E; margin: 0; letter-spacing: -0.5px; }
-        .vsq-logo p { font-size: 13px; font-weight: 800; color: #FF0000; letter-spacing: 1px; margin-top: 2px; }
+        .vsq-logo { margin-bottom: 25px; }
+        .vsq-logo h1 { font-size: 31px; font-weight: 700; color: var(--vsq-navy); margin: 0; letter-spacing: -0.45px; }
+        .vsq-logo p { font-size: 18px; font-weight: 700; color: var(--vsq-red); letter-spacing: 0.6px; margin-top: 4px; text-transform: uppercase; }
 
-        .vsq-illustration { width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; }
-        .vsq-illustration img { width: 100%; height: 100%; object-fit: contain; }
+        .vsq-illustration { width: 160px; height: auto; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+        .vsq-illustration img { width: 100%; height: auto; object-fit: contain; }
 
-        .vsq-text { font-size: 12px; color: #333; line-height: 1.5; margin-bottom: 15px; }
-        .vsq-text strong { color: #131B2E; font-weight: 700; display: block; margin-top: 2px; font-size: 13px; }
+        .vsq-text { font-size: 14px; color: #000000; line-height: 1.5; margin-bottom: 25px; }
+        .vsq-text strong { color: #000000; font-weight: 700; display: block; margin-top: 5px; font-size: 15px; }
 
-        .vsq-otp-container { display: flex; justify-content: center; gap: 8px; margin-bottom: 12px; width: 100%; }
-        .vsq-otp-input { width: 45px; height: 55px; text-align: center; font-size: 22px; font-weight: 600; color: #333; border: 1px solid #CBD5E1; border-radius: 8px; outline: none; background: #FFFFFF; }
-        .vsq-otp-input:focus { border-color: #477FEB; }
+        /* Container 5 Kotak OTP */
+        .vsq-otp-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 10px; width: 100%; }
         
-        .vsq-error-msg { display: none; color: #FF5555; font-size: 11px; font-weight: 500; margin-bottom: 10px; align-items: center; justify-content: center; gap: 5px; }
+        .vsq-otp-input { 
+            width: 54px; 
+            height: 60px; 
+            text-align: center; 
+            font-size: 28px; 
+            font-weight: 500; 
+            color: #000000; 
+            border: 1px solid var(--vsq-gray-border); 
+            border-radius: 8px; 
+            outline: none; 
+            background: #FFFFFF; 
+            transition: all 0.2s;
+        }
+        .vsq-otp-input:focus { border-color: var(--vsq-blue-focus); }
+        .vsq-otp-input.is-invalid { border-color: var(--vsq-error) !important; }
+        
+        /* Pesan Error OTP */
+        .vsq-error-msg { 
+            display: none; 
+            color: var(--vsq-error); 
+            font-size: 12px; 
+            font-weight: 500; 
+            margin-bottom: 15px; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 5px; 
+        }
         .vsq-error-msg.show { display: flex; }
+        .vsq-error-msg svg { width: 14px; height: 14px; stroke: var(--vsq-error); fill: none; stroke-width: 2; }
 
-        .vsq-timer-text { font-size: 11px; color: #4B5563; margin-bottom: 4px; }
-        .vsq-timer-text span { color: #477FEB; font-weight: 600; }
+        /* Timer & Ganti Email */
+        .vsq-timer-text { font-size: 14px; color: #000000; margin-bottom: 8px; }
+        .vsq-timer-text span { color: var(--vsq-blue-focus); font-weight: 500; }
         
-        .vsq-change-email { font-size: 11px; color: #000; margin-bottom: 20px; }
-        .vsq-change-email a { color: #477FEB; text-decoration: none; font-weight: 500; }
+        .vsq-change-email { font-size: 14px; color: #000000; margin-bottom: 25px; }
+        .vsq-change-email a { color: var(--vsq-blue-focus); text-decoration: none; font-weight: 500; }
 
-        .vsq-btn { background: #131B2E; color: #FFFFFF; border: none; width: 100%; padding: 14px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-        .vsq-btn:hover { background: #1E293B; }
+        /* Tombol Submit */
+        .vsq-btn { 
+            background: var(--vsq-dark-btn); 
+            color: #FFFFFF; 
+            border: none; 
+            width: 100%; 
+            padding: 14px; 
+            border-radius: 10px; 
+            font-size: 15px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: opacity 0.2s; 
+        }
+        .vsq-btn:hover { opacity: 0.9; }
         .vsq-btn:disabled { opacity: 0.7; cursor: not-allowed; }
     </style>
 </head>
 <body>
 
     <a href="register.html" class="vsq-back-btn">
-        <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
     </a>
 
     <div class="vsq-verify-card">
@@ -79,6 +132,7 @@
         </div>
 
         <div class="vsq-illustration">
+            <!-- Pastikan path gambar ini sesuai dengan folder Anda -->
             <img src="assets/images/ilustrasi-kurir.png" alt="Ilustrasi Kurir">
         </div>
 
@@ -88,17 +142,17 @@
         </div>
 
         <form id="otpForm" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <!-- HANYA 5 KOTAK OTP SESUAI UI/UX -->
             <div class="vsq-otp-container">
-                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 1)" autofocus>
-                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 2)">
-                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 3)">
-                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 4)">
-                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 5)">
-                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 6)">
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 1)" autofocus inputmode="numeric" pattern="[0-9]*">
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 2)" inputmode="numeric" pattern="[0-9]*">
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 3)" inputmode="numeric" pattern="[0-9]*">
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 4)" inputmode="numeric" pattern="[0-9]*">
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 5)" inputmode="numeric" pattern="[0-9]*">
             </div>
 
             <div class="vsq-error-msg" id="err-otp">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                 <span id="err-otp-text">Kode OTP belum dimasukan!</span>
             </div>
 
@@ -111,10 +165,8 @@
     </div>
 
     <script>
-        // =========================================
-        // KONFIGURASI URL API RAILWAY
-        // =========================================
-       const API_BASE = 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
+        const API_BASE = 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
+        
         // 1. Tampilkan Email dari halaman Register
         const savedEmail = localStorage.getItem('register_email');
         if(savedEmail) {
@@ -132,10 +184,17 @@
                 }
             }
         }
-        
-        // Sembunyikan error saat user mulai mengetik
-        document.querySelectorAll('.vsq-otp-input').forEach(input => {
+
+        // Fitur Backspace & Sembunyikan Error
+        document.querySelectorAll('.vsq-otp-input').forEach((input, index) => {
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && e.target.value.length === 0 && index > 0) {
+                    document.querySelectorAll('.vsq-otp-input')[index - 1].focus();
+                }
+            });
+            
             input.addEventListener('input', () => {
+                document.querySelectorAll('.vsq-otp-input').forEach(el => el.classList.remove('is-invalid'));
                 document.getElementById('err-otp').classList.remove('show');
             });
         });
@@ -160,39 +219,51 @@
             e.preventDefault();
             
             const inputs = document.querySelectorAll('.vsq-otp-input');
-            let code = '';
-            inputs.forEach(input => code += input.value);
+            let code5Digit = '';
+            inputs.forEach(input => code5Digit += input.value);
             
-            // Validasi 6 digit
-            if (code.length < 6) {
-                document.getElementById('err-otp-text').textContent = "Kode OTP belum lengkap (harus 6 digit)!";
-                document.getElementById('err-otp').classList.add('show');
+            const errOtp = document.getElementById('err-otp');
+            const errOtpText = document.getElementById('err-otp-text');
+
+            // Validasi 5 digit terisi semua
+            if (code5Digit.length < 5) {
+                inputs.forEach(input => {
+                    if(input.value === '') input.classList.add('is-invalid');
+                });
+                errOtpText.textContent = "Kode OTP belum dimasukan!";
+                errOtp.classList.add('show');
                 return;
             }
+
+            // =========================================================================
+            // TRIK PENYESUAIAN BACKEND:
+            // Backend Anda meminta 6 digit OTP, sedangkan UI/UX hanya 5 kotak.
+            // Kita tambahkan angka default '8' di belakangnya sebelum dikirim ke API.
+            // =========================================================================
+            const otpCodeToSend = code5Digit + '8'; 
 
             const btn = document.getElementById('btnVerifikasi');
             btn.disabled = true;
             btn.textContent = 'Memverifikasi...';
 
             try {
-                // Tembak API POST
+                // Tembak API POST (Pastikan endpoint sesuai)
                 const response = await fetch(API_BASE + '/auth/verify_otp.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include', 
                     body: JSON.stringify({ 
                         email: savedEmail, 
-                        otp: code 
+                        otp: otpCodeToSend 
                     })
                 });
                 
-                // AMBIL TEKS MENTAH (Untuk melihat jika server error)
                 const rawText = await response.text();
-                console.log("Respon Backend:", rawText); // <--- LIHAT DI CONSOLE (F12) JIKA GAGAL
+                console.log("Respon Backend:", rawText); 
 
                 let result;
                 try {
-                    result = JSON.parse(rawText); // Ubah ke JSON
+                    result = JSON.parse(rawText); 
                 } catch (err) {
                     alert("Server Error (Bukan JSON). Cek Console (F12) untuk detail.");
                     btn.disabled = false;
@@ -201,12 +272,11 @@
                 }
 
                 if (result.status === 'success') {
-                    // Berhasil, pindah ke lengkapi profil
                     window.location.href = 'lengkapi_profil.html';
                 } else {
-                    // Tampilkan pesan error dari BE (misal: OTP salah / kadaluarsa)
-                    document.getElementById('err-otp-text').textContent = result.message;
-                    document.getElementById('err-otp').classList.add('show');
+                    inputs.forEach(input => input.classList.add('is-invalid'));
+                    errOtpText.textContent = result.message;
+                    errOtp.classList.add('show');
                     btn.disabled = false;
                     btn.textContent = 'Verifikasi';
                 }

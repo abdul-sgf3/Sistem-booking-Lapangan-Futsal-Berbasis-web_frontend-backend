@@ -1,0 +1,829 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Lapangan - Vincent'SQ Sports Arena</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #131B2E;
+            --blue: #477FEB;
+            --background: #F7F9FC;
+            --white: #FFFFFF;
+            --border: #E2E8F0;
+            --skeleton: #E2E8F0;
+            --breadcrumb-color: #315F91;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--background);
+            color: var(--navy);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            width: 100%;
+            height: 105px;
+            padding: 0 3.5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            z-index: 10;
+        }
+
+        .brand {
+            font-size: 25px;
+            font-weight: 800;
+            line-height: 1.1;
+            white-space: nowrap;
+        }
+
+        .brand span {
+            display: block;
+            color: #FF3030;
+            font-size: 17px;
+            letter-spacing: .4px;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-menu a {
+            padding: 19px 21px;
+            border-radius: 18px;
+            font-size: 15px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: .2s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--blue);
+        }
+
+        .nav-menu a.active {
+            background: var(--navy);
+            color: white;
+        }
+
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .nav-auth a {
+            min-width: 130px;
+            padding: 15px 24px;
+            text-align: center;
+            border-radius: 18px;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .login {
+            border: 1px solid var(--navy);
+            background: white;
+        }
+
+        .register {
+            background: var(--navy);
+            color: white;
+        }
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
+        .container {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 20px 42px 80px;
+        }
+
+        /* =========================
+           BREADCRUMB
+           MENGIKUTI UKURAN GAMBAR 1
+        ========================= */
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+
+            width: auto;
+            height: 30px;
+
+            margin: 0 0 27px 0;
+            padding: 0;
+
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 20px;
+
+            color: var(--breadcrumb-color);
+        }
+
+        /* IKON HOME */
+
+        .breadcrumb .home-icon {
+            width: 27px;
+            height: 27px;
+            flex: 0 0 27px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #45658A;
+        }
+
+        .breadcrumb .home-icon svg {
+            width: 27px;
+            height: 27px;
+            display: block;
+        }
+
+        /* IKON PANAH */
+
+        .breadcrumb .separator {
+            width: 14px;
+            height: 27px;
+            flex: 0 0 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #7892B0;
+        }
+
+        .breadcrumb .separator svg {
+            width: 14px;
+            height: 20px;
+            display: block;
+        }
+
+        /* TEKS BOOKING LAPANGAN */
+
+        .breadcrumb .booking-link {
+            width: auto;
+            height: 20px;
+            flex: 0 0 auto;
+
+            display: flex;
+            align-items: center;
+
+            color: var(--breadcrumb-color);
+
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 20px;
+
+            white-space: nowrap;
+        }
+
+        /* NAMA LAPANGAN */
+
+        .breadcrumb .current {
+            width: auto;
+            height: 20px;
+            flex: 0 0 auto;
+
+            display: flex;
+            align-items: center;
+
+            color: var(--breadcrumb-color);
+
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 20px;
+
+            white-space: nowrap;
+        }
+
+        /* =========================
+           PAGE HEADING
+        ========================= */
+
+        .page-heading {
+            margin-bottom: 30px;
+        }
+
+        .page-heading h1 {
+            font-size: 29px;
+            font-weight: 800;
+            margin-bottom: 9px;
+        }
+
+        .page-heading p {
+            font-size: 13px;
+            color: #64748B;
+        }
+
+        /* =========================
+           BOOKING LAYOUT
+        ========================= */
+
+        .booking-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.65fr) minmax(280px, .85fr);
+            gap: 25px;
+            align-items: start;
+        }
+
+        .left-column,
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            min-width: 0;
+        }
+
+        /* =========================
+           SKELETON CARD
+        ========================= */
+
+        .skeleton-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 23px;
+        }
+
+        .skeleton {
+            position: relative;
+            overflow: hidden;
+            background: var(--skeleton);
+            border-radius: 8px;
+        }
+
+        .skeleton::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255,255,255,.65) 50%,
+                transparent 100%
+            );
+
+            transform: translateX(-100%);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* =========================
+           SKELETON TITLE
+        ========================= */
+
+        .sk-title {
+            width: 190px;
+            height: 19px;
+            margin-bottom: 23px;
+        }
+
+        .sk-label {
+            width: 125px;
+            height: 13px;
+            margin-bottom: 10px;
+        }
+
+        .sk-label.short {
+            width: 85px;
+        }
+
+        /* =========================
+           INFORMASI LAPANGAN
+        ========================= */
+
+        .field-skeleton {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .field-image {
+            width: 155px;
+            height: 115px;
+            flex-shrink: 0;
+            border-radius: 11px;
+        }
+
+        .field-information {
+            flex: 1;
+        }
+
+        .sk-field-name {
+            width: 65%;
+            height: 18px;
+            margin-bottom: 15px;
+        }
+
+        .sk-field-detail {
+            width: 45%;
+            height: 12px;
+            margin-bottom: 11px;
+        }
+
+        .sk-field-price {
+            width: 55%;
+            height: 17px;
+            margin-top: 14px;
+        }
+
+        /* =========================
+           TANGGAL DAN JAM
+        ========================= */
+
+        .date-skeleton {
+            width: 100%;
+            height: 46px;
+            border-radius: 9px;
+            margin-bottom: 24px;
+        }
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 11px;
+            margin-bottom: 24px;
+        }
+
+        .time-item {
+            height: 43px;
+            border-radius: 8px;
+        }
+
+        .duration-skeleton {
+            width: 100%;
+            height: 46px;
+            border-radius: 9px;
+        }
+
+        /* =========================
+           INFORMASI PEMESAN
+        ========================= */
+
+        .customer-input {
+            width: 100%;
+            height: 46px;
+            border-radius: 9px;
+            margin-bottom: 21px;
+        }
+
+        .customer-textarea {
+            width: 100%;
+            height: 90px;
+            border-radius: 9px;
+        }
+
+        /* =========================
+           RINGKASAN BOOKING
+        ========================= */
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .summary-label {
+            width: 90px;
+            height: 12px;
+        }
+
+        .summary-value {
+            width: 105px;
+            height: 13px;
+        }
+
+        .summary-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 23px 0;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 23px;
+        }
+
+        .total-label {
+            width: 105px;
+            height: 15px;
+        }
+
+        .total-value {
+            width: 125px;
+            height: 22px;
+        }
+
+        .summary-notice {
+            width: 100%;
+            height: 75px;
+            border-radius: 9px;
+            margin-bottom: 20px;
+        }
+
+        .summary-button {
+            width: 100%;
+            height: 49px;
+            border-radius: 9px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1050px) {
+            .navbar {
+                padding: 0 22px;
+            }
+
+            .nav-menu a {
+                padding: 15px 12px;
+                font-size: 12px;
+            }
+
+            .nav-auth {
+                gap: 9px;
+            }
+
+            .nav-auth a {
+                min-width: 85px;
+                padding: 13px;
+                font-size: 12px;
+            }
+
+            .booking-layout {
+                grid-template-columns: minmax(0, 1.4fr) minmax(250px, .8fr);
+            }
+        }
+
+        @media (max-width: 760px) {
+            .navbar {
+                height: auto;
+                min-height: 90px;
+                flex-wrap: wrap;
+                gap: 18px;
+                padding: 20px;
+            }
+
+            .brand {
+                font-size: 21px;
+            }
+
+            .brand span {
+                font-size: 14px;
+            }
+
+            .nav-menu {
+                order: 3;
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 5px;
+            }
+
+            .nav-menu a {
+                padding: 12px 15px;
+                font-size: 12px;
+            }
+
+            .nav-auth a {
+                min-width: 70px;
+                padding: 11px;
+            }
+
+            .container {
+                padding: 20px 17px 60px;
+            }
+
+            .breadcrumb {
+                gap: 9px;
+                font-size: 14px;
+                overflow-x: auto;
+            }
+
+            .breadcrumb .home-icon,
+            .breadcrumb .home-icon svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .breadcrumb .separator {
+                width: 12px;
+                flex-basis: 12px;
+            }
+
+            .breadcrumb .separator svg {
+                width: 12px;
+                height: 18px;
+            }
+
+            .breadcrumb .booking-link,
+            .breadcrumb .current {
+                font-size: 14px;
+            }
+
+            .page-heading h1 {
+                font-size: 24px;
+            }
+
+            .booking-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .skeleton-card {
+                padding: 17px;
+            }
+
+            .field-skeleton {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .field-image {
+                width: 100%;
+                height: 175px;
+            }
+
+            .field-information {
+                width: 100%;
+            }
+
+            .time-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 9px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+
+        <a href="index.html" class="brand">
+            Vincent'SQ
+            <span>SPORTS ARENA</span>
+        </a>
+
+        <nav class="nav-menu">
+            <a href="index.html">Beranda</a>
+            <a href="lapangan.html" class="active">Booking Lapangan</a>
+            <a href="riwayat.html">Riwayat Booking</a>
+            <a href="makanan.html">Makanan Minuman</a>
+        </nav>
+
+        <div class="nav-auth">
+            <a href="login.html" class="login">Login</a>
+            <a href="register.html" class="register">Register</a>
+        </div>
+
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+
+        <!-- BREADCRUMB -->
+        <div class="breadcrumb">
+
+            <!-- HOME ICON -->
+            <a href="index.html" class="home-icon" aria-label="Beranda">
+                <svg viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+
+                    <path d="m3 10 9-7 9 7"></path>
+                    <path d="M5 9v12h14V9"></path>
+                    <path d="M9 21v-8h6v8"></path>
+                </svg>
+            </a>
+
+            <!-- PANAH PERTAMA -->
+            <span class="separator">
+                <svg viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+
+                    <path d="m9 18 6-6-6-6"></path>
+                </svg>
+            </span>
+
+            <!-- BOOKING LAPANGAN -->
+            <a href="lapangan.html" class="booking-link">
+                Booking Lapangan
+            </a>
+
+            <!-- PANAH KEDUA -->
+            <span class="separator">
+                <svg viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+
+                    <path d="m9 18 6-6-6-6"></path>
+                </svg>
+            </span>
+
+            <!-- NAMA LAPANGAN -->
+            <span class="current" id="breadcrumbField">
+                Lapangan Futsal 1
+            </span>
+
+        </div>
+
+        <!-- PAGE HEADING -->
+        <div class="page-heading">
+            <h1>Booking Lapangan</h1>
+            <p>Lengkapi informasi pemesanan lapangan sesuai jadwal yang kamu inginkan.</p>
+        </div>
+
+        <!-- SKELETON BOOKING -->
+        <section class="booking-layout">
+
+            <!-- KOLOM KIRI -->
+            <div class="left-column">
+
+                <!-- INFORMASI LAPANGAN -->
+                <div class="skeleton-card">
+
+                    <div class="skeleton sk-title"></div>
+
+                    <div class="field-skeleton">
+
+                        <div class="skeleton field-image"></div>
+
+                        <div class="field-information">
+                            <div class="skeleton sk-field-name"></div>
+                            <div class="skeleton sk-field-detail"></div>
+                            <div class="skeleton sk-field-detail"></div>
+                            <div class="skeleton sk-field-price"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- PILIH JADWAL -->
+                <div class="skeleton-card">
+
+                    <div class="skeleton sk-title"></div>
+
+                    <div class="skeleton sk-label"></div>
+                    <div class="skeleton date-skeleton"></div>
+
+                    <div class="skeleton sk-label"></div>
+
+                    <div class="time-grid">
+                        <div class="skeleton time-item"></div>
+                        <div class="skeleton time-item"></div>
+                        <div class="skeleton time-item"></div>
+                        <div class="skeleton time-item"></div>
+                        <div class="skeleton time-item"></div>
+                        <div class="skeleton time-item"></div>
+                        <div class="skeleton time-item"></div>
+                        <div class="skeleton time-item"></div>
+                    </div>
+
+                    <div class="skeleton sk-label short"></div>
+                    <div class="skeleton duration-skeleton"></div>
+
+                </div>
+
+                <!-- INFORMASI PEMESAN -->
+                <div class="skeleton-card">
+
+                    <div class="skeleton sk-title"></div>
+
+                    <div class="skeleton sk-label"></div>
+                    <div class="skeleton customer-input"></div>
+
+                    <div class="skeleton sk-label"></div>
+                    <div class="skeleton customer-input"></div>
+
+                    <div class="skeleton sk-label"></div>
+                    <div class="skeleton customer-textarea"></div>
+
+                </div>
+
+            </div>
+
+            <!-- KOLOM KANAN -->
+            <div class="right-column">
+
+                <!-- RINGKASAN BOOKING -->
+                <div class="skeleton-card">
+
+                    <div class="skeleton sk-title"></div>
+
+                    <div class="summary-row">
+                        <div class="skeleton summary-label"></div>
+                        <div class="skeleton summary-value"></div>
+                    </div>
+
+                    <div class="summary-row">
+                        <div class="skeleton summary-label"></div>
+                        <div class="skeleton summary-value"></div>
+                    </div>
+
+                    <div class="summary-row">
+                        <div class="skeleton summary-label"></div>
+                        <div class="skeleton summary-value"></div>
+                    </div>
+
+                    <div class="summary-row">
+                        <div class="skeleton summary-label"></div>
+                        <div class="skeleton summary-value"></div>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <div class="summary-total">
+                        <div class="skeleton total-label"></div>
+                        <div class="skeleton total-value"></div>
+                    </div>
+
+                    <div class="skeleton summary-notice"></div>
+
+                    <div class="skeleton summary-button"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Mengambil ID lapangan dari URL
+        const params = new URLSearchParams(window.location.search);
+        const fieldId = params.get("id") || "1";
+
+        // Nama lapangan berdasarkan ID
+        const fieldNames = {
+            "1": "Lapangan Futsal 1",
+            "2": "Lapangan Futsal 2",
+            "3": "Lapangan Futsal 3"
+        };
+
+        // Memperbarui nama lapangan pada breadcrumb
+        document.getElementById("breadcrumbField").textContent =
+            fieldNames[fieldId] || "Detail Lapangan";
+    </script>
+
+</body>
+</html>

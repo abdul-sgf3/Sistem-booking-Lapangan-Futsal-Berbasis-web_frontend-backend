@@ -15,7 +15,7 @@
             --vsq-red: #FF0000;
             --vsq-gold: #FFD700;
             --vsq-gray: #848484;
-            --vsq-lightgray: #D9D9D9;
+            --vsq-lightgray: #E5E7EB;
             --vsq-black: #000000;
             --vsq-white: #FFFFFF;
         }
@@ -81,68 +81,200 @@
         .vsq-section-title h2 { font-size: 36px; font-weight: 700; line-height: 45px; color: var(--vsq-navy); margin: 0 0 12px 0; }
         .vsq-section-title p { font-size: 18px; color: var(--vsq-navy); margin: 0; font-weight: 500; }
 
-        .sl-skeleton { background-color: #E2E8F0; border-radius: 6px; position: relative; overflow: hidden; }
-        .sl-skeleton::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent); animation: shimmer 1.5s infinite; }
-        @keyframes shimmer { 100% { left: 100%; } }
-        .sl-card { display: flex; border: 1px solid #E2E8F0; border-radius: 20px; height: 280px; margin-bottom: 30px; background: white; overflow: hidden; }
-        .sl-img { width: 50%; height: 100%; background-color: #CBD5E1; flex-shrink: 0; }
-        .sl-content { padding: 30px; flex: 1; display: flex; flex-direction: column; gap: 15px; }
-        .sl-title { height: 28px; width: 50%; }
-        .sl-text { height: 16px; width: 100%; }
-        .sl-text.short { width: 70%; }
-        .sl-btn { height: 45px; width: 180px; margin-top: 20px; }
-
         .vsq-lapangan-grid { display: flex; flex-direction: column; gap: 30px; width: 100%; }
-        .vsq-card { background: var(--vsq-white); border: 1px solid #D1D5DB; border-radius: 20px; overflow: hidden; display: flex; flex-direction: row; width: 100%; height: 350px; transition: box-shadow 0.3s, transform 0.3s; }
-        .vsq-card:hover { box-shadow: 0 15px 35px rgba(0,0,0,0.1); transform: translateY(-4px); }
-        .vsq-card-img { position: relative; width: 50%; flex-shrink: 0; background-size: cover; background-position: center; border-radius: 20px 0 0 20px; }
-        .vsq-card-body { padding: 40px 40px 40px 50px; flex: 1; display: flex; flex-direction: column; }
-        .vsq-card-header { display: flex; align-items: center; gap: 20px; margin-bottom: 30px; }
-        .vsq-card-header h3 { font-size: 24px; font-weight: 600; color: var(--vsq-black); margin: 0; }
-        .vsq-card-badge { padding: 8px 24px; border-radius: 60px; font-size: 14px; font-weight: 500; white-space: nowrap; display: inline-flex; justify-content: center; align-items: center; }
+        
+        /* === CARD LAPANGAN === */
+        .vsq-card { background: var(--vsq-white); border: 1px solid #848484; border-radius: 20px; display: flex; flex-direction: row; width: 100%; height: 532px; overflow: hidden; transition: box-shadow 0.3s, transform 0.3s; }
+        .vsq-card:hover { box-shadow: 0 15px 35px rgba(0,0,0,0.08); transform: translateY(-4px); }
+        .vsq-card-img { position: relative; width: 50%; flex-shrink: 0; background-size: cover; background-position: center; border-radius: 15px; }
+        .vsq-card-body { padding: 34px 40px 34px 35px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .vsq-card-header { display: flex; align-items: center; gap: 20px; margin-bottom: 0; }
+        .vsq-card-header h3 { font-size: 32px; font-weight: 600; color: var(--vsq-black); margin: 0; letter-spacing: -0.5px; }
+        .vsq-card-badge { padding: 10px 30px; border-radius: 60px; font-size: 18px; font-weight: 500; white-space: nowrap; display: inline-flex; justify-content: center; align-items: center; }
         .badge-vip { background: var(--vsq-gold); color: var(--vsq-black); }
         .badge-regular { background: var(--vsq-lightgray); color: var(--vsq-black); }
-        .vsq-fasilitas { list-style: none; padding: 0; margin: 0 0 30px 0; display: flex; flex-direction: column; gap: 20px; }
-        .vsq-fasilitas li { font-size: 16px; color: var(--vsq-black); display: flex; align-items: center; gap: 15px; line-height: 20px; }
-        .vsq-fasilitas li::before { content: "✓"; color: var(--vsq-white); background: var(--vsq-black); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; flex-shrink: 0; }
-        .vsq-card-footer { margin-top: auto; display: flex; justify-content: flex-end; }
-        .vsq-btn-booking { background: var(--vsq-navy); color: var(--vsq-white); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: none; cursor: pointer; width: auto; height: 45px; transition: background 0.2s; }
-        .vsq-btn-booking::after { content: "→"; font-size: 18px; font-weight: 400; }
+        .vsq-fasilitas { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 28px; margin-top: 20px; margin-bottom: 20px; }
+        .vsq-fasilitas li { font-size: 22px; color: var(--vsq-black); display: flex; align-items: center; gap: 20px; line-height: 1.4; font-weight: 400; }
+        .vsq-fasilitas li::before { content: "✓"; color: var(--vsq-white); background: var(--vsq-black); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 900; flex-shrink: 0; }
+        .vsq-card-footer { display: flex; justify-content: flex-end; align-items: flex-end; }
+        .vsq-btn-booking { background: var(--vsq-navy); color: var(--vsq-white); padding: 15px 30px; border-radius: 10px; text-decoration: none; font-size: 20px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 15px; border: none; cursor: pointer; height: 60px; min-width: 240px; transition: background 0.2s; }
+        .vsq-btn-booking::after { content: "→"; font-size: 24px; font-weight: 400; }
         .vsq-btn-booking:hover { background: #0a0e1a; }
 
-        /* CARA BOOKING */
-        .vsq-steps-wrapper { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto; }
-        .vsq-step-card { background: #FFFFFF; border: 1px solid #848484; border-radius: 15px; width: 271px; height: 194px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .vsq-step-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
-        .vsq-step-number { width: 36px; height: 36px; background: #131B2E; color: #FFFFFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 500; }
-        .vsq-step-icon { width: 50px; height: 50px; stroke: #131B2E; }
-        .vsq-step-card h4 { font-size: 18px; font-weight: 600; color: #131B2E; margin: 0 0 8px 0; text-align: center; }
-        .vsq-step-card p { font-size: 14px; color: #131B2E; line-height: 18px; text-align: center; width: 187px; margin: 0; }
-        .vsq-arrow-icon { color: #131B2E; width: 25px; height: 46px; display: flex; align-items: center; justify-content: center; }
+        /* === CARA BOOKING (SANGAT PRESISI DENGAN GAMBAR PERTAMA) === */
+        .vsq-steps-wrapper { 
+            display: flex; 
+            flex-direction: row; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 20px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        
+        .vsq-step-card { 
+            background: #FFFFFF; 
+            border: 1px solid #C0C4CC; 
+            border-radius: 12px; /* Sudut agak kotak membulat */
+            width: 260px; /* Lebar proporsional */
+            height: 160px; /* Tinggi ringkas horizontal */
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; /* Teks & ikon ke tengah */
+            padding: 20px 16px; 
+            box-sizing: border-box; 
+        }
+        
+        .vsq-step-header { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            margin-bottom: 12px; 
+        }
+        
+        .vsq-step-number { 
+            width: 28px; 
+            height: 28px; 
+            background: #131B2E; 
+            color: #FFFFFF; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 14px; 
+            font-weight: 600; 
+        }
+        
+        .vsq-step-icon { 
+            width: 32px; 
+            height: 32px; 
+            object-fit: contain; 
+        }
+        
+        .vsq-step-card h4 { 
+            font-size: 16px; 
+            font-weight: 700; 
+            color: #131B2E; 
+            margin: 0 0 8px 0; 
+            text-align: center; 
+        }
+        
+        .vsq-step-card p { 
+            font-size: 13px; 
+            color: #4B5563; 
+            line-height: 1.4; 
+            text-align: center; 
+            margin: 0; 
+            max-width: 95%; 
+        }
+        
+        .vsq-arrow-icon { 
+            color: #131B2E; 
+            width: 24px; 
+            height: 24px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            flex-shrink: 0;
+        }
 
-        /* FAQ */
-        .vsq-faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; max-width: 1292px; margin: 0 auto; }
-        .vsq-faq-item { background: var(--vsq-white); border: 1px solid var(--vsq-gray); border-radius: 20px; cursor: pointer; box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.25); overflow: hidden; }
-        .vsq-faq-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 28px; gap: 16px; user-select: none; }
-        .vsq-faq-header .faq-text { display: flex; gap: 12px; align-items: flex-start; font-size: 24px; font-weight: 400; color: var(--vsq-black); line-height: 32px; }
-        .vsq-faq-header .faq-number { color: var(--vsq-black); font-weight: 400; flex-shrink: 0; }
-        .vsq-faq-header .faq-arrow { color: var(--vsq-black); font-size: 32px; font-weight: 500; flex-shrink: 0; transition: transform 0.3s ease; }
-        .vsq-faq-item.active .faq-arrow { transform: rotate(180deg); }
-        .vsq-faq-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; padding: 0 28px; font-size: 18px; color: var(--vsq-gray); line-height: 1.6; }
-        .vsq-faq-item.active .vsq-faq-body { max-height: 200px; padding: 0 28px 24px 28px; }
+        /* === FAQ (TATA LETAK RAPI, TINGGI SAMA, NOMOR DI TENGAH) === */
+        .vsq-faq-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            grid-auto-rows: 1fr; 
+            gap: 20px; 
+            max-width: 1292px; 
+            margin: 0 auto; 
+        }
+        
+        .vsq-faq-item { 
+            background: var(--vsq-white); 
+            border: 1px solid #848484; 
+            border-radius: 15px; 
+            cursor: pointer; 
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .vsq-faq-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 20px 24px; 
+            gap: 16px; 
+            user-select: none; 
+            flex: 1; 
+        }
+        
+        .vsq-faq-header .faq-text-wrapper {
+            display: flex; 
+            gap: 12px; 
+            align-items: center; 
+            flex: 1; 
+        }
+        
+        .vsq-faq-header .faq-number { 
+            color: var(--vsq-black); 
+            font-weight: 500; 
+            flex-shrink: 0; 
+            font-size: 20px; 
+            line-height: 1.5;
+        }
+        
+        .vsq-faq-header .faq-text { 
+            font-size: 20px; 
+            font-weight: 500; 
+            color: var(--vsq-black); 
+            line-height: 1.4; 
+            text-align: left;
+        }
+        
+        .vsq-faq-header .faq-arrow { 
+            color: var(--vsq-black); 
+            flex-shrink: 0; 
+            transition: transform 0.3s ease; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        }
+        
+        .vsq-faq-item.active .faq-arrow { 
+            transform: rotate(180deg); 
+        }
+        
+        .vsq-faq-body { 
+            max-height: 0; 
+            overflow: hidden; 
+            transition: max-height 0.3s ease, padding 0.3s ease; 
+            padding: 0 24px; 
+            font-size: 16px; 
+            color: #64748B; 
+            line-height: 1.6; 
+        }
+        
+        .vsq-faq-item.active .vsq-faq-body { 
+            max-height: 200px; 
+            padding: 0 24px 20px 56px; 
+        }
 
-        /* FOOTER */
-        .vsq-footer { background-color: var(--vsq-navy); color: var(--vsq-white); padding: 60px 0 40px 0; margin-top: 60px; }
-        .vsq-footer-content { max-width: 1200px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 40px; margin-bottom: 50px; align-items: center; }
-        .vsq-footer-brand { font-size: 24px; font-weight: 700; line-height: 1.2; }
+        /* === FOOTER === */
+        .vsq-footer { background-color: var(--vsq-navy); color: var(--vsq-white); padding: 90px 0 60px 0; margin-top: 80px; }
+        .vsq-footer-content { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
+        .vsq-footer-brand { font-size: 28px; font-weight: 700; line-height: 1.2; padding-top: 2px; }
         .vsq-footer-brand span { color: var(--vsq-red); }
-        .vsq-footer-menu { display: flex; flex-direction: column; gap: 20px; }
-        .vsq-footer-menu a { color: var(--vsq-white); text-decoration: none; font-size: 18px; font-weight: 500; transition: color 0.2s; }
+        .vsq-footer-menu { display: flex; flex-direction: column; gap: 32px; }
+        .vsq-footer-menu a { color: var(--vsq-white); text-decoration: none; font-size: 20px; font-weight: 500; transition: color 0.2s; }
         .vsq-footer-menu a:hover { color: var(--vsq-red); }
-        .vsq-footer-contact { display: flex; flex-direction: column; gap: 20px; }
-        .vsq-footer-contact-item { display: flex; align-items: center; gap: 15px; font-size: 18px; font-weight: 500; }
-        .vsq-footer-contact-item img { width: 24px; height: 24px; object-fit: contain; flex-shrink: 0; }
-        .vsq-footer-bottom { max-width: 1200px; margin: 0 auto; text-align: center; font-size: 16px; color: #64748B; }
+        .vsq-footer-contact { display: flex; flex-direction: column; gap: 32px; }
+        .vsq-footer-contact-item { display: flex; align-items: center; gap: 16px; font-size: 20px; font-weight: 500; }
+        .vsq-footer-contact-item img { width: 26px; height: 26px; object-fit: contain; flex-shrink: 0; filter: invert(15%) sepia(95%) saturate(7483%) hue-rotate(3deg) brightness(97%) contrast(119%); }
+        .vsq-footer-bottom { max-width: 1100px; margin: 80px auto 0; padding: 0 40px; text-align: center; font-size: 18px; color: #64748B; }
 
         /* MODAL LOGOUT */
         .vsq-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(19, 27, 46, 0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 9999; opacity: 0; transition: opacity 0.3s ease; }
@@ -158,18 +290,6 @@
         .vsq-btn-cancel:hover { background: #F8FAFC; border-color: #94A3B8; }
         .vsq-btn-confirm-logout { background: #EF4444; color: #FFFFFF; border: 1px solid #EF4444; }
         .vsq-btn-confirm-logout:hover { background: #DC2626; border-color: #DC2626; }
-
-        /* NETWORK OVERLAY */
-        .network-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #131B2E; display: none; align-items: center; justify-content: center; z-index: 10000; opacity: 0; transition: opacity 0.3s ease; padding: 20px; flex-direction: column; }
-        .network-overlay[style*="display: flex"] { display: flex !important; }
-        .network-overlay[style*="opacity: 1"] { opacity: 1 !important; }
-        .network-content { text-align: center; max-width: 500px; width: 100%; display: flex; flex-direction: column; align-items: center; }
-        .network-icon { width: 150px; height: 150px; margin-bottom: 30px; display: flex; align-items: center; justify-content: center; }
-        .network-icon svg { width: 100%; height: 100%; stroke: #FF3B30; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-        .network-title { font-size: 32px; font-weight: 700; color: #FFFFFF; margin: 0 0 15px 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-        .network-message { font-size: 20px; color: #E2E8F0; margin: 0 0 40px 0; line-height: 1.5; font-weight: 500; }
-        .network-btn { background: #FF3B30; color: #FFFFFF; border: none; padding: 16px 48px; border-radius: 12px; font-size: 18px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-family: inherit; }
-        .network-btn:hover { background: #D32F2F; }
 
         /* RESPONSIVE */
         @media screen and (max-width: 768px) {
@@ -194,41 +314,42 @@
             .vsq-section-title h2 { font-size: 24px; line-height: 32px; }
             .vsq-section-title p { font-size: 14px; }
 
-            .vsq-card { flex-direction: column; height: auto; border-radius: 16px; }
-            .vsq-card-img { width: 100%; height: 200px; border-radius: 16px 16px 0 0; }
-            .vsq-card-body { padding: 20px; }
-            .vsq-card-header { flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+            /* Responsive Card */
+            .vsq-card { flex-direction: column; height: auto; padding-bottom: 20px; border-radius: 20px; }
+            .vsq-card-img { width: 100%; height: 220px; border-radius: 15px 15px 0 0; }
+            .vsq-card-body { padding: 24px; justify-content: flex-start; gap: 20px;}
+            .vsq-card-header { flex-wrap: wrap; gap: 10px; margin-bottom: 0; }
             .vsq-card-header h3 { font-size: 20px; }
-            .vsq-fasilitas { gap: 12px; margin-bottom: 20px; }
-            .vsq-fasilitas li { font-size: 14px; gap: 10px; }
-            .vsq-card-footer { justify-content: stretch; }
-            .vsq-btn-booking { width: 100%; }
+            .vsq-card-badge { padding: 6px 16px; font-size: 12px; }
+            .vsq-fasilitas { gap: 12px; margin-top: 0; margin-bottom: 0;}
+            .vsq-fasilitas li { font-size: 15px; gap: 12px; }
+            .vsq-fasilitas li::before { width: 24px; height: 24px; font-size: 12px; }
+            .vsq-card-footer { justify-content: stretch; margin-top: 10px; }
+            .vsq-btn-booking { width: 100%; min-width: 100%; height: 50px; font-size: 16px; }
 
-            .sl-card { flex-direction: column; height: auto; }
-            .sl-img { width: 100%; height: 180px; }
-
+            /* Cara Booking Responsive */
             .vsq-steps-wrapper { flex-direction: column; gap: 16px; }
-            .vsq-arrow-icon { display: none; }
-            .vsq-step-card { width: 100%; max-width: 320px; }
+            .vsq-arrow-icon { transform: rotate(90deg); margin: 10px 0; }
+            .vsq-step-card { width: 100%; max-width: 300px; height: auto; padding: 24px 16px; }
 
-            .vsq-faq-grid { grid-template-columns: 1fr; gap: 16px; }
-            .vsq-faq-header { padding: 16px 18px; }
-            .vsq-faq-header .faq-text { font-size: 16px; line-height: 22px; }
-            .vsq-faq-header .faq-arrow svg { width: 28px; height: 28px; }
-            .vsq-faq-body { font-size: 14px; padding: 0 18px; }
-            .vsq-faq-item.active .vsq-faq-body { padding: 0 18px 18px 18px; }
+            /* FAQ Responsive */
+            .vsq-faq-grid { grid-template-columns: 1fr; gap: 16px; grid-auto-rows: auto; }
+            .vsq-faq-header { padding: 16px; }
+            .vsq-faq-header .faq-text-wrapper { gap: 10px; }
+            .vsq-faq-header .faq-text { font-size: 15px; line-height: 1.4; }
+            .vsq-faq-header .faq-number { font-size: 15px; line-height: 1.4; }
+            .vsq-faq-body { font-size: 14px; padding: 0 16px; }
+            .vsq-faq-item.active .vsq-faq-body { padding: 0 16px 16px 41px; }
 
-            .vsq-footer { padding: 35px 0 24px 0; margin-top: 40px; }
-            .vsq-footer-content { grid-template-columns: 1fr; text-align: center; gap: 24px; padding: 0 20px; }
-            .vsq-footer-brand { font-size: 22px; }
-            .vsq-footer-menu { align-items: center; }
-            .vsq-footer-contact-item { font-size: 15px; justify-content: center; }
-            .vsq-footer-bottom { font-size: 13px; padding: 20px 16px 0; }
-
-            .network-title { font-size: 24px; }
-            .network-message { font-size: 16px; }
-            .network-btn { padding: 14px 36px; font-size: 16px; }
-            .network-icon { width: 120px; height: 120px; margin-bottom: 20px; }
+            /* Footer Responsive */
+            .vsq-footer { padding: 50px 0 30px 0; margin-top: 40px; }
+            .vsq-footer-content { flex-direction: column; gap: 40px; padding: 0 24px; }
+            .vsq-footer-brand { padding-top: 0; font-size: 24px; }
+            .vsq-footer-menu { gap: 20px; }
+            .vsq-footer-menu a { font-size: 16px; }
+            .vsq-footer-contact { gap: 20px; }
+            .vsq-footer-contact-item { font-size: 16px; }
+            .vsq-footer-bottom { margin-top: 50px; font-size: 14px; padding: 0 24px; }
         }
     </style>
 </head>
@@ -245,7 +366,7 @@
             <p>Vincent'SQ Arena hadir untuk lapangan Futsal dengan fasilitas standar nasional dan sistem konfirmasi realtime.</p>
         </div>
         <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Tuparev+No.64,+Kertawinangun,+Kec.+Kedawung,+Kabupaten+Cirebon,+Jawa+Barat+45153" target="_blank" class="vsq-location-badge">
-            <img src="assets/images/icon-lokasi.png" alt="Icon Lokasi">
+            <img src="assets/images/icon-lokasi.png" alt="Icon Lokasi" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%234B5563\' stroke-width=\'2\'><path d=\'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z\'/><circle cx=\'12\' cy=\'10\' r=\'3\'/></svg>'">
             <span>Tuparev, Kota Cirebon. Jawabarat</span>
         </a>
     </section>
@@ -256,6 +377,7 @@
             <h2>Pilihan Lapangan Tersedia</h2>
         </div>
         <div class="vsq-lapangan-grid" id="lapangan-container">
+            <!-- SKELETON LOADING -->
             <div class="sl-card">
                 <div class="sl-img sl-skeleton"></div>
                 <div class="sl-content">
@@ -285,37 +407,53 @@
         </div>
         
         <div class="vsq-steps-wrapper">
+            <!-- Step 1 -->
             <div class="vsq-step-card">
                 <div class="vsq-step-header">
                     <div class="vsq-step-number">1</div>
-                    <svg class="vsq-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 6v12"/><circle cx="12" cy="12" r="2.5"/><path d="M2 10h2v4H2"/><path d="M22 10h-2v4h2"/></svg>
+                    <img src="assets/images/icon-lapangan.png" class="vsq-step-icon" alt="Ikon Lapangan">
                 </div>
                 <h4>Pilih Lapangan</h4>
                 <p>Pilih Lapangan yang di gunakan di menu booking</p>
             </div>
-            <div class="vsq-arrow-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+            
+            <div class="vsq-arrow-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+            
+            <!-- Step 2 -->
             <div class="vsq-step-card">
                 <div class="vsq-step-header">
                     <div class="vsq-step-number">2</div>
-                    <svg class="vsq-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg>
+                    <img src="assets/images/icon-jadwal.png" class="vsq-step-icon" alt="Ikon Jadwal">
                 </div>
                 <h4>Pilih Jadwal</h4>
                 <p>Pilih jadwal lapangan yang tersedia</p>
             </div>
-            <div class="vsq-arrow-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+            
+            <div class="vsq-arrow-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+            
+            <!-- Step 3 -->
             <div class="vsq-step-card">
                 <div class="vsq-step-header">
                     <div class="vsq-step-number">3</div>
-                    <svg class="vsq-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    <img src="assets/images/icon-data.png" class="vsq-step-icon" alt="Ikon Data">
                 </div>
                 <h4>Isi Data Booking</h4>
                 <p>Isi data diri anda untuk Melakukan pembookingan</p>
             </div>
-            <div class="vsq-arrow-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+            
+            <div class="vsq-arrow-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+
+            <!-- Step 4 -->
             <div class="vsq-step-card">
                 <div class="vsq-step-header">
                     <div class="vsq-step-number">4</div>
-                    <svg class="vsq-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    <img src="assets/images/icon-konfirmasi.png" class="vsq-step-icon" alt="Ikon Konfirmasi">
                 </div>
                 <h4>Konfirmasi</h4>
                 <p>Tunggu verifikasi dari admin</p>
@@ -329,20 +467,47 @@
             <h2>Pertanyaan yang sering diajukan</h2>
         </div>
         <div class="vsq-faq-grid">
+            <!-- Baris 1 -->
             <div class="vsq-faq-item" onclick="toggleFaq(this)">
-                <div class="vsq-faq-header"><div class="faq-text"><span class="faq-number">1.</span><span>Apakah booking dapat dibatalkan?</span></div><span class="faq-arrow"><svg width="42" height="43" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div>
+                <div class="vsq-faq-header">
+                    <div class="faq-text-wrapper">
+                        <span class="faq-number">1.</span>
+                        <span class="faq-text">Apakah booking dapat dibatalkan?</span>
+                    </div>
+                    <span class="faq-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                </div>
                 <div class="vsq-faq-body">Bisa, pada bagian menu "Riwayat pembookingan" pilih lapangan yang kalian booking, lalu klik "Batalkan booking"</div>
             </div>
             <div class="vsq-faq-item" onclick="toggleFaq(this)">
-                <div class="vsq-faq-header"><div class="faq-text"><span class="faq-number">2.</span><span>Bagaimana cara saya mengetahui booking saya berhasil</span></div><span class="faq-arrow"><svg width="42" height="43" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div>
+                <div class="vsq-faq-header">
+                    <div class="faq-text-wrapper">
+                        <span class="faq-number">2.</span>
+                        <span class="faq-text">Bagaimana cara saya mengetahui booking saya berhasil</span>
+                    </div>
+                    <span class="faq-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                </div>
                 <div class="vsq-faq-body">Ketika sudah melakukan pembayaran, status pembookingan akan terlihat pada bagian menu "Riwayat Booking"</div>
             </div>
+
+            <!-- Baris 2 -->
             <div class="vsq-faq-item" onclick="toggleFaq(this)">
-                <div class="vsq-faq-header"><div class="faq-text"><span class="faq-number">3.</span><span>Apakah saya bisa mengubah jadwal lapangan</span></div><span class="faq-arrow"><svg width="42" height="43" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div>
+                <div class="vsq-faq-header">
+                    <div class="faq-text-wrapper">
+                        <span class="faq-number">3.</span>
+                        <span class="faq-text">Apakah saya bisa mengubah jadwal lapangan</span>
+                    </div>
+                    <span class="faq-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                </div>
                 <div class="vsq-faq-body">Bisa, untuk perubahan jadwal langsung saja hubungi kontak kami</div>
             </div>
             <div class="vsq-faq-item" onclick="toggleFaq(this)">
-                <div class="vsq-faq-header"><div class="faq-text"><span class="faq-number">4.</span><span>Apakah bisa melakukan booking dengan beberapa jadwal sekaligus?</span></div><span class="faq-arrow"><svg width="42" height="43" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div>
+                <div class="vsq-faq-header">
+                    <div class="faq-text-wrapper">
+                        <span class="faq-number">4.</span>
+                        <span class="faq-text">Apakah bisa melakukan booking dengan beberapa jadwal sekaligus?</span>
+                    </div>
+                    <span class="faq-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                </div>
                 <div class="vsq-faq-body">Bisa, ketik memilih jadwal anda bisa memilih dengan cara beberapa jadwal yang kosong/tersedia</div>
             </div>
         </div>
@@ -359,9 +524,9 @@
                 <a href="makanan.html">Makanan & Minuman</a>
             </div>
             <div class="vsq-footer-contact">
-                <div class="vsq-footer-contact-item"><img src="assets/images/icon-wa.png" alt="Icon WA"><span>WA: 0893-3283-4839</span></div>
-                <div class="vsq-footer-contact-item"><img src="assets/images/icon-email.png" alt="Icon Email"><span>Email: vincenttt3@gmail.com</span></div>
-                <div class="vsq-footer-contact-item"><img src="assets/images/icon-maps.png" alt="Icon Lokasi"><span>Lokasi: Tuparev, Kota Cirebon</span></div>
+                <div class="vsq-footer-contact-item"><img src="assets/images/icon-wa.png" alt="Icon WA" onerror="this.style.display='none'"><span>WA: 0893-3283-4839</span></div>
+                <div class="vsq-footer-contact-item"><img src="assets/images/icon-email.png" alt="Icon Email" onerror="this.style.display='none'"><span>Email: vincenttt3@gmail.com</span></div>
+                <div class="vsq-footer-contact-item"><img src="assets/images/icon-maps.png" alt="Icon Lokasi" onerror="this.style.display='none'"><span>Lokasi: Tuparev, Kota Cirebon</span></div>
             </div>
         </div>
         <div class="vsq-footer-bottom">@ 2026 Vincent'SQ Arena. All Right Reserved</div>
@@ -399,7 +564,7 @@
         // KONFIGURASI URL API DINAMIS (LOCAL / RAILWAY)
         // =========================================
         const API_BASE = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')
-            ? 'http://localhost/vincent-arena/Backend/API' // Sesuaikan path folder backend lokal Anda jika berbeda
+            ? 'http://localhost/vincent-arena/Backend/API' 
             : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
         
         // =========================================
@@ -469,9 +634,7 @@
                     if (!raw) continue;
                     const parsed = JSON.parse(raw);
                     if (parsed && typeof parsed === 'object') return parsed;
-                } catch (e) {
-                    // abaikan data rusak
-                }
+                } catch (e) {}
             }
             return null;
         }
@@ -559,17 +722,13 @@
         }
 
         async function updateNavbar() {
-            // 1. Render instan dari cache localStorage agar UI langsung berubah tanpa delay
             renderNavbar(normalizeUser(getCachedUser()));
-
-            // 2. Sinkronisasi dengan server di latar belakang
             try {
                 const response = await fetchWithTimeout(API_BASE + '/auth/check.php', {
                     credentials: 'include',
                     headers: { 'Accept': 'application/json' }
                 });
                 const result = await response.json();
-
                 const loggedIn = (result.data && result.data.logged_in) || result.logged_in;
                 const serverUser = (result.data && result.data.user) || result.user;
 
@@ -578,7 +737,7 @@
                     renderNavbar(normalizeUser(serverUser));
                 }
             } catch (error) {
-                console.log('Catatan: Menggunakan data sesi lokal karena pengecekan server terlewat/offline.');
+                console.log('Catatan: Menggunakan data sesi lokal.');
             }
         }
 
@@ -606,12 +765,12 @@
         });
 
         // =========================================
-        // LOAD LAPANGAN
+        // LOAD LAPANGAN & RENDER CARD
         // =========================================
         async function loadLapangan() {
             const fallbackData = [
-                { id: 1, nama_lapangan: 'Lapangan Futsal 1', harga_per_jam: 200000, foto_url: 'assets/uploads/lapangan/Lapangan1.jpeg' },
-                { id: 2, nama_lapangan: 'Lapangan Futsal 2', harga_per_jam: 90000, foto_url: 'assets/uploads/lapangan/hero.jpeg' }
+                { id: 1, nama_lapangan: 'Lapangan Futsal 1', harga_per_jam: 100000, foto_url: 'assets/uploads/lapangan/Lapangan1.jpeg' },
+                { id: 2, nama_lapangan: 'Lapangan Futsal 2', harga_per_jam: 90000, foto_url: 'assets/uploads/lapangan/Lapangan2.jpeg' }
             ];
 
             try {
@@ -635,13 +794,14 @@
             const container = document.getElementById('lapangan-container');
 
             container.innerHTML = data.map(function(l) {
-                const isVIP = l.harga_per_jam >= 150000;
+                const isVIP = String(l.id) === '1' || String(l.nama_lapangan).includes('1'); 
+                
                 const badge = isVIP ? 'VIP' : 'Reguler';
                 const badgeClass = isVIP ? 'badge-vip' : 'badge-regular';
 
                 const fasilitas = isVIP
                     ? ['Lapangan dengan kondisi indoor', 'Area bermain lebih Luas', 'Include dengan area penonton', 'Sirkulasi udara yang nyaman']
-                    : ['Lapangan dengan kondisi indoor', 'Area bermain ukuran standar umum'];
+                    : ['Lapangan dengan kondisi indoor', 'Area bermain ukuran standar umum']; 
 
                 let finalImgUrl = l.foto_url;
                 if (!finalImgUrl || finalImgUrl === 'null' || finalImgUrl.trim() === '') {

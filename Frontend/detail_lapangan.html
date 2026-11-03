@@ -51,8 +51,8 @@
         .breadcrumb .current { color: #64748B; }
         .detail-container { max-width: 1240px; margin: 0 auto 40px; padding: 0 24px; }
         .detail-card { display: flex; border: 1px solid #D1D5DB; border-radius: 16px; overflow: hidden; background: #fff; margin-bottom: 24px; padding: 18px; gap: 22px; }
-        .detail-image-wrapper { width: 43%; padding: 0; flex-shrink: 0; }
-        .detail-image { width: 100%; height: 380px; min-height: 380px; max-height: 380px; border-radius: 14px; object-fit: cover; display: block; }
+        .detail-image-wrapper { width: 43%; padding: 0; flex-shrink: 0; height: 380px; border-radius: 14px; overflow: hidden; }
+        .detail-image { width: 100%; height: 100%; object-fit: cover; display: block; }
         .detail-content { flex: 1; min-width: 0; padding: 12px 14px 10px 8px; display: flex; flex-direction: column; }
         .header-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
         .header-title h1 { font-size: 26px; font-weight: 700; color: var(--vsq-navy); display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
@@ -66,7 +66,7 @@
         .fasilitas-item { display: flex; align-items: center; gap: 7px; border: 1px solid #CBD5E1; padding: 7px 13px; border-radius: 28px; font-size: 13px; font-weight: 500; color: var(--vsq-navy); }
         .fasilitas-item svg { width: 17px; height: 17px; flex-shrink: 0; }
         .deskripsi-title { font-size: 16px; font-weight: 700; color: var(--vsq-navy); margin-bottom: 12px; }
-        .deskripsi-text { font-size: 14px; color: #334155; line-height: 1.6; margin-bottom: 16px; }
+        .deskripsi-text { font-size: 14px; color: #334155; line-height: 1.6; margin-bottom: 16px; text-align: justify; }
         .divider { height: 1px; background: #CBD5E1; margin: 14px 0 18px; width: 100%; }
         .detail-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
         .harga { font-size: 25px; font-weight: 700; color: var(--vsq-navy); white-space: nowrap; }
@@ -81,8 +81,13 @@
         .info-box-header svg { width: 22px; height: 22px; flex-shrink: 0; }
         .info-box-content { font-size: 13px; color: #334155; line-height: 1.55; }
         .aturan-content ol { margin: 0; padding-left: 20px; }
+        .aturan-content li { padding: 4px 0; }
         .jam-content div { display: flex; justify-content: space-between; padding: 8px 0; }
         .jam-content strong { color: var(--vsq-navy); }
+
+        /* GAGAL MUAT */
+        .img-fail { width: 100%; height: 100%; background: #D9D9D9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #131B2E; font-size: 14px; cursor: pointer; }
+        .img-fail svg { width: 40px; height: 40px; stroke: #131B2E; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
         /* MODAL */
         .vsq-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(19, 27, 46, 0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 9999; opacity: 0; transition: opacity 0.3s ease; }
@@ -108,8 +113,7 @@
             .vsq-btn-logout, .vsq-btn-login-outline, .vsq-btn-register { padding: 0 12px; height: 40px; font-size: 12px; border-radius: 8px; width: auto; }
             .vsq-profile-dropdown { position: fixed; top: 85px; right: 16px; left: 16px; width: auto; }
             .detail-card { flex-direction: column; padding: 14px; gap: 0; }
-            .detail-image-wrapper { width: 100%; padding: 0; }
-            .detail-image { height: 280px; min-height: 280px; max-height: 320px; }
+            .detail-image-wrapper { width: 100%; padding: 0; height: 280px; }
             .detail-content { width: 100%; padding: 20px 8px 10px; }
             .header-title { flex-direction: column; align-items: flex-start; gap: 10px; }
             .detail-footer { flex-direction: column; align-items: flex-start; gap: 15px; }
@@ -132,8 +136,8 @@
 
     <main class="detail-container">
         <div class="detail-card">
-            <div class="detail-image-wrapper">
-                <img id="lapangan-image" class="detail-image" src="" alt="Lapangan">
+            <div class="detail-image-wrapper" id="lapangan-image-wrap">
+                <img id="lapangan-image" class="detail-image" src="" alt="Lapangan" onerror="imgFail(this)">
             </div>
             <div class="detail-content">
                 <div class="header-title">
@@ -153,7 +157,7 @@
                 <div class="divider"></div>
                 <div class="detail-footer">
                     <div class="harga" id="lapangan-harga">Rp0 <span>/ Jam</span></div>
-                    
+
                     <!-- TOMBOL BOOKING -->
                     <a href="#" id="btn-booking-link" class="btn-booking">
                         Booking Sekarang
@@ -204,10 +208,11 @@
 
     <script>
         const API_BASE = 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
-        
-        function getCachedUser() { for (const k of ['vsq_user','user','userData','user_data','currentUser']) { try { const r = localStorage.getItem(k); if (r) return JSON.parse(r); } catch (e) {} } return null; }
-        function normalizeUser(u) { if (!u) return null; return { nama: u.nama || u.name || 'User', email: u.email || '-', whatsapp: u.whatsapp || '-', foto_url: u.foto_url || '', initial: u.initial || (u.nama || 'U').charAt(0).toUpperCase() }; }
-        
+        const USER_KEYS = ['vsq_user', 'user', 'userData', 'user_data', 'currentUser'];
+
+        function getCachedUser() { for (const k of USER_KEYS) { try { const r = localStorage.getItem(k); if (r) { const p = JSON.parse(r); if (p && typeof p === 'object') return p; } } catch (e) {} } return null; }
+        function normalizeUser(u) { if (!u) return null; const nama = u.nama || u.name || u.nama_lengkap || u.username || 'User'; return { nama: nama, email: u.email || '-', whatsapp: u.whatsapp || u.no_wa || '-', foto_url: u.foto_url || u.foto || '', initial: u.initial || nama.charAt(0).toUpperCase() }; }
+
         function renderNavbar(user) {
             const navbarEl = document.getElementById('navbar');
             let rightNavHTML = '';
@@ -241,26 +246,57 @@
         }
         async function updateNavbar() {
             renderNavbar(normalizeUser(getCachedUser()));
-            try { const res = await fetch(API_BASE + '/auth/check.php', { credentials: 'include' }); const result = await res.json(); if (result.data?.logged_in && result.data.user) { localStorage.setItem('vsq_user', JSON.stringify(result.data.user)); renderNavbar(normalizeUser(result.data.user)); } } catch (e) {}
+            try {
+                const res = await fetch(API_BASE + '/auth/check.php', { credentials: 'include', headers: {'Accept': 'application/json'} });
+                const result = await res.json();
+                const loggedIn = !!((result.data && result.data.logged_in) || result.logged_in);
+                const serverUser = (result.data && result.data.user) || result.user;
+                if (loggedIn && serverUser) {
+                    localStorage.setItem('vsq_user', JSON.stringify(serverUser));
+                    renderNavbar(normalizeUser(serverUser));
+                } else {
+                    USER_KEYS.forEach(k => localStorage.removeItem(k)); // bersihkan cache basi
+                    renderNavbar(null);
+                }
+            } catch (e) {}
         }
         function logout() { document.getElementById('logoutModal').classList.add('show'); }
         function closeLogoutModal() { document.getElementById('logoutModal').classList.remove('show'); }
         async function confirmLogout() { try { await fetch(API_BASE + '/auth/logout.php', { method: 'POST', credentials: 'include' }); } catch (e) {} finally { localStorage.clear(); window.location.href = 'login.html'; } }
         document.getElementById('logoutModal').addEventListener('click', function(e) { if (e.target === this) closeLogoutModal(); });
 
+        // --- GAGAL MUAT ---
+        const REFRESH_SVG = '<svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>';
+        function imgFail(img) {
+            const src = img.getAttribute('src');
+            const box = document.createElement('div');
+            box.className = 'img-fail';
+            box.title = 'Klik untuk coba lagi';
+            box.innerHTML = REFRESH_SVG + '<span>Gagal Muat</span>';
+            box.onclick = () => {
+                const retry = new Image();
+                retry.className = 'detail-image';
+                retry.alt = img.alt;
+                retry.onerror = () => imgFail(retry);
+                retry.src = src.split('?')[0] + '?r=' + Date.now();
+                box.replaceWith(retry);
+            };
+            img.replaceWith(box);
+        }
+
         // --- LOGIKA DETAIL LAPANGAN ---
         document.addEventListener('DOMContentLoaded', function() {
             updateNavbar();
-            
+
             // 1. Ambil ID
             const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('id') || '1'; 
+            const id = ['1','2'].includes(urlParams.get('id')) ? urlParams.get('id') : '1';
 
             const data = {
-                '1': { nama: 'Lapangan Futsal 1', badge: 'VIP', badgeClass: 'badge-vip', harga: 100000, img: 'assets/uploads/lapangan/Lapangan1.jpeg', desc: 'Lapangan futsal 1 adalah lapangan yang berkategorikan VIP dengan permukaan Vinyl dengan kualitas premium...', fasilitas: ['Indoor', 'Area Luas', 'Area Penonton', 'Sirkulasi udara'] },
-                '2': { nama: 'Lapangan Futsal 2', badge: 'Reguler', badgeClass: 'badge-reguler', harga: 90000, img: 'assets/uploads/lapangan/Lapangan2.jpeg', desc: 'Lapangan futsal 2 adalah lapangan yang berkategorikan Reguler dengan permukaan Vinyl dengan kualitas standar...', fasilitas: ['Indoor', 'Area Luas'] }
+                '1': { nama: 'Lapangan Futsal 1', badge: 'VIP', badgeClass: 'badge-vip', harga: 100000, img: 'assets/uploads/lapangan/Lapangan1.jpeg', desc: 'Lapangan futsal 1 adalah lapangan yang berkategorikan VIP dengan permukaan Vinyl dengan kualitas premium yang memberikan kenyamanan dan keamanan saat bermain. Lapangan ini cocok untuk berbagai kebutuhan mulai dari latihan rutin sampai turnamen pertandingan antar tim hingga profesional.', fasilitas: ['Indoor', 'Area Luas', 'Area Penonton', 'Sirkulasi udara'] },
+                '2': { nama: 'Lapangan Futsal 2', badge: 'Reguler', badgeClass: 'badge-reguler', harga: 90000, img: 'assets/uploads/lapangan/Lapangan2.jpeg', desc: 'Lapangan futsal 2 adalah lapangan yang berkategorikan Reguler dengan permukaan Vinyl dengan kualitas standar yang memberikan kesan kenyamanan dan fun, cocok digunakan untuk berlatih, dan bermain funmatch dengan rekan.', fasilitas: ['Indoor', 'Area Luas'] }
             };
-            const info = data[id] || data['1'];
+            const info = data[id];
 
             // 2. Render Text & Gambar
             document.getElementById('breadcrumb-current').innerText = info.nama;
@@ -274,14 +310,14 @@
             const svgIcons = {
                 'Indoor': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>',
                 'Area Luas': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>',
-                'Area Penonton': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>',
-                'Sirkulasi udara': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2"></path></svg>'
+                'Area Penonton': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>',
+                'Sirkulasi udara': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path></svg>'
             };
             const fasContainer = document.getElementById('fasilitas-container');
             fasContainer.innerHTML = '';
             info.fasilitas.forEach(item => { fasContainer.innerHTML += `<div class="fasilitas-item">${svgIcons[item] || ''} ${item}</div>`; });
 
-            // 4. KUNCI UTAMA: Ubah Link Tombol secara langsung
+            // 4. Link tombol booking
             document.getElementById('btn-booking-link').href = `booking_lapangan.html?id=${id}`;
         });
     </script>

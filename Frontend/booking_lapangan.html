@@ -1,829 +1,500 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking Lapangan - Vincent'SQ Sports Arena</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        :root {
-            --navy: #131B2E;
-            --blue: #477FEB;
-            --background: #F7F9FC;
-            --white: #FFFFFF;
-            --border: #E2E8F0;
-            --skeleton: #E2E8F0;
-            --breadcrumb-color: #315F91;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--background);
-            color: var(--navy);
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* =========================
-           NAVBAR
-        ========================= */
-
-        .navbar {
-            width: 100%;
-            height: 105px;
-            padding: 0 3.5%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--white);
-            border-bottom: 1px solid var(--border);
-            position: relative;
-            z-index: 10;
-        }
-
-        .brand {
-            font-size: 25px;
-            font-weight: 800;
-            line-height: 1.1;
-            white-space: nowrap;
-        }
-
-        .brand span {
-            display: block;
-            color: #FF3030;
-            font-size: 17px;
-            letter-spacing: .4px;
-        }
-
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-menu a {
-            padding: 19px 21px;
-            border-radius: 18px;
-            font-size: 15px;
-            font-weight: 600;
-            white-space: nowrap;
-            transition: .2s;
-        }
-
-        .nav-menu a:hover {
-            color: var(--blue);
-        }
-
-        .nav-menu a.active {
-            background: var(--navy);
-            color: white;
-        }
-
-        .nav-auth {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .nav-auth a {
-            min-width: 130px;
-            padding: 15px 24px;
-            text-align: center;
-            border-radius: 18px;
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        .login {
-            border: 1px solid var(--navy);
-            background: white;
-        }
-
-        .register {
-            background: var(--navy);
-            color: white;
-        }
-
-        /* =========================
-           MAIN CONTAINER
-        ========================= */
-
-        .container {
-            width: 100%;
-            max-width: none;
-            margin: 0;
-            padding: 20px 42px 80px;
-        }
-
-        /* =========================
-           BREADCRUMB
-           MENGIKUTI UKURAN GAMBAR 1
-        ========================= */
-
-        .breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 13px;
-
-            width: auto;
-            height: 30px;
-
-            margin: 0 0 27px 0;
-            padding: 0;
-
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 20px;
-
-            color: var(--breadcrumb-color);
-        }
-
-        /* IKON HOME */
-
-        .breadcrumb .home-icon {
-            width: 27px;
-            height: 27px;
-            flex: 0 0 27px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            color: #45658A;
-        }
-
-        .breadcrumb .home-icon svg {
-            width: 27px;
-            height: 27px;
-            display: block;
-        }
-
-        /* IKON PANAH */
-
-        .breadcrumb .separator {
-            width: 14px;
-            height: 27px;
-            flex: 0 0 14px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            color: #7892B0;
-        }
-
-        .breadcrumb .separator svg {
-            width: 14px;
-            height: 20px;
-            display: block;
-        }
-
-        /* TEKS BOOKING LAPANGAN */
-
-        .breadcrumb .booking-link {
-            width: auto;
-            height: 20px;
-            flex: 0 0 auto;
-
-            display: flex;
-            align-items: center;
-
-            color: var(--breadcrumb-color);
-
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 20px;
-
-            white-space: nowrap;
-        }
-
-        /* NAMA LAPANGAN */
-
-        .breadcrumb .current {
-            width: auto;
-            height: 20px;
-            flex: 0 0 auto;
-
-            display: flex;
-            align-items: center;
-
-            color: var(--breadcrumb-color);
-
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 20px;
-
-            white-space: nowrap;
-        }
-
-        /* =========================
-           PAGE HEADING
-        ========================= */
-
-        .page-heading {
-            margin-bottom: 30px;
-        }
-
-        .page-heading h1 {
-            font-size: 29px;
-            font-weight: 800;
-            margin-bottom: 9px;
-        }
-
-        .page-heading p {
-            font-size: 13px;
-            color: #64748B;
-        }
-
-        /* =========================
-           BOOKING LAYOUT
-        ========================= */
-
-        .booking-layout {
-            display: grid;
-            grid-template-columns: minmax(0, 1.65fr) minmax(280px, .85fr);
-            gap: 25px;
-            align-items: start;
-        }
-
-        .left-column,
-        .right-column {
-            display: flex;
-            flex-direction: column;
-            gap: 22px;
-            min-width: 0;
-        }
-
-        /* =========================
-           SKELETON CARD
-        ========================= */
-
-        .skeleton-card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 23px;
-        }
-
-        .skeleton {
-            position: relative;
-            overflow: hidden;
-            background: var(--skeleton);
-            border-radius: 8px;
-        }
-
-        .skeleton::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-
-            background: linear-gradient(
-                90deg,
-                transparent 0%,
-                rgba(255,255,255,.65) 50%,
-                transparent 100%
-            );
-
-            transform: translateX(-100%);
-            animation: shimmer 1.5s infinite;
-        }
-
-        @keyframes shimmer {
-            100% {
-                transform: translateX(100%);
-            }
-        }
-
-        /* =========================
-           SKELETON TITLE
-        ========================= */
-
-        .sk-title {
-            width: 190px;
-            height: 19px;
-            margin-bottom: 23px;
-        }
-
-        .sk-label {
-            width: 125px;
-            height: 13px;
-            margin-bottom: 10px;
-        }
-
-        .sk-label.short {
-            width: 85px;
-        }
-
-        /* =========================
-           INFORMASI LAPANGAN
-        ========================= */
-
-        .field-skeleton {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .field-image {
-            width: 155px;
-            height: 115px;
-            flex-shrink: 0;
-            border-radius: 11px;
-        }
-
-        .field-information {
-            flex: 1;
-        }
-
-        .sk-field-name {
-            width: 65%;
-            height: 18px;
-            margin-bottom: 15px;
-        }
-
-        .sk-field-detail {
-            width: 45%;
-            height: 12px;
-            margin-bottom: 11px;
-        }
-
-        .sk-field-price {
-            width: 55%;
-            height: 17px;
-            margin-top: 14px;
-        }
-
-        /* =========================
-           TANGGAL DAN JAM
-        ========================= */
-
-        .date-skeleton {
-            width: 100%;
-            height: 46px;
-            border-radius: 9px;
-            margin-bottom: 24px;
-        }
-
-        .time-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 11px;
-            margin-bottom: 24px;
-        }
-
-        .time-item {
-            height: 43px;
-            border-radius: 8px;
-        }
-
-        .duration-skeleton {
-            width: 100%;
-            height: 46px;
-            border-radius: 9px;
-        }
-
-        /* =========================
-           INFORMASI PEMESAN
-        ========================= */
-
-        .customer-input {
-            width: 100%;
-            height: 46px;
-            border-radius: 9px;
-            margin-bottom: 21px;
-        }
-
-        .customer-textarea {
-            width: 100%;
-            height: 90px;
-            border-radius: 9px;
-        }
-
-        /* =========================
-           RINGKASAN BOOKING
-        ========================= */
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .summary-label {
-            width: 90px;
-            height: 12px;
-        }
-
-        .summary-value {
-            width: 105px;
-            height: 13px;
-        }
-
-        .summary-divider {
-            height: 1px;
-            background: var(--border);
-            margin: 23px 0;
-        }
-
-        .summary-total {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 23px;
-        }
-
-        .total-label {
-            width: 105px;
-            height: 15px;
-        }
-
-        .total-value {
-            width: 125px;
-            height: 22px;
-        }
-
-        .summary-notice {
-            width: 100%;
-            height: 75px;
-            border-radius: 9px;
-            margin-bottom: 20px;
-        }
-
-        .summary-button {
-            width: 100%;
-            height: 49px;
-            border-radius: 9px;
-        }
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
-
-        @media (max-width: 1050px) {
-            .navbar {
-                padding: 0 22px;
-            }
-
-            .nav-menu a {
-                padding: 15px 12px;
-                font-size: 12px;
-            }
-
-            .nav-auth {
-                gap: 9px;
-            }
-
-            .nav-auth a {
-                min-width: 85px;
-                padding: 13px;
-                font-size: 12px;
-            }
-
-            .booking-layout {
-                grid-template-columns: minmax(0, 1.4fr) minmax(250px, .8fr);
-            }
-        }
-
-        @media (max-width: 760px) {
-            .navbar {
-                height: auto;
-                min-height: 90px;
-                flex-wrap: wrap;
-                gap: 18px;
-                padding: 20px;
-            }
-
-            .brand {
-                font-size: 21px;
-            }
-
-            .brand span {
-                font-size: 14px;
-            }
-
-            .nav-menu {
-                order: 3;
-                width: 100%;
-                overflow-x: auto;
-                padding-bottom: 5px;
-            }
-
-            .nav-menu a {
-                padding: 12px 15px;
-                font-size: 12px;
-            }
-
-            .nav-auth a {
-                min-width: 70px;
-                padding: 11px;
-            }
-
-            .container {
-                padding: 20px 17px 60px;
-            }
-
-            .breadcrumb {
-                gap: 9px;
-                font-size: 14px;
-                overflow-x: auto;
-            }
-
-            .breadcrumb .home-icon,
-            .breadcrumb .home-icon svg {
-                width: 24px;
-                height: 24px;
-            }
-
-            .breadcrumb .separator {
-                width: 12px;
-                flex-basis: 12px;
-            }
-
-            .breadcrumb .separator svg {
-                width: 12px;
-                height: 18px;
-            }
-
-            .breadcrumb .booking-link,
-            .breadcrumb .current {
-                font-size: 14px;
-            }
-
-            .page-heading h1 {
-                font-size: 24px;
-            }
-
-            .booking-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .skeleton-card {
-                padding: 17px;
-            }
-
-            .field-skeleton {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-            .field-image {
-                width: 100%;
-                height: 175px;
-            }
-
-            .field-information {
-                width: 100%;
-            }
-
-            .time-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 9px;
-            }
+        :root { --vsq-navy: #131B2E; --vsq-blue: #477FEB; --vsq-red: #FF0000; --vsq-gold: #FFD700; --vsq-gray: #848484; --vsq-white: #FFFFFF; --vsq-bg: #F8FAFC; --vsq-border: #E2E8F0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--vsq-bg); font-family: 'Plus Jakarta Sans', sans-serif; color: var(--vsq-navy); }
+        
+        .vsq-header { background: #FFFFFF; width: 100%; height: 106px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
+        .vsq-nav-left { display: flex; align-items: center; gap: 40px; }
+        .vsq-logo { display: flex; flex-direction: column; text-decoration: none; width: 130px; flex-shrink: 0; }
+        .vsq-logo-title { font-size: 22px; font-weight: 800; color: #131B2E; line-height: 1.1; letter-spacing: -0.5px; }
+        .vsq-logo-sub { font-size: 13px; font-weight: 800; color: #FF0000; line-height: 1.2; letter-spacing: 0.5px; margin-top: 2px; }
+        .vsq-nav-menu { display: flex; align-items: center; gap: 32px; }
+        .vsq-nav-link { font-size: 15px; font-weight: 600; color: #000000; transition: color 0.2s; white-space: nowrap; text-decoration: none;}
+        .vsq-nav-link:hover { color: var(--vsq-blue); }
+        .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 14px 24px; border-radius: 12px; }
+        .vsq-nav-right { display: flex; align-items: center; gap: 16px; position: relative; flex-shrink: 0; }
+        .vsq-btn-login-outline { background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        .vsq-btn-register { background: #131B2E; color: #FFF; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: auto; max-width: 160px; height: 42px; border: 1px solid #000000; border-radius: 10px; padding: 0 8px 0 12px; cursor: pointer; transition: background 0.2s; flex-shrink: 1; overflow: hidden; }
+        .vsq-profile-box:hover { background: #F8FAFC; }
+        .vsq-profile-name { font-size: 14px; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; margin-right: 8px; }
+        .vsq-profile-avatar { width: 28px; height: 28px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; overflow: hidden; }
+        .vsq-btn-logout { background: #131B2E; color: #FFF; width: auto; padding: 0 16px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+        .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; }
+        .vsq-notif-btn svg { width: 24px; height: 24px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .vsq-profile-dropdown { position: absolute; top: 60px; right: 0; width: 280px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.12); padding: 0; display: none; flex-direction: column; z-index: 1001; overflow: hidden; }
+        .vsq-profile-dropdown.show { display: flex; }
+        .vsq-dd-header { background: linear-gradient(135deg, #131B2E 0%, #2C437B 100%); padding: 20px; display: flex; align-items: center; gap: 15px; color: #FFFFFF; }
+        .vsq-dd-avatar { width: 50px; height: 50px; background: #477FEB; color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; border: 2px solid #FFFFFF; box-shadow: 0 4px 10px rgba(0,0,0,0.2); flex-shrink: 0; overflow: hidden; }
+        .vsq-dd-info { overflow: hidden; }
+        .vsq-dd-info h4 { font-size: 16px; font-weight: 700; margin: 0; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .vsq-badge-verified { display: inline-flex; align-items: center; gap: 4px; background: rgba(22, 163, 74, 0.2); color: #4ADE80; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-top: 6px; }
+        .vsq-dd-body { padding: 15px 20px; display: flex; flex-direction: column; gap: 12px; }
+        .vsq-dd-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #131B2E; }
+        .vsq-dd-item .value { font-weight: 600; color: #131B2E; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
+        .vsq-dd-divider { height: 1px; background: #E2E8F0; margin: 5px 20px; }
+        .vsq-dd-footer { padding: 15px 20px; display: flex; flex-direction: column; gap: 10px; background: #F8FAFC; }
+        .vsq-btn-edit-profile { background: #477FEB; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+        /* KONTEN BOOKING */
+        .container { max-width: 1240px; margin: 0 auto; padding: 30px 20px 80px; }
+        .breadcrumb { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #94A3B8; margin-bottom: 24px; }
+        .breadcrumb a { display: flex; align-items: center; color: #94A3B8; text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--vsq-navy); }
+        .breadcrumb svg { width: 18px; height: 18px; stroke-width: 2; }
+        .breadcrumb .current { color: var(--vsq-navy); font-weight: 600; }
+
+        .detail-card { display: flex; border: 1px solid var(--vsq-border); border-radius: 16px; overflow: hidden; background: #fff; margin-bottom: 24px; padding: 18px; gap: 22px; }
+        .detail-image-wrapper { width: 43%; padding: 0; flex-shrink: 0; }
+        .detail-image { width: 100%; height: 380px; min-height: 380px; max-height: 380px; border-radius: 14px; object-fit: cover; display: block; }
+        .detail-content { flex: 1; min-width: 0; padding: 12px 14px 10px 8px; display: flex; flex-direction: column; }
+        .header-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .header-title h1 { font-size: 26px; font-weight: 700; color: var(--vsq-navy); display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+        .badge-vip { background: #facc15; color: var(--vsq-navy); padding: 6px 18px; border-radius: 24px; font-weight: 600; font-size: 13px; }
+        .badge-reguler { background: #e5e7eb; color: #333; padding: 6px 18px; border-radius: 24px; font-weight: 500; font-size: 13px; }
+        .status-tersedia { display: flex; align-items: center; gap: 7px; font-size: 14px; color: #10b981; font-weight: 500; white-space: nowrap; }
+        .dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; }
+        .location { display: flex; align-items: center; gap: 8px; color: #334155; font-size: 14px; font-weight: 500; margin-bottom: 22px; }
+        .location svg { width: 18px; height: 18px; stroke: #131B2E; flex-shrink: 0; }
+        .fasilitas-list { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 22px; }
+        .fasilitas-item { display: flex; align-items: center; gap: 7px; border: 1px solid #CBD5E1; padding: 7px 13px; border-radius: 28px; font-size: 13px; font-weight: 500; color: var(--vsq-navy); }
+        .fasilitas-item svg { width: 17px; height: 17px; flex-shrink: 0; }
+        .deskripsi-title { font-size: 16px; font-weight: 700; color: var(--vsq-navy); margin-bottom: 12px; }
+        .deskripsi-text { font-size: 14px; color: #334155; line-height: 1.6; margin-bottom: 16px; }
+        .divider { height: 1px; background: #CBD5E1; margin: 14px 0 18px; width: 100%; }
+        .detail-footer { display: flex; justify-content: flex-start; align-items: center; margin-top: auto; }
+        .harga { font-size: 25px; font-weight: 700; color: var(--vsq-navy); white-space: nowrap; }
+        .harga span { font-size: 14px; font-weight: 400; color: #555; }
+
+        .bottom-grid { display: grid; grid-template-columns: 3fr 1fr; gap: 24px; align-items: start; margin-bottom: 24px; }
+        .info-box { border: 1px solid var(--vsq-border); border-radius: 12px; padding: 20px 24px; min-height: 150px; background: #fff; display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; text-align: left; }
+        .info-box-header { display: flex; align-items: center; justify-content: flex-start; gap: 10px; font-size: 16px; font-weight: 700; color: var(--vsq-navy); margin-bottom: 16px; }
+        .info-box-header svg { width: 22px; height: 22px; stroke: var(--vsq-navy); flex-shrink: 0; }
+        .info-box-content { font-size: 13px; color: #334155; line-height: 1.55; text-align: left; width: 100%; }
+        .info-box-content div { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 8px 0; border-bottom: 1px dashed #DCE5F0; }
+        .info-box-content div:last-child { border-bottom: none; }
+        .aturan-content ol { margin: 0; padding-left: 20px; }
+        .aturan-content li { padding: 4px 0; }
+        .jam-content div { align-items: center; }
+        .jam-content strong { color: var(--vsq-navy); font-weight: 700; white-space: nowrap; }
+        .info-box:nth-child(2) { min-height: 84px; }
+
+        .booking-card { background: #FFF; border: 1px solid var(--vsq-border); border-radius: 20px; padding: 40px; }
+        .booking-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .booking-header h2 { font-size: 24px; font-weight: 700; }
+        .legend { display: flex; align-items: center; gap: 8px; background: #FEE2E2; color: #EF4444; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+        .legend-dot { width: 8px; height: 8px; background: #EF4444; border-radius: 50%; }
+        .schedule-layout { display: flex; gap: 40px; }
+        .calendar-container { width: 320px; flex-shrink: 0; }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .calendar-header h4 { font-size: 18px; font-weight: 700; }
+        .cal-btn { background: none; border: none; cursor: pointer; padding: 5px; }
+        .cal-btn svg { width: 20px; height: 20px; stroke: var(--vsq-navy); stroke-width: 2; fill: none; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; }
+        .day-name { font-size: 13px; font-weight: 600; color: #94A3B8; padding-bottom: 10px; }
+        .day-name.sun { color: var(--vsq-red); }
+        .calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; row-gap: 12px; }
+        .day { font-size: 14px; font-weight: 500; color: var(--vsq-navy); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; margin: 0 auto; transition: all 0.2s; }
+        .day.sun { color: var(--vsq-red); }
+        .day:hover { background: #F1F5F9; }
+        .day.active { background: var(--vsq-navy); color: #FFF; font-weight: 700; }
+        .day.active.sun { color: #FFF; }
+        .day.empty { visibility: hidden; }
+        .time-selection { flex: 1; }
+        .time-selection h4 { font-size: 16px; font-weight: 600; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;}
+        .time-selection h4 span { font-size: 13px; font-weight: 500; color: #64748B; background: #F1F5F9; padding: 4px 12px; border-radius: 10px;}
+        .time-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 30px; }
+        .time-slot { padding: 12px 10px; border: 1px solid var(--vsq-border); border-radius: 8px; font-size: 13px; font-weight: 600; text-align: center; cursor: pointer; transition: all 0.2s; user-select: none; }
+        .time-slot:hover { border-color: var(--vsq-navy); }
+        .time-slot.selected { background: var(--vsq-navy); color: #FFF; border-color: var(--vsq-navy); }
+        .time-slot.booked { background: #FEE2E2; color: #EF4444; border-color: #FEE2E2; cursor: not-allowed; text-decoration: line-through; }
+        .action-bottom { display: flex; justify-content: flex-end; align-items: center; gap: 20px; margin-top: 20px; }
+        .total-price-box { text-align: right; }
+        .total-price-box p { font-size: 13px; color: #64748B; margin-bottom: 4px; }
+        .total-price-box h3 { font-size: 22px; font-weight: 700; }
+        .btn-confirm { background: var(--vsq-navy); color: #FFF; border: none; padding: 16px 40px; border-radius: 10px; font-size: 15px; font-weight: 600; font-family: inherit; cursor: pointer; transition: background 0.2s; }
+        .btn-confirm:hover { background: #0a0e1a; }
+
+        .vsq-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(19, 27, 46, 0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 9999; opacity: 0; transition: opacity 0.3s ease; }
+        .vsq-modal-overlay.show { display: flex; opacity: 1; }
+        .vsq-modal-box { background: #FFFFFF; width: 90%; max-width: 400px; border-radius: 16px; padding: 30px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.3s ease; }
+        .vsq-modal-overlay.show .vsq-modal-box { transform: translateY(0); }
+        .vsq-modal-icon { width: 60px; height: 60px; background: #FEE2E2; color: #EF4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+        .vsq-modal-icon svg { width: 30px; height: 30px; stroke: currentColor; stroke-width: 2; }
+        .vsq-modal-title { font-size: 20px; font-weight: 700; color: #131B2E; margin-bottom: 10px; }
+        .vsq-modal-text { font-size: 14px; color: #64748B; margin-bottom: 25px; line-height: 1.5; }
+        .vsq-modal-actions { display: flex; gap: 12px; justify-content: center; }
+        .vsq-modal-actions button { flex: 1; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .vsq-btn-cancel { background: #FFFFFF; color: #131B2E; border: 1px solid #CBD5E1; }
+        .vsq-btn-confirm-logout { background: #EF4444; color: #FFFFFF; border: 1px solid #EF4444; }
+
+        @media (max-width: 900px) {
+            .vsq-header { height: 80px; padding: 0 16px; }
+            .vsq-nav-menu { display: none; }
+            .vsq-nav-right { gap: 8px; }
+            .vsq-profile-box { max-width: 60px; padding: 0 6px; height: 40px; justify-content: center; border-radius: 8px; }
+            .vsq-profile-name { display: none; }
+            .vsq-profile-avatar { width: 26px; height: 26px; font-size: 11px; }
+            .vsq-btn-logout, .vsq-btn-login-outline, .vsq-btn-register { padding: 0 12px; height: 40px; font-size: 12px; border-radius: 8px; width: auto; }
+            .vsq-profile-dropdown { position: fixed; top: 85px; right: 16px; left: 16px; width: auto; }
+            .detail-card { flex-direction: column; padding: 14px; gap: 0; }
+            .detail-image-wrapper { width: 100%; padding: 0; }
+            .detail-image { height: 280px; min-height: 280px; max-height: 320px; }
+            .detail-content { width: 100%; padding: 20px 8px 10px; }
+            .header-title { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .bottom-grid { grid-template-columns: 1fr; gap: 20px; }
+            .info-box:nth-child(2) { min-height: 120px; }
+            .schedule-layout { flex-direction: column; }
+            .calendar-container { width: 100%; }
+            .time-grid { grid-template-columns: repeat(2, 1fr); }
+            .booking-card { padding: 20px; }
+            .action-bottom { flex-direction: column; align-items: stretch; }
+            .total-price-box { text-align: left; margin-bottom: 15px; }
+            .btn-confirm { width: 100%; }
         }
     </style>
 </head>
-
 <body>
 
-    <!-- NAVBAR -->
-    <header class="navbar">
+    <header id="navbar"></header>
 
-        <a href="index.html" class="brand">
-            Vincent'SQ
-            <span>SPORTS ARENA</span>
-        </a>
-
-        <nav class="nav-menu">
-            <a href="index.html">Beranda</a>
-            <a href="lapangan.html" class="active">Booking Lapangan</a>
-            <a href="riwayat.html">Riwayat Booking</a>
-            <a href="makanan.html">Makanan Minuman</a>
-        </nav>
-
-        <div class="nav-auth">
-            <a href="login.html" class="login">Login</a>
-            <a href="register.html" class="register">Register</a>
-        </div>
-
-    </header>
-
-    <!-- MAIN CONTENT -->
     <main class="container">
-
-        <!-- BREADCRUMB -->
         <div class="breadcrumb">
-
-            <!-- HOME ICON -->
-            <a href="index.html" class="home-icon" aria-label="Beranda">
-                <svg viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round">
-
-                    <path d="m3 10 9-7 9 7"></path>
-                    <path d="M5 9v12h14V9"></path>
-                    <path d="M9 21v-8h6v8"></path>
-                </svg>
-            </a>
-
-            <!-- PANAH PERTAMA -->
-            <span class="separator">
-                <svg viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round">
-
-                    <path d="m9 18 6-6-6-6"></path>
-                </svg>
-            </span>
-
-            <!-- BOOKING LAPANGAN -->
-            <a href="lapangan.html" class="booking-link">
-                Booking Lapangan
-            </a>
-
-            <!-- PANAH KEDUA -->
-            <span class="separator">
-                <svg viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round">
-
-                    <path d="m9 18 6-6-6-6"></path>
-                </svg>
-            </span>
-
-            <!-- NAMA LAPANGAN -->
-            <span class="current" id="breadcrumbField">
-                Lapangan Futsal 1
-            </span>
-
+            <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <a href="lapangan.html">Booking Lapangan</a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <span class="current" id="breadcrumb-name">Memuat...</span>
         </div>
 
-        <!-- PAGE HEADING -->
-        <div class="page-heading">
-            <h1>Booking Lapangan</h1>
-            <p>Lengkapi informasi pemesanan lapangan sesuai jadwal yang kamu inginkan.</p>
+        <div class="detail-card">
+            <div class="detail-image-wrapper">
+                <img id="lapangan-image" class="detail-image" src="" alt="Lapangan">
+            </div>
+            <div class="detail-content">
+                <div class="header-title">
+                    <h1>
+                        <span id="lapangan-name">Memuat...</span>
+                        <span id="lapangan-badge" class="badge-vip">...</span>
+                    </h1>
+                    <div class="status-tersedia"><span class="dot"></span> Tersedia</div>
+                </div>
+                <div class="location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    Tuparev, Kota Cirebon - Jawa Barat
+                </div>
+                <div class="fasilitas-list" id="fasilitas-container"></div>
+                <div class="deskripsi-title">Deskripsi:</div>
+                <p class="deskripsi-text" id="lapangan-deskripsi">Memuat deskripsi...</p>
+                <div class="divider"></div>
+                <div class="detail-footer">
+                    <div class="harga" id="lapangan-harga">Rp0 <span>/ Jam</span></div>
+                </div>
+            </div>
         </div>
 
-        <!-- SKELETON BOOKING -->
-        <section class="booking-layout">
+        <div class="bottom-grid">
+            <div class="info-box">
+                <div class="info-box-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Aturan Pemesanan
+                </div>
+                <div class="info-box-content aturan-content">
+                    <ol>
+                        <li>Lakukan pemesanan minimal 1 hari sebelumnya.</li>
+                        <li>Pembatalan dapat dilakukan dalam H-3 jam dan akan dikenakan tarif sebesar 10% yang diberikan.</li>
+                        <li>Dilarang membawa makanan dan minuman dari luar.</li>
+                        <li>Jaga kebersihan dan fasilitas selama penggunaan.</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="info-box">
+                <div class="info-box-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    Jam Operasional
+                </div>
+                <div class="info-box-content jam-content">
+                    <div><span>Setiap hari</span><strong>08:00–22:00</strong></div>
+                </div>
+            </div>
+        </div>
 
-            <!-- KOLOM KIRI -->
-            <div class="left-column">
+        <div class="booking-card">
+            <div class="booking-header">
+                <h2>Pilih tanggal dan jam booking</h2>
+                <div class="legend">
+                    <div class="legend-dot"></div> sudah terbooking
+                </div>
+            </div>
 
-                <!-- INFORMASI LAPANGAN -->
-                <div class="skeleton-card">
+            <div class="schedule-layout">
+                <div class="calendar-container">
+                    <h4 style="margin-bottom:20px; display:flex; align-items:center; gap:8px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        Jadwal Ketersediaan
+                    </h4>
+                    
+                    <div class="calendar-header">
+                        <button class="cal-btn" id="prevMonth"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                        <h4 id="monthYearDisplay">November 2026</h4>
+                        <button class="cal-btn" id="nextMonth"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+                    </div>
 
-                    <div class="skeleton sk-title"></div>
+                    <div class="calendar-grid">
+                        <div class="day-name sun">Min</div><div class="day-name">Sen</div><div class="day-name">Sel</div>
+                        <div class="day-name">Rab</div><div class="day-name">Kam</div><div class="day-name">Jum</div><div class="day-name">Sab</div>
+                    </div>
+                    <div class="calendar-days" id="calendarDays"></div>
+                </div>
 
-                    <div class="field-skeleton">
+                <div class="time-selection">
+                    <h4>Pilih Waktu <span id="selectedDateLabel">Hari ini</span></h4>
+                    <div class="time-grid" id="timeGrid"></div>
 
-                        <div class="skeleton field-image"></div>
-
-                        <div class="field-information">
-                            <div class="skeleton sk-field-name"></div>
-                            <div class="skeleton sk-field-detail"></div>
-                            <div class="skeleton sk-field-detail"></div>
-                            <div class="skeleton sk-field-price"></div>
+                    <div class="action-bottom">
+                        <div class="total-price-box">
+                            <p>Total Pembayaran</p>
+                            <h3 id="totalPriceDisplay">Rp0</h3>
                         </div>
-
+                        <button class="btn-confirm" onclick="prosesBooking()">Konfirmasi</button>
                     </div>
-
                 </div>
-
-                <!-- PILIH JADWAL -->
-                <div class="skeleton-card">
-
-                    <div class="skeleton sk-title"></div>
-
-                    <div class="skeleton sk-label"></div>
-                    <div class="skeleton date-skeleton"></div>
-
-                    <div class="skeleton sk-label"></div>
-
-                    <div class="time-grid">
-                        <div class="skeleton time-item"></div>
-                        <div class="skeleton time-item"></div>
-                        <div class="skeleton time-item"></div>
-                        <div class="skeleton time-item"></div>
-                        <div class="skeleton time-item"></div>
-                        <div class="skeleton time-item"></div>
-                        <div class="skeleton time-item"></div>
-                        <div class="skeleton time-item"></div>
-                    </div>
-
-                    <div class="skeleton sk-label short"></div>
-                    <div class="skeleton duration-skeleton"></div>
-
-                </div>
-
-                <!-- INFORMASI PEMESAN -->
-                <div class="skeleton-card">
-
-                    <div class="skeleton sk-title"></div>
-
-                    <div class="skeleton sk-label"></div>
-                    <div class="skeleton customer-input"></div>
-
-                    <div class="skeleton sk-label"></div>
-                    <div class="skeleton customer-input"></div>
-
-                    <div class="skeleton sk-label"></div>
-                    <div class="skeleton customer-textarea"></div>
-
-                </div>
-
             </div>
-
-            <!-- KOLOM KANAN -->
-            <div class="right-column">
-
-                <!-- RINGKASAN BOOKING -->
-                <div class="skeleton-card">
-
-                    <div class="skeleton sk-title"></div>
-
-                    <div class="summary-row">
-                        <div class="skeleton summary-label"></div>
-                        <div class="skeleton summary-value"></div>
-                    </div>
-
-                    <div class="summary-row">
-                        <div class="skeleton summary-label"></div>
-                        <div class="skeleton summary-value"></div>
-                    </div>
-
-                    <div class="summary-row">
-                        <div class="skeleton summary-label"></div>
-                        <div class="skeleton summary-value"></div>
-                    </div>
-
-                    <div class="summary-row">
-                        <div class="skeleton summary-label"></div>
-                        <div class="skeleton summary-value"></div>
-                    </div>
-
-                    <div class="summary-divider"></div>
-
-                    <div class="summary-total">
-                        <div class="skeleton total-label"></div>
-                        <div class="skeleton total-value"></div>
-                    </div>
-
-                    <div class="skeleton summary-notice"></div>
-
-                    <div class="skeleton summary-button"></div>
-
-                </div>
-
-            </div>
-
-        </section>
-
+        </div>
     </main>
 
-    <!-- JAVASCRIPT -->
+    <div class="vsq-modal-overlay" id="logoutModal">
+        <div class="vsq-modal-box">
+            <div class="vsq-modal-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg></div>
+            <h3 class="vsq-modal-title">Konfirmasi Keluar</h3>
+            <p class="vsq-modal-text">Apakah Anda yakin ingin keluar dari akun ini?</p>
+            <div class="vsq-modal-actions">
+                <button class="vsq-btn-cancel" onclick="closeLogoutModal()">Batal</button>
+                <button class="vsq-btn-confirm-logout" onclick="confirmLogout()">Ya, Keluar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Mengambil ID lapangan dari URL
-        const params = new URLSearchParams(window.location.search);
-        const fieldId = params.get("id") || "1";
+        const API_BASE = 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
+        const USER_KEYS = ['vsq_user', 'user', 'userData', 'user_data', 'currentUser'];
 
-        // Nama lapangan berdasarkan ID
-        const fieldNames = {
-            "1": "Lapangan Futsal 1",
-            "2": "Lapangan Futsal 2",
-            "3": "Lapangan Futsal 3"
-        };
+        function getCachedUser() {
+            for (const key of USER_KEYS) {
+                try { const raw = localStorage.getItem(key); if (!raw) continue; const parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') return parsed; } catch (e) {}
+            }
+            return null;
+        }
+        function normalizeUser(u) {
+            if (!u) return null;
+            const nama = u.nama || u.name || u.nama_lengkap || u.username || 'User';
+            return { nama: nama, email: u.email || '-', whatsapp: u.whatsapp || u.no_wa || '-', foto_url: u.foto_url || u.foto || '', initial: u.initial || nama.charAt(0).toUpperCase() };
+        }
+        function renderNavbar(user) {
+            const navbarEl = document.getElementById('navbar');
+            let rightNavHTML = '';
+            const path = window.location.pathname;
+            let isBeranda = path.includes('index.html') || path === '/' ? 'active' : '';
+            let isLapangan = path.includes('lapangan.html') || path.includes('detail_lapangan.html') || path.includes('booking_lapangan.html') ? 'active' : '';
+            let isRiwayat = path.includes('riwayat.html') ? 'active' : '';
+            let isMakanan = path.includes('makanan.html') ? 'active' : '';
 
-        // Memperbarui nama lapangan pada breadcrumb
-        document.getElementById("breadcrumbField").textContent =
-            fieldNames[fieldId] || "Detail Lapangan";
+            if (user) {
+                const firstName = user.nama.split(' ')[0];
+                const avatarContent = user.foto_url ? `<img src="${user.foto_url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">` : user.initial;
+                rightNavHTML = `
+                    <button class="vsq-notif-btn"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></button>
+                    <div class="vsq-profile-box" id="profileToggle"><span class="vsq-profile-name">Hai ${firstName}</span><div class="vsq-profile-avatar">${avatarContent}</div></div>
+                    <button class="vsq-btn-logout" onclick="logout()">Logout</button>
+                    <div class="vsq-profile-dropdown" id="profileDropdown">
+                        <div class="vsq-dd-header"><div class="vsq-dd-avatar">${avatarContent}</div><div class="vsq-dd-info"><h4>${user.nama}</h4><div class="vsq-badge-verified">Terverifikasi</div></div></div>
+                        <div class="vsq-dd-body"><div class="vsq-dd-item"><span class="value">${user.email}</span></div><div class="vsq-dd-item"><span class="value">${user.whatsapp}</span></div></div>
+                        <div class="vsq-dd-divider"></div>
+                        <div class="vsq-dd-footer"><a href="profil_user.html" class="vsq-btn-edit-profile">Edit Profil</a><button class="vsq-btn-logout-dropdown" onclick="logout()">Keluar</button></div>
+                    </div>
+                `;
+            } else {
+                rightNavHTML = `<a href="login.html" class="vsq-btn-login-outline">Login</a><a href="register.html" class="vsq-btn-register">Register</a>`;
+            }
+            navbarEl.innerHTML = `
+            <div class="vsq-header">
+                <div class="vsq-nav-left">
+                    <a href="index.html" class="vsq-logo"><span class="vsq-logo-title">Vincent'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span></a>
+                    <nav class="vsq-nav-menu"><a href="index.html" class="vsq-nav-link ${isBeranda}">Beranda</a><a href="lapangan.html" class="vsq-nav-link ${isLapangan}">Booking Lapangan</a><a href="riwayat.html" class="vsq-nav-link ${isRiwayat}">Riwayat Booking</a><a href="makanan.html" class="vsq-nav-link ${isMakanan}">Makanan Minuman</a></nav>
+                </div>
+                <div class="vsq-nav-right">${rightNavHTML}</div>
+            </div>`;
+            const pt = document.getElementById('profileToggle'), pd = document.getElementById('profileDropdown');
+            if (pt && pd) { pt.addEventListener('click', e => { e.stopPropagation(); pd.classList.toggle('show'); }); document.addEventListener('click', e => { if (!pd.contains(e.target) && !pt.contains(e.target)) pd.classList.remove('show'); }); }
+        }
+        async function updateNavbar() {
+            renderNavbar(normalizeUser(getCachedUser()));
+            try { const res = await fetch(API_BASE + '/auth/check.php', { credentials: 'include' }); const result = await res.json(); if (result.data?.logged_in && result.data.user) { localStorage.setItem('vsq_user', JSON.stringify(result.data.user)); renderNavbar(normalizeUser(result.data.user)); } } catch (e) {}
+        }
+        function logout() { document.getElementById('logoutModal').classList.add('show'); }
+        function closeLogoutModal() { document.getElementById('logoutModal').classList.remove('show'); }
+        async function confirmLogout() { try { await fetch(API_BASE + '/auth/logout.php', { method: 'POST', credentials: 'include' }); } catch (e) {} finally { localStorage.clear(); window.location.href = 'login.html'; } }
+        document.getElementById('logoutModal').addEventListener('click', function(e) { if (e.target === this) closeLogoutModal(); });
+
+        /* ================= KONTEN LAPANGAN & JADWAL ================= */
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNavbar();
+
+            // 1. TANGKAP ID DARI URL
+            const urlParams = new URLSearchParams(window.location.search);
+            let fieldId = urlParams.get('id'); 
+            if (!fieldId) { fieldId = '1'; } // Jika tidak ada id, default ke Lapangan 1
+
+            const dataLapangan = {
+                '1': { nama: 'Lapangan Futsal 1', badge: 'VIP', badgeClass: 'badge-vip', harga: 100000, img: 'assets/uploads/lapangan/Lapangan1.jpeg', desc: 'Lapangan futsal 1 adalah lapangan yang berkategorikan VIP dengan permukaan Vinyl dengan kualitas premium...', fasilitas: ['Indoor', 'Area Luas', 'Area Penonton', 'Sirkulasi udara'] },
+                '2': { nama: 'Lapangan Futsal 2', badge: 'Reguler', badgeClass: 'badge-reguler', harga: 90000, img: 'assets/uploads/lapangan/Lapangan2.jpeg', desc: 'Lapangan futsal 2 adalah lapangan yang berkategorikan Reguler dengan permukaan Vinyl dengan kualitas standar...', fasilitas: ['Indoor', 'Area Luas'] }
+            };
+
+            // Ambil data sesuai ID.
+            const currentField = dataLapangan[fieldId] || dataLapangan['1'];
+
+            // 2. SUNTIKKAN DATA KE HTML
+            document.getElementById('breadcrumb-name').textContent = currentField.nama;
+            document.getElementById('lapangan-name').textContent = currentField.nama;
+            document.getElementById('lapangan-deskripsi').textContent = currentField.desc;
+            document.getElementById('lapangan-image').src = currentField.img;
+            
+            const badgeEl = document.getElementById('lapangan-badge');
+            badgeEl.textContent = currentField.badge;
+            badgeEl.className = currentField.badgeClass;
+
+            document.getElementById('lapangan-harga').innerHTML = `Rp${currentField.harga.toLocaleString('id-ID')} <span>/ Jam</span>`;
+
+            // Render Fasilitas
+            const svgIcons = {
+                'Indoor': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>',
+                'Area Luas': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>',
+                'Area Penonton': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>',
+                'Sirkulasi udara': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path></svg>'
+            };
+            const fasContainer = document.getElementById('fasilitas-container');
+            fasContainer.innerHTML = '';
+            currentField.fasilitas.forEach(item => {
+                fasContainer.innerHTML += `<div class="fasilitas-item">${svgIcons[item] || ''} ${item}</div>`;
+            });
+
+            // 3. SETUP KALENDER
+            let currentDate = new Date(2026, 10, 1); 
+            let selectedDate = new Date(2026, 10, 5); 
+            const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+            const dayNamesIndo = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+
+            const jadwalTerbooking = {
+                "2026-10-5": ["10:00 - 11:00", "13:00 - 14:00", "15:00 - 16:00"], 
+                "2026-10-6": ["08:00 - 09:00", "19:00 - 20:00"],                   
+                "2026-10-7": ["12:00 - 13:00", "13:00 - 14:00", "14:00 - 15:00", "16:00 - 17:00", "17:00 - 18:00"]
+            };
+
+            function renderCalendar() {
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth();
+                document.getElementById('monthYearDisplay').textContent = `${monthNames[month]} ${year}`;
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const daysContainer = document.getElementById('calendarDays');
+                daysContainer.innerHTML = '';
+
+                for (let i = 0; i < firstDay; i++) {
+                    const emptyDiv = document.createElement('div');
+                    emptyDiv.className = 'day empty';
+                    daysContainer.appendChild(emptyDiv);
+                }
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'day';
+                    dayDiv.textContent = i;
+                    const dayOfWeek = new Date(year, month, i).getDay();
+                    if (dayOfWeek === 0) dayDiv.classList.add('sun'); 
+                    if (selectedDate && i === selectedDate.getDate() && month === selectedDate.getMonth() && year === selectedDate.getFullYear()) {
+                        dayDiv.classList.add('active');
+                    }
+                    dayDiv.addEventListener('click', () => {
+                        selectedDate = new Date(year, month, i);
+                        renderCalendar(); 
+                        generateTimeSlots(); 
+                    });
+                    daysContainer.appendChild(dayDiv);
+                }
+            }
+
+            document.getElementById('prevMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); });
+            document.getElementById('nextMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); });
+
+            const jamOperasional = ["08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "12:00 - 13:00", "13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00", "19:00 - 20:00", "20:00 - 21:00", "21:00 - 22:00"];
+            let selectedSlots = []; 
+
+            function generateTimeSlots() {
+                const timeGrid = document.getElementById('timeGrid');
+                timeGrid.innerHTML = '';
+                selectedSlots = []; 
+
+                const dateKey = `${selectedDate.getFullYear()}-${selectedDate.getMonth()}-${selectedDate.getDate()}`;
+                const bookedSlotsToday = jadwalTerbooking[dateKey] || [];
+                const labelDate = `${dayNamesIndo[selectedDate.getDay()]}, ${selectedDate.getDate()} ${monthNames[selectedDate.getMonth()]} ${selectedDate.getFullYear()}`;
+                document.getElementById('selectedDateLabel').textContent = labelDate;
+
+                jamOperasional.forEach(jam => {
+                    const slotDiv = document.createElement('div');
+                    slotDiv.className = 'time-slot';
+                    slotDiv.textContent = jam;
+
+                    if (bookedSlotsToday.includes(jam)) {
+                        slotDiv.classList.add('booked');
+                    } else {
+                        slotDiv.addEventListener('click', () => {
+                            if (slotDiv.classList.contains('selected')) {
+                                slotDiv.classList.remove('selected');
+                                selectedSlots = selectedSlots.filter(s => s !== jam);
+                            } else {
+                                slotDiv.classList.add('selected');
+                                selectedSlots.push(jam);
+                            }
+                            updateTotalPrice();
+                        });
+                    }
+                    timeGrid.appendChild(slotDiv);
+                });
+                updateTotalPrice();
+            }
+
+            function updateTotalPrice() {
+                const total = selectedSlots.length * currentField.harga;
+                document.getElementById('totalPriceDisplay').textContent = 'Rp' + total.toLocaleString('id-ID');
+            }
+
+            window.prosesBooking = function() {
+                if (selectedSlots.length === 0) {
+                    alert("Silakan pilih minimal 1 jam terlebih dahulu!");
+                    return;
+                }
+                const bookingData = {
+                    lapangan: currentField.nama,
+                    tanggal: `${selectedDate.getDate()} ${monthNames[selectedDate.getMonth()]} ${selectedDate.getFullYear()}`,
+                    jam: selectedSlots,
+                    total: selectedSlots.length * currentField.harga
+                };
+                localStorage.setItem('temp_booking', JSON.stringify(bookingData));
+                alert("Jadwal berhasil dipilih! Melanjutkan ke pembayaran.");
+                // window.location.href = 'pembayaran.html'; 
+            };
+
+            renderCalendar();
+            generateTimeSlots();
+        });
     </script>
-
 </body>
 </html>

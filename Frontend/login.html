@@ -131,6 +131,65 @@
         .vsq-recaptcha-label { font-size: 14px; color: #000000; cursor: pointer; font-weight: 400; }
         .vsq-recaptcha-logo { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; }
         .vsq-recaptcha-logo img { width: 100%; height: 100%; object-fit: contain; }
+
+        /* ====== TAMBAHAN: Loading Spinner & Check Icon reCAPTCHA ====== */
+        .vsq-recaptcha-spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid #E5E7EB;
+            border-top-color: #477FEB;
+            border-radius: 50%;
+            animation: vsq-spin 0.8s linear infinite;
+            display: none;
+            flex-shrink: 0;
+        }
+
+        @keyframes vsq-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .vsq-recaptcha.is-loading .vsq-recaptcha-checkbox,
+        .vsq-recaptcha.is-verified .vsq-recaptcha-checkbox {
+            display: none;
+        }
+
+        .vsq-recaptcha.is-loading .vsq-recaptcha-spinner {
+            display: block;
+        }
+
+        .vsq-recaptcha-check-icon {
+            width: 28px;
+            height: 28px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .vsq-recaptcha.is-verified .vsq-recaptcha-check-icon {
+            display: flex;
+        }
+
+        .vsq-recaptcha-check-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: #477FEB;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        @keyframes vsq-check-pop {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .vsq-recaptcha.is-verified .vsq-recaptcha-check-icon svg {
+            animation: vsq-check-pop 0.35s ease-out;
+        }
         
         /* Daftar Link */
         .vsq-register-link { text-align: center; font-size: 12px; color: #000000; margin-bottom: 15px; }
@@ -206,8 +265,18 @@
                     
                     <div class="vsq-forgot-link"><a href="lupa_password.html">Lupa Password?</a></div>
                     
+                    <!-- ====== MODIFIKASI: reCAPTCHA dengan loading & check icon ====== -->
                     <div class="vsq-recaptcha" id="recaptcha-wrapper">
-                        <div class="vsq-recaptcha-left"><input type="checkbox" id="recaptcha" class="vsq-recaptcha-checkbox"><label for="recaptcha" class="vsq-recaptcha-label">I'm not a robot</label></div>
+                        <div class="vsq-recaptcha-left">
+                            <input type="checkbox" id="recaptcha" class="vsq-recaptcha-checkbox">
+                            <div class="vsq-recaptcha-spinner" id="recaptcha-spinner"></div>
+                            <div class="vsq-recaptcha-check-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <polyline points="4 12 10 18 20 6"></polyline>
+                                </svg>
+                            </div>
+                            <label for="recaptcha" class="vsq-recaptcha-label" id="recaptcha-label">I'm not a robot</label>
+                        </div>
                         <div class="vsq-recaptcha-logo"><img src="assets/images/recaptcha.png" alt="reCAPTCHA"></div>
                     </div>
                     <div class="vsq-error-msg" id="err-captcha" style="margin-top: -14px; margin-bottom: 14px;"><span class="vsq-error-icon">!</span> Harap centang Captcha terlebih dahulu!</div>
@@ -243,6 +312,7 @@
         const alertBox = document.getElementById('alert-box');
         const btnSubmit = document.getElementById('btn-submit');
         const recaptchaWrapper = document.getElementById('recaptcha-wrapper');
+        const recaptchaLabel = document.getElementById('recaptcha-label');
 
         // Element Error
         const errEmailKosong = document.getElementById('err-email');
@@ -317,10 +387,30 @@
             }
         });
 
+        // =========================================
+        // CUSTOM RECAPTCHA DENGAN LOADING & CHECK
+        // =========================================
+        let captchaVerified = false;
+
         captchaInput.addEventListener('change', function() {
             if (this.checked) {
-                recaptchaWrapper.classList.remove('is-invalid');
-                errCaptcha.classList.remove('show');
+                captchaVerified = false;
+                recaptchaWrapper.classList.add('is-loading');
+                recaptchaWrapper.classList.remove('is-verified');
+
+                // Simulasi loading verifikasi (1.2 detik)
+                setTimeout(() => {
+                    recaptchaWrapper.classList.remove('is-loading');
+                    recaptchaWrapper.classList.add('is-verified');
+                    captchaVerified = true;
+
+                    // Hapus error jika ada
+                    recaptchaWrapper.classList.remove('is-invalid');
+                    errCaptcha.classList.remove('show');
+                }, 1200);
+            } else {
+                captchaVerified = false;
+                recaptchaWrapper.classList.remove('is-loading', 'is-verified');
             }
         });
 
@@ -346,7 +436,8 @@
                 isValid = false;
             }
 
-            if (!captchaInput.checked) {
+            // MODIFIKASI: gunakan captchaVerified, bukan captchaInput.checked
+            if (!captchaVerified) {
                 recaptchaWrapper.classList.add('is-invalid');
                 errCaptcha.classList.add('show');
                 isValid = false;

@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Lapangan - Vincent'SQ Sports Arena</title>
+    <title>Pilih Jadwal - Vincent'SQ Sports Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
     <style>
         :root { --vsq-navy: #131B2E; --vsq-blue: #477FEB; --vsq-red: #FF0000; --vsq-gold: #FFD700; --vsq-gray: #848484; --vsq-white: #FFFFFF; --vsq-bg: #F8FAFC; --vsq-border: #E2E8F0; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,8 +27,8 @@
         .vsq-profile-name { font-size: 14px; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; margin-right: 8px; }
         .vsq-profile-avatar { width: 28px; height: 28px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; overflow: hidden; }
         .vsq-btn-logout { background: #131B2E; color: #FFF; width: auto; padding: 0 16px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
-        .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; }
-        .vsq-notif-btn svg { width: 24px; height: 24px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; padding: 0; }
+        .vsq-notif-btn img { width: 28px; height: 28px; object-fit: contain; }
         .vsq-profile-dropdown { position: absolute; top: 60px; right: 0; width: 280px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.12); padding: 0; display: none; flex-direction: column; z-index: 1001; overflow: hidden; }
         .vsq-profile-dropdown.show { display: flex; }
         .vsq-dd-header { background: linear-gradient(135deg, #131B2E 0%, #2C437B 100%); padding: 20px; display: flex; align-items: center; gap: 15px; color: #FFFFFF; }
@@ -45,7 +44,6 @@
         .vsq-btn-edit-profile { background: #477FEB; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        /* KONTEN BOOKING */
         .container { max-width: 1240px; margin: 0 auto; padding: 30px 20px 80px; }
         .breadcrumb { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #94A3B8; margin-bottom: 24px; }
         .breadcrumb a { display: flex; align-items: center; color: #94A3B8; text-decoration: none; transition: color 0.2s; }
@@ -87,7 +85,9 @@
         .jam-content strong { color: var(--vsq-navy); font-weight: 700; white-space: nowrap; }
         .info-box:nth-child(2) { min-height: 84px; }
 
-        .booking-card { background: #FFF; border: 1px solid #D1D5DB; border-radius: 20px; padding: 40px; }
+        .booking-card { background: #FFF; border: 1px solid #D1D5DB; border-radius: 20px; padding: 40px; position: relative; display: none; }
+        .booking-card.show { display: block; }
+        
         .booking-header { display: flex; justify-content: center; align-items: center; margin-bottom: 30px; position: relative; }
         .booking-header h2 { font-size: 24px; font-weight: 700; }
         .legend { position: absolute; right: 0; display: flex; align-items: center; gap: 8px; background: #FEE2E2; color: #EF4444; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; }
@@ -128,34 +128,19 @@
         .btn-confirm { background: var(--vsq-navy); color: #FFF; border: none; padding: 16px 40px; border-radius: 10px; font-size: 15px; font-weight: 600; font-family: inherit; cursor: pointer; transition: background 0.2s; }
         .btn-confirm:hover { background: #0a0e1a; }
 
-        /* ===== GATE LOGIN / REGISTER ===== */
-        .auth-gate { display: none; position: absolute; inset: -12px; z-index: 5; background: rgba(255,255,255,.92); backdrop-filter: blur(3px); border-radius: 16px; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; gap: 10px; }
-        .auth-gate.show { display: flex; }
-        .auth-gate-icon { width: 56px; height: 56px; border-radius: 50%; background: #F1F5F9; display: flex; align-items: center; justify-content: center; margin-bottom: 4px; }
-        .auth-gate-icon svg { width: 26px; height: 26px; stroke: var(--vsq-navy); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-        .auth-gate h4 { font-size: 18px; font-weight: 700; color: var(--vsq-navy); margin: 0; display: block; }
-        .auth-gate p { font-size: 14px; color: #64748B; max-width: 340px; line-height: 1.5; }
-        .auth-gate-actions { display: flex; gap: 12px; margin-top: 8px; }
-        .auth-gate-actions a { min-width: 110px; height: 42px; padding: 0 20px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; border: 1px solid var(--vsq-navy); }
+        .auth-gate-box { display: none; background: #FFF; border: 1px solid #D1D5DB; border-radius: 20px; padding: 60px 40px; text-align: center; flex-direction: column; align-items: center; justify-content: center; gap: 12px; margin-top: 20px; }
+        .auth-gate-box.show { display: flex; }
+        .auth-gate-icon { width: 60px; height: 60px; border-radius: 50%; background: #F1F5F9; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+        .auth-gate-icon svg { width: 28px; height: 28px; stroke: var(--vsq-navy); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .auth-gate-box h4 { font-size: 22px; font-weight: 700; color: var(--vsq-navy); margin: 0; display: block; }
+        .auth-gate-box p { font-size: 15px; color: #64748B; max-width: 400px; line-height: 1.5; margin-bottom: 10px; }
+        .auth-gate-actions { display: flex; gap: 12px; margin-top: 10px; }
+        .auth-gate-actions a { min-width: 130px; height: 46px; padding: 0 24px; border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; border: 1px solid var(--vsq-navy); }
         .auth-gate-actions .g-login { background: #fff; color: var(--vsq-navy); }
         .auth-gate-actions .g-register { background: var(--vsq-navy); color: #fff; }
 
-        /* GAGAL MUAT */
         .img-fail { width: 100%; height: 100%; background: #D9D9D9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #131B2E; font-size: 14px; cursor: pointer; }
         .img-fail svg { width: 40px; height: 40px; stroke: #131B2E; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-
-        .vsq-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(19, 27, 46, 0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 9999; opacity: 0; transition: opacity 0.3s ease; }
-        .vsq-modal-overlay.show { display: flex; opacity: 1; }
-        .vsq-modal-box { background: #FFFFFF; width: 90%; max-width: 400px; border-radius: 16px; padding: 30px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.3s ease; }
-        .vsq-modal-overlay.show .vsq-modal-box { transform: translateY(0); }
-        .vsq-modal-icon { width: 60px; height: 60px; background: #FEE2E2; color: #EF4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
-        .vsq-modal-icon svg { width: 30px; height: 30px; stroke: currentColor; stroke-width: 2; }
-        .vsq-modal-title { font-size: 20px; font-weight: 700; color: #131B2E; margin-bottom: 10px; }
-        .vsq-modal-text { font-size: 14px; color: #64748B; margin-bottom: 25px; line-height: 1.5; }
-        .vsq-modal-actions { display: flex; gap: 12px; justify-content: center; }
-        .vsq-modal-actions button { flex: 1; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-        .vsq-btn-cancel { background: #FFFFFF; color: #131B2E; border: 1px solid #CBD5E1; }
-        .vsq-btn-confirm-logout { background: #EF4444; color: #FFFFFF; border: 1px solid #EF4444; }
 
         @media (max-width: 900px) {
             .vsq-header { height: 80px; padding: 0 16px; }
@@ -181,6 +166,7 @@
             .action-bottom { flex-direction: column; align-items: stretch; }
             .total-price-box { text-align: left; margin-bottom: 15px; }
             .btn-confirm { width: 100%; }
+            .auth-gate-box { padding: 40px 20px; }
         }
     </style>
 </head>
@@ -249,7 +235,19 @@
             </div>
         </div>
 
-        <div class="booking-card">
+        <div class="auth-gate-box" id="authGateBox">
+            <div class="auth-gate-icon">
+                <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            <h4>Login atau Register dulu</h4>
+            <p>Untuk melihat jadwal ketersediaan dan memilih jam booking, kamu harus login atau membuat akun terlebih dahulu.</p>
+            <div class="auth-gate-actions">
+                <a href="login.html" class="g-login" onclick="saveRedirect()">Login</a>
+                <a href="register.html" class="g-register" onclick="saveRedirect()">Register</a>
+            </div>
+        </div>
+
+        <div class="booking-card" id="bookingCard">
             <div class="booking-header">
                 <h2>Pilih tanggal dan jam booking</h2>
                 <div class="legend">
@@ -280,19 +278,6 @@
                 </div>
 
                 <div class="time-selection">
-                    <!-- GATE: muncul jika user belum login -->
-                    <div class="auth-gate" id="authGate">
-                        <div class="auth-gate-icon">
-                            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                        </div>
-                        <h4>Login atau Register dulu</h4>
-                        <p>Untuk memilih jam dan melakukan booking, kamu harus login atau membuat akun terlebih dahulu.</p>
-                        <div class="auth-gate-actions">
-                            <a href="login.html" class="g-login" onclick="saveRedirect()">Login</a>
-                            <a href="register.html" class="g-register" onclick="saveRedirect()">Register</a>
-                        </div>
-                    </div>
-
                     <h4 class="time-title">Pilih Waktu <span id="selectedDateLabel">Hari ini</span></h4>
                     <div class="time-grid" id="timeGrid"></div>
 
@@ -308,14 +293,13 @@
         </div>
     </main>
 
-    <div class="vsq-modal-overlay" id="logoutModal">
-        <div class="vsq-modal-box">
-            <div class="vsq-modal-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg></div>
-            <h3 class="vsq-modal-title">Konfirmasi Keluar</h3>
-            <p class="vsq-modal-text">Apakah Anda yakin ingin keluar dari akun ini?</p>
-            <div class="vsq-modal-actions">
-                <button class="vsq-btn-cancel" onclick="closeLogoutModal()">Batal</button>
-                <button class="vsq-btn-confirm-logout" onclick="confirmLogout()">Ya, Keluar</button>
+    <div class="vsq-modal-overlay" id="logoutModal" style="display:none; position:fixed; inset:0; background:rgba(19,27,46,.6); z-index:9999; align-items:center; justify-content:center;">
+        <div style="background:#FFF; padding:30px; border-radius:16px; text-align:center; max-width:400px; width:90%;">
+            <h3 style="font-size:20px; font-weight:700; color:#131B2E; margin-bottom:10px;">Konfirmasi Keluar</h3>
+            <p style="font-size:14px; color:#64748B; margin-bottom:25px;">Apakah Anda yakin ingin keluar dari akun ini?</p>
+            <div style="display:flex; gap:12px;">
+                <button onclick="closeLogoutModal()" style="flex:1; padding:12px; border-radius:8px; border:1px solid #CBD5E1; background:#FFF; cursor:pointer; font-weight:600;">Batal</button>
+                <button onclick="confirmLogout()" style="flex:1; padding:12px; border-radius:8px; border:none; background:#EF4444; color:#FFF; cursor:pointer; font-weight:600;">Ya, Keluar</button>
             </div>
         </div>
     </div>
@@ -325,17 +309,16 @@
         const USER_KEYS = ['vsq_user', 'user', 'userData', 'user_data', 'currentUser'];
         let IS_LOGGED_IN = false;
 
-        /* ---------- AUTH GATE ---------- */
         function setAuthGate(loggedIn) {
             IS_LOGGED_IN = loggedIn;
-            document.getElementById('authGate').classList.toggle('show', !loggedIn);
+            document.getElementById('authGateBox').classList.toggle('show', !loggedIn);
+            document.getElementById('bookingCard').classList.toggle('show', loggedIn);
         }
-        // simpan halaman ini supaya setelah login/register user kembali ke sini
+        
         function saveRedirect() {
             sessionStorage.setItem('vsq_redirect', location.pathname.split('/').pop() + location.search);
         }
 
-        /* ---------- NAVBAR ---------- */
         function getCachedUser() {
             for (const key of USER_KEYS) {
                 try { const raw = localStorage.getItem(key); if (!raw) continue; const parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') return parsed; } catch (e) {}
@@ -347,20 +330,15 @@
             const nama = u.nama || u.name || u.nama_lengkap || u.username || 'User';
             return { nama: nama, email: u.email || '-', whatsapp: u.whatsapp || u.no_wa || '-', foto_url: u.foto_url || u.foto || '', initial: u.initial || nama.charAt(0).toUpperCase() };
         }
+        
         function renderNavbar(user) {
             const navbarEl = document.getElementById('navbar');
             let rightNavHTML = '';
-            const path = window.location.pathname;
-            let isBeranda = path.includes('index.html') || path === '/' ? 'active' : '';
-            let isLapangan = path.includes('lapangan.html') || path.includes('detail_lapangan.html') || path.includes('booking_lapangan.html') ? 'active' : '';
-            let isRiwayat = path.includes('riwayat.html') ? 'active' : '';
-            let isMakanan = path.includes('makanan.html') ? 'active' : '';
-
             if (user) {
                 const firstName = user.nama.split(' ')[0];
                 const avatarContent = user.foto_url ? `<img src="${user.foto_url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">` : user.initial;
                 rightNavHTML = `
-                    <button class="vsq-notif-btn"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></button>
+                    <button class="vsq-notif-btn"><img src="assets/images/notifikasi.png" alt="Notifikasi"></button>
                     <div class="vsq-profile-box" id="profileToggle"><span class="vsq-profile-name">Hai ${firstName}</span><div class="vsq-profile-avatar">${avatarContent}</div></div>
                     <button class="vsq-btn-logout" onclick="logout()">Logout</button>
                     <div class="vsq-profile-dropdown" id="profileDropdown">
@@ -377,17 +355,18 @@
             <div class="vsq-header">
                 <div class="vsq-nav-left">
                     <a href="index.html" class="vsq-logo"><span class="vsq-logo-title">Vincent'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span></a>
-                    <nav class="vsq-nav-menu"><a href="index.html" class="vsq-nav-link ${isBeranda}">Beranda</a><a href="lapangan.html" class="vsq-nav-link ${isLapangan}">Booking Lapangan</a><a href="riwayat.html" class="vsq-nav-link ${isRiwayat}">Riwayat Booking</a><a href="makanan.html" class="vsq-nav-link ${isMakanan}">Makanan Minuman</a></nav>
+                    <nav class="vsq-nav-menu"><a href="index.html" class="vsq-nav-link">Beranda</a><a href="lapangan.html" class="vsq-nav-link active">Booking Lapangan</a><a href="riwayat.html" class="vsq-nav-link">Riwayat Booking</a><a href="makanan.html" class="vsq-nav-link">Makanan Minuman</a></nav>
                 </div>
                 <div class="vsq-nav-right">${rightNavHTML}</div>
             </div>`;
             const pt = document.getElementById('profileToggle'), pd = document.getElementById('profileDropdown');
             if (pt && pd) { pt.addEventListener('click', e => { e.stopPropagation(); pd.classList.toggle('show'); }); document.addEventListener('click', e => { if (!pd.contains(e.target) && !pt.contains(e.target)) pd.classList.remove('show'); }); }
         }
+
         async function updateNavbar() {
             const cached = normalizeUser(getCachedUser());
             renderNavbar(cached);
-            setAuthGate(!!cached); // tampilkan hasil dari cache dulu supaya tidak "kedip"
+            setAuthGate(!!cached);
             try {
                 const res = await fetch(API_BASE + '/auth/check.php', { method: 'GET', credentials: 'include', headers: {'Accept': 'application/json'} });
                 const result = await res.json();
@@ -398,19 +377,17 @@
                     renderNavbar(normalizeUser(serverUser));
                     setAuthGate(true);
                 } else {
-                    // server bilang belum login -> hapus cache lama
                     USER_KEYS.forEach(k => localStorage.removeItem(k));
                     renderNavbar(null);
                     setAuthGate(false);
                 }
             } catch (e) { setAuthGate(!!cached); }
         }
-        function logout() { document.getElementById('logoutModal').classList.add('show'); }
-        function closeLogoutModal() { document.getElementById('logoutModal').classList.remove('show'); }
-        async function confirmLogout() { try { await fetch(API_BASE + '/auth/logout.php', { method: 'POST', credentials: 'include' }); } catch (e) {} finally { localStorage.clear(); window.location.href = 'login.html'; } }
-        document.getElementById('logoutModal').addEventListener('click', function(e) { if (e.target === this) closeLogoutModal(); });
 
-        /* ---------- GAGAL MUAT ---------- */
+        function logout() { document.getElementById('logoutModal').style.display = 'flex'; }
+        function closeLogoutModal() { document.getElementById('logoutModal').style.display = 'none'; }
+        async function confirmLogout() { try { await fetch(API_BASE + '/auth/logout.php', { method: 'POST', credentials: 'include' }); } catch (e) {} finally { localStorage.clear(); window.location.href = 'login.html'; } }
+
         const REFRESH_SVG = '<svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>';
         function imgFail(img) {
             const src = img.getAttribute('src');
@@ -429,11 +406,9 @@
             img.replaceWith(box);
         }
 
-        /* ================= KONTEN LAPANGAN & JADWAL ================= */
         document.addEventListener('DOMContentLoaded', function() {
             updateNavbar();
 
-            // 1. TANGKAP ID DARI URL
             const urlParams = new URLSearchParams(window.location.search);
             let fieldId = urlParams.get('id');
             if (!['1','2'].includes(fieldId)) { fieldId = '1'; }
@@ -444,7 +419,6 @@
             };
             const currentField = dataLapangan[fieldId];
 
-            // 2. SUNTIKKAN DATA KE HTML
             document.getElementById('breadcrumb-name').textContent = currentField.nama;
             document.getElementById('lapangan-name').textContent = currentField.nama;
             document.getElementById('lapangan-deskripsi').textContent = currentField.desc;
@@ -457,7 +431,7 @@
             document.getElementById('lapangan-harga').innerHTML = `Rp${currentField.harga.toLocaleString('id-ID')} <span>/ Jam</span>`;
 
             const svgIcons = {
-                'Indoor': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>',
+                'Indoor': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>',
                 'Area Luas': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>',
                 'Area Penonton': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>',
                 'Sirkulasi udara': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path></svg>'
@@ -468,8 +442,7 @@
                 fasContainer.innerHTML += `<div class="fasilitas-item">${svgIcons[item] || ''} ${item}</div>`;
             });
 
-            // 3. SETUP KALENDER
-            const MIN_HARI_BOOKING = 3; // sesuai aturan: pemesanan minimal 3 hari sebelumnya
+            const MIN_HARI_BOOKING = 3;
             const minDate = new Date(); minDate.setHours(0, 0, 0, 0); minDate.setDate(minDate.getDate() + MIN_HARI_BOOKING);
 
             let currentDate = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
@@ -477,7 +450,6 @@
             const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
             const dayNamesIndo = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
 
-            // MOCK: ganti dengan fetch dari API (berdasarkan fieldId + tanggal). Key: "tahun-indexBulan-tanggal"
             const jadwalTerbooking = {
                 "2026-10-6": ["09:00 - 10:00", "10:00 - 11:00", "12:00 - 13:00", "13:00 - 14:00", "15:00 - 16:00", "17:00 - 18:00"],
                 "2026-10-7": ["08:00 - 09:00", "19:00 - 20:00"],
@@ -507,7 +479,7 @@
                     if (thisDate.getTime() === selectedDate.getTime()) dayDiv.classList.add('active');
 
                     if (thisDate < minDate) {
-                        dayDiv.classList.add('disabled'); // belum memenuhi aturan minimal hari
+                        dayDiv.classList.add('disabled');
                     } else {
                         dayDiv.addEventListener('click', () => {
                             selectedDate = thisDate;
@@ -544,7 +516,6 @@
                         slotDiv.classList.add('booked');
                     } else {
                         slotDiv.addEventListener('click', () => {
-                            if (!IS_LOGGED_IN) { setAuthGate(false); return; } // blok jika belum login
                             if (slotDiv.classList.contains('selected')) {
                                 slotDiv.classList.remove('selected');
                                 selectedSlots = selectedSlots.filter(s => s !== jam);
@@ -566,7 +537,11 @@
             }
 
             window.prosesBooking = function() {
-                if (!IS_LOGGED_IN) { setAuthGate(false); return; } // guard tambahan
+                if (!IS_LOGGED_IN) {
+                    alert("Sesi Anda telah habis. Silakan login kembali.");
+                    window.location.reload();
+                    return;
+                }
                 if (selectedSlots.length === 0) {
                     alert("Silakan pilih minimal 1 jam terlebih dahulu!");
                     return;

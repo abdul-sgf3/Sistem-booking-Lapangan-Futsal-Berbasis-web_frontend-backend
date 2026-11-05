@@ -1,0 +1,33 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/public/makanan.php?kategori=snack"
+  method: GET
+  queryParams:
+    kategori: snack
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Date: Thu, 05 Nov 2026 01:54:48 GMT
+    Server: Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12
+    X-Powered-By: PHP/8.2.12
+    Vary: Origin
+    Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+    Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept
+    Access-Control-Max-Age: "86400"
+    X-Content-Type-Options: nosniff
+    Expires: Thu, 19 Nov 1981 08:52:00 GMT
+    Cache-Control: no-store, no-cache, must-revalidate
+    Pragma: no-cache
+    Content-Length: "63"
+    Connection: close
+    Content-Type: application/json; charset=UTF-8
+  body:
+    type: json
+    content: |-
+      {
+        "status": "error",
+        "message": "Kategori tidak valid",
+        "data": null
+      }
+order: 1000

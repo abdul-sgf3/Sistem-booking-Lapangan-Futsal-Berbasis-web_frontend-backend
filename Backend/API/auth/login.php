@@ -1,7 +1,7 @@
 <?php
 // ============================================================
 // auth/login.php - Login User
-// POST /api/auth/login.php
+// POST /API/auth/login.php   (atau /API/auth/login)
 // Body: { email, password }
 // ============================================================
 
@@ -9,12 +9,12 @@ require_once '../config.php';
 
 requireMethod('POST');
 
-$input = getJsonInput();
-$email = trim($input['email'] ?? '');
+$input    = getJsonInput();
+$email    = strtolower(trim($input['email'] ?? ''));
 $password = $input['password'] ?? '';
 
 // ===== VALIDASI =====
-if (empty($email) || empty($password)) {
+if ($email === '' || $password === '') {
     sendError('Email dan password wajib diisi', 400);
 }
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -22,9 +22,9 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 // ===== CARI USER =====
-$stmt = mysqli_prepare($conn, 
-    "SELECT id, email, password, nama, whatsapp, foto_profil, role, is_verified 
-     FROM users WHERE email = ? LIMIT 1");
+$stmt = mysqli_prepare($conn,
+    "SELECT id, email, password, nama, whatsapp, foto_profil, role, is_verified, is_active, otp_expired_at
+       FROM users WHERE email = ? LIMIT 1");
 mysqli_stmt_bind_param($stmt, "s", $email);
 mysqli_stmt_execute($stmt);
 $user = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
@@ -34,42 +34,48 @@ if (!$user) {
 }
 
 // ===== CEK PASSWORD =====
-
 if (!password_verify($password, $user['password'])) {
     sendError('Password salah', 401);
 }
 
+// ===== CEK AKUN AKTIF =====
+if (isset($user['is_active']) && (int)$user['is_active'] === 0) {
+    sendError('Akun Anda dinonaktifkan. Hubungi admin.', 403);
+}
 
 // ===== CEK VERIFIKASI EMAIL =====
 if (!$user['is_verified']) {
-    // Generate OTP baru untuk verifikasi
-    $otp = generateOtp();
-    $otp_expired = getOtpExpiredTime(5);
-    
-    saveOtpToUser($conn, $user['id'], $otp, $otp_expired);
-    sendOtpEmail($email, $otp, $user['nama'] ?? 'User');
-    
-    $_SESSION['register_email'] = $email;
-    $_SESSION['register_user_id'] = $user['id'];
-    
-    sendResponse([
+    // Kirim OTP baru hanya jika OTP sebelumnya sudah lewat cooldown (cegah spam email)
+    $otp        = null;
+    $email_sent = false;
+    if (otpCooldownRemaining($user['otp_expired_at']) === 0) {
+        $otp = generateOtp();
+        saveOtpToUser($conn, $user['id'], $otp, getOtpExpiredTime());
+        $email_sent = sendOtpEmail($email, $otp, $user['nama'] ?: 'User', 'register');
+    }
+
+    $_SESSION['register_email']   = $email;
+    $_SESSION['register_user_id'] = (int)$user['id'];
+
+    sendErrorData('Email belum diverifikasi. Silakan verifikasi terlebih dahulu.', [
         'need_verify' => true,
-        'email' => $email,
-        'otp_debug' => $otp, // HAPUS DI PRODUCTION
-        'redirect' => BASE_URL . '/Frontend/autentikasi/verifikasi_email.php'
-    ], 'Email belum diverifikasi. Silakan verifikasi terlebih dahulu.', 403);
+        'email'       => $email,
+        'email_sent'  => $email_sent,
+        'redirect'    => 'verifikasi.html',
+    ] + ($otp ? otpDebugData($otp) : []), 403);
 }
 
 // ===== CEK APAKAH PROFIL LENGKAP =====
 $need_profile = empty($user['nama']) || empty($user['whatsapp']);
 
 // ===== SET SESSION =====
-$_SESSION['user_id'] = (int)$user['id'];
-$_SESSION['user_email'] = $user['email'];
-$_SESSION['nama'] = $user['nama'] ?? '';
-$_SESSION['whatsapp'] = $user['whatsapp'] ?? '';
+session_regenerate_id(true);   // cegah session fixation
+$_SESSION['user_id']     = (int)$user['id'];
+$_SESSION['user_email']  = $user['email'];
+$_SESSION['nama']        = $user['nama'] ?? '';
+$_SESSION['whatsapp']    = $user['whatsapp'] ?? '';
 $_SESSION['foto_profil'] = $user['foto_profil'] ?? '';
-$_SESSION['role'] = $user['role'] ?? 'user';
+$_SESSION['role']        = $user['role'] ?? 'user';
 
 // Update last login
 $stmt = mysqli_prepare($conn, "UPDATE users SET last_login = NOW() WHERE id = ?");
@@ -78,13 +84,13 @@ mysqli_stmt_execute($stmt);
 
 // ===== RESPONSE =====
 sendResponse([
-    'user_id' => (int)$user['id'],
-    'email' => $user['email'],
-    'nama' => $user['nama'] ?? '',
-    'role' => $user['role'],
-    'need_profile' => $need_profile,
-    'redirect' => $need_profile 
-        ? BASE_URL . '/Frontend/autentikasi/lengkapi_profil.html'
-        : BASE_URL . '/Frontend/pages/index.html'
+    'user_id'         => (int)$user['id'],
+    'email'           => $user['email'],
+    'nama'            => $user['nama'] ?? '',
+    'whatsapp'        => $user['whatsapp'] ?? '',
+    'foto_profil_url' => fotoProfilUrl($user['foto_profil'] ?? ''),
+    'role'            => $user['role'],
+    'need_profile'    => $need_profile,
+    'redirect'        => $need_profile ? 'lengkapi_profil.html' : 'index.html',
 ], 'Login berhasil');
 ?>

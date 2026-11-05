@@ -1,0 +1,20 @@
+$kind: http-request
+url: "{{baseUrl}}/customer/check_availability.php?id_lapangan={{lapanganId}}&tanggal={{tanggalTes}}&jam_mulai=09:00&durasi=1"
+method: GET
+queryParams:
+  id_lapangan: "{{lapanganId}}"
+  tanggal: "{{tanggalTes}}"
+  jam_mulai: 09:00
+  durasi: "1"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('HTTP status = 200', function () { pm.response.to.have.status(200); });
+      pm.test('Response header Content-Type JSON', function () { pm.expect(pm.response.headers.get('Content-Type') || '').to.include('application/json'); });
+      let j = {}; try { j = pm.response.json(); } catch(e) { pm.expect.fail('Response bukan JSON valid: ' + e.message); }
+      pm.test('Response memiliki struktur JSON standar', function () { pm.expect(j).to.be.an('object'); pm.expect(j).to.have.property('status'); pm.expect(j).to.have.property('message'); });
+      pm.test('Status response success', function () { pm.expect(j.status).to.eql('success'); pm.expect(j).to.have.property('data'); });
+      pm.test('Response memuat status ketersediaan',()=>pm.expect(j.data).to.have.property('tersedia'));
+    language: text/javascript
+examples: .resources/01 GET Check Availability - Parameter valid.resources/examples
+order: 1000

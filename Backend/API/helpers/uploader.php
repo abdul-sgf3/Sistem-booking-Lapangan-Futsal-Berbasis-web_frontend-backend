@@ -1,118 +1,100 @@
 <?php
 // ============================================================
 // helpers/uploader.php
-// Fungsi upload file
+// Upload file dengan validasi MIME ASLI (bukan dari header client)
 // ============================================================
 
-if (!function_exists('handleImageUpload')) {
-    /**
-     * Handle upload gambar dengan validasi lengkap
-     * 
-     * @param array $file $_FILES['field_name']
-     * @param string $upload_dir Folder tujuan (absolute path)
-     * @param string $prefix Prefix nama file
-     * @param int $max_size Max size in bytes
-     * @return array ['success' => bool, 'filename' => string, 'error' => string]
-     */
-    function handleImageUpload($file, $upload_dir, $prefix = 'img', $max_size = 2097152) {
-        // Cek error upload
-        if (!isset($file) || $file['error'] !== UPLOAD_ERR_OK) {
-            return ['success' => false, 'error' => 'File tidak valid atau gagal diupload'];
+if (!function_exists('detectUploadMime')) {
+    function detectUploadMime($tmp_path) {
+        if (function_exists('finfo_open')) {
+            $f = finfo_open(FILEINFO_MIME_TYPE);
+            if ($f) {
+                $mime = finfo_file($f, $tmp_path);
+                finfo_close($f);
+                if ($mime) return $mime;
+            }
         }
-        
-        // Cek ukuran
+        $info = @getimagesize($tmp_path);
+        return $info['mime'] ?? '';
+    }
+}
+
+if (!function_exists('uploadErrorMessage')) {
+    function uploadErrorMessage($code) {
+        switch ($code) {
+            case UPLOAD_ERR_INI_SIZE:
+            case UPLOAD_ERR_FORM_SIZE: return 'Ukuran file melebihi batas server';
+            case UPLOAD_ERR_PARTIAL:   return 'File hanya terupload sebagian';
+            case UPLOAD_ERR_NO_FILE:   return 'Tidak ada file yang diupload';
+            default:                   return 'File tidak valid atau gagal diupload';
+        }
+    }
+}
+
+if (!function_exists('saveUploadedFile')) {
+    /** Proses inti: cek ukuran, MIME asli, simpan dengan nama acak. */
+    function saveUploadedFile($file, $upload_dir, $prefix, $max_size, array $mime_to_ext, $err_format) {
+        if (!isset($file) || !is_array($file) || ($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
+            return ['success' => false, 'error' => uploadErrorMessage($file['error'] ?? UPLOAD_ERR_NO_FILE)];
+        }
         if ($file['size'] > $max_size) {
             $max_mb = round($max_size / 1024 / 1024, 1);
             return ['success' => false, 'error' => "Ukuran file maksimal {$max_mb}MB"];
         }
-        
-        // Cek MIME type
-        $allowed_types = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
-        if (!in_array($file['type'], $allowed_types)) {
-            return ['success' => false, 'error' => 'Format harus JPG, PNG, atau WEBP'];
+
+        $mime = detectUploadMime($file['tmp_name']);
+        if (!isset($mime_to_ext[$mime])) {
+            return ['success' => false, 'error' => $err_format];
         }
-        
-        // Cek ekstensi
-        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-        $allowed_exts = ['jpg', 'jpeg', 'png', 'webp'];
-        if (!in_array($ext, $allowed_exts)) {
-            return ['success' => false, 'error' => 'Ekstensi file tidak valid'];
-        }
-        
-        // Cek apakah benar-benar gambar
-        $image_info = @getimagesize($file['tmp_name']);
-        if ($image_info === false) {
+        // Gambar harus benar-benar gambar
+        if (strpos($mime, 'image/') === 0 && @getimagesize($file['tmp_name']) === false) {
             return ['success' => false, 'error' => 'File bukan gambar valid'];
         }
-        
-        // Buat folder jika belum ada
-        if (!file_exists($upload_dir)) {
-            if (!mkdir($upload_dir, 0777, true)) {
-                return ['success' => false, 'error' => 'Gagal membuat folder upload'];
-            }
+
+        if (!is_dir($upload_dir) && !@mkdir($upload_dir, 0775, true) && !is_dir($upload_dir)) {
+            error_log('[UPLOAD] Gagal membuat folder: ' . $upload_dir);
+            return ['success' => false, 'error' => 'Gagal membuat folder upload'];
         }
-        
-        // Generate nama file unik
+
+        $ext      = $mime_to_ext[$mime];   // ekstensi ditentukan dari MIME asli, bukan nama file user
         $filename = $prefix . '_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
-        $target = $upload_dir . $filename;
-        
-        // Upload
-        if (!move_uploaded_file($file['tmp_name'], $target)) {
+
+        if (!move_uploaded_file($file['tmp_name'], rtrim($upload_dir, '/') . '/' . $filename)) {
+            error_log('[UPLOAD] move_uploaded_file gagal ke: ' . $upload_dir . ' (cek permission folder)');
             return ['success' => false, 'error' => 'Gagal menyimpan file'];
         }
-        
         return ['success' => true, 'filename' => $filename];
+    }
+}
+
+if (!function_exists('handleImageUpload')) {
+    /**
+     * Upload gambar (JPG, PNG, WEBP)
+     * @return array ['success'=>bool, 'filename'=>string, 'error'=>string]
+     */
+    function handleImageUpload($file, $upload_dir, $prefix = 'img', $max_size = 2097152) {
+        return saveUploadedFile($file, $upload_dir, $prefix, $max_size, [
+            'image/jpeg' => 'jpg',
+            'image/png'  => 'png',
+            'image/webp' => 'webp',
+        ], 'Format harus JPG, PNG, atau WEBP');
     }
 }
 
 if (!function_exists('handleDocumentUpload')) {
-    /**
-     * Handle upload dokumen (JPG, PNG, PDF)
-     */
+    /** Upload dokumen (JPG, PNG, PDF) */
     function handleDocumentUpload($file, $upload_dir, $prefix = 'doc', $max_size = 5242880) {
-        if (!isset($file) || $file['error'] !== UPLOAD_ERR_OK) {
-            return ['success' => false, 'error' => 'File tidak valid'];
-        }
-        
-        if ($file['size'] > $max_size) {
-            $max_mb = round($max_size / 1024 / 1024, 1);
-            return ['success' => false, 'error' => "Ukuran maksimal {$max_mb}MB"];
-        }
-        
-        $allowed_types = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'];
-        if (!in_array($file['type'], $allowed_types)) {
-            return ['success' => false, 'error' => 'Format harus JPG, PNG, atau PDF'];
-        }
-        
-        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-        $allowed_exts = ['jpg', 'jpeg', 'png', 'pdf'];
-        if (!in_array($ext, $allowed_exts)) {
-            return ['success' => false, 'error' => 'Ekstensi tidak valid'];
-        }
-        
-        if (!file_exists($upload_dir)) {
-            if (!mkdir($upload_dir, 0777, true)) {
-                return ['success' => false, 'error' => 'Gagal membuat folder'];
-            }
-        }
-        
-        $filename = $prefix . '_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
-        $target = $upload_dir . $filename;
-        
-        if (!move_uploaded_file($file['tmp_name'], $target)) {
-            return ['success' => false, 'error' => 'Gagal menyimpan file'];
-        }
-        
-        return ['success' => true, 'filename' => $filename];
+        return saveUploadedFile($file, $upload_dir, $prefix, $max_size, [
+            'image/jpeg'      => 'jpg',
+            'image/png'       => 'png',
+            'application/pdf' => 'pdf',
+        ], 'Format harus JPG, PNG, atau PDF');
     }
 }
 
 if (!function_exists('deleteFile')) {
-    /**
-     * Hapus file jika ada
-     */
     function deleteFile($path) {
-        if (!empty($path) && file_exists($path)) {
+        if (!empty($path) && is_file($path)) {
             return @unlink($path);
         }
         return false;

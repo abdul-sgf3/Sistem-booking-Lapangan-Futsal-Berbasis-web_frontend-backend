@@ -1,22 +1,37 @@
 <?php
-require_once '../config.php';
-requireMethod('POST');
+// ============================================================
+// admin/user_delete.php - Hapus user
+// POST /API/admin/user_delete.php   Body: { id }
+// POST /API/admin/users/{id}        (id dari URL)
+//
+// User yang sudah punya riwayat booking TIDAK dihapus (FK CASCADE akan ikut
+// menghapus booking & merusak laporan pendapatan) — gunakan user_status untuk menonaktifkan.
+// ============================================================
 
-if (!isset($_SESSION['admin_id'])) sendError('Akses ditolak', 403);
+require_once '../config.php';
+
+requireMethod('POST');
+$admin_id = requireAdminLogin();
 
 $input = getJsonInput();
-$id = (int)($input['id'] ?? 0);
+$id    = getRequestId($input, ['id']);
 
 if ($id <= 0) sendError('ID tidak valid', 400);
+if ($id === $admin_id) sendError('Tidak bisa menghapus akun sendiri', 400);
 
-// Cegah admin hapus dirinya sendiri
-if ($id === (int)$_SESSION['admin_id']) {
-    sendError('Tidak bisa menghapus akun sendiri', 400);
+$stmt = mysqli_prepare($conn, "SELECT COUNT(*) AS total FROM booking WHERE id_user = ?");
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+$total_booking = (int)mysqli_fetch_assoc(mysqli_stmt_get_result($stmt))['total'];
+if ($total_booking > 0) {
+    sendError("User memiliki $total_booking riwayat booking. Nonaktifkan saja akunnya, jangan dihapus.", 409);
 }
 
 $stmt = mysqli_prepare($conn, "DELETE FROM users WHERE id = ? AND role = 'user'");
 mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
 
-if (mysqli_stmt_execute($stmt)) sendResponse(null, 'User berhasil dihapus');
-else sendError('Gagal hapus user', 500);
+if (mysqli_stmt_affected_rows($stmt) === 0) sendError('User tidak ditemukan', 404);
+
+sendResponse(null, 'User berhasil dihapus');
 ?>

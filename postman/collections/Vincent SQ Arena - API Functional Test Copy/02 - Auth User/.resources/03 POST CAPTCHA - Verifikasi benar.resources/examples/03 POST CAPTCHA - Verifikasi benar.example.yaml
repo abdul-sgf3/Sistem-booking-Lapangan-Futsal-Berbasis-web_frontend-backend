@@ -1,0 +1,42 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/auth/captcha.php"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "jawaban": "{{captchaJawaban}}"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Date: Thu, 05 Nov 2026 02:02:04 GMT
+    Server: Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12
+    X-Powered-By: PHP/8.2.12
+    Vary: Origin
+    Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+    Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept
+    Access-Control-Max-Age: "86400"
+    X-Content-Type-Options: nosniff
+    Expires: Thu, 19 Nov 1981 08:52:00 GMT
+    Cache-Control: no-store, no-cache, must-revalidate
+    Pragma: no-cache
+    Content-Length: "87"
+    Keep-Alive: timeout=5, max=100
+    Connection: Keep-Alive
+    Content-Type: application/json; charset=UTF-8
+  body:
+    type: json
+    content: |-
+      {
+        "status": "success",
+        "message": "CAPTCHA berhasil diverifikasi",
+        "data": {
+          "verified": true
+        }
+      }
+order: 1000

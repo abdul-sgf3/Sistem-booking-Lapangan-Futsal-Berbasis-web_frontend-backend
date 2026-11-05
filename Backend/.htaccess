@@ -1,0 +1,6 @@
+Options -Indexes
+# Blokir file internal agar tidak bisa diunduh lewat browser
+<FilesMatch "(\.(md|txt|sql|sh|log|yaml|yml|ini|bak|backup)$|^Dockerfile$|^\.htaccess_backup$|^init_db\.php$)">
+    Require all denied
+</FilesMatch>
+RedirectMatch 404 ^(.*/)?(scripts|database|dokumen|docker)(/|$)

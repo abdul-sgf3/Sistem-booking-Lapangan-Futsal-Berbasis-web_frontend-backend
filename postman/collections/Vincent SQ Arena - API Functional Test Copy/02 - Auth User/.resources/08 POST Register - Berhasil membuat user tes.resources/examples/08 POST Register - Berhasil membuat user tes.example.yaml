@@ -1,0 +1,50 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/auth/register.php"
+  method: POST
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+          "nama": "Postman Tester",
+        "email": "{{testEmail}}",
+        "password": "{{testPassword}}",
+        "confirm_password": "{{testPassword}}"
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Date: Thu, 05 Nov 2026 02:12:59 GMT
+    Server: Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12
+    X-Powered-By: PHP/8.2.12
+    Vary: Origin
+    Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+    Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept
+    Access-Control-Max-Age: "86400"
+    X-Content-Type-Options: nosniff
+    Expires: Thu, 19 Nov 1981 08:52:00 GMT
+    Cache-Control: no-store, no-cache, must-revalidate
+    Pragma: no-cache
+    Content-Length: "292"
+    Keep-Alive: timeout=5, max=100
+    Connection: Keep-Alive
+    Content-Type: application/json; charset=UTF-8
+  body:
+    type: json
+    content: |-
+      {
+        "status": "success",
+        "message": "Registrasi berhasil, tetapi email OTP gagal dikirim. Silakan gunakan tombol Kirim Ulang.",
+        "data": {
+          "user_id": 22,
+          "email": "postman17938447790267963@gmail.com",
+          "email_sent": false,
+          "expired_at": "2026-11-05 09:17:59",
+          "redirect": "verifikasi.html",
+          "otp_debug": "766004"
+        }
+      }
+order: 1000

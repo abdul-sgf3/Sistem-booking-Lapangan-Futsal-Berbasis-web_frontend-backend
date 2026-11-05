@@ -1,0 +1,5 @@
+Options -Indexes -ExecCGI
+# Folder upload tidak boleh mengeksekusi script
+<FilesMatch "\.(php|phtml|phar|php[0-9])$">
+    Require all denied
+</FilesMatch>

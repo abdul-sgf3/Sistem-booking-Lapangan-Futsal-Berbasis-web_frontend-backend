@@ -1,0 +1,14 @@
+name: Vincent SQ Arena - Local
+values:
+  - key: baseUrl
+    value: 'http://localhost/vincent-arena/Backend/API'
+  - key: lapanganId
+    value: '1'
+  - key: tanggalTes
+    value: '2026-12-20'
+  - key: adminEmail
+    value: admin@tsubasa.com
+  - key: adminPassword
+    value: ''
+  - key: testUserId
+    value: '8'

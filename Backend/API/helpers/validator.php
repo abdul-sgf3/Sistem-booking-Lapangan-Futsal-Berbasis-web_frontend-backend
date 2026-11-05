@@ -61,4 +61,21 @@ if (!function_exists('validateLength')) {
         return $len >= $min && $len <= $max;
     }
 }
+
+/**
+ * Aturan password (sama dengan validasi di Frontend register):
+ * minimal 8 karakter, ada huruf besar, huruf kecil, dan angka.
+ * return string pesan error, atau NULL jika valid.
+ */
+if (!function_exists('validatePasswordStrength')) {
+    function validatePasswordStrength($password) {
+        if (strlen($password) < 8) {
+            return 'Password minimal 8 karakter.';
+        }
+        if (!preg_match('/[A-Z]/', $password) || !preg_match('/[a-z]/', $password) || !preg_match('/[0-9]/', $password)) {
+            return 'Password harus mengandung huruf besar, huruf kecil, dan angka.';
+        }
+        return null;
+    }
+}
 ?>

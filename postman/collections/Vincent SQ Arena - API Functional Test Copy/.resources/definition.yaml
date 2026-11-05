@@ -1,0 +1,29 @@
+$kind: collection
+description: Koleksi pengujian endpoint aktual PHP Vincent SQ Arena. Tiap request memeriksa HTTP status, Content-Type, struktur JSON, dan assertion sesuai skenario. Jalankan berurutan melalui Collection Runner. Login admin memerlukan kredensial valid pada Environment.
+variables:
+  testEmail: postman.test.vincent@example.com
+  testPassword: Test12345!
+  testOtp: "000000"
+  captchaJawaban: ""
+  adminCaptchaJawaban: ""
+  createdLapanganId: ""
+  runId: ""
+  baseUrl: http://localhost/vincent-arena/Backend/API
+  lapanganId: "1"
+  tanggalTes: 2026-11-10
+  testUserId: "7"
+  adminEmail: admin@tsubasa.com
+  adminPassword: ""
+  bookingId: "5"
+  bookingDetailId: "5"
+  jamMulaiTes: 09:00
+  durasiTes: "1"
+  limitTes: "10"
+  pageTes: "1"
+  kategoriTes: semua
+scripts:
+  - type: http:beforeRequest
+    code: |-
+      if (!pm.collectionVariables.get('testEmail')) { pm.collectionVariables.set('testEmail','postman.test.'+Date.now()+'@example.com'); }
+      if (!pm.collectionVariables.get('runId')) { pm.collectionVariables.set('runId',String(Date.now())); }
+    language: text/javascript

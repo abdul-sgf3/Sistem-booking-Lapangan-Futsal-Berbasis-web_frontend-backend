@@ -2,6 +2,12 @@
 workspace:
   id: 1fea3589-7725-4f80-8278-b25162275625
 
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ../postman/collections/Vincent SQ Arena - API Functional Test Copy: effbbfa2-dfa2-4024-9f68-aa72e2bcfbe5
+
 # All resources in the `postman/` folder are automatically registered in Local View.
 # Point to additional files outside the `postman/` folder to register them individually. Example:
 #localResources:

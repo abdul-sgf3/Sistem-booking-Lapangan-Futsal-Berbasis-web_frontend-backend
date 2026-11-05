@@ -45,7 +45,6 @@ $hashed      = password_hash($password, PASSWORD_DEFAULT);
 try {
     if ($existing) {
         // Email terdaftar tapi BELUM verifikasi -> perbarui password & OTP
-        otpCooldownRemaining($existing['otp_expired_at']);
         $stmt = mysqli_prepare($conn, "UPDATE users SET password = ?, otp_code = ?, otp_expired_at = ? WHERE id = ?");
         mysqli_stmt_bind_param($stmt, "sssi", $hashed, $otp, $otp_expired, $existing['id']);
         mysqli_stmt_execute($stmt);

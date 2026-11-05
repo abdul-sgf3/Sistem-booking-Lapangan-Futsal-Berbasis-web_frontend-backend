@@ -50,19 +50,8 @@ if (!$user['is_verified']) {
     $email_sent = false;
     if (otpCooldownRemaining($user['otp_expired_at']) === 0) {
         $otp = generateOtp();
-    $expired_at = getOtpExpiredTime();
-
-    if (saveOtpToUser($conn, $user['id'], $otp, $expired_at)) {
-    $email_sent = sendOtpEmail(
-        $email,
-        $otp,
-        $user['nama'] ?: 'User',
-        'register'
-    );
-    } else {
-    $email_sent = false;
-    $otp = null;
-    }
+        saveOtpToUser($conn, $user['id'], $otp, getOtpExpiredTime());
+        $email_sent = sendOtpEmail($email, $otp, $user['nama'] ?: 'User', 'register');
     }
 
     $_SESSION['register_email']   = $email;

@@ -33,8 +33,8 @@
         /* Tombol Back (Panah) */
         .vsq-back-btn { 
             position: absolute; 
-            top: 30px; 
-            left: 30px; 
+            top: 40px; 
+            left: 40px; 
             color: #000000; 
             text-decoration: none; 
             display: flex; 
@@ -45,30 +45,29 @@
         .vsq-back-btn:hover { transform: translateX(-4px); }
         .vsq-back-btn svg { width: 32px; height: 32px; stroke: #000000; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
         
-        /* Container Form - Dikecilkan agar proporsional */
-        .vsq-login-card { width: 100%; max-width: 360px; } 
+        .vsq-login-card { width: 100%; max-width: 380px; } 
         
-        /* Logo & Header - Ukuran font diturunkan */
-        .vsq-logo { text-align: center; margin-bottom: 20px; }
-        .vsq-logo h1 { font-size: 34px; font-weight: 800; color: var(--vsq-navy); letter-spacing: -0.45px; margin: 0; line-height: 1.2; }
-        .vsq-logo p { font-size: 20px; font-weight: 800; color: var(--vsq-red); letter-spacing: 0.6px; text-transform: uppercase; margin-top: 2px; line-height: 1.1; }
+        /* Logo & Header */
+        .vsq-logo { text-align: center; margin-bottom: 24px; }
+        .vsq-logo h1 { font-size: 38px; font-weight: 800; color: var(--vsq-navy); letter-spacing: -0.5px; margin: 0; line-height: 1.2; }
+        .vsq-logo p { font-size: 22px; font-weight: 800; color: var(--vsq-red); letter-spacing: 0.6px; text-transform: uppercase; margin-top: 4px; line-height: 1.1; }
         
-        .vsq-welcome { text-align: center; font-size: 15px; font-weight: 600; color: #000000; margin: 15px 0 25px 0; }
+        .vsq-welcome { text-align: center; font-size: 15px; font-weight: 600; color: #000000; margin: 0 0 30px 0; }
         
         /* Form Group */
-        .vsq-form-group { margin-bottom: 20px; position: relative; }
+        .vsq-form-group { margin-bottom: 22px; position: relative; }
         .vsq-form-group label { display: block; font-size: 13px; font-weight: 500; color: #000000; margin-bottom: 6px; }
-        .vsq-form-group label span { color: var(--vsq-red); }
+        .vsq-form-group label span { color: #000; }
         
         .vsq-input-wrapper { position: relative; width: 100%; }
         
-        /* Input Form - Tinggi dan Font disesuaikan */
+        /* Input Form */
         .vsq-form-control { 
             width: 100%; 
-            height: 44px; 
+            height: 48px; 
             padding: 10px 16px; 
             padding-right: 40px; 
-            font-size: 13px; 
+            font-size: 14px; 
             font-weight: 400; 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             color: #000000; 
@@ -78,8 +77,8 @@
             outline: none; 
             transition: all 0.3s ease; 
         }
-        .vsq-form-control::placeholder { color: var(--vsq-gray); }
-        .vsq-form-control:focus { border-color: var(--vsq-blue); }
+        .vsq-form-control::placeholder { color: #9CA3AF; }
+        .vsq-form-control:focus { border-color: var(--vsq-navy); }
         
         .vsq-form-control:-webkit-autofill,
         .vsq-form-control:-webkit-autofill:hover, 
@@ -90,52 +89,52 @@
             transition: background-color 5000s ease-in-out 0s;
         }
         
-        .vsq-form-control.is-invalid { border: 1px solid var(--vsq-error) !important; }
+        .vsq-form-control.is-invalid { border: 1.5px solid var(--vsq-error) !important; }
 
         /* Pesan Error */
-        .vsq-error-msg { display: none; align-items: flex-start; gap: 6px; font-size: 11px; color: var(--vsq-error); margin-top: 4px; font-weight: 500; }
+        .vsq-error-msg { display: none; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--vsq-error); margin-top: 8px; font-weight: 500; }
         .vsq-error-msg.show { display: flex; }
-        .vsq-error-icon { width: 12px; height: 12px; background: transparent; border: 2px solid var(--vsq-error); color: var(--vsq-error); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: bold; flex-shrink: 0; margin-top: 1px; }
+        .vsq-error-icon { width: 16px; height: 16px; background: transparent; border: 2px solid var(--vsq-error); color: var(--vsq-error); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; flex-shrink: 0; margin-top: 1px; }
         
-        .vsq-error-subtext { font-size: 10px; color: var(--vsq-gray); margin-top: 4px; display: none; padding-left: 18px; }
+        .vsq-error-subtext { font-size: 11px; color: #6B7280; margin-top: 4px; display: none; padding-left: 24px; }
         .vsq-error-subtext.show { display: block; }
 
         /* Icon Mata */
-        .vsq-toggle-password { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #000000; background: transparent; border: none; display: flex; align-items: center; justify-content: center; z-index: 2; }
-        .vsq-toggle-password svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .vsq-toggle-password { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #000000; background: transparent; border: none; display: flex; align-items: center; justify-content: center; z-index: 2; }
+        .vsq-toggle-password svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
         
         /* Lupa Password */
-        .vsq-forgot-link { text-align: right; margin-top: -10px; margin-bottom: 20px; }
-        .vsq-forgot-link a { font-size: 11px; color: var(--vsq-blue); text-decoration: none; font-weight: 400; }
+        .vsq-forgot-link { text-align: right; margin-top: -12px; margin-bottom: 24px; }
+        .vsq-forgot-link a { font-size: 12px; color: var(--vsq-blue); text-decoration: none; font-weight: 500; }
         .vsq-forgot-link a:hover { text-decoration: underline; }
         
-        /* Captcha - Ukuran disesuaikan */
+        /* Captcha */
         .vsq-recaptcha { 
-            background: #FFFFFF; 
-            border: 1px solid var(--vsq-gray); 
+            background: #FAFAFA; 
+            border: 1px solid #D1D5DB; 
             border-radius: 4px; 
-            padding: 8px 12px; 
+            padding: 12px 16px; 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
-            margin-bottom: 20px; 
-            height: 70px; 
+            margin-bottom: 24px; 
+            height: 74px; 
             transition: border-color 0.3s; 
         }
-        .vsq-recaptcha.is-invalid { border-color: var(--vsq-error) !important; }
+        .vsq-recaptcha.is-invalid { border: 1.5px solid var(--vsq-error) !important; }
         
-        .vsq-recaptcha-left { display: flex; align-items: center; gap: 12px; padding-left: 4px; }
-        .vsq-recaptcha-checkbox { width: 24px; height: 24px; border: 1px solid var(--vsq-gray); border-radius: 2px; background: #FFFFFF; cursor: pointer; appearance: none; -webkit-appearance: none; transition: all 0.2s; position: relative; flex-shrink: 0; }
+        .vsq-recaptcha-left { display: flex; align-items: center; gap: 14px; padding-left: 4px; }
+        .vsq-recaptcha-checkbox { width: 26px; height: 26px; border: 2px solid #9CA3AF; border-radius: 2px; background: #FFFFFF; cursor: pointer; appearance: none; -webkit-appearance: none; transition: all 0.2s; position: relative; flex-shrink: 0; }
         .vsq-recaptcha-checkbox:checked { background: var(--vsq-blue); border-color: var(--vsq-blue); }
-        .vsq-recaptcha-checkbox:checked::after { content: "✓"; color: #FFFFFF; font-size: 16px; font-weight: 700; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-        .vsq-recaptcha-label { font-size: 14px; color: #000000; cursor: pointer; font-weight: 400; }
-        .vsq-recaptcha-logo { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; }
-        .vsq-recaptcha-logo img { width: 100%; height: 100%; object-fit: contain; }
+        .vsq-recaptcha-checkbox:checked::after { content: "✓"; color: #FFFFFF; font-size: 18px; font-weight: 700; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .vsq-recaptcha-label { font-size: 15px; color: #000000; cursor: pointer; font-weight: 400; }
+        .vsq-recaptcha-logo { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 45px; }
+        .vsq-recaptcha-logo img { width: 100%; height: auto; object-fit: contain; }
 
-        /* ====== TAMBAHAN: Loading Spinner & Check Icon reCAPTCHA ====== */
+        /* Loading Spinner & Check Icon reCAPTCHA */
         .vsq-recaptcha-spinner {
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
             border: 3px solid #E5E7EB;
             border-top-color: #477FEB;
             border-radius: 50%;
@@ -192,25 +191,25 @@
         }
         
         /* Daftar Link */
-        .vsq-register-link { text-align: center; font-size: 12px; color: #000000; margin-bottom: 15px; }
-        .vsq-register-link a { color: var(--vsq-blue); text-decoration: none; font-weight: 400; }
+        .vsq-register-link { text-align: center; font-size: 13px; color: #000000; margin-bottom: 16px; font-weight: 500; }
+        .vsq-register-link a { color: var(--vsq-blue); text-decoration: none; font-weight: 500; }
         .vsq-register-link a:hover { text-decoration: underline; }
         
-        /* Tombol Masuk - Ukuran disesuaikan */
+        /* Tombol Masuk */
         .vsq-btn-submit { 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             width: 100%; 
-            height: 45px; 
+            height: 48px; 
             padding: 0 20px; 
-            font-size: 14px; 
+            font-size: 15px; 
             font-weight: 600; 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             color: #FFFFFF; 
             background-color: var(--vsq-navy); 
             border: none; 
-            border-radius: 10px; 
+            border-radius: 12px; 
             cursor: pointer; 
             transition: all 0.3s ease; 
         }
@@ -220,7 +219,7 @@
         /* Sisi Kanan (Gambar) */
         .vsq-login-right { 
             flex: 1; 
-            background: linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)), url('assets/uploads/lapangan/Lapangan2.jpeg') center/cover no-repeat; 
+            background: linear-gradient(rgba(19, 27, 46, 0.6), rgba(19, 27, 46, 0.6)), url('assets/uploads/lapangan/Lapangan2.jpeg') center/cover no-repeat; 
             position: relative; 
             border-left: 1px solid #000000; 
         }
@@ -265,7 +264,6 @@
                     
                     <div class="vsq-forgot-link"><a href="lupa_password.html">Lupa Password?</a></div>
                     
-                    <!-- ====== MODIFIKASI: reCAPTCHA dengan loading & check icon ====== -->
                     <div class="vsq-recaptcha" id="recaptcha-wrapper">
                         <div class="vsq-recaptcha-left">
                             <input type="checkbox" id="recaptcha" class="vsq-recaptcha-checkbox">
@@ -279,7 +277,7 @@
                         </div>
                         <div class="vsq-recaptcha-logo"><img src="assets/images/recaptcha.png" alt="reCAPTCHA"></div>
                     </div>
-                    <div class="vsq-error-msg" id="err-captcha" style="margin-top: -14px; margin-bottom: 14px;"><span class="vsq-error-icon">!</span> Harap centang Captcha terlebih dahulu!</div>
+                    <div class="vsq-error-msg" id="err-captcha" style="margin-top: -16px; margin-bottom: 16px;"><span class="vsq-error-icon">!</span> Harap centang Captcha terlebih dahulu!</div>
 
                     <div class="vsq-register-link">Belum mempunyai akun? <a href="register.html">Daftar sekarang</a></div>
                     <button type="submit" class="vsq-btn-submit" id="btn-submit">Masuk</button>
@@ -290,9 +288,6 @@
     </div>
 
     <script>
-        // =========================================
-        // KONFIGURASI URL API
-        // =========================================
         const API_BASE = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')
             ? 'http://localhost/vincent-arena/Backend/API' 
             : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
@@ -312,9 +307,7 @@
         const alertBox = document.getElementById('alert-box');
         const btnSubmit = document.getElementById('btn-submit');
         const recaptchaWrapper = document.getElementById('recaptcha-wrapper');
-        const recaptchaLabel = document.getElementById('recaptcha-label');
-
-        // Element Error
+        
         const errEmailKosong = document.getElementById('err-email');
         const errEmailFormat = document.getElementById('err-email-format');
         const errEmailNotFound = document.getElementById('err-email-notfound');
@@ -323,21 +316,23 @@
         const errAuthSub = document.getElementById('err-auth-sub');
         const errCaptcha = document.getElementById('err-captcha');
 
-        // =========================================
-        // FUNGSI VALIDASI REALTIME
-        // =========================================
-        
+        // Validasi Email (Hanya memunculkan 1 pesan error)
         function validateEmailRealtime() {
             const val = emailInput.value.trim();
-
+            
             errEmailKosong.classList.remove('show');
             errEmailFormat.classList.remove('show');
             errEmailNotFound.classList.remove('show');
             emailInput.classList.remove('is-invalid');
 
             if (val === '') {
+                emailInput.classList.add('is-invalid');
+                errEmailKosong.classList.add('show');
                 return false; 
-            } else if (!val.includes('@') || !val.includes('.')) {
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(val)) {
                 emailInput.classList.add('is-invalid');
                 errEmailFormat.classList.add('show');
                 return false;
@@ -345,15 +340,17 @@
             return true;
         }
 
+        // Validasi Password
         function validatePasswordRealtime() {
             const val = passwordInput.value.trim();
-            
             errPassword.classList.remove('show');
             errAuth.classList.remove('show');
             errAuthSub.classList.remove('show');
             passwordInput.classList.remove('is-invalid');
 
             if (val === '') {
+                passwordInput.classList.add('is-invalid');
+                errPassword.classList.add('show');
                 return false;
             }
             return true;
@@ -371,40 +368,27 @@
 
         emailInput.addEventListener('blur', function() {
             if (this.value.trim() === '') {
-                emailInput.classList.add('is-invalid');
-                errEmailKosong.classList.add('show');
-            } else {
                 validateEmailRealtime();
             }
         });
 
         passwordInput.addEventListener('blur', function() {
             if (this.value.trim() === '') {
-                passwordInput.classList.add('is-invalid');
-                errPassword.classList.add('show');
-            } else {
                 validatePasswordRealtime();
             }
         });
 
-        // =========================================
-        // CUSTOM RECAPTCHA DENGAN LOADING & CHECK
-        // =========================================
         let captchaVerified = false;
-
         captchaInput.addEventListener('change', function() {
             if (this.checked) {
                 captchaVerified = false;
                 recaptchaWrapper.classList.add('is-loading');
                 recaptchaWrapper.classList.remove('is-verified');
 
-                // Simulasi loading verifikasi (1.2 detik)
                 setTimeout(() => {
                     recaptchaWrapper.classList.remove('is-loading');
                     recaptchaWrapper.classList.add('is-verified');
                     captchaVerified = true;
-
-                    // Hapus error jika ada
                     recaptchaWrapper.classList.remove('is-invalid');
                     errCaptcha.classList.remove('show');
                 }, 1200);
@@ -414,29 +398,22 @@
             }
         });
 
-        // =========================================
-        // PROSES SUBMIT 
-        // =========================================
         form.addEventListener('submit', async function(e) {
             e.preventDefault(); 
             
             let isValid = true;
-
-            if (emailInput.value.trim() === '') {
-                emailInput.classList.add('is-invalid');
-                errEmailKosong.classList.add('show');
-                isValid = false;
-            } else if (!validateEmailRealtime()) {
+            
+            // Cek Email
+            if (!validateEmailRealtime()) {
                 isValid = false;
             }
 
-            if (passwordInput.value.trim() === '') {
-                passwordInput.classList.add('is-invalid');
-                errPassword.classList.add('show');
+            // Cek Password
+            if (!validatePasswordRealtime()) {
                 isValid = false;
             }
 
-            // MODIFIKASI: gunakan captchaVerified, bukan captchaInput.checked
+            // Cek Captcha
             if (!captchaVerified) {
                 recaptchaWrapper.classList.add('is-invalid');
                 errCaptcha.classList.add('show');
@@ -452,24 +429,17 @@
             try {
                 const response = await fetch(API_BASE + '/auth/login.php', {
                     method: 'POST', 
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                     mode: 'cors',
                     credentials: 'include', 
                     body: JSON.stringify({ email: emailInput.value, password: passwordInput.value })
                 });
 
-                const contentType = response.headers.get("content-type");
-                if (!contentType || !contentType.includes("application/json")) {
-                    throw new Error("Server membalas dengan format yang salah (Bukan JSON).");
-                }
-
                 const result = await response.json();
                 
                 if (response.ok && result.status === 'success') {
-                    alertBox.innerHTML = `<div style="background-color: #DCFCE7; color: #166534; border: 1px solid #BBF7D0; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 13px;">Login Berhasil! Mengalihkan...</div>`;
+                    // Tanpa alert, langsung ubah teks tombol dan redirect
+                    btnSubmit.textContent = 'Login Berhasil!';
                     
                     const userData = result.data?.user || result.user || result.data;
                     localStorage.setItem('vsq_user', JSON.stringify(userData));
@@ -477,12 +447,20 @@
                     localStorage.setItem('nama', userData.nama || userData.name || 'User');
                     localStorage.setItem('user_email', userData.email || '');
 
-                    let redirectUrl = 'index.html';
-                    if(result.data && result.data.redirect) {
-                        redirectUrl = result.data.redirect.split('/').pop();
+                    const userRole = userData.role || userData.user_role || userData.level || 'user';
+                    let redirectUrl = 'index.html'; 
+
+                    if (userRole === 'admin') {
+                        redirectUrl = 'admin/dashboard.html';
+                    } else {
+                        const savedRedirect = sessionStorage.getItem('vsq_redirect');
+                        if (savedRedirect) {
+                            sessionStorage.removeItem('vsq_redirect');
+                            redirectUrl = savedRedirect;
+                        }
                     }
 
-                    setTimeout(() => { window.location.href = redirectUrl; }, 1000);
+                    setTimeout(() => { window.location.href = redirectUrl; }, 800);
                 } else {
                     const msg = result.message ? result.message.toLowerCase() : '';
                     
@@ -505,10 +483,7 @@
                     btnSubmit.textContent = 'Masuk';
                 }
             } catch (error) {
-                console.error("Detail Error:", error);
-                alertBox.innerHTML = `<div style="background-color: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 13px;">
-                    Gagal terhubung ke server. <br><small>Pastikan Backend menyala dan URL API_BASE benar.</small>
-                </div>`;
+                alertBox.innerHTML = `<div style="background-color: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 13px;">Gagal terhubung ke server.</div>`;
                 btnSubmit.disabled = false; 
                 btnSubmit.textContent = 'Masuk';
             }

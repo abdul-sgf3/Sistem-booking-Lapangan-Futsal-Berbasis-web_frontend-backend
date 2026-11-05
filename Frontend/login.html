@@ -223,12 +223,25 @@
             position: relative; 
             border-left: 1px solid #000000; 
         }
+
+        /* NETWORK OVERLAY */
+        .network-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #1A2235; z-index: 99999; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease; }
+        .network-content { text-align: center; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .network-icon svg { width: 120px; height: 120px; stroke: #FF3B30; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 30px; }
+        .network-title { color: #FFFFFF; font-size: 32px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
+        .network-message { color: #A0ABC0; font-size: 18px; margin-bottom: 30px; font-weight: 500; }
+        .network-btn { background-color: #FF3B30; color: #FFFFFF; border: none; padding: 14px 40px; font-size: 16px; font-weight: 600; border-radius: 12px; cursor: pointer; transition: background 0.2s ease, transform 0.2s ease; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .network-btn:hover { background-color: #E03127; transform: translateY(-2px); }
         
         @media (max-width: 900px) { 
             .vsq-login-wrapper { flex-direction: column; } 
             .vsq-login-left { padding: 80px 20px 40px; } 
             .vsq-login-right { min-height: 200px; order: -1; border-left: none; border-bottom: 1px solid #000000; } 
             .vsq-back-btn { top: 20px; left: 20px; } 
+            .network-icon svg { width: 80px; height: 80px; margin-bottom: 20px; }
+            .network-title { font-size: 24px; }
+            .network-message { font-size: 15px; }
+            .network-btn { padding: 12px 32px; font-size: 14px; }
         }
     </style>
 </head>
@@ -247,6 +260,7 @@
                             <input type="email" id="email" name="email" class="vsq-form-control" placeholder="Masukkan email..." required>
                         </div>
                         <div class="vsq-error-msg" id="err-email"><span class="vsq-error-icon">!</span> Email tidak boleh kosong</div>
+                        <div class="vsq-error-msg" id="err-email-spasi"><span class="vsq-error-icon">!</span> Email Tidak boleh menggunakan Spasi!</div>
                         <div class="vsq-error-msg" id="err-email-format"><span class="vsq-error-icon">!</span> Email Harus mengandung karakter @ dan .</div>
                         <div class="vsq-error-msg" id="err-email-notfound"><span class="vsq-error-icon">!</span> Email belum terdaftar!</div>
                     </div>
@@ -269,9 +283,7 @@
                             <input type="checkbox" id="recaptcha" class="vsq-recaptcha-checkbox">
                             <div class="vsq-recaptcha-spinner" id="recaptcha-spinner"></div>
                             <div class="vsq-recaptcha-check-icon">
-                                <svg viewBox="0 0 24 24">
-                                    <polyline points="4 12 10 18 20 6"></polyline>
-                                </svg>
+                                <svg viewBox="0 0 24 24"><polyline points="4 12 10 18 20 6"></polyline></svg>
                             </div>
                             <label for="recaptcha" class="vsq-recaptcha-label" id="recaptcha-label">I'm not a robot</label>
                         </div>
@@ -287,11 +299,60 @@
         <div class="vsq-login-right"></div>
     </div>
 
+    <!-- NETWORK OVERLAY HTML -->
+    <div id="network-overlay" class="network-overlay" style="display: none; opacity: 0;">
+        <div class="network-content">
+            <div class="network-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M1 1l22 22"/>
+                    <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+                    <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+                    <path d="M10.71 5.05A16 16 0 0 1 22.58 9"/>
+                    <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                    <line x1="12" y1="20" x2="12.01" y2="20"/>
+                </svg>
+            </div>
+            <h2 class="network-title">Tidak Ada Koneksi Internet</h2>
+            <p class="network-message">Periksa Koneksi Anda Kembali</p>
+            <button onclick="retryConnection()" class="network-btn">Coba Lagi</button>
+        </div>
+    </div>
+
     <script>
         const API_BASE = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')
             ? 'http://localhost/vincent-arena/Backend/API' 
             : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
 
+        // ===== LOGIKA NETWORK OVERLAY =====
+        function showNetworkOverlay() { 
+            const overlay = document.getElementById('network-overlay'); 
+            if (!overlay) return; 
+            overlay.style.display = 'flex'; 
+            void overlay.offsetWidth; 
+            overlay.style.opacity = '1'; 
+        }
+        
+        function hideNetworkOverlay() { 
+            const overlay = document.getElementById('network-overlay'); 
+            if (!overlay) return; 
+            overlay.style.opacity = '0'; 
+            setTimeout(() => { overlay.style.display = 'none'; }, 300); 
+        }
+        
+        window.addEventListener('offline', () => { showNetworkOverlay(); });
+        window.addEventListener('online', () => { hideNetworkOverlay(); });
+        window.addEventListener('load', () => { if (!navigator.onLine) showNetworkOverlay(); });
+        
+        function retryConnection() { 
+            if (navigator.onLine) { 
+                hideNetworkOverlay(); 
+            } else { 
+                showNetworkOverlay();
+            } 
+        }
+
+        // ===== LOGIKA FORM LOGIN =====
         function togglePassword(inputId, iconElement) {
             const input = document.getElementById(inputId);
             const iconClosed = iconElement.querySelector('.icon-eye-closed');
@@ -309,6 +370,7 @@
         const recaptchaWrapper = document.getElementById('recaptcha-wrapper');
         
         const errEmailKosong = document.getElementById('err-email');
+        const errEmailSpasi = document.getElementById('err-email-spasi');
         const errEmailFormat = document.getElementById('err-email-format');
         const errEmailNotFound = document.getElementById('err-email-notfound');
         const errPassword = document.getElementById('err-password');
@@ -316,31 +378,27 @@
         const errAuthSub = document.getElementById('err-auth-sub');
         const errCaptcha = document.getElementById('err-captcha');
 
-        // Validasi Email (Hanya memunculkan 1 pesan error)
         function validateEmailRealtime() {
-            const val = emailInput.value.trim();
-            
+            const val = emailInput.value;
             errEmailKosong.classList.remove('show');
+            errEmailSpasi.classList.remove('show');
             errEmailFormat.classList.remove('show');
             errEmailNotFound.classList.remove('show');
             emailInput.classList.remove('is-invalid');
 
-            if (val === '') {
-                emailInput.classList.add('is-invalid');
-                errEmailKosong.classList.add('show');
-                return false; 
+            if (val.trim() === '') {
+                emailInput.classList.add('is-invalid'); errEmailKosong.classList.add('show'); return false; 
             }
-            
+            if (val.includes(' ')) {
+                emailInput.classList.add('is-invalid'); errEmailSpasi.classList.add('show'); return false;
+            }
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(val)) {
-                emailInput.classList.add('is-invalid');
-                errEmailFormat.classList.add('show');
-                return false;
+                emailInput.classList.add('is-invalid'); errEmailFormat.classList.add('show'); return false;
             }
             return true;
         }
 
-        // Validasi Password
         function validatePasswordRealtime() {
             const val = passwordInput.value.trim();
             errPassword.classList.remove('show');
@@ -349,34 +407,15 @@
             passwordInput.classList.remove('is-invalid');
 
             if (val === '') {
-                passwordInput.classList.add('is-invalid');
-                errPassword.classList.add('show');
-                return false;
+                passwordInput.classList.add('is-invalid'); errPassword.classList.add('show'); return false;
             }
             return true;
         }
 
-        emailInput.addEventListener('input', function() {
-            if (this.value.length > 0) validateEmailRealtime();
-            else emailInput.classList.remove('is-invalid'); 
-        });
-
-        passwordInput.addEventListener('input', function() {
-            if (this.value.length > 0) validatePasswordRealtime();
-            else passwordInput.classList.remove('is-invalid');
-        });
-
-        emailInput.addEventListener('blur', function() {
-            if (this.value.trim() === '') {
-                validateEmailRealtime();
-            }
-        });
-
-        passwordInput.addEventListener('blur', function() {
-            if (this.value.trim() === '') {
-                validatePasswordRealtime();
-            }
-        });
+        emailInput.addEventListener('input', function() { if (this.value.length > 0) validateEmailRealtime(); else emailInput.classList.remove('is-invalid'); });
+        passwordInput.addEventListener('input', function() { if (this.value.length > 0) validatePasswordRealtime(); else passwordInput.classList.remove('is-invalid'); });
+        emailInput.addEventListener('blur', function() { if (this.value.trim() === '') validateEmailRealtime(); });
+        passwordInput.addEventListener('blur', function() { if (this.value.trim() === '') validatePasswordRealtime(); });
 
         let captchaVerified = false;
         captchaInput.addEventListener('change', function() {
@@ -384,7 +423,6 @@
                 captchaVerified = false;
                 recaptchaWrapper.classList.add('is-loading');
                 recaptchaWrapper.classList.remove('is-verified');
-
                 setTimeout(() => {
                     recaptchaWrapper.classList.remove('is-loading');
                     recaptchaWrapper.classList.add('is-verified');
@@ -402,18 +440,9 @@
             e.preventDefault(); 
             
             let isValid = true;
-            
-            // Cek Email
-            if (!validateEmailRealtime()) {
-                isValid = false;
-            }
+            if (!validateEmailRealtime()) isValid = false;
+            if (!validatePasswordRealtime()) isValid = false;
 
-            // Cek Password
-            if (!validatePasswordRealtime()) {
-                isValid = false;
-            }
-
-            // Cek Captcha
             if (!captchaVerified) {
                 recaptchaWrapper.classList.add('is-invalid');
                 errCaptcha.classList.add('show');
@@ -422,8 +451,6 @@
 
             if (!isValid) return; 
 
-            btnSubmit.disabled = true; 
-            btnSubmit.textContent = 'Memproses...'; 
             alertBox.innerHTML = '';
 
             try {
@@ -438,9 +465,7 @@
                 const result = await response.json();
                 
                 if (response.ok && result.status === 'success') {
-                    // Tanpa alert, langsung ubah teks tombol dan redirect
-                    btnSubmit.textContent = 'Login Berhasil!';
-                    
+                    // LANGSUNG PROSES REDIRECT TANPA UBAH TEKS / TIMEOUT
                     const userData = result.data?.user || result.user || result.data;
                     localStorage.setItem('vsq_user', JSON.stringify(userData));
                     localStorage.setItem('user_id', result.data?.user_id || userData.id || '');
@@ -459,33 +484,25 @@
                             redirectUrl = savedRedirect;
                         }
                     }
+                    
+                    // Eksekusi Redirect
+                    window.location.href = redirectUrl;
 
-                    setTimeout(() => { window.location.href = redirectUrl; }, 800);
                 } else {
                     const msg = result.message ? result.message.toLowerCase() : '';
-                    
                     if (msg.includes('email tidak terdaftar') || msg.includes('email belum terdaftar')) {
-                        emailInput.classList.add('is-invalid');
-                        errEmailNotFound.classList.add('show');
+                        emailInput.classList.add('is-invalid'); errEmailNotFound.classList.add('show');
                     } else if (msg.includes('password salah') || msg.includes('password tidak cocok')) {
-                        passwordInput.classList.add('is-invalid');
-                        errAuth.classList.add('show');
-                        errAuthSub.classList.add('show');
+                        passwordInput.classList.add('is-invalid'); errAuth.classList.add('show'); errAuthSub.classList.add('show');
                     } else {
-                        emailInput.classList.add('is-invalid');
-                        passwordInput.classList.add('is-invalid');
-                        errAuth.classList.add('show');
-                        errAuthSub.innerText = result.message || "Terjadi kesalahan saat login.";
-                        errAuthSub.classList.add('show');
+                        emailInput.classList.add('is-invalid'); passwordInput.classList.add('is-invalid');
+                        errAuth.classList.add('show'); errAuthSub.innerText = result.message || "Terjadi kesalahan saat login."; errAuthSub.classList.add('show');
                     }
-                    
                     btnSubmit.disabled = false; 
-                    btnSubmit.textContent = 'Masuk';
                 }
             } catch (error) {
-                alertBox.innerHTML = `<div style="background-color: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 13px;">Gagal terhubung ke server.</div>`;
+                showNetworkOverlay();
                 btnSubmit.disabled = false; 
-                btnSubmit.textContent = 'Masuk';
             }
         });
     </script>

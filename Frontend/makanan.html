@@ -11,7 +11,7 @@
 * {margin:0;padding:0;box-sizing:border-box;}
 body {background:#F8FAFC; font-family:'Plus Jakarta Sans',sans-serif;}
 
-/* --- NAVBAR (SAMA PERSIS DENGAN INDEX) --- */
+/* --- NAVBAR --- */
 .vsq-header { background: #FFFFFF; width: 100%; height: 106px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
 .vsq-nav-left { display: flex; align-items: center; gap: 40px; }
 .vsq-logo { display: flex; flex-direction: column; text-decoration: none; width: 130px; flex-shrink: 0; }
@@ -50,11 +50,19 @@ body {background:#F8FAFC; font-family:'Plus Jakarta Sans',sans-serif;}
 /* KONTEN MAKANAN */
 .vsq-section { padding:50px 20px; max-width:1000px; margin:0 auto; text-align:center; }
 .vsq-section-title h2 { font-size:36px; font-weight:700; color:#131B2E; margin-bottom:20px; }
-.sl-skeleton { background:#E2E8F0; border-radius:8px; position:relative; overflow:hidden; }
-.sl-skeleton::after { content:''; position:absolute; top:0; left:-100%; width:50%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent); animation:shimmer 1.5s infinite; }
-@keyframes shimmer {100% {left:100%;}}
-.skeleton-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:24px; margin-top:20px; }
-.skeleton-menu-card { border:1px solid #E2E8F0; border-radius:12px; padding:15px; background:#FFF; text-align:left; }
+
+/* SKELETON LOADING */
+@keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
+.skeleton-box { background: #E2E8F0; background-image: linear-gradient(to right, #E2E8F0 0%, #F1F5F9 20%, #E2E8F0 40%, #E2E8F0 100%); background-repeat: no-repeat; background-size: 1000px 100%; animation: shimmer 2s infinite linear forwards; border-radius: 8px; }
+.sk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px; margin-top: 20px; }
+.sk-grid-item { border: 1px solid #E2E8F0; border-radius: 12px; padding: 15px; background: #FFF; text-align: left; }
+.sk-grid-img { height: 180px; width: 100%; margin-bottom: 15px; }
+.sk-grid-title { width: 70%; height: 20px; margin-bottom: 10px; }
+.sk-grid-price { width: 40%; height: 16px; }
+.hidden-loading { display: none !important; }
+
+/* SLOW CONNECTION TOAST */
+#slow-connection-toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #FEF3C7; color: #92400E; padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 10000; display: flex; align-items: center; gap: 8px; }
 
 /* MODAL */
 .vsq-modal-overlay { position:fixed; inset:0; background:rgba(19,27,46,.6); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; z-index:9999; opacity: 0; transition: opacity 0.3s ease; }
@@ -91,10 +99,13 @@ body {background:#F8FAFC; font-family:'Plus Jakarta Sans',sans-serif;}
     <div class="vsq-section-title">
         <h2>Makanan & Minuman</h2>
     </div>
-    <div class="skeleton-grid" id="makanan-container">
-        <div class="skeleton-menu-card"><div class="sl-skeleton" style="height:180px;width:100%;margin-bottom:15px;"></div><div class="sl-skeleton" style="height:20px;width:70%;margin-bottom:10px;"></div><div class="sl-skeleton" style="height:16px;width:50%;"></div></div>
-        <div class="skeleton-menu-card"><div class="sl-skeleton" style="height:180px;width:100%;margin-bottom:15px;"></div><div class="sl-skeleton" style="height:20px;width:70%;margin-bottom:10px;"></div><div class="sl-skeleton" style="height:16px;width:50%;"></div></div>
-        <div class="skeleton-menu-card"><div class="sl-skeleton" style="height:180px;width:100%;margin-bottom:15px;"></div><div class="sl-skeleton" style="height:20px;width:70%;margin-bottom:10px;"></div><div class="sl-skeleton" style="height:16px;width:50%;"></div></div>
+    
+    <!-- SKELETON CONTAINER -->
+    <div id="skeleton-container"></div>
+    
+    <!-- KONTEN ASLI -->
+    <div class="sk-grid hidden-loading" id="makanan-container">
+        <!-- Diisi oleh JS jika ada data, atau pesan kosong -->
     </div>
 </section>
 
@@ -219,11 +230,60 @@ async function confirmLogout() {
 
 document.getElementById('logoutModal').addEventListener('click', function(e) { if (e.target === this) closeLogoutModal(); });
 
+// ===== SKELETON LOADING & SLOW CONNECTION LOGIC =====
+function showSkeleton() {
+    const container = document.getElementById('skeleton-container');
+    let html = '<div class="sk-grid">';
+    for (let i = 0; i < 4; i++) {
+        html += `
+        <div class="sk-grid-item">
+            <div class="skeleton-box sk-grid-img"></div>
+            <div class="skeleton-box sk-grid-title"></div>
+            <div class="skeleton-box sk-grid-price"></div>
+        </div>`;
+    }
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function hideSkeleton() {
+    document.getElementById('skeleton-container').style.display = 'none';
+    document.getElementById('makanan-container').classList.remove('hidden-loading');
+}
+
+function showSlowConnectionWarning() {
+    const toast = document.createElement('div');
+    toast.id = 'slow-connection-toast';
+    toast.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        Koneksi Internet Lambat...
+    `;
+    document.body.appendChild(toast);
+}
+
+function hideSlowConnectionWarning() {
+    const existing = document.getElementById('slow-connection-toast');
+    if (existing) existing.remove();
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     updateNavbar();
+    
+    showSkeleton();
+    let isLoaded = false;
+    const slowTimer = setTimeout(() => { if (!isLoaded) showSlowConnectionWarning(); }, 5000);
+
+    // Simulasi fetch data makanan (Delay 1.5 detik)
     setTimeout(() => {
+        isLoaded = true;
+        clearTimeout(slowTimer);
+        hideSlowConnectionWarning();
+        
+        // Tampilkan pesan kosong
         document.getElementById('makanan-container').innerHTML = '<p style="text-align:center;color:#64748B;font-size:18px;margin-top:40px;grid-column:1/-1;">Belum ada menu makanan tersedia.</p>';
-    }, 1000);
+        
+        hideSkeleton();
+    }, 1500);
 });
 </script>
 </body>

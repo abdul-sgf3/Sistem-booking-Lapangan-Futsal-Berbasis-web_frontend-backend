@@ -5,67 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verifikasi Email - Vincent'SQ Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <style>
         :root { 
-            --vsq-navy: #131B2E; --vsq-red: #FF0000; --vsq-gray-text: #848484; --vsq-gray-border: #CBD5E1;
-            --vsq-dark-btn: #131B2E; --vsq-error: #FF5555; --vsq-blue-focus: #477FEB;
+            --vsq-navy: #131B2E; --vsq-red: #FF0000; 
+            --vsq-gray: #848484; --vsq-error: #FF5555;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; }
-        
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; 
             background: linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)), url('assets/uploads/lapangan/hero.jpeg') center/cover no-repeat fixed;
             display: flex; align-items: center; justify-content: center; padding: 20px; 
         }
 
-        .vsq-back-btn { position: absolute; top: 36px; left: 38px; color: #FFFFFF; text-decoration: none; z-index: 10; }
-        .vsq-back-btn svg { width: 40px; height: 40px; stroke: #FFFFFF; stroke-width: 2.5; fill: none; }
+        .vsq-back-btn { position: absolute; top: 40px; left: 40px; color: #FFFFFF; text-decoration: none; z-index: 10; transition: transform 0.2s; }
+        .vsq-back-btn:hover { transform: translateX(-4px); }
+        .vsq-back-btn svg { width: 36px; height: 36px; stroke: #FFFFFF; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
         .vsq-verify-card { 
-            background: #FFFFFF; width: 100%; max-width: 460px; border-radius: 20px; padding: 40px 41px 50px 41px; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15); border: 1px solid #848484;
-            text-align: center; display: flex; flex-direction: column; align-items: center; position: relative;
+            background: #FFFFFF; width: 100%; max-width: 420px; border-radius: 20px; padding: 40px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3); text-align: center; display: flex; flex-direction: column; align-items: center; position: relative;
         }
 
-        .vsq-logo { margin-bottom: 25px; }
-        .vsq-logo h1 { font-size: 31px; font-weight: 700; color: var(--vsq-navy); margin: 0; letter-spacing: -0.45px; }
-        .vsq-logo p { font-size: 18px; font-weight: 700; color: var(--vsq-red); letter-spacing: 0.6px; margin-top: 4px; text-transform: uppercase; }
+        .vsq-logo { margin-bottom: 24px; }
+        .vsq-logo h1 { font-size: 32px; font-weight: 800; color: var(--vsq-navy); margin: 0; letter-spacing: -0.5px; }
+        .vsq-logo p { font-size: 18px; font-weight: 800; color: var(--vsq-red); letter-spacing: 1px; margin-top: 2px; text-transform: uppercase; }
 
-        .vsq-illustration { width: 160px; height: auto; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+        .vsq-illustration { width: 160px; height: auto; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
         .vsq-illustration img { width: 100%; height: auto; object-fit: contain; }
 
-        .vsq-text { font-size: 14px; color: #000000; line-height: 1.5; margin-bottom: 25px; }
-        .vsq-text strong { color: #000000; font-weight: 700; display: block; margin-top: 5px; font-size: 15px; }
+        .vsq-text { font-size: 14px; color: #000000; line-height: 1.5; margin-bottom: 24px; }
+        .vsq-text strong { color: #000000; font-weight: 700; display: block; margin-top: 4px; font-size: 15px; }
 
-        .vsq-otp-container { display: flex; justify-content: center; gap: 8px; margin-bottom: 10px; width: 100%; }
+        .vsq-otp-container { display: flex; justify-content: center; gap: 8px; margin-bottom: 12px; width: 100%; }
         .vsq-otp-input { 
-            width: 46px; height: 56px; text-align: center; font-size: 24px; font-weight: 500; color: #000000; 
-            border: 1px solid var(--vsq-gray-border); border-radius: 8px; outline: none; background: #FFFFFF; transition: all 0.2s;
+            width: 48px; height: 56px; text-align: center; font-size: 24px; font-weight: 600; font-family: 'Plus Jakarta Sans', sans-serif;
+            border: 1px solid var(--vsq-gray); border-radius: 10px; outline: none; background: #FFFFFF; transition: all 0.2s; color: #000000;
         }
-        .vsq-otp-input:focus { border-color: var(--vsq-blue-focus); }
-        .vsq-otp-input.is-invalid { border-color: var(--vsq-error) !important; }
+        .vsq-otp-input:focus { border-color: var(--vsq-navy); box-shadow: 0 0 0 3px rgba(19, 27, 46, 0.1); }
+        .vsq-otp-input.is-invalid { border: 1.5px solid var(--vsq-error) !important; }
         
-        .vsq-error-msg { display: none; color: var(--vsq-error); font-size: 12px; font-weight: 500; margin-bottom: 15px; align-items: center; justify-content: center; gap: 5px; }
+        .vsq-error-msg { display: none; color: var(--vsq-error); font-size: 12px; font-weight: 500; margin-bottom: 16px; align-items: center; justify-content: center; gap: 6px; }
         .vsq-error-msg.show { display: flex; }
-        .vsq-error-icon svg { width: 14px; height: 14px; stroke: var(--vsq-error); fill: none; stroke-width: 2; }
+        .vsq-error-icon { width: 14px; height: 14px; background: transparent; border: 2px solid var(--vsq-error); color: var(--vsq-error); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: bold; flex-shrink: 0; }
 
-        .vsq-timer-text { font-size: 14px; color: #000000; margin-bottom: 8px; }
-        .vsq-timer-text span { color: var(--vsq-blue-focus); font-weight: 500; }
+        .vsq-timer-text { font-size: 13px; color: #4B5563; margin-bottom: 8px; }
+        .vsq-timer-text span { color: #477FEB; font-weight: 500; }
         
-        .vsq-change-email { font-size: 14px; color: #000000; margin-bottom: 25px; }
-        .vsq-change-email a { color: var(--vsq-blue-focus); text-decoration: none; font-weight: 500; }
+        .vsq-change-email { font-size: 13px; color: #4B5563; margin-bottom: 24px; }
+        .vsq-change-email a { color: #477FEB; text-decoration: none; font-weight: 500; }
+        .vsq-change-email a:hover { text-decoration: underline; }
 
-        .vsq-btn { background: var(--vsq-dark-btn); color: #FFFFFF; border: none; width: 100%; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
-        .vsq-btn:hover { opacity: 0.9; }
-        .vsq-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+        .vsq-btn { background: var(--vsq-navy); color: #FFFFFF; border: none; width: 100%; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; transition: background 0.2s; }
+        .vsq-btn:hover { background-color: #0a0e1a; }
+        .vsq-btn:disabled { background-color: #93C5FD; cursor: not-allowed; }
     </style>
 </head>
 <body>
 
     <a href="register.html" class="vsq-back-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
     </a>
 
     <div class="vsq-verify-card">
@@ -80,16 +79,16 @@
         <form id="otpForm" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
             
             <div class="vsq-otp-container">
-                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 1)" autofocus inputmode="numeric" pattern="[0-9]*">
-                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 2)" inputmode="numeric" pattern="[0-9]*">
-                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 3)" inputmode="numeric" pattern="[0-9]*">
-                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 4)" inputmode="numeric" pattern="[0-9]*">
-                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 5)" inputmode="numeric" pattern="[0-9]*">
-                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 6)" inputmode="numeric" pattern="[0-9]*">
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 1)" autofocus inputmode="numeric">
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 2)" inputmode="numeric">
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 3)" inputmode="numeric">
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 4)" inputmode="numeric">
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 5)" inputmode="numeric">
+                <input type="text" maxlength="1" class="vsq-otp-input" oninput="moveFocus(this, 6)" inputmode="numeric">
             </div>
 
             <div class="vsq-error-msg" id="err-otp">
-                <span class="vsq-error-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span>
+                <span class="vsq-error-icon">!</span>
                 <span id="err-otp-text">Kode OTP belum dimasukan!</span>
             </div>
 
@@ -101,18 +100,21 @@
     </div>
 
     <script>
-        // URL API (Tetap dibiarkan, untuk digunakan nanti jika BE sudah fix)
-        const API_BASE = 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
+        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+            ? 'http://localhost/vincent-arena/Backend/API' 
+            : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
         
         const savedEmail = localStorage.getItem('register_email');
         if(savedEmail) { document.getElementById('email-target').textContent = savedEmail; } 
         else { window.location.href = 'register.html'; }
 
         function moveFocus(current, nextIndex) {
+            current.value = current.value.replace(/[^0-9]/g, ''); // Hanya angka
             if (current.value.length === 1) {
                 const inputs = document.querySelectorAll('.vsq-otp-input');
                 if (nextIndex < inputs.length) inputs[nextIndex].focus();
             }
+            resetErrorState();
         }
 
         document.querySelectorAll('.vsq-otp-input').forEach((input, index) => {
@@ -121,18 +123,24 @@
                     document.querySelectorAll('.vsq-otp-input')[index - 1].focus();
                 }
             });
-            input.addEventListener('input', () => {
-                document.querySelectorAll('.vsq-otp-input').forEach(el => el.classList.remove('is-invalid'));
-                document.getElementById('err-otp').classList.remove('show');
-            });
         });
+
+        function resetErrorState() {
+            document.getElementById('err-otp').classList.remove('show');
+            document.querySelectorAll('.vsq-otp-input').forEach(el => el.classList.remove('is-invalid'));
+        }
 
         let timeLeft = 60; 
         const timerEl = document.getElementById('timer');
         const countdown = setInterval(() => {
-            if (timeLeft <= 0) { clearInterval(countdown); timerEl.textContent = "00:00"; return; }
+            if (timeLeft <= 0) { 
+                clearInterval(countdown); 
+                timerEl.textContent = "00:00"; 
+                timerEl.style.color = "#FF5555";
+                return; 
+            }
             timeLeft--;
-            timerEl.textContent = `${Math.floor(timeLeft / 60).toString().padStart(2, '0')}:${(timeLeft % 60).toString().padStart(2, '0')}`;
+            timerEl.textContent = `0${Math.floor(timeLeft / 60)}:${(timeLeft % 60).toString().padStart(2, '0')}`;
         }, 1000);
 
         document.getElementById('otpForm').addEventListener('submit', async function(e) {
@@ -144,6 +152,7 @@
             const errOtp = document.getElementById('err-otp');
             const errOtpText = document.getElementById('err-otp-text');
 
+            // Cek Kelengkapan
             if (code6Digit.length < 6) {
                 inputs.forEach(input => { if(input.value === '') input.classList.add('is-invalid'); });
                 errOtpText.textContent = "Kode OTP belum dimasukan!";
@@ -152,38 +161,29 @@
             }
 
             const btn = document.getElementById('btnVerifikasi');
-            btn.disabled = true; btn.textContent = 'Memverifikasi...';
+            btn.disabled = true; 
 
-            // =====================================================================
-            // SOLUSI SEMENTARA (MOCKING UNTUK QA) KARENA BE BELUM BISA DIAKSES
-            // =====================================================================
-            setTimeout(() => {
-                // Simulasi berhasil, langsung pindah ke halaman lengkapi profil
-                window.location.href = 'lengkapi_profil.html';
-            }, 1000);
-
-            /* 
-            // --- KODE ASLI (Buka blok komentar ini jika Backend sudah diperbaiki) ---
             try {
                 const response = await fetch(API_BASE + '/auth/verify_otp.php', {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', 
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' }, 
+                    credentials: 'include', 
                     body: JSON.stringify({ email: savedEmail, otp: code6Digit })
                 });
                 const result = await response.json();
 
                 if (result.status === 'success') {
-                    window.location.href = 'lengkapi_profil.html';
+                    window.location.href = 'profil_user.html';
                 } else {
                     inputs.forEach(input => input.classList.add('is-invalid'));
                     errOtpText.textContent = result.message;
                     errOtp.classList.add('show');
-                    btn.disabled = false; btn.textContent = 'Verifikasi';
+                    btn.disabled = false;
                 }
             } catch (error) {
                 alert('Gagal Terhubung: ' + error.message); 
-                btn.disabled = false; btn.textContent = 'Verifikasi';
+                btn.disabled = false;
             }
-            */
         });
     </script>
 </body>

@@ -98,61 +98,17 @@
         .vsq-arrow-icon { width: 20px; height: 30px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .vsq-arrow-icon img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* ========================================= */
-        /* PERBAIKAN FAQ: GRID SEJAJAR (SESUAI UI/UX) */
-        /* ========================================= */
-        .vsq-faq-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 20px; 
-            max-width: 1292px; 
-            margin: 0 auto; 
-            align-items: start; /* Memastikan kotak sejajar di atas, tidak memanjang ke bawah */
-        }
-
-        .vsq-faq-item { 
-            background: var(--vsq-white); 
-            border: 1px solid #848484; 
-            border-radius: 15px; 
-            cursor: pointer; 
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
-            overflow: hidden; 
-            display: flex; 
-            flex-direction: column; 
-            transition: all 0.3s ease; 
-        }
-
-        .vsq-faq-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 24px; 
-            gap: 16px; 
-            user-select: none; 
-        }
-        
+        .vsq-faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1292px; margin: 0 auto; align-items: start; }
+        .vsq-faq-item { background: var(--vsq-white); border: 1px solid #848484; border-radius: 15px; cursor: pointer; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s ease; }
+        .vsq-faq-header { display: flex; justify-content: space-between; align-items: center; padding: 24px; gap: 16px; user-select: none; }
         .vsq-faq-header .faq-text-wrapper { display: flex; gap: 16px; align-items: center; flex: 1; }
         .vsq-faq-header .faq-number { color: var(--vsq-black); font-weight: 400; flex-shrink: 0; font-size: 22px; line-height: 1.4; }
         .vsq-faq-header .faq-text { font-size: 22px; font-weight: 400; color: var(--vsq-black); line-height: 1.4; text-align: left; }
         .vsq-faq-header .faq-arrow { color: var(--vsq-black); flex-shrink: 0; transition: transform 0.3s ease; display: flex; align-items: center; justify-content: center; }
         .vsq-faq-header .faq-arrow svg { width: 24px; height: 24px; }
-
         .vsq-faq-item.active .faq-arrow { transform: rotate(180deg); }
-        
-        .vsq-faq-body { 
-            max-height: 0; 
-            overflow: hidden; 
-            transition: max-height 0.4s ease, padding 0.4s ease; 
-            padding: 0 24px; 
-            font-size: 22px; 
-            color: #000; 
-            line-height: 1.5; 
-        }
-        
-        .vsq-faq-item.active .vsq-faq-body { 
-            max-height: 300px;
-            padding: 0 24px 24px 24px; 
-        }
+        .vsq-faq-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; padding: 0 24px; font-size: 22px; color: #000; line-height: 1.5; }
+        .vsq-faq-item.active .vsq-faq-body { max-height: 300px; padding: 0 24px 24px 24px; }
 
         .vsq-footer { background-color: var(--vsq-navy); color: var(--vsq-white); padding: 90px 0 60px 0; margin-top: 80px; }
         .vsq-footer-content { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
@@ -189,7 +145,21 @@
         .network-btn { background-color: #FF3B30; color: #FFFFFF; border: none; padding: 14px 40px; font-size: 16px; font-weight: 600; border-radius: 12px; cursor: pointer; transition: background 0.2s ease, transform 0.2s ease; font-family: 'Plus Jakarta Sans', sans-serif; }
         .network-btn:hover { background-color: #E03127; transform: translateY(-2px); }
 
-        /* RESPONSIVE MOBILE */
+        /* SKELETON LOADING */
+        @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
+        .skeleton-box { background: #E2E8F0; background-image: linear-gradient(to right, #E2E8F0 0%, #F1F5F9 20%, #E2E8F0 40%, #E2E8F0 100%); background-repeat: no-repeat; background-size: 1000px 100%; animation: shimmer 2s infinite linear forwards; border-radius: 8px; }
+        .sk-card { display: flex; border: 1px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; height: 532px; margin-bottom: 30px; }
+        .sk-card-img { width: 50%; height: 100%; }
+        .sk-card-content { width: 50%; padding: 34px 40px; display: flex; flex-direction: column; gap: 24px; justify-content: center; }
+        .sk-title { width: 70%; height: 36px; }
+        .sk-text { width: 100%; height: 24px; }
+        .sk-text.short { width: 50%; }
+        .sk-btn { width: 260px; height: 60px; margin-top: auto; border-radius: 10px; align-self: flex-end; }
+        .hidden-loading { display: none !important; }
+
+        /* SLOW CONNECTION TOAST */
+        #slow-connection-toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #FEF3C7; color: #92400E; padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 10000; display: flex; align-items: center; gap: 8px; }
+
         @media screen and (max-width: 768px) {
             .vsq-header { height: 80px; padding: 0 16px; }
             .vsq-nav-menu { display: none; }
@@ -212,9 +182,9 @@
             .vsq-section-title h2 { font-size: 24px; line-height: 32px; }
             .vsq-section-title p { font-size: 14px; }
 
-            .vsq-card { flex-direction: column; height: auto; padding-bottom: 20px; border-radius: 20px; }
-            .vsq-card-img { width: 100%; height: 220px; border-radius: 15px 15px 0 0; }
-            .vsq-card-body { padding: 24px; justify-content: flex-start; gap: 20px;}
+            .vsq-card, .sk-card { flex-direction: column; height: auto; padding-bottom: 20px; border-radius: 20px; }
+            .vsq-card-img, .sk-card-img { width: 100%; height: 220px; border-radius: 15px 15px 0 0; }
+            .vsq-card-body, .sk-card-content { padding: 24px; justify-content: flex-start; gap: 20px; width: 100%; }
             .vsq-card-header { flex-wrap: wrap; gap: 10px; margin-bottom: 0; }
             .vsq-card-header h3 { font-size: 20px; }
             .vsq-card-badge { padding: 6px 16px; font-size: 12px; }
@@ -222,13 +192,14 @@
             .vsq-fasilitas li { font-size: 15px; gap: 12px; }
             .vsq-fasilitas li::before { width: 24px; height: 24px; font-size: 12px; }
             .vsq-card-footer { justify-content: stretch; margin-top: 10px; }
-            .vsq-btn-booking { width: 100%; min-width: 100%; height: 50px; }
+            .vsq-btn-booking, .sk-btn { width: 100%; min-width: 100%; height: 50px; align-self: center;}
+            .sk-title { width: 80%; height: 24px; }
+            .sk-text { height: 16px; }
 
             .vsq-steps-wrapper { flex-direction: column; gap: 16px; }
             .vsq-arrow-icon { transform: rotate(90deg); margin: 10px 0; display: flex; }
             .vsq-step-card { width: 100%; max-width: 300px; height: auto; padding: 24px 16px; }
 
-            /* Penyesuaian FAQ di Mobile */
             .vsq-faq-grid { grid-template-columns: 1fr; gap: 16px; }
             .vsq-faq-header { padding: 16px; }
             .vsq-faq-header .faq-text-wrapper { gap: 10px; }
@@ -275,8 +246,10 @@
         <div class="vsq-section-title">
             <h2>Pilihan Lapangan Tersedia</h2>
         </div>
-        <div class="vsq-lapangan-grid" id="lapangan-container">
-        </div>
+        <!-- SKELETON CONTAINER -->
+        <div id="skeleton-container"></div>
+        <!-- KONTEN ASLI -->
+        <div class="vsq-lapangan-grid hidden-loading" id="lapangan-container"></div>
     </section>
 
     <section class="vsq-section">
@@ -500,22 +473,72 @@
         }
         document.getElementById('logoutModal').addEventListener('click', function(e) { if (e.target === this) closeLogoutModal(); });
 
+        // ===== SKELETON LOADING & SLOW CONNECTION LOGIC =====
+        function showSkeleton() {
+            const container = document.getElementById('skeleton-container');
+            let html = '';
+            for (let i = 0; i < 2; i++) {
+                html += `
+                <div class="sk-card">
+                    <div class="skeleton-box sk-card-img"></div>
+                    <div class="sk-card-content">
+                        <div class="skeleton-box sk-title"></div>
+                        <div class="skeleton-box sk-text"></div>
+                        <div class="skeleton-box sk-text"></div>
+                        <div class="skeleton-box sk-text short"></div>
+                        <div class="skeleton-box sk-btn"></div>
+                    </div>
+                </div>`;
+            }
+            container.innerHTML = html;
+        }
+
+        function hideSkeleton() {
+            document.getElementById('skeleton-container').style.display = 'none';
+            document.getElementById('lapangan-container').classList.remove('hidden-loading');
+        }
+
+        function showSlowConnectionWarning() {
+            const toast = document.createElement('div');
+            toast.id = 'slow-connection-toast';
+            toast.innerHTML = `
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                Koneksi Internet Lambat...
+            `;
+            document.body.appendChild(toast);
+        }
+
+        function hideSlowConnectionWarning() {
+            const existing = document.getElementById('slow-connection-toast');
+            if (existing) existing.remove();
+        }
+
         async function loadLapangan() {
+            showSkeleton();
+            let isLoaded = false;
+            const slowTimer = setTimeout(() => { if (!isLoaded) showSlowConnectionWarning(); }, 5000);
+
             const fallbackData = [
                 { id: 1, nama_lapangan: 'Lapangan Futsal 1', harga_per_jam: 100000, foto_url: 'assets/uploads/lapangan/Lapangan1.jpeg' },
                 { id: 2, nama_lapangan: 'Lapangan Futsal 2', harga_per_jam: 90000, foto_url: 'assets/uploads/lapangan/Lapangan2.jpeg' }
             ];
+            
             try {
                 const response = await fetchWithTimeout(API_BASE + '/public/lapangan.php', { method: 'GET', credentials: 'include' });
                 const result = await response.json();
+                isLoaded = true; clearTimeout(slowTimer); hideSlowConnectionWarning();
+
                 if (result.status === 'success' && result.data && result.data.length > 0) { 
                     renderLapangan(result.data); 
                 } else { 
                     renderLapangan(fallbackData); 
                 }
             } catch (error) { 
+                isLoaded = true; clearTimeout(slowTimer); hideSlowConnectionWarning();
                 showNetworkOverlay();
                 renderLapangan(fallbackData); 
+            } finally {
+                hideSkeleton();
             }
         }
 

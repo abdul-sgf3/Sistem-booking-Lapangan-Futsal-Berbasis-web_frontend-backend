@@ -85,6 +85,21 @@ body {background:#F8FAFC; font-family:'Plus Jakarta Sans',sans-serif;}
 .vsq-img-fail { width:100%; height:100%; background:#D9D9D9; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:#131B2E; font-size:14px; cursor:pointer; }
 .vsq-img-fail svg { width:40px; height:40px; stroke:#131B2E; stroke-width:2; fill:none; }
 
+/* SKELETON LOADING */
+@keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
+.skeleton-box { background: #E2E8F0; background-image: linear-gradient(to right, #E2E8F0 0%, #F1F5F9 20%, #E2E8F0 40%, #E2E8F0 100%); background-repeat: no-repeat; background-size: 1000px 100%; animation: shimmer 2s infinite linear forwards; border-radius: 8px; }
+.sk-card { display: flex; border: 1px solid #E2E8F0; border-radius: 16px; overflow: hidden; background: #FFF; height: 320px; margin-bottom: 30px; }
+.sk-card-img { width: 45%; height: 100%; }
+.sk-card-content { width: 55%; padding: 30px 40px; display: flex; flex-direction: column; gap: 16px; justify-content: center;}
+.sk-title { width: 60%; height: 28px; margin-bottom: 10px; }
+.sk-text { width: 100%; height: 18px; }
+.sk-text.short { width: 40%; }
+.sk-btn { width: 140px; height: 45px; margin-top: auto; border-radius: 10px; align-self: flex-end; }
+.hidden-loading { display: none !important; }
+
+/* SLOW CONNECTION TOAST */
+#slow-connection-toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #FEF3C7; color: #92400E; padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 10000; display: flex; align-items: center; gap: 8px; }
+
 @media(max-width: 900px) {
     .vsq-header { height: 80px; padding: 0 16px; }
     .vsq-nav-menu { display: none; }
@@ -98,12 +113,14 @@ body {background:#F8FAFC; font-family:'Plus Jakarta Sans',sans-serif;}
     .vsq-booking-header h1 { font-size: 28px; }
     .vsq-booking-header p { font-size: 14px; }
 
-    .vsq-booking-card { flex-direction: column; height: auto; }
-    .vsq-booking-img { width: 100%; height: 220px; }
-    .vsq-booking-content { width: 100%; padding: 20px; }
+    .vsq-booking-card, .sk-card { flex-direction: column; height: auto; padding-bottom: 20px;}
+    .vsq-booking-img, .sk-card-img { width: 100%; height: 220px; }
+    .vsq-booking-content, .sk-card-content { width: 100%; padding: 20px; justify-content: flex-start; gap: 20px;}
     .vsq-booking-top { flex-direction: column; align-items: flex-start; gap: 10px; }
     .vsq-booking-footer { flex-direction: column; align-items: flex-start; gap: 15px; }
-    .vsq-btn-detail { width: 100%; justify-content: center; }
+    .vsq-btn-detail, .sk-btn { width: 100%; justify-content: center; align-self: center; }
+    .sk-title { width: 80%; height: 24px; }
+    .sk-text { height: 16px; }
 }
 </style>
 </head>
@@ -118,50 +135,11 @@ body {background:#F8FAFC; font-family:'Plus Jakarta Sans',sans-serif;}
     </div>
 
     <div class="vsq-booking-section">
-        <div class="vsq-booking-list" id="lapangan-container">
-            <div class="vsq-booking-card">
-                <div class="vsq-booking-img"><img src="assets/uploads/lapangan/Lapangan1.jpeg" alt="Lapangan Futsal 1" onerror="imgFail(this)"></div>
-                <div class="vsq-booking-content">
-                    <div>
-                        <div class="vsq-booking-top">
-                            <div class="vsq-booking-title"><h2>Lapangan Futsal 1</h2><span class="vsq-badge-vip">VIP</span></div>
-                            <div class="vsq-status-tersedia"><span class="vsq-dot"></span>Tersedia</div>
-                        </div>
-                        <div class="vsq-booking-fasilitas">
-                            <div class="vsq-fasilitas-item">Indoor</div>
-                            <div class="vsq-fasilitas-item">Sirkulasi udara</div>
-                            <div class="vsq-fasilitas-item">Area Luas</div>
-                            <div class="vsq-fasilitas-item">Area Penonton</div>
-                        </div>
-                    </div>
-                    <div class="vsq-divider"></div>
-                    <div class="vsq-booking-footer">
-                        <div class="vsq-harga">Rp100.000 <span>/ Jam</span></div>
-                        <a href="detail_lapangan.html?id=1" class="vsq-btn-detail">Lihat Detail</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="vsq-booking-card">
-                <div class="vsq-booking-img"><img src="assets/uploads/lapangan/Lapangan2.jpeg" alt="Lapangan Futsal 2" onerror="imgFail(this)"></div>
-                <div class="vsq-booking-content">
-                    <div>
-                        <div class="vsq-booking-top">
-                            <div class="vsq-booking-title"><h2>Lapangan Futsal 2</h2><span class="vsq-badge-reguler">Reguler</span></div>
-                            <div class="vsq-status-tersedia"><span class="vsq-dot"></span>Tersedia</div>
-                        </div>
-                        <div class="vsq-booking-fasilitas vertical">
-                            <div class="vsq-fasilitas-item">Indoor</div>
-                            <div class="vsq-fasilitas-item">Area Luas</div>
-                        </div>
-                    </div>
-                    <div class="vsq-divider"></div>
-                    <div class="vsq-booking-footer">
-                        <div class="vsq-harga">Rp90.000 <span>/ Jam</span></div>
-                        <a href="detail_lapangan.html?id=2" class="vsq-btn-detail">Lihat Detail</a>
-                    </div>
-                </div>
-            </div>
+        <!-- SKELETON CONTAINER -->
+        <div id="skeleton-container"></div>
+        <!-- KONTEN ASLI -->
+        <div class="vsq-booking-list hidden-loading" id="lapangan-container">
+            <!-- Data akan dirender oleh JS -->
         </div>
     </div>
 </main>
@@ -296,9 +274,115 @@ function logout() { document.getElementById('logoutModal').style.display = 'flex
 function closeLogoutModal() { document.getElementById('logoutModal').style.display = 'none'; }
 async function confirmLogout() { try { await fetch(API_BASE + '/auth/logout.php', { method: 'POST', credentials: 'include' }); } catch (error) {} finally { localStorage.clear(); window.location.href = 'login.html'; } }
 
-document.addEventListener('DOMContentLoaded', function() {
+// ===== SKELETON LOADING & SLOW CONNECTION LOGIC =====
+function showSkeleton() {
+    const container = document.getElementById('skeleton-container');
+    let html = '';
+    for (let i = 0; i < 2; i++) {
+        html += `
+        <div class="sk-card">
+            <div class="skeleton-box sk-card-img"></div>
+            <div class="sk-card-content">
+                <div class="skeleton-box sk-title"></div>
+                <div style="display:flex; gap:10px; margin-bottom:20px;">
+                    <div class="skeleton-box" style="width:80px; height:26px; border-radius:20px;"></div>
+                    <div class="skeleton-box" style="width:80px; height:26px; border-radius:20px;"></div>
+                </div>
+                <div class="skeleton-box sk-text"></div>
+                <div class="skeleton-box sk-text short"></div>
+                <div class="skeleton-box sk-btn"></div>
+            </div>
+        </div>`;
+    }
+    container.innerHTML = html;
+}
+
+function hideSkeleton() {
+    document.getElementById('skeleton-container').style.display = 'none';
+    document.getElementById('lapangan-container').classList.remove('hidden-loading');
+}
+
+function showSlowConnectionWarning() {
+    const toast = document.createElement('div');
+    toast.id = 'slow-connection-toast';
+    toast.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        Koneksi Internet Lambat...
+    `;
+    document.body.appendChild(toast);
+}
+
+function hideSlowConnectionWarning() {
+    const existing = document.getElementById('slow-connection-toast');
+    if (existing) existing.remove();
+}
+
+function renderLapanganData() {
+    // Data dummy karena aslinya halaman ini hardcode di FE
+    const container = document.getElementById('lapangan-container');
+    container.innerHTML = `
+        <div class="vsq-booking-card">
+            <div class="vsq-booking-img"><img src="assets/uploads/lapangan/Lapangan1.jpeg" alt="Lapangan Futsal 1" onerror="imgFail(this)"></div>
+            <div class="vsq-booking-content">
+                <div>
+                    <div class="vsq-booking-top">
+                        <div class="vsq-booking-title"><h2>Lapangan Futsal 1</h2><span class="vsq-badge-vip">VIP</span></div>
+                        <div class="vsq-status-tersedia"><span class="vsq-dot"></span>Tersedia</div>
+                    </div>
+                    <div class="vsq-booking-fasilitas">
+                        <div class="vsq-fasilitas-item">Indoor</div>
+                        <div class="vsq-fasilitas-item">Sirkulasi udara</div>
+                        <div class="vsq-fasilitas-item">Area Luas</div>
+                        <div class="vsq-fasilitas-item">Area Penonton</div>
+                    </div>
+                </div>
+                <div class="vsq-divider"></div>
+                <div class="vsq-booking-footer">
+                    <div class="vsq-harga">Rp100.000 <span>/ Jam</span></div>
+                    <a href="detail_lapangan.html?id=1" class="vsq-btn-detail">Lihat Detail</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="vsq-booking-card">
+            <div class="vsq-booking-img"><img src="assets/uploads/lapangan/Lapangan2.jpeg" alt="Lapangan Futsal 2" onerror="imgFail(this)"></div>
+            <div class="vsq-booking-content">
+                <div>
+                    <div class="vsq-booking-top">
+                        <div class="vsq-booking-title"><h2>Lapangan Futsal 2</h2><span class="vsq-badge-reguler">Reguler</span></div>
+                        <div class="vsq-status-tersedia"><span class="vsq-dot"></span>Tersedia</div>
+                    </div>
+                    <div class="vsq-booking-fasilitas vertical">
+                        <div class="vsq-fasilitas-item">Indoor</div>
+                        <div class="vsq-fasilitas-item">Area Luas</div>
+                    </div>
+                </div>
+                <div class="vsq-divider"></div>
+                <div class="vsq-booking-footer">
+                    <div class="vsq-harga">Rp90.000 <span>/ Jam</span></div>
+                    <a href="detail_lapangan.html?id=2" class="vsq-btn-detail">Lihat Detail</a>
+                </div>
+            </div>
+        </div>
+    `;
     decorateCards();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
     updateNavbar();
+    
+    showSkeleton();
+    let isLoaded = false;
+    const slowTimer = setTimeout(() => { if (!isLoaded) showSlowConnectionWarning(); }, 5000);
+    
+    // Simulasi fetch data (Delay 1.5 detik agar skeleton terlihat)
+    setTimeout(() => {
+        isLoaded = true;
+        clearTimeout(slowTimer);
+        hideSlowConnectionWarning();
+        renderLapanganData();
+        hideSkeleton();
+    }, 1500);
 });
 </script>
 </body>

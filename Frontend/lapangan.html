@@ -11,6 +11,7 @@
 * {margin:0;padding:0;box-sizing:border-box;}
 body {background:#F8FAFC; font-family:'Plus Jakarta Sans',sans-serif;}
 
+/* NAVBAR */
 .vsq-header { background: #FFFFFF; width: 100%; height: 106px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
 .vsq-nav-left { display: flex; align-items: center; gap: 40px; }
 .vsq-logo { display: flex; flex-direction: column; text-decoration: none; width: 130px; flex-shrink: 0; }
@@ -48,6 +49,7 @@ body {background:#F8FAFC; font-family:'Plus Jakarta Sans',sans-serif;}
 .vsq-btn-edit-profile { background: #477FEB; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
 .vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
+/* KONTEN LAPANGAN (DESAIN ASLI ANDA) */
 .vsq-booking-header { text-align: center; margin: 50px auto 40px; }
 .vsq-booking-header h1 { font-size: 36px; font-weight: 700; color: #131B2E; margin-bottom: 10px; }
 .vsq-booking-header p { font-size: 16px; font-weight: 500; color: #333; }
@@ -205,6 +207,7 @@ function renderNavbar(user) {
     let isLapangan = path.includes('lapangan.html') || path.includes('detail_lapangan.html') || path.includes('booking_lapangan.html') ? 'active' : '';
 
     if (user) {
+        // ====== TAMPILAN SETELAH LOGIN (GAMBAR 2) ======
         const firstName = user.nama.split(' ')[0];
         const avatarContent = user.foto_url ? `<img src="${user.foto_url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">` : user.initial;
         rightNavHTML = `
@@ -228,7 +231,8 @@ function renderNavbar(user) {
             </div>
         `;
     } else {
-        rightNavHTML = ''; 
+        // ====== TAMPILAN SEBELUM LOGIN (GAMBAR 1) ======
+        rightNavHTML = `<a href="login.html" class="vsq-btn-login-outline">Login</a><a href="register.html" class="vsq-btn-register">Register</a>`;
     }
 
     navbarEl.innerHTML = `
@@ -254,20 +258,29 @@ function renderNavbar(user) {
 }
 
 async function updateNavbar() {
-    renderNavbar(normalizeUser(getCachedUser()));
+    // 1. Render pertama kali secara instan (dari cache/localStorage)
+    // Jika belum login, ini akan memunculkan tombol Login/Register
+    const cached = normalizeUser(getCachedUser());
+    renderNavbar(cached);
+
+    // 2. Cek ke API Backend
     try {
         const response = await fetch(API_BASE + '/auth/check.php', { method:'GET', credentials: 'include', headers: {'Accept': 'application/json'} });
         const result = await response.json();
         const loggedIn = !!((result.data && result.data.logged_in) || result.logged_in);
         const serverUser = (result.data && result.data.user) || result.user;
+        
         if (loggedIn && serverUser) {
             localStorage.setItem('vsq_user', JSON.stringify(serverUser));
             renderNavbar(normalizeUser(serverUser));
         } else {
+            // JIKA SERVER BILANG BELUM LOGIN: Hapus cache dan render tombol Login/Register
             USER_KEYS.forEach(k => localStorage.removeItem(k));
             renderNavbar(null);
         }
-    } catch (error) { console.log('Offline Mode'); }
+    } catch (error) { 
+        console.log('Offline Mode'); 
+    }
 }
 
 function logout() { document.getElementById('logoutModal').style.display = 'flex'; }
@@ -275,6 +288,8 @@ function closeLogoutModal() { document.getElementById('logoutModal').style.displ
 async function confirmLogout() { try { await fetch(API_BASE + '/auth/logout.php', { method: 'POST', credentials: 'include' }); } catch (error) {} finally { localStorage.clear(); window.location.href = 'login.html'; } }
 
 // ===== SKELETON LOADING & SLOW CONNECTION LOGIC =====
+let slowTimer;
+
 function showSkeleton() {
     const container = document.getElementById('skeleton-container');
     let html = '';
@@ -295,20 +310,21 @@ function showSkeleton() {
         </div>`;
     }
     container.innerHTML = html;
+    slowTimer = setTimeout(() => { showSlowConnectionWarning(); }, 2000);
 }
 
 function hideSkeleton() {
     document.getElementById('skeleton-container').style.display = 'none';
     document.getElementById('lapangan-container').classList.remove('hidden-loading');
+    clearTimeout(slowTimer);
+    hideSlowConnectionWarning();
 }
 
 function showSlowConnectionWarning() {
+    if(document.getElementById('slow-connection-toast')) return;
     const toast = document.createElement('div');
     toast.id = 'slow-connection-toast';
-    toast.innerHTML = `
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-        Koneksi Internet Lambat...
-    `;
+    toast.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> Koneksi Internet Lambat...`;
     document.body.appendChild(toast);
 }
 
@@ -318,7 +334,6 @@ function hideSlowConnectionWarning() {
 }
 
 function renderLapanganData() {
-    // Data dummy karena aslinya halaman ini hardcode di FE
     const container = document.getElementById('lapangan-container');
     container.innerHTML = `
         <div class="vsq-booking-card">
@@ -372,17 +387,10 @@ document.addEventListener('DOMContentLoaded', function() {
     updateNavbar();
     
     showSkeleton();
-    let isLoaded = false;
-    const slowTimer = setTimeout(() => { if (!isLoaded) showSlowConnectionWarning(); }, 5000);
-    
-    // Simulasi fetch data (Delay 1.5 detik agar skeleton terlihat)
     setTimeout(() => {
-        isLoaded = true;
-        clearTimeout(slowTimer);
-        hideSlowConnectionWarning();
         renderLapanganData();
         hideSkeleton();
-    }, 1500);
+    }, 50); 
 });
 </script>
 </body>

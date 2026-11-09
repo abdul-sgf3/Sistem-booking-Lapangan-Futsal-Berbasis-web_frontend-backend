@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Booking - Vincent'SQ Sports Arena</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --vsq-navy: #131B2E; 
+            --vsq-blue: #477FEB; 
+            --vsq-red: #FF0000; 
+            --vsq-gray: #848484; 
+            --vsq-white: #FFFFFF; 
+            --vsq-bg: #F8FAFC; 
+            --vsq-border: #848484;
+            --vsq-text: #000000;
+            --vsq-error: #B91C1C; 
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--vsq-bg); font-family: 'Plus Jakarta Sans', sans-serif; color: var(--vsq-text); overflow-x: hidden; }
+
+        /* HEADER & NAVBAR */
+        .vsq-header { background: #FFFFFF; width: 100%; height: 106px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
+        .vsq-nav-left { display: flex; align-items: center; gap: 40px; }
+        .vsq-logo { display: flex; flex-direction: column; text-decoration: none; width: 130px; flex-shrink: 0; }
+        .vsq-logo-title { font-size: 22px; font-weight: 800; color: #131B2E; line-height: 1.1; letter-spacing: -0.5px; }
+        .vsq-logo-sub { font-size: 13px; font-weight: 800; color: #FF0000; line-height: 1.2; letter-spacing: 0.5px; margin-top: 2px; }
+        .vsq-nav-menu { display: flex; align-items: center; gap: 32px; }
+        .vsq-nav-link { font-size: 15px; font-weight: 600; color: #000000; text-decoration: none; transition: color 0.2s; white-space: nowrap; }
+        .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 14px 24px; border-radius: 12px; height: auto; display: flex; align-items: center; justify-content: center; }
+        .vsq-nav-right { display: flex; align-items: center; gap: 16px; position: relative; flex-shrink: 0; }
+        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: auto; max-width: 160px; height: 42px; border: 1px solid #000000; border-radius: 10px; padding: 0 8px 0 12px; cursor: pointer; flex-shrink: 1; overflow: hidden; }
+        .vsq-profile-name { font-size: 14px; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; margin-right: 8px; }
+        .vsq-profile-avatar { width: 28px; height: 28px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; overflow: hidden; }
+        .vsq-btn-logout { background: #131B2E; color: #FFF; width: auto; padding: 0 16px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+        .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; padding: 0; }
+        .vsq-notif-btn img { width: 28px; height: 28px; object-fit: contain; }
+        
+        /* MAIN CONTAINER */
+        .container { max-width: 1240px; margin: 0 auto; padding: 30px 20px 80px; position: relative; }
+        .breadcrumb { display: flex; align-items: center; gap: 10px; font-size: 16px; color: #848484; margin-bottom: 24px; font-weight: 400; }
+        .breadcrumb a { display: flex; align-items: center; color: #848484; text-decoration: none; gap: 8px;}
+        .breadcrumb svg { width: 20px; height: 20px; stroke: #848484; stroke-width: 2; fill: none; }
+
+        /* DETAIL LAPANGAN */
+        .detail-card { display: flex; border: 1px solid var(--vsq-border); border-radius: 20px; background: #fff; margin-bottom: 24px; overflow: hidden; width: 100%; }
+        .detail-image-wrapper { width: 50%; min-height: 380px; flex-shrink: 0; }
+        .detail-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .detail-content { flex: 1; padding: 34px 40px; display: flex; flex-direction: column; position: relative; }
+        .header-title { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
+        .header-title h1 { font-size: 24px; font-weight: 600; color: #000; margin: 0; }
+        .badge-vip { background: #FFD700; color: #000; padding: 14px 32px; border-radius: 60px; font-weight: 500; font-size: 16px; }
+        .status-tersedia { position: absolute; top: 34px; right: 40px; display: flex; align-items: center; gap: 7px; font-size: 14px; color: #3DB268; font-weight: 400; }
+        .dot { width: 10px; height: 10px; background-color: #3DB268; border-radius: 50%; }
+        .location { display: flex; align-items: center; gap: 8px; color: #000; font-size: 12px; font-weight: 500; margin-bottom: 24px; }
+        .location svg { width: 16px; height: 16px; stroke: #131B2E; flex-shrink: 0; }
+        .fasilitas-list { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+        .fasilitas-item { display: flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid #131B2E; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 400; color: #000; background: #fff; height: 40px; white-space: nowrap; }
+        .fasilitas-item svg { width: 18px; height: 18px; stroke: #131B2E; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .deskripsi-title { font-size: 18px; font-weight: 500; color: #000; margin-bottom: 12px; }
+        .deskripsi-text { font-size: 14px; color: #000; line-height: 1.6; margin-bottom: 16px; text-align: justify; }
+        .detail-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: auto; width: 100%; border-top: 1px solid #000; padding-top: 20px; }
+        .harga { font-size: 24px; font-weight: 600; color: #131B2E; white-space: nowrap; display: flex; align-items: center; gap: 8px;}
+        .harga span { font-size: 18px; font-weight: 500; color: #131B2E; }
+
+        /* BOTTOM INFO GRID */
+        .bottom-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; align-items: stretch; margin-bottom: 40px; }
+        .info-box { border: 1px solid var(--vsq-border); border-radius: 15px; padding: 30px; background: #fff; display: flex; flex-direction: column; }
+        .info-box-header { display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 600; color: #000; margin-bottom: 24px; }
+        .info-box-header svg { width: 28px; height: 28px; stroke: #131B2E; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round;}
+        .aturan-content ol { margin: 0; padding-left: 20px; }
+        .aturan-content li { font-size: 14px; line-height: 1.5; color: #000; padding: 6px 0; text-align: justify;}
+        .jam-box { padding: 30px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+        .jam-box-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+        .jam-box-header svg { width: 24px; height: 24px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round;}
+        .jam-box-header h5 { font-size: 16px; font-weight: 600; margin: 0; }
+        .jam-box-content { display: flex; align-items: flex-start; gap: 10px; }
+        .jam-box-content svg { width: 20px; height: 20px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; margin-top: 2px;}
+        .jam-box-content .text { font-size: 14px; line-height: 1.5; color: #000; }
+
+        /* FORM BOOKING CARD */
+        .booking-card { background: #FFF; border: 1px solid var(--vsq-border); border-radius: 20px; padding: 40px; position: relative; width: 100%; margin: 0 auto; }
+        .booking-header { display: flex; justify-content: center; align-items: center; margin-bottom: 40px; }
+        .booking-header h2 { font-size: 24px; font-weight: 600; text-align: center; color: #000; }
+
+        .form-group { margin-bottom: 24px; text-align: left; }
+        .form-group label { display: block; font-size: 16px; font-weight: 500; color: #000; margin-bottom: 12px; }
+        
+        /* INPUT NAMA: Background Putih dipaksa dengan important */
+        .form-control { 
+            width: 100%; 
+            height: 50px; 
+            padding: 10px 20px; 
+            font-size: 16px; 
+            font-family: inherit; 
+            background-color: #FFFFFF !important; 
+            border: 1px solid var(--vsq-border); 
+            border-radius: 10px; 
+            outline: none; 
+            color: #000; 
+            transition: border-color 0.2s; 
+        }
+        .form-control::placeholder { color: #848484; font-weight: 400; }
+        
+        /* Trik CSS Pamungkas: Memaksa putih total saat autofill browser */
+        .form-control:-webkit-autofill,
+        .form-control:-webkit-autofill:hover, 
+        .form-control:-webkit-autofill:focus, 
+        .form-control:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 1000px #FFFFFF inset !important;
+            box-shadow: 0 0 0 1000px #FFFFFF inset !important;
+            -webkit-text-fill-color: #000000 !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+        
+        /* Error State Nama */
+        .form-control.is-invalid { border-color: var(--vsq-error) !important; }
+        .error-msg { display: none; color: var(--vsq-error); font-size: 13px; font-weight: 500; margin-top: 12px; align-items: center; gap: 6px; text-align: left;}
+        .error-msg.show { display: flex; }
+        .error-icon { width: 16px; height: 16px; border: 2px solid var(--vsq-error); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; flex-shrink: 0; }
+        
+        /* SCHEDULE LAYOUT */
+        .schedule-layout { display: flex; gap: 40px; margin-bottom: 30px; align-items: flex-start; position: relative; }
+        .calendar-section { width: 320px; flex-shrink: 0; }
+        .cal-title { margin-bottom: 16px; display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; }
+        .cal-title svg { width: 24px; height: 24px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round;}
+        .cal-box { border: 1px solid var(--vsq-border); border-radius: 12px; padding: 20px; background: #fff; }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .calendar-header h4 { font-size: 15px; font-weight: 700; margin: 0; }
+        .cal-btn { background: none; border: none; cursor: pointer; padding: 5px; display: flex; align-items: center; justify-content: center;}
+        .cal-btn svg { width: 16px; height: 16px; stroke: #111C3A; stroke-width: 2; fill: none; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+        .day-name { font-size: 12px; font-weight: 700; color: #111C3A; padding-bottom: 10px; }
+        .day-name.sun { color: #FF5555; }
+        .calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; row-gap: 8px; }
+        .day { font-size: 13px; font-weight: 400; color: #111C3A; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; margin: 0 auto; transition: all 0.2s; }
+        .day.sun { color: #FF5555; }
+        .day:hover { background: #F1F5F9; }
+        .day.active { background: #111C3A; color: #FFF; font-weight: 700; }
+        .day.active.sun { color: #FFF; }
+        .day.disabled { opacity: .35; cursor: not-allowed; }
+        .day.empty { visibility: hidden; }
+
+        /* Pemilihan Waktu Kanan */
+        .time-section { flex: 1; padding-top: 40px; }
+        .time-header-row { display: flex; justify-content: flex-end; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;}
+        .time-legend { display: flex; gap: 8px; align-items: center;}
+        .legend-badge-avail { font-size: 13px; font-weight: 400; color: #000; background: #fff; padding: 8px 16px; border-radius: 20px; border: 1px solid var(--vsq-border);}
+        .legend-badge-booked { font-size: 13px; font-weight: 400; color: #000; background: #D9D9D9; padding: 8px 16px; border-radius: 20px; display: flex; align-items: center; gap: 6px;}
+        .legend-dot { width: 8px; height: 8px; background: #000; border-radius: 50%; }
+        
+        .time-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        
+        /* DESAIN DASAR KOTAK JAM */
+        .time-slot { 
+            padding: 12px 8px; 
+            border: 1px solid #D1D5DB; 
+            border-radius: 20px; 
+            font-size: 14px; 
+            font-weight: 400; 
+            text-align: center; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            user-select: none; 
+            background: #F3F4F6; /* Latar abu-abu terang standar */
+            color: #000; 
+        }
+        
+        .time-slot:hover { border-color: #9CA3AF; }
+        
+        /* KOTAK TERBOOKING */
+        .time-slot.booked { 
+            background: #D1D5DB; 
+            color: #6B7280; 
+            border-color: transparent; 
+            cursor: not-allowed; 
+        }
+
+        /* KOTAK ERROR (Belum dipilih & tersedia) */
+        .time-slot.error-border {
+            border: 1.5px solid var(--vsq-error) !important;
+            background: #FFFFFF !important;
+            color: #000 !important;
+        }
+
+        /* KOTAK TERPILIH (Selected) */
+        /* Menggunakan !important agar menimpa gaya apapun */
+        .time-slot.selected { 
+            background: #FFFFFF !important; 
+            color: #B91C1C !important; 
+            border: 1.5px solid #B91C1C !important; 
+            box-shadow: 0 0 0 1px #B91C1C inset !important; 
+        }
+
+        /* Teks Error Jam */
+        #err-jam { margin-top: 15px; display: none; }
+        #err-jam.show { display: flex; }
+
+        /* METODE PEMBAYARAN */
+        .payment-section { margin-top: 24px; padding-top: 24px; position: relative;}
+        .payment-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #000;}
+        .payment-card { border: 1px solid var(--vsq-border); border-radius: 12px; margin-bottom: 12px; background: #fff; overflow: hidden; display: flex; flex-direction: column; }
+        .payment-main-row { display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 60px; cursor: pointer; width: 100%; }
+        .payment-main-row input[type="radio"] { appearance: none; width: 28px; height: 28px; border: 2px solid #000; border-radius: 50%; outline: none; cursor: pointer; position: relative; flex-shrink: 0; }
+        .payment-main-row input[type="radio"]:checked { border-color: #000; }
+        .payment-main-row input[type="radio"]:checked::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 14px; height: 14px; background: #000; border-radius: 50%; }
+        .payment-info { display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 400;}
+        .payment-logos { display: flex; gap: 8px; margin-left: 5px; align-items: center;}
+        .payment-logos img { height: 20px; object-fit: contain; }
+        .btn-lainnya { font-size: 14px; color: #000; cursor: pointer; text-decoration: none; font-weight: 400; margin-left: 5px;}
+        .btn-lainnya:hover { text-decoration: underline; }
+        .other-payments { display: none; padding: 0 20px 16px 60px; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .other-payments.show { display: flex; }
+        .other-payment-item { display: flex; align-items: center; cursor: pointer; }
+        .other-payment-item img { height: 20px; object-fit: contain; }
+
+        .action-bottom { display: flex; justify-content: flex-end; align-items: center; margin-top: 30px; }
+        .btn-confirm { background: var(--vsq-navy); color: #FFF; border: none; padding: 0 30px; height: 50px; border-radius: 10px; font-size: 16px; font-weight: 600; font-family: inherit; cursor: pointer; width: 200px; }
+
+        .img-fail { width: 100%; height: 100%; background: #D9D9D9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #131B2E; font-size: 14px; cursor: pointer; }
+
+        @media (max-width: 900px) {
+            .container { padding: 20px 15px 50px; }
+            .detail-card { flex-direction: column; }
+            .detail-image-wrapper { width: 100%; height: 250px; min-height: 250px;}
+            .detail-content { padding: 20px; }
+            .bottom-grid { grid-template-columns: 1fr; }
+            .schedule-layout { flex-direction: column; }
+            .calendar-section { width: 100%; }
+            .time-section { padding-top: 20px; width: 100%; }
+            .time-header-row { flex-direction: column; align-items: flex-start; gap: 15px;}
+            .time-grid { grid-template-columns: repeat(3, 1fr); }
+            .payment-info { flex-wrap: wrap; gap: 8px; }
+            .other-payments { padding-left: 20px; }
+            .booking-card { padding: 20px; }
+            .btn-confirm { width: 100%; }
+            .vsq-nav-menu { display: none; }
+            .vsq-profile-name { display: none; }
+            .vsq-profile-box { max-width: 60px; padding: 0 6px; justify-content: center; }
+            .vsq-btn-logout { padding: 0 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="navbar"></header>
+
+    <main class="container">
+        <div class="breadcrumb">
+            <a href="index.html"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a>
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <a href="lapangan.html">Booking Lapangan</a>
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <a href="#">Detail Lapangan</a>
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <span class="current">Formulir Booking</span>
+        </div>
+
+        <div class="detail-card">
+            <div class="detail-image-wrapper">
+                <img id="lapangan-image" class="detail-image" src="" alt="Lapangan" onerror="imgFail(this)">
+            </div>
+            <div class="detail-content">
+                <div class="header-title">
+                    <h1 id="lapangan-name">Memuat...</h1>
+                    <span id="lapangan-badge" class="badge-vip">...</span>
+                </div>
+                <div class="status-tersedia"><span class="dot"></span> Tersedia</div>
+                
+                <div class="location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    Tuparev, Kota Cirebon - Jawa Barat
+                </div>
+                
+                <div class="fasilitas-list" id="fasilitas-container"></div>
+                
+                <div class="deskripsi-title">Deskripsi:</div>
+                <p class="deskripsi-text" id="lapangan-deskripsi">Memuat deskripsi...</p>
+                
+                <div class="detail-footer">
+                    <div class="harga" id="lapangan-harga">Rp0 <span>/ Jam</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-grid">
+            <div class="info-box">
+                <div class="info-box-header">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="14" x2="8.01" y2="14"></line><line x1="12" y1="14" x2="12.01" y2="14"></line><line x1="16" y1="14" x2="16.01" y2="14"></line><line x1="8" y1="18" x2="8.01" y2="18"></line><line x1="12" y1="18" x2="12.01" y2="18"></line><line x1="16" y1="18" x2="16.01" y2="18"></line></svg>
+                    Aturan Pemesanan
+                </div>
+                <div class="info-box-content aturan-content">
+                    <ol>
+                        <li>Lakukan pemesanan minimal 3 hari sebelumnya.</li>
+                        <li>Pembatalan dan perubahan dapat dilakukan dalam H-3 jam dan akan dikenakan tarif sebesar 10% yang diberikan.</li>
+                        <li>Dilarang membawa makanan dan minuman dari luar.</li>
+                        <li>Jaga kebersihan dan fasilitas selama penggunaan.</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="info-box jam-box">
+                <div class="jam-box-header">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <h5>Jam Operasional</h5>
+                </div>
+                <div class="jam-box-content">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <div class="text">Setiap hari<br>08:00–22:00</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="booking-card" id="bookingCard">
+            <div class="booking-header">
+                <h2>Isi Nama ,Pilih tanggal dan jam booking</h2>
+            </div>
+
+            <div class="form-group">
+                <label for="namaPemesan">Nama*</label>
+                <input type="text" id="namaPemesan" class="form-control" placeholder="Contoh: Mifa miftahul....." oninput="validateNama()">
+                <div class="error-msg" id="err-nama"><span class="error-icon">!</span> Nama Wajib Di isi!</div>
+            </div>
+
+            <div class="schedule-layout">
+                <div class="calendar-section">
+                    <div class="cal-title">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        Jadwal Ketersediaan
+                    </div>
+
+                    <div class="cal-box">
+                        <div class="calendar-header">
+                            <button class="cal-btn" id="prevMonth"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                            <h4 id="monthYearDisplay">November 2026</h4>
+                            <button class="cal-btn" id="nextMonth"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+                        </div>
+
+                        <div class="calendar-grid">
+                            <div class="day-name sun">Min</div><div class="day-name">Sen</div><div class="day-name">Sel</div>
+                            <div class="day-name">Rab</div><div class="day-name">Kam</div><div class="day-name">Jum</div><div class="day-name">Sab</div>
+                        </div>
+                        <div class="calendar-days" id="calendarDays"></div>
+                    </div>
+                </div>
+
+                <div class="time-section">
+                    <div class="time-header-row">
+                        <div class="time-legend">
+                            <span class="legend-badge-avail" id="availCount">0 Jadwal Tersedia</span>
+                            <span class="legend-badge-booked"><span class="legend-dot"></span> sudah terbooking</span>
+                        </div>
+                    </div>
+                    
+                    <div class="time-grid" id="timeGrid"></div>
+                    <div class="error-msg" id="err-jam"><span class="error-icon">!</span> Harap Pilih Waktu yang tersedia!</div>
+                </div>
+            </div>
+
+            <div class="payment-section">
+                <div class="payment-title">Metode Pembayaran</div>
+                
+                <div class="payment-card">
+                    <label class="payment-main-row" style="height: auto; padding-top: 15px; padding-bottom: 15px;">
+                        <div class="payment-info" style="align-items: flex-start;">
+                            <img src="assets/images/Qris.png" alt="QRIS" style="height: 24px; object-fit: contain; margin-top: 4px;" onerror="this.style.display='none'">
+                            <div style="display: flex; flex-direction: column; gap: 4px;">
+                                <span>Qris</span>
+                                <div class="payment-logos" style="margin-left: 0;">
+                                    <img src="assets/images/dana.png" alt="Dana" onerror="this.style.display='none'">
+                                    <img src="assets/images/gopay.png" alt="Gopay" onerror="this.style.display='none'">
+                                    <img src="assets/images/bca.png" alt="BCA" onerror="this.style.display='none'">
+                                    <a href="javascript:void(0)" class="btn-lainnya" id="toggleLainnya">+ Lainnya</a>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="radio" name="payment" value="QRIS" checked style="margin-top: 10px;">
+                    </label>
+                    
+                    <div class="other-payments" id="otherPayments">
+                        <div class="other-payment-item"><img src="assets/images/dana.png" alt="Dana" onerror="this.style.display='none'"></div>
+                        <div class="other-payment-item"><img src="assets/images/gopay.png" alt="GoPay" onerror="this.style.display='none'"></div>
+                        <div class="other-payment-item"><img src="assets/images/bca.png" alt="BCA" onerror="this.style.display='none'"></div>
+                    </div>
+                </div>
+
+                <label class="payment-card">
+                    <div class="payment-main-row">
+                        <div class="payment-info">
+                            <img src="assets/images/cod.png" alt="COD" style="height: 24px; margin-right: 8px;" onerror="this.style.display='none'">
+                            <span style="font-weight:400; font-size:16px; color:#000;">Bayar di tempat</span>
+                        </div>
+                        <input type="radio" name="payment" value="COD">
+                    </div>
+                </label>
+            </div>
+
+            <div class="action-bottom">
+                <button class="btn-confirm" onclick="prosesBooking()">Konfirmasi</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Navigasi Navbar (Disederhanakan)
+        function renderNavbar(user) {
+            const navbarEl = document.getElementById('navbar');
+            let rightNavHTML = '';
+            if (user) {
+                rightNavHTML = `
+                    <button class="vsq-notif-btn"><img src="assets/images/notifikasi.png" alt="Notifikasi" onerror="this.style.display='none'"></button>
+                    <div class="vsq-profile-box"><span class="vsq-profile-name">Hai ${user.nama.split(' ')[0]}</span><div class="vsq-profile-avatar">${user.initial}</div></div>
+                    <button class="vsq-btn-logout" onclick="localStorage.clear(); location.href='login.html'">Logout</button>
+                `;
+            } else {
+                rightNavHTML = `<a href="login.html" class="vsq-btn-login-outline">Login</a><a href="register.html" class="vsq-btn-register">Register</a>`;
+            }
+            navbarEl.innerHTML = `
+            <div class="vsq-header">
+                <div class="vsq-nav-left">
+                    <a href="index.html" class="vsq-logo"><span class="vsq-logo-title">Vincent'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span></a>
+                    <nav class="vsq-nav-menu"><a href="index.html" class="vsq-nav-link">Beranda</a><a href="lapangan.html" class="vsq-nav-link active">Booking Lapangan</a><a href="riwayat.html" class="vsq-nav-link">Riwayat Booking</a><a href="makanan.html" class="vsq-nav-link">Makanan Minuman</a></nav>
+                </div>
+                <div class="vsq-nav-right">${rightNavHTML}</div>
+            </div>`;
+        }
+
+        // Data Lapangan
+        const currentField = { nama: 'Lapangan Futsal 1', badge: 'VIP', badgeClass: 'badge-vip', harga: 100000, img: 'assets/uploads/lapangan/Lapangan1.jpeg', desc: 'Lapangan futsal 1 adalah lapangan VIP dengan kualitas premium.', fasilitas: ['Indoor', 'Area Luas', 'Area Penonton', 'Sirkulasi udara'] };
+        let selectedSlots = [];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ambil user dari localstorage untuk navbar
+            let user = null;
+            try { user = JSON.parse(localStorage.getItem('vsq_user')); } catch(e){}
+            if(user) user.initial = user.nama.charAt(0).toUpperCase();
+            renderNavbar(user);
+
+            // Render Data Statis
+            document.getElementById('lapangan-name').textContent = currentField.nama;
+            document.getElementById('lapangan-deskripsi').textContent = currentField.desc;
+            document.getElementById('lapangan-image').src = currentField.img;
+            document.getElementById('lapangan-badge').textContent = currentField.badge;
+            document.getElementById('lapangan-harga').innerHTML = `Rp${currentField.harga.toLocaleString('id-ID')} <span>/ Jam</span>`;
+            
+            const fasContainer = document.getElementById('fasilitas-container');
+            fasContainer.innerHTML = currentField.fasilitas.map(item => `<div class="fasilitas-item">${item}</div>`).join('');
+
+            // Toggle Pembayaran
+            document.getElementById('toggleLainnya').addEventListener('click', function(e) {
+                e.preventDefault();
+                const other = document.getElementById('otherPayments');
+                other.classList.toggle('show');
+                this.textContent = other.classList.contains('show') ? '- Sembunyikan' : '+ Lainnya';
+            });
+
+            // Logika Kalender
+            let currentDate = new Date(2026, 10, 1);
+            let selectedDate = new Date(2026, 10, 5);
+            const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+            const jadwalTerbooking = { "2026-10-5": ["09:00 - 10:00", "12:00 - 13:00"] };
+            const jamOperasional = ["08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "12:00 - 13:00", "13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00", "19:00 - 20:00", "20:00 - 21:00", "21:00 - 22:00"];
+
+            function renderCalendar() {
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth();
+                document.getElementById('monthYearDisplay').textContent = `${monthNames[month]} ${year}`;
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const daysContainer = document.getElementById('calendarDays');
+                daysContainer.innerHTML = '';
+                
+                for (let i = 0; i < firstDay; i++) daysContainer.appendChild(Object.assign(document.createElement('div'), { className: 'day empty' }));
+                
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const thisDate = new Date(year, month, i);
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'day';
+                    dayDiv.textContent = i;
+                    if (thisDate.getDay() === 0) dayDiv.classList.add('sun');
+                    if (thisDate.getTime() === selectedDate.getTime()) dayDiv.classList.add('active');
+                    
+                    dayDiv.addEventListener('click', () => {
+                        selectedDate = thisDate;
+                        renderCalendar();
+                        generateTimeSlots();
+                    });
+                    daysContainer.appendChild(dayDiv);
+                }
+            }
+
+            document.getElementById('prevMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); });
+            document.getElementById('nextMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); });
+
+            function generateTimeSlots() {
+                const timeGrid = document.getElementById('timeGrid');
+                timeGrid.innerHTML = '';
+                selectedSlots = []; // Reset setiap ganti tanggal
+
+                const dateKey = `${selectedDate.getFullYear()}-${selectedDate.getMonth()}-${selectedDate.getDate()}`;
+                const bookedSlotsToday = jadwalTerbooking[dateKey] || [];
+                document.getElementById('availCount').textContent = `${jamOperasional.length - bookedSlotsToday.length} Jadwal Tersedia`;
+
+                jamOperasional.forEach(jam => {
+                    const slotDiv = document.createElement('div');
+                    slotDiv.className = 'time-slot';
+                    slotDiv.textContent = jam;
+                    if (bookedSlotsToday.includes(jam)) {
+                        slotDiv.classList.add('booked');
+                    } else {
+                        // Berikan class error-border dari awal karena belum dipilih
+                        slotDiv.classList.add('error-border'); 
+                        
+                        slotDiv.addEventListener('click', () => {
+                            if (slotDiv.classList.contains('selected')) {
+                                slotDiv.classList.remove('selected');
+                                selectedSlots = selectedSlots.filter(s => s !== jam);
+                            } else {
+                                slotDiv.classList.add('selected');
+                                selectedSlots.push(jam);
+                            }
+                            // Perbarui state error pada seluruh kotak
+                            updateSlotStyles();
+                            validateJam();
+                        });
+                    }
+                    timeGrid.appendChild(slotDiv);
+                });
+
+                // Cek validasi saat pertama dirender
+                validateJam(); 
+            }
+
+            // Fungsi untuk memperbarui style kotak jam (mana yang merah, mana yang netral)
+            function updateSlotStyles() {
+                document.querySelectorAll('.time-slot:not(.booked)').forEach(slot => {
+                    if (selectedSlots.length === 0) {
+                        // Jika belum ada yang dipilih, semua kotak merah
+                        if (!slot.classList.contains('selected')) slot.classList.add('error-border');
+                    } else {
+                        // Jika sudah ada yang dipilih, hapus merah dari kotak yang tidak terpilih
+                        if (!slot.classList.contains('selected')) slot.classList.remove('error-border');
+                    }
+                });
+            }
+
+            // Fungsi Validasi Nama (Real-time)
+            window.validateNama = function() {
+                const input = document.getElementById('namaPemesan');
+                const err = document.getElementById('err-nama');
+                if (input.value.trim() === '') {
+                    input.classList.add('is-invalid');
+                    err.classList.add('show');
+                    return false;
+                } else {
+                    input.classList.remove('is-invalid');
+                    err.classList.remove('show');
+                    return true;
+                }
+            };
+
+            // Fungsi Validasi Jam (Real-time)
+            window.validateJam = function() {
+                const err = document.getElementById('err-jam');
+                if (selectedSlots.length === 0) {
+                    err.classList.add('show');
+                    return false;
+                } else {
+                    err.classList.remove('show');
+                    return true;
+                }
+            };
+
+            // Fungsi Tombol Konfirmasi
+            window.prosesBooking = function() {
+                const isNamaValid = validateNama();
+                const isJamValid = validateJam();
+
+                // Jika ada yang tidak valid, cukup hentikan proses. Jangan scroll ke atas.
+                if (!isNamaValid || !isJamValid) {
+                    return; 
+                }
+
+                // Simpan Data
+                const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+                const bookingData = {
+                    lapangan_id: '1',
+                    lapangan: currentField.nama,
+                    img: currentField.img,
+                    nama: document.getElementById('namaPemesan').value,
+                    tanggal: `${selectedDate.getDate()} ${monthNames[selectedDate.getMonth()]} ${selectedDate.getFullYear()}`,
+                    jam: selectedSlots,
+                    total: selectedSlots.length * currentField.harga,
+                    metode_pembayaran: paymentMethod
+                };
+                
+                localStorage.setItem('temp_booking', JSON.stringify(bookingData));
+                
+                // Pindah ke halaman pembayaran
+                window.location.href = 'pembayaran.html';
+            };
+
+            // Inisialisasi awal
+            renderCalendar();
+            generateTimeSlots();
+        });
+    </script>
+</body>
+</html>

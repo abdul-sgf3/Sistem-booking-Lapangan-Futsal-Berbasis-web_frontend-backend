@@ -6,20 +6,31 @@
     <title>Detail Lapangan - Vincent SQ Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --vsq-navy: #131B2E; --vsq-blue: #477FEB; --vsq-red: #FF0000; --vsq-gold: #FFD700; --vsq-gray: #848484; --vsq-white: #FFFFFF; --vsq-bg: #F8FAFC; }
+        :root { 
+            --vsq-navy: #131B2E; 
+            --vsq-blue: #477FEB; 
+            --vsq-red: #FF0000; 
+            --vsq-gold: #FFD700; 
+            --vsq-gray: #848484; 
+            --vsq-white: #FFFFFF; 
+            --vsq-bg: #F8FAFC; 
+            --vsq-green: #3DB268;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--vsq-bg); font-family: 'Plus Jakarta Sans', sans-serif; color: #000; }
+        body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', sans-serif; color: #000; }
 
-        /* NAVBAR */
+        /* =========================================
+           NAVBAR
+           ========================================= */
         .vsq-header { background: #FFFFFF; width: 100%; height: 106px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
         .vsq-nav-left { display: flex; align-items: center; gap: 40px; }
         .vsq-logo { display: flex; flex-direction: column; text-decoration: none; width: 130px; flex-shrink: 0; }
         .vsq-logo-title { font-size: 22px; font-weight: 800; color: #131B2E; line-height: 1.1; letter-spacing: -0.5px; }
         .vsq-logo-sub { font-size: 13px; font-weight: 800; color: #FF0000; line-height: 1.2; letter-spacing: 0.5px; margin-top: 2px; }
         .vsq-nav-menu { display: flex; align-items: center; gap: 32px; }
-        .vsq-nav-link { font-size: 15px; font-weight: 600; color: #000000; transition: color 0.2s; white-space: nowrap; text-decoration: none; padding: 14px 24px; border-radius: 12px; }
+        .vsq-nav-link { font-size: 15px; font-weight: 600; color: #000000; transition: color 0.2s; white-space: nowrap; text-decoration: none; }
         .vsq-nav-link:hover { color: var(--vsq-blue); }
-        .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; }
+        .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 14px 24px; border-radius: 12px; height: auto; display: flex; align-items: center; justify-content: center; }
         .vsq-nav-right { display: flex; align-items: center; gap: 16px; position: relative; flex-shrink: 0; }
         
         .vsq-btn-login-outline { background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
@@ -48,111 +59,208 @@
         .vsq-btn-edit-profile { background: #477FEB; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        /* KONTEN DETAIL */
-        .breadcrumb { max-width: 1240px; margin: 30px auto 20px; padding: 0 20px; display: flex; align-items: center; gap: 12px; color: #848484; font-size: 15px; font-weight: 400; }
+        /* =========================================
+           BREADCRUMB & KONTAINER UTAMA
+           ========================================= */
+        .breadcrumb { max-width: 1242px; margin: 30px auto 20px; padding: 0 20px; display: flex; align-items: center; gap: 12px; color: #848484; font-size: 15px; font-weight: 400; }
         .breadcrumb a { text-decoration: none; color: #848484; display: flex; align-items: center; transition: 0.2s;}
         .breadcrumb a:hover { color: var(--vsq-navy); }
         .breadcrumb svg { width: 20px; height: 20px; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
-        .detail-container { max-width: 1240px; margin: 0 auto 40px; padding: 0 20px; }
+        .detail-container { max-width: 1242px; margin: 0 auto 40px; padding: 0 20px; }
         
-        /* CARD UTAMA */
-        .detail-card { display: flex; border: 1px solid #C0C4CC; border-radius: 24px; overflow: hidden; background: #fff; width: 100%; height: 480px; margin-bottom: 24px; position: relative; padding: 16px; gap: 24px; }
-        .detail-image-wrapper { width: 48%; height: 100%; flex-shrink: 0; position: relative; border-radius: 16px; overflow: hidden; background: #E2E8F0;}
-        .detail-image { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .detail-content { flex: 1; padding: 10px 20px 10px 0; display: flex; flex-direction: column; position: relative; }
+        /* =========================================
+           CARD UTAMA
+           ========================================= */
+        .detail-card { 
+            display: flex; 
+            border: 1px solid #848484; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            background: #fff; 
+            width: 100%; 
+            height: 532px;
+            margin-bottom: 30px; 
+            position: relative; 
+        }
         
-        .header-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .header-title h1 { font-size: 28px; font-weight: 700; color: #131B2E; display: flex; align-items: center; gap: 16px; }
-        .badge-vip { background: #FFD700; color: #000; padding: 6px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; }
-        .badge-reguler { background: #E5E7EB; color: #000; padding: 6px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; }
+        .detail-image-wrapper { 
+            width: 50%;
+            flex-shrink: 0; 
+            position: relative; 
+            background: #E2E8F0;
+        }
+        .detail-image { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            display: block; 
+            position: absolute; 
+            inset: 0; 
+        }
         
-        .status-tersedia { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #10B981; font-weight: 500; }
-        .dot { width: 8px; height: 8px; background-color: #10B981; border-radius: 50%; }
+        .detail-content { 
+            width: 50%; 
+            padding: 34px 40px;
+            display: flex; 
+            flex-direction: column; 
+            position: relative; 
+        }
         
-        .location { display: flex; align-items: center; gap: 8px; color: #333; font-size: 14px; font-weight: 500; margin-bottom: 24px; }
-        .location svg { width: 18px; height: 18px; stroke: #131B2E; flex-shrink: 0; }
+        .header-title { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
+        .header-title h1 { font-size: 24px; font-weight: 600; color: #000; margin: 0; }
         
-        /* Default: Menyamping (Lapangan 1) */
+        /* Badge VIP / Reguler */
+        .badge-vip { background: #FFD700; color: #000; padding: 8px 24px; border-radius: 60px; font-weight: 500; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; height: 48px; }
+        .badge-reguler { background: #D9D9D9; color: #000; padding: 8px 24px; border-radius: 60px; font-weight: 500; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; height: 48px; }
+        
+        /* Status Tersedia */
+        .status-tersedia { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--vsq-green); font-weight: 400; position: absolute; right: 40px; top: 34px; }
+        .dot { width: 10px; height: 10px; background-color: var(--vsq-green); border-radius: 50%; }
+        
+        /* Lokasi */
+        .location { display: flex; align-items: center; gap: 8px; color: #000; font-size: 12px; font-weight: 500; margin-bottom: 24px; }
+        .location svg { width: 16px; height: 16px; stroke: #131B2E; stroke-width: 2; flex-shrink: 0; }
+        
+        /* Fasilitas */
         .fasilitas-list { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+        .fasilitas-list.vertical { flex-direction: column; align-items: flex-start; gap: 12px; }
         
-        /* KUNCI UNTUK LAPANGAN 2: Memaksa icon ke bawah */
-        .fasilitas-list.vertical { flex-direction: column; align-items: flex-start; }
+        .fasilitas-item { 
+            display: flex; 
+            align-items: center; 
+            gap: 7px; 
+            border: 1px solid #131B2E; 
+            padding: 6px 12px; 
+            border-radius: 15px; 
+            font-size: 14px; 
+            font-weight: 500; 
+            color: #000; 
+            background: #FFF; 
+            height: 40px; 
+        }
+        .fasilitas-item svg { width: 24px; height: 24px; flex-shrink: 0; stroke: #111C3A; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
         
-        .fasilitas-item { display: flex; align-items: center; gap: 8px; border: 1px solid #848484; padding: 8px 16px; border-radius: 30px; font-size: 14px; font-weight: 500; color: #131B2E; background: #FFF; height: 40px; }
-        .fasilitas-item svg { width: 18px; height: 18px; flex-shrink: 0; stroke: #131B2E; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        /* Deskripsi */
+        .deskripsi-title { font-size: 18px; font-weight: 500; color: #000; margin-bottom: 10px; }
+        .deskripsi-text { font-size: 14px; color: #000; line-height: 18px; margin-bottom: 0; text-align: justify; }
         
-        .deskripsi-title { font-size: 18px; font-weight: 600; color: #131B2E; margin-bottom: 10px; }
-        .deskripsi-text { font-size: 14px; color: #333; line-height: 1.6; margin-bottom: 0; text-align: justify; max-width: 95%; }
+        .divider { height: 1px; background: #000; width: 100%; margin-top: auto; margin-bottom: 24px; }
         
-        .divider { height: 1px; background: #E2E8F0; width: 100%; margin-top: auto; margin-bottom: 20px; }
-        .detail-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
-        .harga { font-size: 28px; font-weight: 700; color: #131B2E; white-space: nowrap; display: flex; align-items: baseline; gap: 6px; }
-        .harga span { font-size: 16px; font-weight: 500; color: #333; }
+        /* Footer Harga & Tombol */
+        .detail-footer { display: flex; align-items: center; justify-content: space-between; }
+        .harga { font-size: 24px; font-weight: 600; color: #131B2E; white-space: nowrap; display: flex; align-items: baseline; gap: 6px; }
+        .harga span { font-size: 18px; font-weight: 500; color: #131B2E; }
         
-        .btn-booking { background: #131B2E; color: white; padding: 0 24px; border-radius: 12px; font-weight: 600; font-size: 15px; display: flex; align-items: center; gap: 16px; text-decoration: none; width: 220px; height: 54px; justify-content: space-between; transition: 0.3s; white-space: nowrap; }
+        .btn-booking { background: #131B2E; color: white; padding: 0 16px; border-radius: 10px; font-weight: 600; font-size: 16px; display: flex; align-items: center; gap: 10px; text-decoration: none; width: 220px; height: 59px; justify-content: space-between; transition: 0.3s; white-space: nowrap; }
         .btn-booking:hover { background: #1a2b4c; }
-        .btn-booking svg { width: 24px !important; height: 18px !important; stroke: #FFF; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+        .btn-booking svg { width: 31px !important; height: 20px !important; stroke: #FFF; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
-        /* GRID BAWAH (ATURAN & JAM) */
-        .bottom-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; align-items: start; }
-        .info-box { border: 1px solid #C0C4CC; border-radius: 20px; padding: 30px; background: #fff; display: flex; flex-direction: column; }
-        .info-box-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; justify-content: center;}
-        .info-box-header svg { width: 28px; height: 28px; flex-shrink: 0; stroke: #131B2E; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-        .info-box-header h4 { font-size: 20px; font-weight: 700; color: #131B2E; margin: 0; }
-        .info-box-content { font-size: 14px; color: #333; line-height: 1.6; text-align: left; padding-left: 10px;}
-        .aturan-content ol { margin: 0; padding-left: 20px; }
-        .aturan-content li { padding: 6px 0; }
+        /* =========================================
+           BOTTOM GRID (ATURAN & JAM) - 100% PERSIS FIGMA
+           ========================================= */
+        .bottom-grid-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center; /* Menengahkan seluruh baris */
+        }
+
+        .bottom-grid { 
+            display: flex; 
+            gap: 41.79px; /* Jarak presisi dari Figma */
+            width: 1026.21px; /* Lebar presisi (740.21 + 41.79 + 244) */
+        }
         
-        .jam-content { display: flex; flex-direction: column; gap: 12px; padding-left: 40px;}
-        .jam-row { display: flex; align-items: center; gap: 10px; font-size: 15px;}
-        .jam-row strong { font-weight: 700; font-size: 16px;}
+        .info-box { 
+            border: 1px solid #848484; 
+            border-radius: 15px; 
+            background: #fff; 
+            display: flex; 
+            flex-direction: column; 
+            box-sizing: border-box; 
+        }
+        
+        /* Kotak Aturan Pemesanan (Fix 740.21px x 274px) */
+        .box-aturan { 
+            width: 740.21px; 
+            height: 274px; 
+            padding: 40px 35px; 
+            position: relative; 
+        }
+        
+        /* Kotak Jam Operasional (Fix 244px x 153px) */
+        .box-jam { 
+            width: 244px; 
+            height: 153px; 
+            padding: 26px 20px; 
+            position: relative; 
+        }
 
-        .img-fail { width: 100%; height: 100%; background: #D9D9D9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #131B2E; font-size: 14px; cursor: pointer; }
+        .info-box-header { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            font-size: 18px; 
+            font-weight: 600; 
+            color: #000; 
+            margin-bottom: 30px; 
+            position: absolute; 
+            top: 40px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            white-space: nowrap; 
+        }
+        .info-box-header svg { width: 40px; height: 40px; stroke: #111C3A; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        
+        .aturan-content { margin-top: 65px; }
+        .aturan-content ol { margin: 0; padding-left: 24px; }
+        .aturan-content li { font-size: 14px; line-height: 18px; color: #000; padding: 6px 0; text-align: justify; }
+        
+        .jam-box-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; justify-content: center; }
+        .jam-box-header svg { width: 30px; height: 30px; stroke: #000; stroke-width: 2; fill: none; }
+        .jam-box-header h5 { font-size: 18px; font-weight: 600; margin: 0; color: #000; }
+        .jam-box-content { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .jam-box-content svg { width: 20px; height: 20px; stroke: #000; stroke-width: 2; fill: none; }
+        .jam-box-content .text { font-size: 14px; line-height: 18px; color: #000; font-weight: 400; }
+        .jam-box-time { font-size: 14px; font-weight: 400; color: #000; padding-left: 30px; margin-top: 0; }
+
+        .img-fail { width: 100%; height: 100%; background: #D9D9D9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #131B2E; font-size: 14px; cursor: pointer; position: absolute; inset: 0; }
         .img-fail svg { width: 40px; height: 40px; stroke: #131B2E; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
         /* SKELETON LOADING */
         @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
         .skeleton-box { background: #E2E8F0; background-image: linear-gradient(to right, #E2E8F0 0%, #F1F5F9 20%, #E2E8F0 40%, #E2E8F0 100%); background-repeat: no-repeat; background-size: 1000px 100%; animation: shimmer 2s infinite linear forwards; border-radius: 8px; }
-        
-        /* SLOW CONNECTION TOAST */
-        #slow-connection-toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #FEF3C7; color: #92400E; padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 10000; display: flex; align-items: center; gap: 8px; }
 
-        /* NETWORK OVERLAY */
-        .network-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #1A2235; z-index: 99999; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease; }
-        .network-content { text-align: center; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        .network-icon svg { width: 120px; height: 120px; stroke: #FF3B30; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 30px; }
-        .network-title { color: #FFFFFF; font-size: 32px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
-        .network-message { color: #A0ABC0; font-size: 18px; margin-bottom: 30px; font-weight: 500; }
-        .network-btn { background-color: #FF3B30; color: #FFFFFF; border: none; padding: 14px 40px; font-size: 16px; font-weight: 600; border-radius: 12px; cursor: pointer; transition: background 0.2s ease, transform 0.2s ease; font-family: 'Plus Jakarta Sans', sans-serif; }
-        .network-btn:hover { background-color: #E03127; transform: translateY(-2px); }
-
+        /* RESPONSIVE MOBILE */
         @media screen and (max-width: 1100px) {
-            .detail-card { height: auto; flex-direction: column; padding: 16px; gap: 16px;}
-            .detail-image-wrapper { width: 100%; height: 350px; }
-            .detail-content { padding: 10px; }
-            .header-title { flex-direction: column; align-items: flex-start; gap: 10px; }
-            .status-tersedia { position: static; margin-bottom: 12px; justify-content: flex-start;}
-            .bottom-grid { grid-template-columns: 1fr; }
-            .btn-booking { width: 100%; }
+            .bottom-grid { flex-direction: column; width: 100%; align-items: center; gap: 20px; }
+            .box-aturan, .box-jam { width: 100%; max-width: 740.21px; height: auto; min-height: 274px; padding: 30px 20px;}
+            .info-box-header { position: static; transform: none; justify-content: center; margin-bottom: 20px;}
+            .aturan-content { margin-top: 0; }
+            .box-jam { min-height: 153px; }
         }
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 900px) {
             .vsq-header { height: 80px; padding: 0 16px; }
             .vsq-nav-menu { display: none; }
-            .vsq-btn-login-outline, .vsq-btn-register { width: auto; padding: 0 16px; height: 40px; font-size: 14px; }
-            .vsq-profile-box { width: auto; height: 40px; padding: 0 6px; justify-content: center; border: 1px solid #131B2E; }
+            .vsq-nav-right { gap: 8px; }
+            .vsq-profile-box { max-width: 60px; padding: 0 6px; height: 40px; justify-content: center; border-radius: 8px; }
             .vsq-profile-name { display: none; }
-            .vsq-btn-logout { height: 40px; width: auto; padding: 0 16px; font-size: 14px; }
-            .detail-image-wrapper { height: 240px; }
-            .harga { font-size: 24px; }
-            .harga span { font-size: 14px; }
+            .vsq-profile-avatar { width: 26px; height: 26px; font-size: 11px; }
+            .vsq-btn-logout, .vsq-btn-login-outline, .vsq-btn-register { padding: 0 12px; height: 40px; font-size: 12px; border-radius: 8px; width: auto; }
+            .vsq-profile-dropdown { position: fixed; top: 85px; right: 16px; left: 16px; width: auto; }
+
+            .breadcrumb { margin: 20px auto 15px; font-size: 13px; }
+            .detail-card { flex-direction: column; height: auto; }
+            .detail-image-wrapper { width: 100%; height: 250px; }
+            .detail-content { width: 100%; padding: 20px; }
+            .status-tersedia { position: static; margin-bottom: 10px; justify-content: flex-start; }
+            .header-title { flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+            .header-title h1 { font-size: 24px; }
+            
+            .btn-booking { width: 100%; justify-content: center; gap: 12px; }
             .info-box-header { justify-content: flex-start;}
             .info-box { padding: 20px;}
             .jam-content { padding-left: 10px;}
-            .network-icon svg { width: 80px; height: 80px; margin-bottom: 20px; }
-            .network-title { font-size: 24px; }
-            .network-message { font-size: 15px; }
-            .network-btn { padding: 12px 32px; font-size: 14px; }
         }
     </style>
 </head>
@@ -171,14 +279,15 @@
     </div>
 
     <main class="detail-container">
+        <!-- CARD UTAMA -->
         <div class="detail-card">
             <div class="detail-image-wrapper" id="img-wrapper">
-                <!-- Skeleton akan muncul di sini -->
+                <div class="skeleton-box" style="width:100%; height:100%;"></div>
             </div>
             <div class="detail-content">
+                <div class="status-tersedia"><span class="dot"></span> Tersedia</div>
                 <div class="header-title">
-                    <h1><span id="lapangan-name">Memuat...</span> <span id="lapangan-badge" class="badge-vip">...</span></h1>
-                    <div class="status-tersedia"><span class="dot"></span> Tersedia</div>
+                    <h1><span id="lapangan-name">Memuat...</span> <span id="lapangan-badge" class="badge-vip" style="display:none;">...</span></h1>
                 </div>
                 
                 <div class="location">
@@ -186,16 +295,23 @@
                     <span>Tuparev, Kota Cirebon - Jawa Barat</span>
                 </div>
                 
-                <div class="fasilitas-list" id="fasilitas-container"></div>
+                <div class="fasilitas-list" id="fasilitas-container">
+                    <div class="skeleton-box" style="width:100px; height:40px; border-radius:15px;"></div>
+                    <div class="skeleton-box" style="width:100px; height:40px; border-radius:15px;"></div>
+                </div>
                 
                 <div class="deskripsi-title">Deskripsi:</div>
-                <p class="deskripsi-text" id="lapangan-deskripsi">Memuat deskripsi...</p>
+                <p class="deskripsi-text" id="lapangan-deskripsi">
+                    <span class="skeleton-box" style="width:100%; height:16px; margin-bottom:8px; display:block;"></span>
+                    <span class="skeleton-box" style="width:80%; height:16px; display:block;"></span>
+                </p>
                 
                 <div class="divider"></div>
                 
                 <div class="detail-footer">
-                    <div class="harga" id="lapangan-harga">Rp0 <span>/ Jam</span></div>
-                    
+                    <div class="harga" id="lapangan-harga">
+                        <div class="skeleton-box" style="width:120px; height:28px; display:inline-block;"></div>
+                    </div>
                     <a href="#" id="btn-booking-link" class="btn-booking">
                         Booking Sekarang
                         <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg>
@@ -204,32 +320,36 @@
             </div>
         </div>
 
-        <div class="bottom-grid">
-            <div class="info-box">
-                <div class="info-box-header">
-                    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    <h4>Aturan Pemesanan</h4>
-                </div>
-                <div class="info-box-content aturan-content">
-                    <ol>
-                        <li>Lakukan pemesanan minimal 1 hari sebelumnya</li>
-                        <li>Pembatalan dapat dilakukan dalam H-3 jam dan akan dikenakan tarif sebesar 10% yang diberikan</li>
-                        <li>Dilarang membawa makanan dan minuman dari luar</li>
-                        <li>Jaga kebersihan dan fasilitas selama penggunaan</li>
-                    </ol>
-                </div>
-            </div>
-            <div class="info-box">
-                <div class="info-box-header">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    <h4>Jam Operasional</h4>
-                </div>
-                <div class="info-box-content jam-content">
-                    <div class="jam-row">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                        <span>Setiap hari</span>
+        <!-- BOTTOM GRID (PERSIS FIGMA) -->
+        <div class="bottom-grid-wrapper">
+            <div class="bottom-grid">
+                <!-- KOTAK ATURAN PEMESANAN -->
+                <div class="info-box box-aturan">
+                    <div class="info-box-header">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="14" x2="8.01" y2="14"></line><line x1="12" y1="14" x2="12.01" y2="14"></line><line x1="16" y1="14" x2="16.01" y2="14"></line><line x1="8" y1="18" x2="8.01" y2="18"></line><line x1="12" y1="18" x2="12.01" y2="18"></line><line x1="16" y1="18" x2="16.01" y2="18"></line></svg>
+                        Aturan Pemesanan
                     </div>
-                    <strong>08:00–22:00</strong>
+                    <div class="aturan-content">
+                        <ol>
+                            <li>Lakukan pemesanan minimal 1 hari sebelumnya.</li>
+                            <li>Pembatalan dapat dilakukan dalam H-3 jam dan akan dikenakan tarif sebesar 10% yang diberikan.</li>
+                            <li>Dilarang membawa makanan dan minuman dari luar.</li>
+                            <li>Jaga kebersihan dan fasilitas selama penggunaan.</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <!-- KOTAK JAM OPERASIONAL -->
+                <div class="info-box box-jam">
+                    <div class="jam-box-header">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <h5>Jam Operasional</h5>
+                    </div>
+                    <div class="jam-box-content">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <div class="text">Setiap hari</div>
+                    </div>
+                    <div class="jam-box-time">08:00–22:00</div>
                 </div>
             </div>
         </div>
@@ -360,7 +480,11 @@
         }
 
         async function updateNavbar() {
-            renderNavbar(normalizeUser(getCachedUser()));
+            const localUser = getCachedUser();
+            if (localUser) {
+                renderNavbar(normalizeUser(localUser));
+            }
+
             try {
                 const response = await fetchWithTimeout(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' } });
                 const result = await response.json();
@@ -371,11 +495,12 @@
                     localStorage.setItem('vsq_user', JSON.stringify(serverUser)); 
                     renderNavbar(normalizeUser(serverUser)); 
                 } else {
-                    USER_KEYS.forEach(k => localStorage.removeItem(k));
-                    renderNavbar(null);
+                    if (!localUser) {
+                        renderNavbar(null);
+                    }
                 }
             } catch (error) { 
-                console.log('Catatan: Menggunakan data sesi lokal.'); 
+                console.log('Catatan: API tidak dapat dihubungi, menggunakan data sesi lokal.'); 
             }
         }
 
@@ -389,7 +514,6 @@
         // ===== DETAIL LAPANGAN & SKELETON LOGIC =====
         let slowTimer;
 
-        // PERBAIKAN: Menerima parameter ID agar skeleton menyesuaikan layout
         function showSkeleton(id) {
             const imgWrapper = document.getElementById('img-wrapper');
             imgWrapper.innerHTML = `<div class="skeleton-box" style="width:100%; height:100%;"></div>`;
@@ -398,14 +522,15 @@
             document.getElementById('lapangan-badge').style.display = 'none';
             
             let skeletonFasilitas = `
-                <div class="skeleton-box" style="width:100px; height:40px; border-radius:30px;"></div>
-                <div class="skeleton-box" style="width:100px; height:40px; border-radius:30px;"></div>
+                <div class="skeleton-box" style="width:100px; height:40px; border-radius:15px;"></div>
+                <div class="skeleton-box" style="width:100px; height:40px; border-radius:15px;"></div>
             `;
             
-            // Jika ID 2, buat skeleton-nya vertikal
-            const containerClass = (id === '2') ? 'fasilitas-list vertical' : 'fasilitas-list';
-            document.getElementById('fasilitas-container').className = containerClass;
-            document.getElementById('fasilitas-container').innerHTML = skeletonFasilitas;
+            const container = document.getElementById('fasilitas-container');
+            container.className = 'fasilitas-list'; 
+            if (id === '2') container.classList.add('vertical');
+            
+            container.innerHTML = skeletonFasilitas;
             
             document.getElementById('lapangan-deskripsi').innerHTML = `<div class="skeleton-box" style="width:100%; height:16px; margin-bottom:8px;"></div><div class="skeleton-box" style="width:80%; height:16px;"></div>`;
             document.getElementById('lapangan-harga').innerHTML = `<div class="skeleton-box" style="width:120px; height:28px; display:inline-block;"></div>`;
@@ -453,7 +578,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const id = ['1','2'].includes(urlParams.get('id')) ? urlParams.get('id') : '1';
 
-            showSkeleton(id); // Kirim ID ke fungsi skeleton
+            showSkeleton(id); 
             let isLoaded = false;
             
             const data = {
@@ -462,8 +587,7 @@
             };
             
             try {
-                // Simulasi fetch data (delay 1.5 detik agar skeleton terlihat)
-                await new Promise(resolve => setTimeout(resolve, 1500));
+                await new Promise(resolve => setTimeout(resolve, 1000));
                 
                 const info = data[id];
                 isLoaded = true;
@@ -493,7 +617,6 @@
                 fasContainer.innerHTML = '';
                 info.fasilitas.forEach(item => { fasContainer.innerHTML += `<div class="fasilitas-item">${svgIcons[item] || ''} ${item}</div>`; });
 
-                // Kunci tampilan Lapangan 2 (Vertikal)
                 if (id === '2') {
                     fasContainer.classList.add('vertical');
                 } else {

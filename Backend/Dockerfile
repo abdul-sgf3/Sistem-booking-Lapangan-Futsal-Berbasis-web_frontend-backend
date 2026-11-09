@@ -1,5 +1,11 @@
 FROM php:8.2-apache
 
+# Instal ekstensi PHP cURL untuk komunikasi dengan Brevo API
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends libcurl4-openssl-dev \
+ && docker-php-ext-install curl \
+ && rm -rf /var/lib/apt/lists/*
+
 # Ekstensi database + modul Apache (rewrite untuk .htaccess, headers)
 # Satu MPM saja (prefork, wajib untuk mod_php) -> mencegah error "More than one MPM loaded" di Railway
 RUN docker-php-ext-install mysqli pdo pdo_mysql \

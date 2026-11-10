@@ -7,64 +7,31 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-:root { 
-    --vsq-navy:#131B2E; 
-    --vsq-blue:#477FEB; 
-    --vsq-red:#FF0000; 
-    --vsq-gold:#FFD700; 
-    --vsq-gray: #848484; 
-    --vsq-lightgray: #E5E7EB; 
-    --vsq-white: #FFFFFF; 
-    --vsq-bg: #F8FAFC;
-    --vsq-green: #3DB268;
-}
-* {margin:0;padding:0;box-sizing:border-box;}
-body {background:var(--vsq-white); font-family:'Plus Jakarta Sans',sans-serif;}
+:root { --vsq-navy: #131B2E; --vsq-blue: #477FEB; --vsq-red: #FF0000; --vsq-gold: #FFD700; --vsq-gray: #848484; --vsq-lightgray: #E5E7EB; --vsq-black: #000000; --vsq-white: #FFFFFF; --vsq-green: #3DB268; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', sans-serif; }
 
-/* =========================================
-   NAVBAR — 100% DISAMAKAN DENGAN index.html
-   ========================================= */
-.vsq-header { 
-    background: #FFFFFF; 
-    width: 100%; 
-    height: 106px; 
-    border-bottom: 1px solid #E2E8F0; 
-    position: sticky; 
-    top: 0; 
-    z-index: 1000; 
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between; 
-    padding: 0 44px; 
-    box-sizing: border-box; 
-}
+/* NAVBAR */
+.vsq-header { background: #FFFFFF; width: 100%; height: 106px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
 .vsq-nav-left { display: flex; align-items: center; gap: 40px; }
 .vsq-logo { display: flex; flex-direction: column; text-decoration: none; width: 130px; flex-shrink: 0; }
 .vsq-logo-title { font-size: 22px; font-weight: 800; color: #131B2E; line-height: 1.1; letter-spacing: -0.5px; }
 .vsq-logo-sub { font-size: 13px; font-weight: 800; color: #FF0000; line-height: 1.2; letter-spacing: 0.5px; margin-top: 2px; }
-
 .vsq-nav-menu { display: flex; align-items: center; gap: 32px; }
-.vsq-nav-link { font-size: 15px; font-weight: 600; color: #000000; transition: color 0.2s; white-space: nowrap; text-decoration: none; }
+.vsq-nav-link { font-size: 15px; font-weight: 600; color: #000000; text-decoration: none; transition: color 0.2s; white-space: nowrap; }
 .vsq-nav-link:hover { color: var(--vsq-blue); }
 .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 14px 24px; border-radius: 12px; height: auto; display: flex; align-items: center; justify-content: center; }
-
 .vsq-nav-right { display: flex; align-items: center; gap: 16px; position: relative; flex-shrink: 0; }
-
-/* Tombol Login/Register (Before Login) */
 .vsq-btn-login-outline { background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
 .vsq-btn-register { background: #131B2E; color: #FFF; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
-
-/* Profil & Notif (After Login) */
-.vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; padding: 0; }
-.vsq-notif-btn img { width: 28px; height: 28px; object-fit: contain; }
-
-.vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: auto; max-width: 160px; height: 42px; border: 1px solid #000000; border-radius: 10px; padding: 0 8px 0 12px; cursor: pointer; transition: background 0.2s; flex-shrink: 1; overflow: hidden; }
+.vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: auto; max-width: 160px; height: 42px; border: 1px solid #000000; border-radius: 10px; padding: 0 8px 0 12px; text-decoration: none; cursor: pointer; transition: background 0.2s; flex-shrink: 1; overflow: hidden; }
 .vsq-profile-box:hover { background: #F8FAFC; }
 .vsq-profile-name { font-size: 14px; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; margin-right: 8px; }
 .vsq-profile-avatar { width: 28px; height: 28px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; overflow: hidden; }
 .vsq-btn-logout { background: #131B2E; color: #FFF; width: auto; padding: 0 16px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+.vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; padding: 0; }
+.vsq-notif-btn img { width: 28px; height: 28px; object-fit: contain; }
 
-/* Dropdown Profil */
 .vsq-profile-dropdown { position: absolute; top: 60px; right: 0; width: 280px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.12); padding: 0; display: none; flex-direction: column; z-index: 1001; overflow: hidden; animation: slideDown 0.3s ease; }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 .vsq-profile-dropdown.show { display: flex; }
@@ -78,108 +45,79 @@ body {background:var(--vsq-white); font-family:'Plus Jakarta Sans',sans-serif;}
 .vsq-dd-item .value { font-weight: 600; color: #131B2E; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
 .vsq-dd-divider { height: 1px; background: #E2E8F0; margin: 5px 20px; }
 .vsq-dd-footer { padding: 15px 20px; display: flex; flex-direction: column; gap: 10px; background: #F8FAFC; }
-.vsq-btn-edit-profile { background: #477FEB; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
-.vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.vsq-btn-edit-profile { background: #477FEB; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.vsq-btn-edit-profile:hover { background: #3564C6; }
+.vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.vsq-btn-logout-dropdown:hover { background: #FEF2F2; border-color: #EF4444; }
 
-/* =========================================
-   KONTEN LAPANGAN
-   ========================================= */
-/* PERBAIKAN JARAK: Margin atas diubah menjadi 30px saja */
-.vsq-booking-header { text-align: center; margin: 30px auto 40px; }
+/* KONTEN LAPANGAN */
+.vsq-booking-header { text-align: center; margin: 34px auto 64px; }
 .vsq-booking-header h1 { font-size: 50px; font-weight: 700; color: #131B2E; line-height: 63px; margin-bottom: 0; }
-.vsq-booking-header p { font-size: 24px; font-weight: 600; color: #131B2E; line-height: 28px; margin-top: 10px; }
+.vsq-booking-header p { font-size: 24px; font-weight: 600; color: #131B2E; line-height: 28px; margin-top: 31px; }
 
 .vsq-booking-section { padding: 0 20px 50px; max-width: 1242px; margin: 0 auto; }
-.vsq-booking-list { display: flex; flex-direction: column; gap: 30px; }
+.vsq-booking-list { display: flex; flex-direction: column; gap: 52px; }
 
-/* Card */
-.vsq-booking-card {
-    display: flex;
-    border: 1px solid #848484;
-    border-radius: 20px;
-    overflow: hidden;
-    background: #FFF;
-    width: 100%;
-    height: 419px;
-}
+.vsq-booking-card { display: flex; border: 1px solid #848484; border-radius: 20px; overflow: hidden; background: #FFF; width: 100%; height: 419px; }
+.vsq-booking-img { width: 50%; flex-shrink: 0; position: relative; }
+.vsq-booking-img img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 0; }
+.vsq-booking-content { width: 50%; padding: 25px 40px 38px 50px; display: flex; flex-direction: column; justify-content: space-between; }
 
-.vsq-booking-img {
-    width: 50%;
-    flex-shrink: 0;
-    position: relative;
-}
-
-.vsq-booking-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    border-radius: 15px;
-}
-
-.vsq-booking-content {
-    width: 50%;
-    padding: 40px 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
-/* Bagian Atas Card */
-.vsq-booking-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; position: relative; }
+.vsq-booking-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0; position: relative; }
 .vsq-booking-title { display: flex; align-items: center; gap: 15px; }
-.vsq-booking-title h2 { font-size: 24px; font-weight: 600; color: #000; line-height: 28px; }
+.vsq-booking-title h2 { font-size: 24px; font-weight: 500; color: #000; line-height: 28px; }
 
-/* Badge VIP / Reguler */
-.vsq-badge-vip { background: #FFD700; color: #000; padding: 12px 24px; border-radius: 60px; font-weight: 500; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; height: 48px; }
-.vsq-badge-reguler { background: #D9D9D9; color: #000; padding: 12px 24px; border-radius: 60px; font-weight: 500; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; height: 48px; }
+.vsq-badge-vip { background: #FFD700; color: #000; padding: 0; width: 114px; border-radius: 60px; font-weight: 500; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; height: 48px; }
+.vsq-badge-reguler { background: #D9D9D9; color: #000; padding: 0; width: 114px; border-radius: 60px; font-weight: 500; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; height: 48px; }
 
-/* Status Tersedia */
-.vsq-status-tersedia { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #3DB268; font-weight: 400; position: absolute; right: 0; top: 10px; }
+.vsq-status-tersedia { display: flex; align-items: center; gap: 6px; font-size: 15px; color: #3DB268; font-weight: 400; position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
 .vsq-dot { width: 10px; height: 10px; background: #3DB268; border-radius: 50%; }
 
-/* Fasilitas */
-.vsq-booking-fasilitas { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 35px; margin-top: 15px; }
-.vsq-booking-fasilitas.vertical { flex-direction: column; align-items: flex-start; gap: 10px; }
+/* 
+   PERBAIKAN FINAL: 
+   Karena gambar Anda sudah berbentuk kapsul utuh beserta teks dan bordernya,
+   kita hapus border/padding CSS dan tampilkan gambarnya secara utuh.
+*/
+.vsq-booking-fasilitas { display: flex; flex-wrap: wrap; gap: 16px; margin: 58px 0 0; }
+.vsq-booking-fasilitas.vertical { flex-direction: column; align-items: flex-start; gap: 16px; }
 
+/* Kontainer tanpa border CSS, hanya sebagai wadah gambar */
 .vsq-fasilitas-item { 
     display: flex; 
     align-items: center; 
-    gap: 7px; 
-    border: 1px solid #131B2E; 
-    padding: 6px 12px; 
-    border-radius: 15px; 
-    font-size: 14px; 
-    font-weight: 500;
-    color: #000; 
-    background: #FFFFFF; 
-    height: 40px;
+    justify-content: center; 
+    background: transparent; 
+    border: none; 
+    padding: 0; 
 }
-.vsq-fasilitas-item svg { width: 24px; height: 24px; flex-shrink: 0; stroke: #111C3A; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
-/* Divider */
-.vsq-divider { height: 1px; background: #000; width: 100%; margin-top: auto; margin-bottom: 25px; }
+/* Gambar ditampilkan dengan tinggi yang pas (sekitar 40px) dan lebarnya menyesuaikan proporsional */
+.vsq-fasilitas-item img { 
+    height: 40px; 
+    width: auto;
+    object-fit: contain; 
+    display: block; 
+}
 
-/* Footer Card (Harga & Tombol) */
+.vsq-divider { height: 1px; background: #000; width: 100%; margin: 0 0 26px; }
+
 .vsq-booking-footer { display: flex; justify-content: space-between; align-items: center; }
-.vsq-harga { font-size: 24px; font-weight: 600; color: #131B2E; display: flex; align-items: center; gap: 8px; }
+.vsq-harga { font-size: 24px; font-weight: 500; color: #131B2E; display: flex; align-items: center; gap: 8px; padding-left: 6px; }
 .vsq-harga span { font-size: 18px; font-weight: 500; color: #131B2E; }
 
-.vsq-btn-detail { background: #131B2E; color: #FFF; padding: 8px 16px; border-radius: 15px; font-size: 16px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 20px; height: 55px; width: 205px; }
+.vsq-btn-detail { background: #131B2E; color: #FFF; padding: 8px 16px; border-radius: 15px; font-size: 16px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 20px; height: 55px; width: 205px; }
 .vsq-btn-detail:hover { background: #1a2b4c; }
 .vsq-btn-detail svg { width: 31px; height: 20px; stroke: #FFF; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
-.vsq-img-fail { width:100%; height:100%; background:#D9D9D9; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:#131B2E; font-size:14px; cursor:pointer; border-radius: 15px;}
-.vsq-img-fail svg { width:40px; height:40px; stroke:#131B2E; stroke-width:2; fill:none; }
+.vsq-img-fail { width: 100%; height: 100%; background: #D9D9D9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #131B2E; font-size: 14px; cursor: pointer; }
+.vsq-img-fail svg { width: 40px; height: 40px; stroke: #131B2E; stroke-width: 2; fill: none; }
 
-/* =========================================
-   SKELETON & ERROR & OVERLAY
-   ========================================= */
+/* SKELETON & ERROR */
 @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
 .skeleton-box { background: #E2E8F0; background-image: linear-gradient(to right, #E2E8F0 0%, #F1F5F9 20%, #E2E8F0 40%, #E2E8F0 100%); background-repeat: no-repeat; background-size: 1000px 100%; animation: shimmer 2s infinite linear forwards; border-radius: 8px; }
-.sk-card { display: flex; border: 1px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; height: 419px; margin-bottom: 30px; }
-.sk-card-img { width: 50%; height: 100%; border-radius: 15px; }
-.sk-card-content { width: 50%; padding: 40px; display: flex; flex-direction: column; gap: 16px; justify-content: flex-start;}
+.sk-card { display: flex; border: 1px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; height: 419px; margin-bottom: 52px; }
+.sk-card-img { width: 50%; height: 100%; border-radius: 0; }
+.sk-card-content { width: 50%; padding: 40px; display: flex; flex-direction: column; gap: 16px; justify-content: flex-start; }
 .sk-title { width: 60%; height: 28px; margin-bottom: 10px; }
 .sk-text { width: 100%; height: 18px; }
 .sk-text.short { width: 40%; }
@@ -191,7 +129,7 @@ body {background:var(--vsq-white); font-family:'Plus Jakarta Sans',sans-serif;}
 .vsq-error-icon svg { width: 80px; height: 80px; stroke: #131B2E; stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .vsq-error-title { font-size: 32px; font-weight: 700; color: #131B2E; margin-bottom: 16px; }
 .vsq-error-text { font-size: 16px; color: #4B5563; margin-bottom: 32px; line-height: 1.5; }
-.vsq-btn-refresh { background: #131B2E; color: #FFF; padding: 16px 40px; border-radius: 12px; font-size: 16px; font-weight: 600; border: none; cursor: pointer; transition: 0.2s; width: 100%; max-width: 400px;}
+.vsq-btn-refresh { background: #131B2E; color: #FFF; padding: 16px 40px; border-radius: 12px; font-size: 16px; font-weight: 600; border: none; cursor: pointer; transition: 0.2s; width: 100%; max-width: 400px; }
 .vsq-btn-refresh:hover { background: #1a2b4c; }
 
 #slow-connection-toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #FEF3C7; color: #92400E; padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 10000; display: flex; align-items: center; gap: 8px; }
@@ -218,10 +156,8 @@ body {background:var(--vsq-white); font-family:'Plus Jakarta Sans',sans-serif;}
 .vsq-btn-confirm-logout { background: #EF4444; color: #FFFFFF; border: 1px solid #EF4444; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
 .vsq-btn-confirm-logout:hover { background: #DC2626; border-color: #DC2626; }
 
-/* =========================================
-   RESPONSIVE MOBILE
-   ========================================= */
-@media(max-width: 900px) {
+/* RESPONSIVE MOBILE */
+@media screen and (max-width: 768px) {
     .vsq-header { height: 80px; padding: 0 16px; }
     .vsq-nav-menu { display: none; }
     .vsq-nav-right { gap: 8px; }
@@ -233,14 +169,17 @@ body {background:var(--vsq-white); font-family:'Plus Jakarta Sans',sans-serif;}
 
     .vsq-booking-header { margin: 24px auto 24px; }
     .vsq-booking-header h1 { font-size: 32px; line-height: 40px; }
-    .vsq-booking-header p { font-size: 16px; line-height: 22px; }
+    .vsq-booking-header p { font-size: 16px; line-height: 22px; margin-top: 10px; }
 
-    .vsq-booking-card, .sk-card { flex-direction: column; height: auto; padding-bottom: 20px;}
+    .vsq-booking-list { gap: 30px; }
+    .vsq-booking-card, .sk-card { flex-direction: column; height: auto; padding-bottom: 20px; }
+    .sk-card { margin-bottom: 30px; }
     .vsq-booking-img, .sk-card-img { width: 100%; height: 220px; }
     .vsq-booking-img img { position: relative; height: 220px; }
-    .vsq-booking-content, .sk-card-content { width: 100%; padding: 20px; justify-content: flex-start; gap: 16px;}
+    .vsq-booking-content, .sk-card-content { width: 100%; padding: 20px; justify-content: flex-start; gap: 16px; }
     .vsq-booking-top { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .vsq-status-tersedia { position: relative; top: 0; right: auto; margin-top: 5px; }
+    .vsq-status-tersedia { position: relative; top: 0; right: auto; transform: none; margin-top: 5px; }
+    .vsq-booking-fasilitas { margin-top: 0; }
     .vsq-booking-footer { flex-direction: column; align-items: flex-start; gap: 15px; }
     .vsq-btn-detail, .sk-btn { width: 100%; justify-content: center; align-self: center; }
     .sk-title { width: 80%; height: 24px; }
@@ -262,12 +201,12 @@ body {background:var(--vsq-white); font-family:'Plus Jakarta Sans',sans-serif;}
 <main>
     <div class="vsq-booking-header">
         <h1>Booking lapangan</h1>
-        <p>Pilih lapangan yang sesuai dengan kebutuhan mu</p>
+        <p>Pilih lapangan&nbsp; yang sesuai dengan kebutuhan mu</p>
     </div>
 
     <div class="vsq-booking-section">
         <div id="skeleton-container"></div>
-        
+
         <div id="error-container" class="vsq-error-state" style="display: none;">
             <div class="vsq-error-icon">
                 <svg viewBox="0 0 24 24">
@@ -316,58 +255,69 @@ body {background:var(--vsq-white); font-family:'Plus Jakarta Sans',sans-serif;}
 </div>
 
 <script>
-const API_BASE = 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
-const USER_KEYS = ['vsq_user', 'user', 'userData', 'user_data', 'currentUser'];
+const API_BASE = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')
+    ? 'http://localhost/vincent-arena/Backend/API'
+    : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
 
+async function fetchWithTimeout(resource, options = {}) {
+    const { timeout = 8000 } = options;
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    try { return await fetch(resource, { ...options, signal: controller.signal }); } finally { clearTimeout(id); }
+}
+
+/* 
+   MURNI MEMANGGIL GAMBAR DARI ASSETS/IMAGES
+*/
 const FAS_ICONS = {
-    'Indoor': '<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><path d="M9 22v-6h6v6"></path><path d="M8 12h8"></path><path d="M8 15h8"></path><path d="M8 18h8"></path></svg>',
-    'Area Luas': '<svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>',
-    'Area Penonton': '<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>',
-    'Sirkulasi udara': '<svg viewBox="0 0 24 24"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path></svg>'
+    'Indoor': 'assets/images/icon-indoor.png',
+    'Sirkulasi udara': 'assets/images/icon-sirkulasi-udara.png',
+    'Area Luas': 'assets/images/icon-area-luas.png',
+    'Area Penonton': 'assets/images/icon-area-penonton.png'
 };
+
+function fasItem(label) {
+    return `<div class="vsq-fasilitas-item" title="${label}"><img src="${FAS_ICONS[label]}" alt="${label}"></div>`;
+}
 
 const ARROW_SVG = '<svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg>';
 const REFRESH_SVG = '<svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>';
 
-function showNetworkOverlay() { 
-    const overlay = document.getElementById('network-overlay'); 
-    if (!overlay) return; 
-    overlay.style.display = 'flex'; 
-    void overlay.offsetWidth; 
-    overlay.style.opacity = '1'; 
+function showNetworkOverlay() {
+    const overlay = document.getElementById('network-overlay');
+    if (!overlay) return;
+    overlay.style.display = 'flex';
+    void overlay.offsetWidth;
+    overlay.style.opacity = '1';
 }
-
-function hideNetworkOverlay() { 
-    const overlay = document.getElementById('network-overlay'); 
-    if (!overlay) return; 
-    overlay.style.opacity = '0'; 
-    setTimeout(() => { overlay.style.display = 'none'; }, 300); 
+function hideNetworkOverlay() {
+    const overlay = document.getElementById('network-overlay');
+    if (!overlay) return;
+    overlay.style.opacity = '0';
+    setTimeout(() => { overlay.style.display = 'none'; }, 300);
 }
-
 window.addEventListener('offline', () => { showNetworkOverlay(); });
 window.addEventListener('online', () => { hideNetworkOverlay(); });
 window.addEventListener('load', () => { if (!navigator.onLine) showNetworkOverlay(); });
 
-function retryConnection() { 
-    if (navigator.onLine) { 
-        hideNetworkOverlay(); 
-        updateNavbar(); 
+function retryConnection() {
+    if (navigator.onLine) {
+        hideNetworkOverlay();
+        updateNavbar();
         loadLapangan();
-    } else { 
-        alert('Masih offline. Periksa koneksi internet Anda.'); 
-    } 
+    } else {
+        alert('Masih offline. Periksa koneksi internet Anda.');
+    }
 }
 
-function getCachedUser() { for (const key of USER_KEYS) { try { const raw = localStorage.getItem(key); if (raw) { const parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') return parsed; } } catch (e) {} } return null; }
+/* NAVBAR */
+const USER_KEYS = ['vsq_user', 'user', 'userData', 'user_data', 'currentUser'];
+function getCachedUser() { for (const key of USER_KEYS) { try { const raw = localStorage.getItem(key); if (!raw) continue; const parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') return parsed; } catch (e) {} } return null; }
 function normalizeUser(u) { if (!u) return null; const nama = u.nama || u.name || u.nama_lengkap || u.username || 'User'; return { nama: nama, email: u.email || '-', whatsapp: u.whatsapp || u.no_wa || u.no_hp || '-', foto_url: u.foto_url || u.foto || u.foto_profil || u.avatar || '', initial: u.initial || nama.charAt(0).toUpperCase() }; }
 
 function renderNavbar(user) {
     const navbarEl = document.getElementById('navbar');
     let rightNavHTML = '';
-    const path = window.location.pathname;
-    let isLapangan = path.includes('lapangan.html') || path.includes('detail_lapangan.html') || path.includes('booking_lapangan.html') ? 'active' : '';
-    let isBeranda = path.includes('index.html') || path === '/' ? 'active' : '';
-
     if (user) {
         const firstName = user.nama.split(' ')[0];
         const avatarContent = user.foto_url ? `<img src="${user.foto_url}" alt="${user.nama}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.outerHTML='${user.initial}'">` : user.initial;
@@ -385,52 +335,27 @@ function renderNavbar(user) {
     } else {
         rightNavHTML = `<a href="login.html" class="vsq-btn-login-outline">Login</a><a href="register.html" class="vsq-btn-register">Register</a>`;
     }
-
     navbarEl.innerHTML = `
     <div class="vsq-header">
         <div class="vsq-nav-left">
             <a href="index.html" class="vsq-logo"><span class="vsq-logo-title">Vincent'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span></a>
-            <nav class="vsq-nav-menu">
-                <a href="index.html" class="vsq-nav-link ${isBeranda}">Beranda</a>
-                <a href="lapangan.html" class="vsq-nav-link ${isLapangan}">Booking Lapangan</a>
-                <a href="riwayat.html" class="vsq-nav-link">Riwayat Booking</a>
-                <a href="makanan.html" class="vsq-nav-link">Makanan Minuman</a>
-            </nav>
+            <nav class="vsq-nav-menu"><a href="index.html" class="vsq-nav-link">Beranda</a><a href="lapangan.html" class="vsq-nav-link active">Booking Lapangan</a><a href="riwayat.html" class="vsq-nav-link">Riwayat Booking</a><a href="makanan.html" class="vsq-nav-link">Makanan Minuman</a></nav>
         </div>
         <div class="vsq-nav-right">${rightNavHTML}</div>
     </div>`;
-
-    const profileToggle = document.getElementById('profileToggle');
-    const profileDropdown = document.getElementById('profileDropdown');
-    if (profileToggle && profileDropdown) {
-        profileToggle.addEventListener('click', function(e) { e.stopPropagation(); profileDropdown.classList.toggle('show'); });
-        document.addEventListener('click', function(e) { if (!profileDropdown.contains(e.target) && !profileToggle.contains(e.target)) profileDropdown.classList.remove('show'); });
-    }
+    const pt = document.getElementById('profileToggle'), pd = document.getElementById('profileDropdown');
+    if (pt && pd) { pt.addEventListener('click', e => { e.stopPropagation(); pd.classList.toggle('show'); }); document.addEventListener('click', e => { if (!pd.contains(e.target) && !pt.contains(e.target)) pd.classList.remove('show'); }); }
 }
 
 async function updateNavbar() {
-    const localUser = getCachedUser();
-    if (localUser) {
-        renderNavbar(normalizeUser(localUser));
-    }
-
+    renderNavbar(normalizeUser(getCachedUser()));
     try {
-        const response = await fetch(API_BASE + '/auth/check.php', { method:'GET', credentials: 'include', headers: {'Accept': 'application/json'} });
+        const response = await fetchWithTimeout(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' } });
         const result = await response.json();
-        const loggedIn = !!((result.data && result.data.logged_in) || result.logged_in);
+        const loggedIn = (result.data && result.data.logged_in) || result.logged_in;
         const serverUser = (result.data && result.data.user) || result.user;
-        
-        if (loggedIn && serverUser) {
-            localStorage.setItem('vsq_user', JSON.stringify(serverUser));
-            renderNavbar(normalizeUser(serverUser));
-        } else {
-            if (!localUser) {
-                renderNavbar(null);
-            }
-        }
-    } catch (error) { 
-        console.log('Catatan: API tidak dapat dihubungi, menggunakan data sesi lokal.');
-    }
+        if (loggedIn && serverUser) { localStorage.setItem('vsq_user', JSON.stringify(serverUser)); renderNavbar(normalizeUser(serverUser)); }
+    } catch (error) { console.log('Catatan: Menggunakan data sesi lokal.'); }
 }
 
 function logout() { document.getElementById('logoutModal').classList.add('show'); }
@@ -441,16 +366,17 @@ async function confirmLogout() {
 }
 document.getElementById('logoutModal').addEventListener('click', function(e) { if (e.target === this) closeLogoutModal(); });
 
+/* SKELETON & STATE */
 let slowTimer;
 
 function showSkeleton() {
     const container = document.getElementById('skeleton-container');
     const errorContainer = document.getElementById('error-container');
     const dataContainer = document.getElementById('lapangan-container');
-    
+
     errorContainer.style.display = 'none';
     dataContainer.classList.add('hidden-loading');
-    
+
     let html = '';
     for (let i = 0; i < 2; i++) {
         html += `
@@ -470,7 +396,7 @@ function showSkeleton() {
     }
     container.innerHTML = html;
     container.style.display = 'block';
-    
+
     slowTimer = setTimeout(() => { showSlowConnectionWarning(); }, 2000);
 }
 
@@ -478,7 +404,6 @@ function showError() {
     document.getElementById('skeleton-container').style.display = 'none';
     document.getElementById('lapangan-container').classList.add('hidden-loading');
     document.getElementById('error-container').style.display = 'flex';
-    
     clearTimeout(slowTimer);
     hideSlowConnectionWarning();
 }
@@ -491,7 +416,7 @@ function hideSkeleton() {
 }
 
 function showSlowConnectionWarning() {
-    if(document.getElementById('slow-connection-toast')) return;
+    if (document.getElementById('slow-connection-toast')) return;
     const toast = document.createElement('div');
     toast.id = 'slow-connection-toast';
     toast.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> Koneksi Internet Lambat...`;
@@ -519,16 +444,6 @@ function imgFail(img) {
     img.replaceWith(box);
 }
 
-function decorateCards() {
-    document.querySelectorAll('.vsq-fasilitas-item').forEach(el => {
-        const t = el.textContent.trim();
-        if (FAS_ICONS[t]) el.innerHTML = FAS_ICONS[t] + '<span>' + t + '</span>';
-    });
-    document.querySelectorAll('.vsq-btn-detail').forEach(el => {
-        el.innerHTML = 'Lihat Detail ' + ARROW_SVG;
-    });
-}
-
 function renderLapanganData() {
     const container = document.getElementById('lapangan-container');
     container.innerHTML = `
@@ -541,17 +456,17 @@ function renderLapanganData() {
                         <div class="vsq-status-tersedia"><span class="vsq-dot"></span>Tersedia</div>
                     </div>
                     <div class="vsq-booking-fasilitas">
-                        <div class="vsq-fasilitas-item">Indoor</div>
-                        <div class="vsq-fasilitas-item">Sirkulasi udara</div>
-                        <div class="vsq-fasilitas-item">Area Luas</div>
-                        <div class="vsq-fasilitas-item">Area Penonton</div>
+                        ${fasItem('Indoor')}
+                        ${fasItem('Sirkulasi udara')}
+                        ${fasItem('Area Luas')}
+                        ${fasItem('Area Penonton')}
                     </div>
                 </div>
                 <div>
                     <div class="vsq-divider"></div>
                     <div class="vsq-booking-footer">
                         <div class="vsq-harga">Rp100.000 <span>/ Jam</span></div>
-                        <a href="detail_lapangan.html?id=1" class="vsq-btn-detail">Lihat Detail</a>
+                        <a href="detail_lapangan.html?id=1" class="vsq-btn-detail">Lihat Detail ${ARROW_SVG}</a>
                     </div>
                 </div>
             </div>
@@ -566,26 +481,24 @@ function renderLapanganData() {
                         <div class="vsq-status-tersedia"><span class="vsq-dot"></span>Tersedia</div>
                     </div>
                     <div class="vsq-booking-fasilitas vertical">
-                        <div class="vsq-fasilitas-item">Indoor</div>
-                        <div class="vsq-fasilitas-item">Area Luas</div>
+                        ${fasItem('Indoor')}
+                        ${fasItem('Area Luas')}
                     </div>
                 </div>
                 <div>
                     <div class="vsq-divider"></div>
                     <div class="vsq-booking-footer">
                         <div class="vsq-harga">Rp90.000 <span>/ Jam</span></div>
-                        <a href="detail_lapangan.html?id=2" class="vsq-btn-detail">Lihat Detail</a>
+                        <a href="detail_lapangan.html?id=2" class="vsq-btn-detail">Lihat Detail ${ARROW_SVG}</a>
                     </div>
                 </div>
             </div>
         </div>
     `;
-    decorateCards();
 }
 
 async function loadLapangan() {
     showSkeleton();
-    let isLoaded = false;
 
     try {
         const urlParams = new URLSearchParams(window.location.search);
@@ -594,25 +507,22 @@ async function loadLapangan() {
         if (testMode === 'gagal') {
             await new Promise(resolve => setTimeout(resolve, 1500));
             throw new Error("Simulasi Gagal Muat");
-        } 
+        }
         else if (testMode === 'offline') {
             await new Promise(resolve => setTimeout(resolve, 500));
             throw new TypeError("Failed to fetch");
         }
         else {
             await new Promise(resolve => setTimeout(resolve, 1000));
-            isLoaded = true;
             renderLapanganData();
             hideSkeleton();
         }
-
     } catch (error) {
-        isLoaded = true;
         if (error.name === 'TypeError') {
             hideSkeleton();
             showNetworkOverlay();
         } else {
-            showError(); 
+            showError();
         }
     }
 }

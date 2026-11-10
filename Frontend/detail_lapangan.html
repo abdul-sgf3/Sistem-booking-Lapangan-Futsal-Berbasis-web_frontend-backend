@@ -20,31 +20,31 @@
         body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', sans-serif; color: #000; }
 
         /* =========================================
-           NAVBAR
+           NAVBAR (sama persis dengan index.html)
            ========================================= */
+        #navbar { position: sticky; top: 0; z-index: 1000; background: #FFF; }
         .vsq-header { background: #FFFFFF; width: 100%; height: 106px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
         .vsq-nav-left { display: flex; align-items: center; gap: 40px; }
         .vsq-logo { display: flex; flex-direction: column; text-decoration: none; width: 130px; flex-shrink: 0; }
         .vsq-logo-title { font-size: 22px; font-weight: 800; color: #131B2E; line-height: 1.1; letter-spacing: -0.5px; }
         .vsq-logo-sub { font-size: 13px; font-weight: 800; color: #FF0000; line-height: 1.2; letter-spacing: 0.5px; margin-top: 2px; }
         .vsq-nav-menu { display: flex; align-items: center; gap: 32px; }
-        .vsq-nav-link { font-size: 15px; font-weight: 600; color: #000000; transition: color 0.2s; white-space: nowrap; text-decoration: none; }
+        .vsq-nav-link { font-size: 15px; font-weight: 600; color: #000000; text-decoration: none; transition: color 0.2s; white-space: nowrap; }
         .vsq-nav-link:hover { color: var(--vsq-blue); }
         .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 14px 24px; border-radius: 12px; height: auto; display: flex; align-items: center; justify-content: center; }
         .vsq-nav-right { display: flex; align-items: center; gap: 16px; position: relative; flex-shrink: 0; }
-        
         .vsq-btn-login-outline { background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
         .vsq-btn-register { background: #131B2E; color: #FFF; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
-        
-        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: auto; max-width: 160px; height: 42px; border: 1px solid #000000; border-radius: 10px; padding: 0 8px 0 12px; cursor: pointer; transition: background 0.2s; flex-shrink: 1; overflow: hidden; }
+        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: auto; max-width: 160px; height: 42px; border: 1px solid #000000; border-radius: 10px; padding: 0 8px 0 12px; text-decoration: none; cursor: pointer; transition: background 0.2s; flex-shrink: 1; overflow: hidden; }
         .vsq-profile-box:hover { background: #F8FAFC; }
         .vsq-profile-name { font-size: 14px; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; margin-right: 8px; }
         .vsq-profile-avatar { width: 28px; height: 28px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; overflow: hidden; }
         .vsq-btn-logout { background: #131B2E; color: #FFF; width: auto; padding: 0 16px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
         .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; padding: 0; }
         .vsq-notif-btn img { width: 28px; height: 28px; object-fit: contain; }
-        
-        .vsq-profile-dropdown { position: absolute; top: 60px; right: 0; width: 280px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.12); padding: 0; display: none; flex-direction: column; z-index: 1001; overflow: hidden; }
+
+        .vsq-profile-dropdown { position: absolute; top: 60px; right: 0; width: 280px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.12); padding: 0; display: none; flex-direction: column; z-index: 1001; overflow: hidden; animation: slideDown 0.3s ease; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         .vsq-profile-dropdown.show { display: flex; }
         .vsq-dd-header { background: linear-gradient(135deg, #131B2E 0%, #2C437B 100%); padding: 20px; display: flex; align-items: center; gap: 15px; color: #FFFFFF; }
         .vsq-dd-avatar { width: 50px; height: 50px; background: #477FEB; color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; border: 2px solid #FFFFFF; box-shadow: 0 4px 10px rgba(0,0,0,0.2); flex-shrink: 0; overflow: hidden; }
@@ -56,18 +56,22 @@
         .vsq-dd-item .value { font-weight: 600; color: #131B2E; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
         .vsq-dd-divider { height: 1px; background: #E2E8F0; margin: 5px 20px; }
         .vsq-dd-footer { padding: 15px 20px; display: flex; flex-direction: column; gap: 10px; background: #F8FAFC; }
-        .vsq-btn-edit-profile { background: #477FEB; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .vsq-btn-edit-profile { background: #477FEB; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .vsq-btn-edit-profile:hover { background: #3564C6; }
+        .vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .vsq-btn-logout-dropdown:hover { background: #FEF2F2; border-color: #EF4444; }
 
         /* =========================================
            BREADCRUMB & KONTAINER UTAMA
            ========================================= */
-        .breadcrumb { max-width: 1242px; margin: 30px auto 20px; padding: 0 20px; display: flex; align-items: center; gap: 12px; color: #848484; font-size: 15px; font-weight: 400; }
-        .breadcrumb a { text-decoration: none; color: #848484; display: flex; align-items: center; transition: 0.2s;}
+        .breadcrumb { width: 100%; margin: 42px 0 48px; padding: 0 46px; display: flex; align-items: center; gap: 16px; color: #848484; font-size: 16px; font-weight: 400; }
+        .breadcrumb a { text-decoration: none; color: #848484; display: flex; align-items: center; transition: 0.2s; }
         .breadcrumb a:hover { color: var(--vsq-navy); }
-        .breadcrumb svg { width: 20px; height: 20px; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+        .breadcrumb svg { width: 24px; height: 24px; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+        .breadcrumb a.home svg { width: 31px; height: 31px; }
+        .breadcrumb .current { color: #848484; }
 
-        .detail-container { max-width: 1242px; margin: 0 auto 40px; padding: 0 20px; }
+        .detail-container { max-width: 1242px; margin: 0 auto 60px; padding: 0; }
         
         /* =========================================
            CARD UTAMA
@@ -80,149 +84,96 @@
             background: #fff; 
             width: 100%; 
             height: 532px;
-            margin-bottom: 30px; 
+            margin-bottom: 51px; 
             position: relative; 
         }
         
-        .detail-image-wrapper { 
-            width: 50%;
-            flex-shrink: 0; 
-            position: relative; 
-            background: #E2E8F0;
-        }
-        .detail-image { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            display: block; 
-            position: absolute; 
-            inset: 0; 
-        }
+        .detail-image-wrapper { width: 50%; flex-shrink: 0; position: relative; background: #E2E8F0; }
+        .detail-image { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; inset: 0; }
         
         .detail-content { 
             width: 50%; 
-            padding: 34px 40px;
+            padding: 24px 64px 24px 68px;
             display: flex; 
             flex-direction: column; 
             position: relative; 
         }
         
-        .header-title { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
-        .header-title h1 { font-size: 24px; font-weight: 600; color: #000; margin: 0; }
+        .header-title { display: flex; align-items: center; gap: 18px; margin-bottom: 14px; }
+        .header-title h1 { font-size: 24px; font-weight: 600; color: #000; margin: 0; white-space: nowrap; }
         
         /* Badge VIP / Reguler */
-        .badge-vip { background: #FFD700; color: #000; padding: 8px 24px; border-radius: 60px; font-weight: 500; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; height: 48px; }
-        .badge-reguler { background: #D9D9D9; color: #000; padding: 8px 24px; border-radius: 60px; font-weight: 500; font-size: 16px; display: inline-flex; align-items: center; justify-content: center; height: 48px; }
+        .badge-vip, .badge-reguler { width: 115px; height: 48px; padding: 0; border-radius: 60px; font-weight: 500; font-size: 16px; color: #000; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .badge-vip { background: #FFD700; }
+        .badge-reguler { background: #D9D9D9; }
         
         /* Status Tersedia */
-        .status-tersedia { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--vsq-green); font-weight: 400; position: absolute; right: 40px; top: 34px; }
+        .status-tersedia { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--vsq-green); font-weight: 400; position: absolute; right: 64px; top: 42px; }
         .dot { width: 10px; height: 10px; background-color: var(--vsq-green); border-radius: 50%; }
         
         /* Lokasi */
-        .location { display: flex; align-items: center; gap: 8px; color: #000; font-size: 12px; font-weight: 500; margin-bottom: 24px; }
-        .location svg { width: 16px; height: 16px; stroke: #131B2E; stroke-width: 2; flex-shrink: 0; }
+        .location { display: flex; align-items: center; gap: 6px; color: #000; font-size: 12px; font-weight: 500; margin-bottom: 22px; }
+        .location svg { width: 16px; height: 16px; fill: #131B2E; stroke: none; flex-shrink: 0; }
         
         /* Fasilitas */
-        .fasilitas-list { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
-        .fasilitas-list.vertical { flex-direction: column; align-items: flex-start; gap: 12px; }
+        .fasilitas-list { display: flex; flex-wrap: wrap; gap: 20px 14px; margin-bottom: 32px; }
+        .fasilitas-list.vertical { flex-direction: column; align-items: flex-start; gap: 24px; }
         
         .fasilitas-item { 
             display: flex; 
             align-items: center; 
             gap: 7px; 
             border: 1px solid #131B2E; 
-            padding: 6px 12px; 
-            border-radius: 15px; 
+            padding: 6px 14px 6px 12px; 
+            border-radius: 20px; 
             font-size: 14px; 
             font-weight: 500; 
             color: #000; 
             background: #FFF; 
             height: 40px; 
         }
-        .fasilitas-item svg { width: 24px; height: 24px; flex-shrink: 0; stroke: #111C3A; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .fasilitas-item svg { width: 24px; height: 24px; min-width: 24px; flex-shrink: 0; fill: none; stroke: #111C3A; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
         
         /* Deskripsi */
-        .deskripsi-title { font-size: 18px; font-weight: 500; color: #000; margin-bottom: 10px; }
+        .deskripsi-title { font-size: 18px; font-weight: 500; color: #000; margin-bottom: 22px; }
         .deskripsi-text { font-size: 14px; color: #000; line-height: 18px; margin-bottom: 0; text-align: justify; }
         
-        .divider { height: 1px; background: #000; width: 100%; margin-top: auto; margin-bottom: 24px; }
+        .divider { height: 1px; background: #000; width: 100%; margin-top: auto; margin-bottom: 28px; flex-shrink: 0; }
         
         /* Footer Harga & Tombol */
         .detail-footer { display: flex; align-items: center; justify-content: space-between; }
-        .harga { font-size: 24px; font-weight: 600; color: #131B2E; white-space: nowrap; display: flex; align-items: baseline; gap: 6px; }
-        .harga span { font-size: 18px; font-weight: 500; color: #131B2E; }
+        .harga-wrap { display: flex; align-items: baseline; gap: 6px; }
+        .harga { width: 144px; text-align: center; font-size: 24px; font-weight: 600; color: #131B2E; white-space: nowrap; }
+        .harga-unit { font-size: 18px; font-weight: 500; color: #131B2E; white-space: nowrap; }
         
-        .btn-booking { background: #131B2E; color: white; padding: 0 16px; border-radius: 10px; font-weight: 600; font-size: 16px; display: flex; align-items: center; gap: 10px; text-decoration: none; width: 220px; height: 59px; justify-content: space-between; transition: 0.3s; white-space: nowrap; }
+        .btn-booking { background: #131B2E; color: white; padding: 0 16px 0 20px; border-radius: 10px; font-weight: 600; font-size: 16px; display: flex; align-items: center; gap: 10px; text-decoration: none; width: 220px; height: 59px; justify-content: space-between; transition: 0.3s; white-space: nowrap; }
         .btn-booking:hover { background: #1a2b4c; }
         .btn-booking svg { width: 31px !important; height: 20px !important; stroke: #FFF; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
         /* =========================================
-           BOTTOM GRID (ATURAN & JAM) - 100% PERSIS FIGMA
+           BOTTOM GRID (ATURAN & JAM)
            ========================================= */
-        .bottom-grid-wrapper {
-            width: 100%;
-            display: flex;
-            justify-content: center; /* Menengahkan seluruh baris */
-        }
-
-        .bottom-grid { 
-            display: flex; 
-            gap: 41.79px; /* Jarak presisi dari Figma */
-            width: 1026.21px; /* Lebar presisi (740.21 + 41.79 + 244) */
-        }
+        .bottom-grid-wrapper { width: 100%; display: flex; justify-content: flex-start; }
+        .bottom-grid { display: flex; align-items: flex-start; gap: 41.79px; width: 1026.21px; }
         
-        .info-box { 
-            border: 1px solid #848484; 
-            border-radius: 15px; 
-            background: #fff; 
-            display: flex; 
-            flex-direction: column; 
-            box-sizing: border-box; 
-        }
+        .info-box { border: 1px solid #848484; border-radius: 18px; background: #fff; display: flex; flex-direction: column; box-sizing: border-box; position: relative; }
         
-        /* Kotak Aturan Pemesanan (Fix 740.21px x 274px) */
-        .box-aturan { 
-            width: 740.21px; 
-            height: 274px; 
-            padding: 40px 35px; 
-            position: relative; 
-        }
+        .box-aturan { width: 740.21px; height: 274px; padding: 0 35px; }
+        .box-aturan .info-box-header { position: absolute; top: 32px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 600; color: #000; white-space: nowrap; }
+        .info-box-header svg { width: 36px; height: 36px; stroke: #111C3A; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
         
-        /* Kotak Jam Operasional (Fix 244px x 153px) */
-        .box-jam { 
-            width: 244px; 
-            height: 153px; 
-            padding: 26px 20px; 
-            position: relative; 
-        }
-
-        .info-box-header { 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-            font-size: 18px; 
-            font-weight: 600; 
-            color: #000; 
-            margin-bottom: 30px; 
-            position: absolute; 
-            top: 40px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            white-space: nowrap; 
-        }
-        .info-box-header svg { width: 40px; height: 40px; stroke: #111C3A; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .aturan-content { margin-top: 95px; }
+        .aturan-content ol { margin: 0; padding: 0; list-style-position: inside; }
+        .aturan-content li { font-size: 14px; line-height: 18px; color: #000; padding: 9px 0; }
         
-        .aturan-content { margin-top: 65px; }
-        .aturan-content ol { margin: 0; padding-left: 24px; }
-        .aturan-content li { font-size: 14px; line-height: 18px; color: #000; padding: 6px 0; text-align: justify; }
-        
-        .jam-box-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; justify-content: center; }
-        .jam-box-header svg { width: 30px; height: 30px; stroke: #000; stroke-width: 2; fill: none; }
-        .jam-box-header h5 { font-size: 18px; font-weight: 600; margin: 0; color: #000; }
-        .jam-box-content { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-        .jam-box-content svg { width: 20px; height: 20px; stroke: #000; stroke-width: 2; fill: none; }
-        .jam-box-content .text { font-size: 14px; line-height: 18px; color: #000; font-weight: 400; }
-        .jam-box-time { font-size: 14px; font-weight: 400; color: #000; padding-left: 30px; margin-top: 0; }
+        .box-jam { width: 244px; height: 153px; padding: 30px 22px 0; }
+        .jam-box-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; height: 24px; }
+        .jam-box-header svg { width: 24px; height: 24px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+        .jam-box-header h5 { font-size: 18px; font-weight: 600; margin: 0; color: #000; white-space: nowrap; }
+        .jam-box-content { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; height: 20px; padding-left: 5px; }
+        .jam-box-content svg { width: 16px; height: 16px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+        .jam-box-content .text { font-size: 14px; line-height: 20px; color: #000; font-weight: 400; }
+        .jam-box-time { font-size: 14px; line-height: 20px; font-weight: 400; color: #000; padding-left: 35px; }
 
         .img-fail { width: 100%; height: 100%; background: #D9D9D9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #131B2E; font-size: 14px; cursor: pointer; position: absolute; inset: 0; }
         .img-fail svg { width: 40px; height: 40px; stroke: #131B2E; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
@@ -231,15 +182,42 @@
         @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
         .skeleton-box { background: #E2E8F0; background-image: linear-gradient(to right, #E2E8F0 0%, #F1F5F9 20%, #E2E8F0 40%, #E2E8F0 100%); background-repeat: no-repeat; background-size: 1000px 100%; animation: shimmer 2s infinite linear forwards; border-radius: 8px; }
 
-        /* RESPONSIVE MOBILE */
+        /* NETWORK OVERLAY & TOAST */
+        .network-overlay { position: fixed; inset: 0; background: rgba(255,255,255,.96); z-index: 9998; align-items: center; justify-content: center; transition: opacity .3s; }
+        .network-content { text-align: center; padding: 20px; }
+        .network-icon svg { width: 64px; height: 64px; stroke: #131B2E; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .network-title { font-size: 22px; font-weight: 700; color: #131B2E; margin: 16px 0 6px; }
+        .network-message { font-size: 14px; color: #64748B; margin-bottom: 20px; }
+        .network-btn { background: #131B2E; color: #FFF; border: none; padding: 12px 28px; border-radius: 10px; font-weight: 600; font-family: inherit; cursor: pointer; }
+        #slow-connection-toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #131B2E; color: #FFF; padding: 10px 18px; border-radius: 10px; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 8px; z-index: 9997; }
+
+        /* RESPONSIVE */
+        @media screen and (max-width: 1300px) {
+            .detail-container { padding: 0 20px; }
+        }
         @media screen and (max-width: 1100px) {
             .bottom-grid { flex-direction: column; width: 100%; align-items: center; gap: 20px; }
-            .box-aturan, .box-jam { width: 100%; max-width: 740.21px; height: auto; min-height: 274px; padding: 30px 20px;}
-            .info-box-header { position: static; transform: none; justify-content: center; margin-bottom: 20px;}
+            .box-aturan, .box-jam { width: 100%; max-width: 740.21px; height: auto; }
+            .box-aturan { min-height: 274px; padding: 30px 20px; }
+            .box-aturan .info-box-header { position: static; transform: none; justify-content: center; margin-bottom: 20px; }
             .aturan-content { margin-top: 0; }
-            .box-jam { min-height: 153px; }
+            .box-jam { min-height: 153px; padding-bottom: 20px; }
         }
         @media screen and (max-width: 900px) {
+            .breadcrumb { margin: 20px 0 15px; padding: 0 16px; font-size: 13px; gap: 8px; }
+            .breadcrumb svg { width: 18px; height: 18px; }
+            .breadcrumb a.home svg { width: 22px; height: 22px; }
+            .detail-card { flex-direction: column; height: auto; margin-bottom: 30px; }
+            .detail-image-wrapper { width: 100%; height: 250px; }
+            .detail-content { width: 100%; padding: 20px; }
+            .status-tersedia { position: static; margin-bottom: 10px; justify-content: flex-start; }
+            .header-title { flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+            .divider { margin-top: 24px; }
+            .detail-footer { flex-direction: column; align-items: stretch; gap: 16px; }
+            .harga { width: auto; text-align: left; }
+            .btn-booking { width: 100%; justify-content: center; gap: 12px; }
+        }
+        @media screen and (max-width: 768px) {
             .vsq-header { height: 80px; padding: 0 16px; }
             .vsq-nav-menu { display: none; }
             .vsq-nav-right { gap: 8px; }
@@ -248,19 +226,6 @@
             .vsq-profile-avatar { width: 26px; height: 26px; font-size: 11px; }
             .vsq-btn-logout, .vsq-btn-login-outline, .vsq-btn-register { padding: 0 12px; height: 40px; font-size: 12px; border-radius: 8px; width: auto; }
             .vsq-profile-dropdown { position: fixed; top: 85px; right: 16px; left: 16px; width: auto; }
-
-            .breadcrumb { margin: 20px auto 15px; font-size: 13px; }
-            .detail-card { flex-direction: column; height: auto; }
-            .detail-image-wrapper { width: 100%; height: 250px; }
-            .detail-content { width: 100%; padding: 20px; }
-            .status-tersedia { position: static; margin-bottom: 10px; justify-content: flex-start; }
-            .header-title { flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
-            .header-title h1 { font-size: 24px; }
-            
-            .btn-booking { width: 100%; justify-content: center; gap: 12px; }
-            .info-box-header { justify-content: flex-start;}
-            .info-box { padding: 20px;}
-            .jam-content { padding-left: 10px;}
         }
     </style>
 </head>
@@ -269,12 +234,12 @@
     <header id="navbar"></header>
 
     <div class="breadcrumb">
-        <a href="index.html">
+        <a href="index.html" class="home">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5L12 3l9 7.5v10a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 20.5v-10z" /><path d="M9 22v-6h6v6" /></svg>
         </a>
-        <svg viewBox="0 0 24 24" fill="none" stroke="#848484" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#848484" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
         <a href="lapangan.html">Booking Lapangan</a>
-        <svg viewBox="0 0 24 24" fill="none" stroke="#848484" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#848484" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
         <span class="current" id="breadcrumb-current">Memuat...</span>
     </div>
 
@@ -287,17 +252,18 @@
             <div class="detail-content">
                 <div class="status-tersedia"><span class="dot"></span> Tersedia</div>
                 <div class="header-title">
-                    <h1><span id="lapangan-name">Memuat...</span> <span id="lapangan-badge" class="badge-vip" style="display:none;">...</span></h1>
+                    <h1 id="lapangan-name">Memuat...</h1>
+                    <span id="lapangan-badge" class="badge-vip" style="display:none;">...</span>
                 </div>
                 
                 <div class="location">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                    <span>Tuparev, Kota Cirebon - Jawa Barat</span>
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                    <span>Tuparev, Kota Cirebon- jawabarat</span>
                 </div>
                 
                 <div class="fasilitas-list" id="fasilitas-container">
-                    <div class="skeleton-box" style="width:100px; height:40px; border-radius:15px;"></div>
-                    <div class="skeleton-box" style="width:100px; height:40px; border-radius:15px;"></div>
+                    <div class="skeleton-box" style="width:100px; height:40px; border-radius:20px;"></div>
+                    <div class="skeleton-box" style="width:100px; height:40px; border-radius:20px;"></div>
                 </div>
                 
                 <div class="deskripsi-title">Deskripsi:</div>
@@ -309,8 +275,11 @@
                 <div class="divider"></div>
                 
                 <div class="detail-footer">
-                    <div class="harga" id="lapangan-harga">
-                        <div class="skeleton-box" style="width:120px; height:28px; display:inline-block;"></div>
+                    <div class="harga-wrap">
+                        <div class="harga" id="lapangan-harga">
+                            <div class="skeleton-box" style="width:120px; height:28px; display:inline-block;"></div>
+                        </div>
+                        <span class="harga-unit">/ Jam</span>
                     </div>
                     <a href="#" id="btn-booking-link" class="btn-booking">
                         Booking Sekarang
@@ -320,26 +289,26 @@
             </div>
         </div>
 
-        <!-- BOTTOM GRID (PERSIS FIGMA) -->
+        <!-- BOTTOM GRID -->
         <div class="bottom-grid-wrapper">
             <div class="bottom-grid">
-                <!-- KOTAK ATURAN PEMESANAN -->
+                <!-- ATURAN PEMESANAN -->
                 <div class="info-box box-aturan">
                     <div class="info-box-header">
-                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="14" x2="8.01" y2="14"></line><line x1="12" y1="14" x2="12.01" y2="14"></line><line x1="16" y1="14" x2="16.01" y2="14"></line><line x1="8" y1="18" x2="8.01" y2="18"></line><line x1="12" y1="18" x2="12.01" y2="18"></line><line x1="16" y1="18" x2="16.01" y2="18"></line></svg>
+                        <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="18" rx="2.5"></rect><rect x="9" y="2" width="6" height="4" rx="1"></rect><line x1="8" y1="11" x2="8.01" y2="11"></line><line x1="8" y1="15" x2="8.01" y2="15"></line><line x1="8" y1="19" x2="8.01" y2="19"></line><line x1="11.5" y1="11" x2="16" y2="11"></line><line x1="11.5" y1="15" x2="16" y2="15"></line><line x1="11.5" y1="19" x2="16" y2="19"></line></svg>
                         Aturan Pemesanan
                     </div>
                     <div class="aturan-content">
                         <ol>
-                            <li>Lakukan pemesanan minimal 1 hari sebelumnya.</li>
-                            <li>Pembatalan dapat dilakukan dalam H-3 jam dan akan dikenakan tarif sebesar 10% yang diberikan.</li>
-                            <li>Dilarang membawa makanan dan minuman dari luar.</li>
-                            <li>Jaga kebersihan dan fasilitas selama penggunaan.</li>
+                            <li>Lakukan pemesanan minimal 1 hari sebelumnya</li>
+                            <li>Pembatalan dapat dilakukan dalam H-3 jam dan akan dikenakan tarif sebesar 10% yang diberikan</li>
+                            <li>Dilarang membawa makanan dan minuman dari luar</li>
+                            <li>Jaga kebersihan dan fasilitas selama penggunaan</li>
                         </ol>
                     </div>
                 </div>
                 
-                <!-- KOTAK JAM OPERASIONAL -->
+                <!-- JAM OPERASIONAL -->
                 <div class="info-box box-jam">
                     <div class="jam-box-header">
                         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
@@ -428,6 +397,16 @@
             } 
         }
 
+        // ===== BREADCRUMB (guest = "Detail Lapangan N", login = "Lapangan Futsal N") =====
+        let currentLapangan = { id: '1', nama: '' };
+        let isLoggedInView = false;
+
+        function updateBreadcrumb() {
+            const el = document.getElementById('breadcrumb-current');
+            if (!el || !currentLapangan.nama) return;
+            el.innerText = isLoggedInView ? currentLapangan.nama : 'Detail Lapangan ' + currentLapangan.id;
+        }
+
         // ===== AUTH & NAVBAR =====
         const USER_KEYS = ['vsq_user', 'user', 'userData', 'user_data', 'currentUser'];
         function getCachedUser() { for (const key of USER_KEYS) { try { const raw = localStorage.getItem(key); if (!raw) continue; const parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') return parsed; } catch (e) {} } return null; }
@@ -475,6 +454,9 @@
                 <div class="vsq-nav-right">${rightNavHTML}</div>
             </div>`;
 
+            isLoggedInView = !!user;
+            updateBreadcrumb();
+
             const pt = document.getElementById('profileToggle'), pd = document.getElementById('profileDropdown');
             if (pt && pd) { pt.addEventListener('click', e => { e.stopPropagation(); pd.classList.toggle('show'); }); document.addEventListener('click', e => { if (!pd.contains(e.target) && !pt.contains(e.target)) pd.classList.remove('show'); }); }
         }
@@ -501,6 +483,7 @@
                 }
             } catch (error) { 
                 console.log('Catatan: API tidak dapat dihubungi, menggunakan data sesi lokal.'); 
+                if (!localUser) renderNavbar(null);
             }
         }
 
@@ -522,8 +505,8 @@
             document.getElementById('lapangan-badge').style.display = 'none';
             
             let skeletonFasilitas = `
-                <div class="skeleton-box" style="width:100px; height:40px; border-radius:15px;"></div>
-                <div class="skeleton-box" style="width:100px; height:40px; border-radius:15px;"></div>
+                <div class="skeleton-box" style="width:100px; height:40px; border-radius:20px;"></div>
+                <div class="skeleton-box" style="width:100px; height:40px; border-radius:20px;"></div>
             `;
             
             const container = document.getElementById('fasilitas-container');
@@ -574,6 +557,14 @@
             img.replaceWith(box);
         }
 
+        // Ikon fasilitas (SVG) - sama untuk Lapangan 1 dan 2
+        const svgIcons = {
+            'Indoor': '<svg viewBox="0 0 24 24"><path d="M22 8.35V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.35A2 2 0 0 1 3.26 6.5l8-3.2a2 2 0 0 1 1.48 0l8 3.2A2 2 0 0 1 22 8.35Z"/><path d="M6 18h12"/><path d="M6 14h12"/><rect x="6" y="10" width="12" height="12"/></svg>',
+            'Area Luas': '<svg viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></svg>',
+            'Area Penonton': '<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+            'Sirkulasi udara': '<svg viewBox="0 0 24 24"><path d="M12.8 19.6A2 2 0 1 0 14 16H2"/><path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"/><path d="M9.8 4.4A2 2 0 1 1 11 8H2"/></svg>'
+        };
+
         async function loadDetail() {
             const urlParams = new URLSearchParams(window.location.search);
             const id = ['1','2'].includes(urlParams.get('id')) ? urlParams.get('id') : '1';
@@ -582,8 +573,8 @@
             let isLoaded = false;
             
             const data = {
-                '1': { nama: 'Lapangan Futsal 1', badge: 'VIP', badgeClass: 'badge-vip', harga: 100000, img: 'assets/uploads/lapangan/Lapangan1.jpeg', desc: 'Lapangan futsal 1 adalah lapangan yang berkategorikan VIP dengan permukaan Vinyl dengan kualitas premium yang memberikan kenyamanan dan Keamanan saat bermain lapangan ini cocok untuk berbagai kebutuhan mulai dari latihan rutin sampai turnamen pertandingan antar tim hingga profesional.', fasilitas: ['Indoor', 'Area Luas', 'Area Penonton', 'Sirkulasi udara'] },
-                '2': { nama: 'Lapangan Futsal 2', badge: 'Reguler', badgeClass: 'badge-reguler', harga: 90000, img: 'assets/uploads/lapangan/Lapangan2.jpeg', desc: 'Lapangan futsal 2 adalah lapangan yang berkategorikan Reguler dengan permukaan Vinyl dengan kualitas standar yang memberikan kesan kenyamanan dan Fun, cocok digunakan untuk berlatih, dan bermain funmatch dengan rekan.', fasilitas: ['Indoor', 'Area Luas'] }
+                '1': { nama: 'Lapangan Futsal 1', badge: 'VIP', badgeClass: 'badge-vip', harga: 100000, img: 'assets/uploads/lapangan/Lapangan1.jpeg', desc: 'Lapangan futsal 1 adalah lapangan yang berkategorikan VIP dengan permukaan Vinyl dengan kualitas premium yang memberikan kenyamanan dan Keamanan saat bermain lapangan ini cocok untuk berbagai kebutuhan mulai dari latihan rutin sampai turnamen pertandingan antar tim hingga profesional', fasilitas: ['Indoor', 'Area Luas', 'Area Penonton', 'Sirkulasi udara'] },
+                '2': { nama: 'Lapangan Futsal 2', badge: 'Reguler', badgeClass: 'badge-reguler', harga: 90000, img: 'assets/uploads/lapangan/Lapangan2.jpeg', desc: 'Lapangan futsal 2 adalah lapangan yang berkategorikan Reguler dengan permukaan Vinyl dengan kualitas standar yang memberikan kesan kenyamanan dan Fun, cocok digunakan untuk berlatih, dan bermain funmatch dengan rekan', fasilitas: ['Indoor', 'Area Luas'] }
             };
             
             try {
@@ -593,29 +584,27 @@
                 isLoaded = true;
                 hideSkeleton();
 
-                document.getElementById('breadcrumb-current').innerText = info.nama;
+                currentLapangan = { id: id, nama: info.nama };
+                updateBreadcrumb();
+
                 document.getElementById('lapangan-name').innerText = info.nama;
                 document.getElementById('lapangan-deskripsi').innerText = info.desc;
                 
                 const imgWrapper = document.getElementById('img-wrapper');
-                imgWrapper.innerHTML = `<img id="lapangan-image" class="detail-image" src="${info.img}" alt="Lapangan" onerror="imgFail(this)">`;
+                imgWrapper.innerHTML = `<img id="lapangan-image" class="detail-image" src="${info.img}" alt="${info.nama}" onerror="imgFail(this)">`;
                 
                 const b = document.getElementById('lapangan-badge'); 
                 b.innerText = info.badge; 
                 b.className = info.badgeClass;
                 b.style.display = 'inline-flex';
 
-                document.getElementById('lapangan-harga').innerHTML = `Rp${info.harga.toLocaleString('id-ID')} <span>/ Jam</span>`;
+                document.getElementById('lapangan-harga').innerHTML = `Rp${info.harga.toLocaleString('id-ID')}`;
 
-                const svgIcons = {
-                    'Indoor': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><path d="M9 22v-6h6v6"></path><path d="M8 12h8"></path><path d="M8 15h8"></path><path d="M8 18h8"></path></svg>',
-                    'Area Luas': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>',
-                    'Area Penonton': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>',
-                    'Sirkulasi udara': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path></svg>'
-                };
                 const fasContainer = document.getElementById('fasilitas-container');
                 fasContainer.innerHTML = '';
-                info.fasilitas.forEach(item => { fasContainer.innerHTML += `<div class="fasilitas-item">${svgIcons[item] || ''} ${item}</div>`; });
+                info.fasilitas.forEach(item => {
+                    fasContainer.innerHTML += `<div class="fasilitas-item">${svgIcons[item] || ''} ${item}</div>`;
+                });
 
                 if (id === '2') {
                     fasContainer.classList.add('vertical');

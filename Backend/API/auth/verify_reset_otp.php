@@ -27,11 +27,15 @@ mysqli_stmt_execute($stmt);
 $user = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
 
 if (!$user) sendError('Email tidak terdaftar', 404);
-if (empty($user['otp_code']) || !hash_equals((string)$user['otp_code'], $otp)) {
-    otpAttemptFail('reset:' . $email);
-    sendError('Kode OTP salah', 400);
+if (isOtpExpired($user['otp_expired_at'])) {
+    sendError('Kode OTP kadaluarsa', 400);
 }
-if (isOtpExpired($user['otp_expired_at'])) sendError('Kode OTP kadaluarsa', 400);
+
+if (empty($user['otp_code']) ||
+    !hash_equals((string)$user['otp_code'], $otp)) {
+
+    otpAttemptFail('reset:' . $email);
+    sendError('Kode OTP salah', 400);}
 
 otpAttemptReset('reset:' . $email);
 $_SESSION['reset_verified'] = true;

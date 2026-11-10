@@ -42,13 +42,17 @@ if ($user['is_verified']) {
 if (empty($user['otp_code'])) {
     sendError('Kode OTP tidak ditemukan. Minta kirim ulang.', 400);
 }
+// Periksa masa berlaku terlebih dahulu
+if (isOtpExpired($user['otp_expired_at'])) {
+    sendError('Kode OTP sudah kadaluarsa. Minta kirim ulang.', 400);
+}
+
+// Periksa kecocokan OTP
 if (!hash_equals((string)$user['otp_code'], $otp)) {
     otpAttemptFail('verify:' . $email);
     sendError('Kode OTP salah', 400);
 }
-if (isOtpExpired($user['otp_expired_at'])) {
-    sendError('Kode OTP sudah kadaluarsa. Minta kirim ulang.', 400);
-}
+
 
 // Tandai terverifikasi
 $stmt = mysqli_prepare($conn,

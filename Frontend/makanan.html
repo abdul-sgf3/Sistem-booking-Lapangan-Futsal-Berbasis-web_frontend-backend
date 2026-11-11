@@ -122,7 +122,11 @@ body {background:#F8FAFC; font-family:'Plus Jakarta Sans',sans-serif;}
 </div>
 
 <script>
-const API_BASE = 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
+// PERBAIKAN: URL dinamis menyesuaikan lingkungan
+const API_BASE = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')
+    ? 'http://localhost/vincent-arena/Backend/API' 
+    : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
+
 const USER_KEYS = ['vsq_user', 'user', 'userData', 'user_data', 'currentUser'];
 
 function getCachedUser() {

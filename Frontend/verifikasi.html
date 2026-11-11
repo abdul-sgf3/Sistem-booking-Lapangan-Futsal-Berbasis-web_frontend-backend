@@ -109,7 +109,7 @@
         else { window.location.href = 'register.html'; }
 
         function moveFocus(current, nextIndex) {
-            current.value = current.value.replace(/[^0-9]/g, ''); // Hanya angka
+            current.value = current.value.replace(/[^0-9]/g, ''); 
             if (current.value.length === 1) {
                 const inputs = document.querySelectorAll('.vsq-otp-input');
                 if (nextIndex < inputs.length) inputs[nextIndex].focus();
@@ -152,7 +152,6 @@
             const errOtp = document.getElementById('err-otp');
             const errOtpText = document.getElementById('err-otp-text');
 
-            // Cek Kelengkapan
             if (code6Digit.length < 6) {
                 inputs.forEach(input => { if(input.value === '') input.classList.add('is-invalid'); });
                 errOtpText.textContent = "Kode OTP belum dimasukan!";
@@ -162,12 +161,13 @@
 
             const btn = document.getElementById('btnVerifikasi');
             btn.disabled = true; 
+            btn.textContent = 'Memverifikasi...';
 
             try {
                 const response = await fetch(API_BASE + '/auth/verify_otp.php', {
                     method: 'POST', 
                     headers: { 'Content-Type': 'application/json' }, 
-                    credentials: 'include', 
+                    credentials: 'include', // <-- PASTIKAN INI ADA
                     body: JSON.stringify({ email: savedEmail, otp: code6Digit })
                 });
                 const result = await response.json();
@@ -179,10 +179,12 @@
                     errOtpText.textContent = result.message;
                     errOtp.classList.add('show');
                     btn.disabled = false;
+                    btn.textContent = 'Verifikasi';
                 }
             } catch (error) {
                 alert('Gagal Terhubung: ' + error.message); 
                 btn.disabled = false;
+                btn.textContent = 'Verifikasi';
             }
         });
     </script>

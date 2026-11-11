@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lengkapi Profil - Vincent'SQ Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <style>
-        /* CSS DASAR */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             min-height: 100vh; 
@@ -20,12 +17,8 @@
             justify-content: center; 
             padding: 20px; 
         }
-
-        /* Tombol Kembali */
         .vsq-back-btn { position: absolute; top: 40px; left: 40px; color: #FFFFFF; text-decoration: none; z-index: 10; }
         .vsq-back-btn svg { width: 32px; height: 32px; stroke: #FFFFFF; stroke-width: 2.5; fill: none; }
-
-        /* Card Putih */
         .vsq-profile-card { 
             background: #FFFFFF; 
             width: 100%; 
@@ -35,16 +28,10 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.2); 
             text-align: center;
         }
-
-        /* Logo */
         .vsq-logo { margin-bottom: 2px; }
         .vsq-logo h1 { font-size: 24px; font-weight: 800; color: #131B2E; margin: 0; letter-spacing: -0.5px; }
         .vsq-logo p { font-size: 13px; font-weight: 800; color: #FF0000; letter-spacing: 1px; margin-top: 2px; text-transform: uppercase; }
-
-        /* Judul */
         .vsq-title { font-size: 15px; font-weight: 600; color: #000; margin-bottom: 20px; margin-top: 10px; }
-
-        /* Ikon Upload Profil */
         .vsq-upload-container { margin-bottom: 15px; display: flex; flex-direction: column; align-items: center; }
         .vsq-avatar-wrapper { position: relative; width: 90px; height: 90px; margin-bottom: 10px; cursor: pointer; }
         .vsq-avatar-circle { 
@@ -54,14 +41,8 @@
             display: flex; align-items: center; justify-content: center; 
             overflow: hidden;
         }
-        .vsq-avatar-circle img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: none;
-        }
+        .vsq-avatar-circle img { width: 100%; height: 100%; object-fit: cover; display: none; }
         .vsq-avatar-circle svg { display: block; }
-        
         .vsq-camera-badge { 
             position: absolute; bottom: 0px; right: 0px; 
             background: #477FEB; width: 28px; height: 28px; 
@@ -70,14 +51,10 @@
         }
         .vsq-upload-text { color: #477FEB; font-size: 12px; font-weight: 500; cursor: pointer; }
         .vsq-upload-hint { color: #000; font-size: 10px; margin-top: 2px; }
-
-        /* Teks Info */
         .vsq-info-text { font-size: 12px; color: #000; margin-bottom: 15px; line-height: 1.5; text-align: left; }
-
-        /* Form Input */
         .vsq-form-group { margin-bottom: 12px; text-align: left; }
         .vsq-form-group label { display: block; font-size: 13px; font-weight: 500; color: #000; margin-bottom: 6px; }
-      .vsq-form-group label span { color: #000; /* Ubah ke hitam */ }
+        .vsq-form-group label span { color: #000; }
         .vsq-form-control { 
             width: 100%; height: 40px; padding: 10px 14px; 
             font-size: 12px; font-family: 'Plus Jakarta Sans', sans-serif;
@@ -86,16 +63,10 @@
         }
         .vsq-form-control:focus { border-color: #477FEB; }
         .vsq-form-control::placeholder { color: #94A3B8; }
-
-        .vsq-form-control:-webkit-autofill,
-        .vsq-form-control:-webkit-autofill:hover, 
-        .vsq-form-control:-webkit-autofill:focus, 
-        .vsq-form-control:-webkit-autofill:active{
+        .vsq-form-control:-webkit-autofill, .vsq-form-control:-webkit-autofill:hover, .vsq-form-control:-webkit-autofill:focus, .vsq-form-control:-webkit-autofill:active{
             -webkit-box-shadow: 0 0 0 30px white inset !important;
             transition: background-color 5000s ease-in-out 0s;
         }
-
-        /* Tombol Simpan Data */
         .vsq-btn-submit { 
             width: 100%; padding: 12px; margin-top: 10px;
             background: #131B2E; 
@@ -123,10 +94,8 @@
         
         <h2 class="vsq-title">Lengkapi Profil data anda</h2>
 
-        <!-- Upload Foto -->
         <div class="vsq-upload-container">
             <input type="file" id="fileUpload" accept="image/png, image/jpeg" style="display: none;">
-            
             <div class="vsq-avatar-wrapper" onclick="document.getElementById('fileUpload').click()">
                 <div class="vsq-avatar-circle">
                     <svg id="icon-user" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#477FEB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -142,7 +111,6 @@
                     </svg>
                 </div>
             </div>
-            
             <span class="vsq-upload-text" onclick="document.getElementById('fileUpload').click()">Unggah foto profil</span>
             <span class="vsq-upload-hint">(JPG atau PNG, maks 2 MB)</span>
         </div>
@@ -156,37 +124,32 @@
                 <label for="nama">Nama<span>*</span></label>
                 <input type="text" id="nama" class="vsq-form-control" placeholder="Masukkan nama..." required>
             </div>
-
             <div class="vsq-form-group">
                 <label for="wa">No. Whatsapp<span>*</span></label>
                 <input type="text" id="wa" class="vsq-form-control" placeholder="Masukkan no WA..." required>
             </div>
-
             <button type="submit" class="vsq-btn-submit" id="btnSimpan">Simpan data</button>
         </form>
     </div>
 
     <script>
-        // GANTI DENGAN URL RAILWAY NANTI
+        // PERBAIKAN: URL API disamakan dengan file lainnya
         const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://localhost/vincent-arena/Backend/API'
-            : 'https://URL-RAILWAY-BE-ANDA.up.railway.app';
+            : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
 
-        // --- LOGIKA UPLOAD FOTO ---
         const fileInput = document.getElementById('fileUpload');
         const previewImg = document.getElementById('preview-img');
         const iconUser = document.getElementById('icon-user');
 
         fileInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
-            
             if (file) {
                 if (file.size > 2 * 1024 * 1024) {
                     alert('Ukuran foto terlalu besar! Maksimal 2 MB.');
                     fileInput.value = ''; 
                     return;
                 }
-
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     previewImg.src = e.target.result;
@@ -197,20 +160,15 @@
             }
         });
 
-        // --- LOGIKA SIMPAN DATA KE BACKEND ---
         document.getElementById('profileForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
             const btn = document.getElementById('btnSimpan');
             btn.textContent = 'Menyimpan...';
             btn.disabled = true;
 
-            const nama = document.getElementById('nama').value;
-            const whatsapp = document.getElementById('wa').value;
-
             const formData = new FormData();
-            formData.append('nama', nama);
-            formData.append('whatsapp', whatsapp);
+            formData.append('nama', document.getElementById('nama').value);
+            formData.append('whatsapp', document.getElementById('wa').value);
             
             if (fileInput.files.length > 0) {
                 formData.append('foto_profil', fileInput.files[0]);
@@ -220,7 +178,7 @@
                 const response = await fetch(API_BASE + '/auth/lengkapi_profil.php', {
                     method: 'POST',
                     body: formData,
-                    credentials: 'include' // <--- WAJIB: Agar PHP Session valid
+                    credentials: 'include' // WAJIB untuk session
                 });
                 
                 const result = await response.json();

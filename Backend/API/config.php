@@ -71,7 +71,7 @@ $allowed_origins = [
     'http://127.0.0.1:5500',
     'http://localhost:8080',
     'http://127.0.0.1:8080',
-    'https://vincent-futsal-arena.vercel.app',
+    'https://vincent-arena.vercel.app',
 ];
 foreach (array_merge(explode(',', (string)env('ALLOWED_ORIGINS', '')), [(string)env('FRONTEND_URL', '')]) as $o) {
     $o = rtrim(trim($o), '/');

@@ -1,0 +1,64 @@
+/* ============================================
+   SKELETON LOADING STYLES (Gaya TikTok/Shopee)
+   ============================================ */
+
+/* Efek Animasi Shimmer (Kilauan) */
+@keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+}
+
+.skeleton-box {
+    background: #E2E8F0;
+    background-image: linear-gradient(to right, #E2E8F0 0%, #F1F5F9 20%, #E2E8F0 40%, #E2E8F0 100%);
+    background-repeat: no-repeat;
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite linear forwards;
+    border-radius: 8px;
+}
+
+/* Card Skeleton (Untuk List Lapangan / Riwayat) */
+.sk-card {
+    display: flex;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #FFF;
+    height: 250px;
+    margin-bottom: 20px;
+}
+.sk-card-img {
+    width: 40%;
+    height: 100%;
+}
+.sk-card-content {
+    width: 60%;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.sk-title { width: 70%; height: 28px; }
+.sk-text { width: 100%; height: 16px; }
+.sk-text.short { width: 50%; }
+.sk-btn { width: 140px; height: 40px; margin-top: auto; border-radius: 10px; }
+
+/* Grid Skeleton (Untuk Makanan / Galeri) */
+.sk-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+}
+.sk-grid-item {
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 15px;
+    background: #FFF;
+}
+.sk-grid-img { height: 180px; width: 100%; margin-bottom: 15px; }
+.sk-grid-title { width: 70%; height: 20px; margin-bottom: 10px; }
+.sk-grid-price { width: 40%; height: 16px; }
+
+/* Sembunyikan konten asli saat loading */
+.hidden-loading { display: none !important; }

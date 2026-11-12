@@ -74,14 +74,12 @@ body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', san
 .vsq-dot { width: 10px; height: 10px; background: #3DB268; border-radius: 50%; }
 
 /* 
-   PERBAIKAN FINAL: 
-   Karena gambar Anda sudah berbentuk kapsul utuh beserta teks dan bordernya,
-   kita hapus border/padding CSS dan tampilkan gambarnya secara utuh.
+   Gambar fasilitas sudah berbentuk kapsul utuh beserta teks dan bordernya,
+   jadi border/padding CSS dihapus dan gambar ditampilkan utuh.
 */
 .vsq-booking-fasilitas { display: flex; flex-wrap: wrap; gap: 16px; margin: 58px 0 0; }
 .vsq-booking-fasilitas.vertical { flex-direction: column; align-items: flex-start; gap: 16px; }
 
-/* Kontainer tanpa border CSS, hanya sebagai wadah gambar */
 .vsq-fasilitas-item { 
     display: flex; 
     align-items: center; 
@@ -91,7 +89,6 @@ body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', san
     padding: 0; 
 }
 
-/* Gambar ditampilkan dengan tinggi yang pas (sekitar 40px) dan lebarnya menyesuaikan proporsional */
 .vsq-fasilitas-item img { 
     height: 40px; 
     width: auto;
@@ -112,7 +109,7 @@ body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', san
 .vsq-img-fail { width: 100%; height: 100%; background: #D9D9D9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #131B2E; font-size: 14px; cursor: pointer; }
 .vsq-img-fail svg { width: 40px; height: 40px; stroke: #131B2E; stroke-width: 2; fill: none; }
 
-/* SKELETON & ERROR */
+/* SKELETON */
 @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
 .skeleton-box { background: #E2E8F0; background-image: linear-gradient(to right, #E2E8F0 0%, #F1F5F9 20%, #E2E8F0 40%, #E2E8F0 100%); background-repeat: no-repeat; background-size: 1000px 100%; animation: shimmer 2s infinite linear forwards; border-radius: 8px; }
 .sk-card { display: flex; border: 1px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; height: 419px; margin-bottom: 52px; }
@@ -124,24 +121,33 @@ body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', san
 .sk-btn { width: 205px; height: 55px; margin-top: auto; border-radius: 15px; align-self: flex-end; }
 .hidden-loading { display: none !important; }
 
-.vsq-error-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 20px; margin: 0 auto; max-width: 600px; }
-.vsq-error-icon { margin-bottom: 24px; }
-.vsq-error-icon svg { width: 80px; height: 80px; stroke: #131B2E; stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.vsq-error-title { font-size: 32px; font-weight: 700; color: #131B2E; margin-bottom: 16px; }
-.vsq-error-text { font-size: 16px; color: #4B5563; margin-bottom: 32px; line-height: 1.5; }
-.vsq-btn-refresh { background: #131B2E; color: #FFF; padding: 16px 40px; border-radius: 12px; font-size: 16px; font-weight: 600; border: none; cursor: pointer; transition: 0.2s; width: 100%; max-width: 400px; }
+/* ===== GAGAL MEMUAT ===== */
+.vsq-error-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; margin: 0 auto; width: 100%; min-height: calc(100vh - 106px); }
+.vsq-error-icon { margin-bottom: 28px; line-height: 0; }
+.vsq-error-icon svg { width: 80px; height: 80px; stroke: #000000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.vsq-error-title { font-size: 40px; font-weight: 700; color: #000000; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 24px; }
+.vsq-error-text { font-size: 17px; font-weight: 500; color: #000000; line-height: 1.5; margin-bottom: 40px; }
+.vsq-btn-refresh { background: #131B2E; color: #FFFFFF; width: 440px; max-width: 100%; height: 46px; border-radius: 14px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; font-weight: 500; border: none; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; padding: 0; }
 .vsq-btn-refresh:hover { background: #1a2b4c; }
+
+/* Saat error, judul "Booking lapangan" disembunyikan (sesuai desain) */
+main.is-error .vsq-booking-header { display: none; }
+main.is-error .vsq-booking-section { padding-bottom: 0; }
 
 #slow-connection-toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #FEF3C7; color: #92400E; padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 10000; display: flex; align-items: center; gap: 8px; }
 
-.network-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #1A2235; z-index: 99999; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease; }
+/* ===== TIDAK ADA KONEKSI (sesuai referensi) ===== */
+.network-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #121B2E; z-index: 99999; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease; }
 .network-content { text-align: center; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-.network-icon svg { width: 120px; height: 120px; stroke: #FF3B30; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 30px; }
-.network-title { color: #FFFFFF; font-size: 32px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
-.network-message { color: #A0ABC0; font-size: 18px; margin-bottom: 30px; font-weight: 500; }
-.network-btn { background-color: #FF3B30; color: #FFFFFF; border: none; padding: 14px 40px; font-size: 16px; font-weight: 600; border-radius: 12px; cursor: pointer; transition: background 0.2s ease, transform 0.2s ease; font-family: 'Plus Jakarta Sans', sans-serif; }
-.network-btn:hover { background-color: #E03127; transform: translateY(-2px); }
+.network-icon { line-height: 0; margin-bottom: 36px; }
+.network-icon svg { width: 220px; height: auto; display: block; fill: none; stroke: #FF2B2B; stroke-width: 26; stroke-linecap: round; stroke-linejoin: round; }
+.network-icon svg .dot { fill: #FF2B2B; stroke: none; }
+.network-title { color: #FFFFFF; font-size: 48px; font-weight: 700; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 14px; }
+.network-message { color: #D9D9D9; font-size: 32px; font-weight: 300; line-height: 1.3; margin-bottom: 40px; }
+.network-btn { background-color: #FF2B2B; color: #FFFFFF; border: none; width: 186px; height: 63px; font-size: 20px; font-weight: 500; border-radius: 18px; cursor: pointer; transition: background 0.2s ease; font-family: 'Plus Jakarta Sans', sans-serif; display: flex; align-items: center; justify-content: center; padding: 0; }
+.network-btn:hover { background-color: #E32424; }
 
+/* MODAL LOGOUT */
 .vsq-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(19, 27, 46, 0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 9999; opacity: 0; transition: opacity 0.3s ease; }
 .vsq-modal-overlay.show { display: flex; opacity: 1; }
 .vsq-modal-box { background: #FFFFFF; width: 90%; max-width: 400px; border-radius: 16px; padding: 30px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.3s ease; }
@@ -185,12 +191,16 @@ body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', san
     .sk-title { width: 80%; height: 24px; }
     .sk-text { height: 16px; }
 
-    .vsq-error-title { font-size: 24px; }
-    .vsq-error-text { font-size: 14px; }
-    .network-icon svg { width: 80px; height: 80px; margin-bottom: 20px; }
-    .network-title { font-size: 24px; }
-    .network-message { font-size: 15px; }
-    .network-btn { padding: 12px 32px; font-size: 14px; }
+    .vsq-error-state { min-height: calc(100vh - 80px); }
+    .vsq-error-icon svg { width: 64px; height: 64px; }
+    .vsq-error-title { font-size: 28px; }
+    .vsq-error-text { font-size: 14px; margin-bottom: 28px; }
+    .vsq-btn-refresh { font-size: 18px; height: 44px; }
+
+    .network-icon svg { width: 130px; }
+    .network-title { font-size: 26px; }
+    .network-message { font-size: 17px; margin-bottom: 28px; }
+    .network-btn { width: 150px; height: 50px; font-size: 16px; border-radius: 14px; }
 }
 </style>
 </head>
@@ -210,8 +220,9 @@ body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', san
         <div id="error-container" class="vsq-error-state" style="display: none;">
             <div class="vsq-error-icon">
                 <svg viewBox="0 0 24 24">
-                    <path d="M22 17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12z"></path>
-                    <line x1="2" y1="22" x2="22" y2="2"></line>
+                    <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+                    <line x1="4" y1="21" x2="19" y2="3" stroke="#FFFFFF" stroke-width="5"></line>
+                    <line x1="4" y1="21" x2="19" y2="3"></line>
                 </svg>
             </div>
             <h2 class="vsq-error-title">Gagal memuat</h2>
@@ -226,14 +237,14 @@ body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', san
 <div id="network-overlay" class="network-overlay" style="display: none; opacity: 0;">
     <div class="network-content">
         <div class="network-icon">
-            <svg viewBox="0 0 24 24">
-                <path d="M1 1l22 22"/>
-                <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
-                <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
-                <path d="M10.71 5.05A16 16 0 0 1 22.58 9"/>
-                <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
-                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
-                <line x1="12" y1="20" x2="12.01" y2="20"/>
+            <svg viewBox="0 0 370 320">
+                <path d="M148 39 Q263 26 356 100"/>
+                <path d="M13 100 Q43 75 78 61"/>
+                <path d="M223 121 Q268 131 303 159"/>
+                <path d="M66 158 Q98 133 138 124"/>
+                <path d="M117 219 Q148 193 188 196"/>
+                <line x1="52" y1="11" x2="316" y2="305"/>
+                <circle class="dot" cx="184" cy="282" r="20"/>
             </svg>
         </div>
         <h2 class="network-title">Tidak Ada Koneksi Internet</h2>
@@ -283,6 +294,7 @@ function fasItem(label) {
 const ARROW_SVG = '<svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg>';
 const REFRESH_SVG = '<svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>';
 
+/* ===== NETWORK OVERLAY ===== */
 function showNetworkOverlay() {
     const overlay = document.getElementById('network-overlay');
     if (!overlay) return;
@@ -297,7 +309,7 @@ function hideNetworkOverlay() {
     setTimeout(() => { overlay.style.display = 'none'; }, 300);
 }
 window.addEventListener('offline', () => { showNetworkOverlay(); });
-window.addEventListener('online', () => { hideNetworkOverlay(); });
+window.addEventListener('online', () => { hideNetworkOverlay(); loadLapangan(); });
 window.addEventListener('load', () => { if (!navigator.onLine) showNetworkOverlay(); });
 
 function retryConnection() {
@@ -370,6 +382,8 @@ document.getElementById('logoutModal').addEventListener('click', function(e) { i
 let slowTimer;
 
 function showSkeleton() {
+    document.querySelector('main').classList.remove('is-error');
+
     const container = document.getElementById('skeleton-container');
     const errorContainer = document.getElementById('error-container');
     const dataContainer = document.getElementById('lapangan-container');
@@ -397,10 +411,13 @@ function showSkeleton() {
     container.innerHTML = html;
     container.style.display = 'block';
 
+    clearTimeout(slowTimer);
     slowTimer = setTimeout(() => { showSlowConnectionWarning(); }, 2000);
 }
 
 function showError() {
+    document.querySelector('main').classList.add('is-error');
+
     document.getElementById('skeleton-container').style.display = 'none';
     document.getElementById('lapangan-container').classList.add('hidden-loading');
     document.getElementById('error-container').style.display = 'flex';
@@ -497,34 +514,48 @@ function renderLapanganData() {
     `;
 }
 
+/* Deteksi koneksi lambat (Slow/Fast 3G di DevTools terbaca '2g' atau '3g') */
+function isSlowConnection() {
+    const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    return !!c && ['slow-2g', '2g', '3g'].includes(c.effectiveType);
+}
+
 async function loadLapangan() {
     showSkeleton();
 
     try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const testMode = urlParams.get('test');
+        // Offline -> layar "Tidak Ada Koneksi Internet"
+        if (!navigator.onLine) throw new TypeError('Failed to fetch');
 
-        if (testMode === 'gagal') {
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            throw new Error("Simulasi Gagal Muat");
+        // 3G / lambat -> langsung "Gagal memuat", tanpa menunggu 8 detik
+        if (isSlowConnection()) {
+            showError();
+            return;
         }
-        else if (testMode === 'offline') {
-            await new Promise(resolve => setTimeout(resolve, 500));
-            throw new TypeError("Failed to fetch");
-        }
-        else {
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            renderLapanganData();
-            hideSkeleton();
-        }
+
+        const response = await fetchWithTimeout(
+            API_BASE + '/auth/check.php?_=' + Date.now(),
+            { credentials: 'include', headers: { 'Accept': 'application/json' }, cache: 'no-store' }
+        );
+        if (response.status >= 500) throw new Error('Server error ' + response.status);
+
+        renderLapanganData();
+        hideSkeleton();
     } catch (error) {
-        if (error.name === 'TypeError') {
+        if (error.name === 'TypeError' && !navigator.onLine) {
             hideSkeleton();
             showNetworkOverlay();
         } else {
             showError();
         }
     }
+}
+
+/* Saat pilihan throttling di DevTools diganti, langsung muat ulang */
+if (navigator.connection) {
+    navigator.connection.addEventListener('change', () => {
+        if (navigator.onLine) loadLapangan();
+    });
 }
 
 document.addEventListener('DOMContentLoaded', function() {

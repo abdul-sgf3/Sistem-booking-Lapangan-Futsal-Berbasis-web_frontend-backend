@@ -15,13 +15,13 @@
             --vsq-white: #FFFFFF; 
             --vsq-bg: #F8FAFC; 
             --vsq-green: #3DB268;
-            --vsq-error: #B91C1C;
+            --vsq-error: #F04646;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', sans-serif; color: #000; overflow-x: hidden; }
 
         /* =========================================
-           NAVBAR (sama persis dengan index.html)
+           NAVBAR (TIDAK DIUBAH)
            ========================================= */
         #navbar { position: sticky; top: 0; z-index: 1000; background: #FFF; }
         .vsq-header { background: #FFFFFF; width: 100%; height: 106px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
@@ -75,7 +75,7 @@
         .detail-container { max-width: 1242px; margin: 0 auto 60px; padding: 0; }
 
         /* =========================================
-           CARD DETAIL LAPANGAN
+           CARD DETAIL LAPANGAN (tanpa garis & tombol)
            ========================================= */
         .detail-card { display: flex; border: 1px solid #848484; border-radius: 20px; overflow: hidden; background: #fff; width: 100%; height: 532px; margin-bottom: 51px; position: relative; }
         .detail-image-wrapper { width: 50%; flex-shrink: 0; position: relative; background: #E2E8F0; }
@@ -95,15 +95,14 @@
         .location svg { width: 16px; height: 16px; fill: #131B2E; stroke: none; flex-shrink: 0; }
         
         .fasilitas-list { display: flex; flex-wrap: wrap; gap: 20px 14px; margin-bottom: 32px; }
-        .fasilitas-list.vertical { flex-direction: column; align-items: flex-start; gap: 24px; }
+        .fasilitas-list.vertical { flex-direction: column; align-items: flex-start; gap: 28px; }
         .fasilitas-item { display: flex; align-items: center; gap: 7px; border: 1px solid #131B2E; padding: 6px 14px 6px 12px; border-radius: 20px; font-size: 14px; font-weight: 500; color: #000; background: #FFF; height: 40px; }
         .fasilitas-item svg { width: 24px; height: 24px; min-width: 24px; flex-shrink: 0; fill: none; stroke: #111C3A; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
         
         .deskripsi-title { font-size: 18px; font-weight: 500; color: #000; margin-bottom: 22px; }
         .deskripsi-text { font-size: 14px; color: #000; line-height: 18px; margin-bottom: 0; text-align: justify; }
         
-        .divider { height: 1px; background: #000; width: 100%; margin-top: auto; margin-bottom: 28px; flex-shrink: 0; }
-        .detail-footer { display: flex; align-items: center; min-height: 59px; }
+        .detail-footer { display: flex; align-items: center; min-height: 59px; margin-top: auto; }
         .harga-wrap { display: flex; align-items: baseline; gap: 6px; }
         .harga { width: 144px; text-align: center; font-size: 24px; font-weight: 600; color: #131B2E; white-space: nowrap; }
         .harga-unit { font-size: 18px; font-weight: 500; color: #131B2E; white-space: nowrap; }
@@ -111,7 +110,7 @@
         /* =========================================
            ATURAN & JAM OPERASIONAL
            ========================================= */
-        .bottom-grid-wrapper { width: 100%; display: flex; justify-content: flex-start; margin-bottom: 50px; }
+        .bottom-grid-wrapper { width: 100%; display: flex; justify-content: flex-start; margin-bottom: 62px; }
         .bottom-grid { display: flex; align-items: flex-start; gap: 41.79px; width: 1026.21px; }
         .info-box { border: 1px solid #848484; border-radius: 18px; background: #fff; display: flex; flex-direction: column; box-sizing: border-box; position: relative; }
         
@@ -137,24 +136,26 @@
         .booking-card { background: #FFF; border: 1px solid #848484; border-radius: 20px; padding: 46px 100px 45px; width: 100%; }
         .booking-header h2 { font-size: 28px; line-height: 36px; font-weight: 500; text-align: center; color: #000; margin-bottom: 71px; }
 
-        .form-group { margin-bottom: 51px; text-align: left; }
+        .form-group { margin-bottom: 51px; text-align: left; position: relative; }
         .form-group label { display: block; font-size: 18px; line-height: 24px; font-weight: 500; color: #000; margin-bottom: 14px; }
         .form-control { width: 100%; height: 76px; padding: 0 51px; font-size: 20px; font-family: inherit; background-color: #FFFFFF !important; border: 1px solid #848484; border-radius: 18px; outline: none; color: #000; transition: border-color 0.2s; }
         .form-control::placeholder { color: #848484; font-weight: 400; }
+        .form-control:focus { border-color: #131B2E; }
         .form-control:-webkit-autofill, .form-control:-webkit-autofill:hover, .form-control:-webkit-autofill:focus, .form-control:-webkit-autofill:active { -webkit-box-shadow: 0 0 0 1000px #FFFFFF inset !important; box-shadow: 0 0 0 1000px #FFFFFF inset !important; -webkit-text-fill-color: #000000 !important; transition: background-color 5000s ease-in-out 0s; }
-        .form-control.is-invalid { border-color: var(--vsq-error) !important; }
+        .form-control.is-invalid, .form-control.is-invalid:focus { border-color: var(--vsq-error) !important; }
 
-        .error-msg { display: none; color: var(--vsq-error); font-size: 14px; font-weight: 500; margin-top: 12px; align-items: center; gap: 6px; text-align: left; }
+        /* Pesan error: absolut agar tidak menggeser layout (sesuai desain) */
+        .error-msg { display: none; position: absolute; left: 0; top: calc(100% + 14px); color: var(--vsq-error); font-size: 13px; font-weight: 500; align-items: center; gap: 7px; white-space: nowrap; text-align: left; }
         .error-msg.show { display: flex; }
-        .error-icon { width: 16px; height: 16px; border: 2px solid var(--vsq-error); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; flex-shrink: 0; }
+        .error-icon { width: 15px; height: 15px; border: 1.5px solid var(--vsq-error); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; line-height: 1; }
 
-        /* Judul jadwal + legend */
+        /* Judul jadwal + badge */
         .schedule-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; gap: 16px; flex-wrap: wrap; }
         .cal-title { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 600; padding-top: 3px; }
         .cal-title svg { width: 28px; height: 28px; stroke: #111C3A; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
         .time-legend { display: flex; gap: 27px; align-items: center; }
-        .legend-badge-avail { height: 47px; padding: 0 12px; display: flex; align-items: center; font-size: 15px; font-weight: 400; color: #000; background: #fff; border-radius: 16px; border: 1px solid #848484; white-space: nowrap; }
-        .legend-badge-booked { height: 47px; padding: 0 37px; display: flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 400; color: #000; background: #D9D9D9; border-radius: 16px; white-space: nowrap; }
+        .legend-badge-avail { height: 45px; padding: 0 22px; display: flex; align-items: center; font-size: 15px; font-weight: 400; color: var(--vsq-green); background: #fff; border-radius: 16px; border: 1px solid var(--vsq-green); white-space: nowrap; }
+        .legend-badge-booked { height: 47px; padding: 0 37px; display: none; align-items: center; gap: 6px; font-size: 15px; font-weight: 400; color: #000; background: #D9D9D9; border-radius: 16px; white-space: nowrap; }
         .legend-dot { width: 10px; height: 10px; background: #000; border-radius: 50%; flex-shrink: 0; }
 
         /* Kalender + waktu */
@@ -175,22 +176,24 @@
         .day.active.sun { color: #FFF; }
         .day.empty { visibility: hidden; }
 
-        .time-section { flex: 1; padding-top: 20px; min-width: 0; }
+        .time-section { flex: 1; padding-top: 20px; min-width: 0; position: relative; }
         .time-title { font-size: 20px; line-height: 24px; font-weight: 500; margin-bottom: 16px; }
-        .time-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 21px 18px; }
+        .time-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
         .time-slot { height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #848484; border-radius: 20px; font-size: 15px; font-weight: 400; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; user-select: none; background: #FFFFFF; color: #000; white-space: nowrap; }
         .time-slot:hover { border-color: #000; }
         .time-slot.booked { background: #D9D9D9; border-color: #D9D9D9; color: #222; cursor: not-allowed; }
         .time-slot.booked:hover { border-color: #D9D9D9; }
-        .time-slot.error-border { border: 1.5px solid var(--vsq-error) !important; }
+        .time-slot.error-border, .time-slot.error-border:hover { border-color: var(--vsq-error); }
         .time-slot.selected { background: #131B2E !important; color: #FFF !important; border-color: #131B2E !important; font-weight: 500; }
-        #err-jam { margin-top: 16px; }
+        .no-slot { grid-column: 1 / -1; font-size: 15px; color: #848484; padding: 10px 0; }
+        #err-jam { top: calc(100% + 16px); }
 
         /* Metode pembayaran */
-        .payment-section { margin-top: 56px; }
+        .payment-section { margin-top: 56px; position: relative; }
         .payment-title { font-size: 22px; line-height: 28px; font-weight: 500; margin-bottom: 18px; color: #000; }
         .payment-cards { display: flex; flex-direction: column; gap: 20px; }
-        .payment-card { border: 1px solid #848484; border-radius: 16px; background: #fff; overflow: hidden; }
+        .payment-card { border: 1px solid #848484; border-radius: 16px; background: #fff; overflow: hidden; transition: border-color 0.2s; }
+        .payment-card.is-invalid { border-color: var(--vsq-error); }
         .payment-main-row { display: flex; align-items: center; justify-content: space-between; min-height: 75px; padding: 0 26px 0 24px; cursor: pointer; width: 100%; }
         .payment-main-row input[type="radio"] { appearance: none; -webkit-appearance: none; width: 30px; height: 30px; border: 2px solid #000; border-radius: 50%; outline: none; cursor: pointer; position: relative; flex-shrink: 0; background: #fff; }
         .payment-main-row input[type="radio"]:checked::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 14px; height: 14px; background: #000; border-radius: 50%; }
@@ -202,12 +205,12 @@
         .btn-lainnya { font-size: 15px; color: #000; cursor: pointer; text-decoration: none; font-weight: 400; margin-left: 2px; }
         .btn-lainnya:hover { text-decoration: underline; }
         .pay-cod { display: flex; align-items: center; }
-        .pay-cod img { width: 52px; height: 28px; object-fit: contain; margin-right: 27px; }
+        .pay-cod img { width: 52px; height: 28px; object-fit: contain; margin-right: 28px; }
         .pay-cod span { font-size: 20px; font-weight: 400; }
         .other-payments { display: none; padding: 0 26px 16px 77px; align-items: center; gap: 20px; flex-wrap: wrap; }
         .other-payments.show { display: flex; }
         .other-payments img { height: 20px; object-fit: contain; }
-        #err-payment { margin-top: 14px; }
+        #err-payment { top: calc(100% + 14px); }
 
         .action-bottom { display: flex; justify-content: flex-end; align-items: center; margin-top: 42px; }
         .btn-confirm { background: var(--vsq-navy); color: #FFF; border: none; width: 220px; height: 59px; border-radius: 10px; font-size: 18px; font-weight: 500; font-family: inherit; cursor: pointer; transition: 0.3s; }
@@ -241,17 +244,20 @@
             .detail-content { width: 100%; padding: 20px; }
             .status-tersedia { position: static; margin-bottom: 10px; justify-content: flex-start; }
             .header-title { flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
-            .divider { margin-top: 24px; }
+            .detail-footer { margin-top: 24px; }
             .harga { width: auto; text-align: left; }
 
             .booking-card { padding: 24px 16px 30px; }
             .booking-header h2 { font-size: 20px; line-height: 28px; margin-bottom: 30px; }
             .form-control { height: 56px; padding: 0 20px; font-size: 16px; }
             .form-group { margin-bottom: 30px; }
-            .time-grid { grid-template-columns: repeat(2, 1fr); }
+            .time-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
             .time-legend { gap: 10px; flex-wrap: wrap; }
             .legend-badge-booked { padding: 0 20px; }
             .btn-confirm { width: 100%; }
+            /* error ikut alur halaman di layar kecil */
+            .error-msg { position: static; margin-top: 10px; white-space: normal; }
+            #err-jam, #err-payment { top: auto; }
         }
         @media screen and (max-width: 768px) {
             .vsq-header { height: 80px; padding: 0 16px; }
@@ -269,6 +275,7 @@
 
     <header id="navbar"></header>
 
+    <!-- BREADCRUMB: Home > Booking Lapangan > Detail Lapangan N > Formulir Booking -->
     <div class="breadcrumb">
         <a href="index.html" class="home">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5L12 3l9 7.5v10a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 20.5v-10z" /><path d="M9 22v-6h6v6" /></svg>
@@ -276,7 +283,9 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="#848484" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
         <a href="lapangan.html">Booking Lapangan</a>
         <svg viewBox="0 0 24 24" fill="none" stroke="#848484" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        <span class="current" id="breadcrumb-current">Memuat...</span>
+        <a href="detail_lapangan.html?id=1" id="breadcrumb-detail">Detail Lapangan 1</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#848484" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        <span class="current">Formulir Booking</span>
     </div>
 
     <main class="detail-container">
@@ -301,8 +310,6 @@
                 
                 <div class="deskripsi-title">Deskripsi:</div>
                 <p class="deskripsi-text" id="lapangan-deskripsi">Memuat deskripsi...</p>
-                
-                <div class="divider"></div>
                 
                 <div class="detail-footer">
                     <div class="harga-wrap">
@@ -351,10 +358,10 @@
                 <h2>Isi Nama ,Pilih tanggal dan jam booking</h2>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="group-nama">
                 <label for="namaPemesan">Nama*</label>
-                <input type="text" id="namaPemesan" class="form-control" placeholder="Contoh: Mifa miftahul....." oninput="validateNama()">
-                <div class="error-msg" id="err-nama"><span class="error-icon">!</span> Nama Wajib Di isi!</div>
+                <input type="text" id="namaPemesan" class="form-control" placeholder="Contoh: Mifa miftahul....." maxlength="60" autocomplete="name">
+                <div class="error-msg" id="err-nama" role="alert"><span class="error-icon">!</span> Nama Wajib Di isi!</div>
             </div>
 
             <div class="schedule-head">
@@ -364,7 +371,7 @@
                 </div>
                 <div class="time-legend">
                     <span class="legend-badge-avail" id="availCount">0 Jadwal Jadwal Tersedia</span>
-                    <span class="legend-badge-booked"><span class="legend-dot"></span> sudah terbooking</span>
+                    <span class="legend-badge-booked" id="legendBooked"><span class="legend-dot"></span> sudah terbooking</span>
                 </div>
             </div>
 
@@ -382,18 +389,30 @@
                     <div class="calendar-days" id="calendarDays"></div>
                 </div>
 
-                <div class="time-section">
+                <div class="time-section" id="group-jam">
                     <div class="time-title">Pilih Waktu</div>
                     <div class="time-grid" id="timeGrid"></div>
-                    <div class="error-msg" id="err-jam"><span class="error-icon">!</span> Harap Pilih Waktu yang tersedia!</div>
+                    <div class="error-msg" id="err-jam" role="alert"><span class="error-icon">!</span> Harap Pilih Waktu yang tersedia!</div>
                 </div>
             </div>
 
-            <div class="payment-section">
+            <div class="payment-section" id="group-payment">
                 <div class="payment-title">Metode Pembayaran</div>
                 
                 <div class="payment-cards">
-                    <div class="payment-card">
+                    <!-- COD (pertama sesuai desain) -->
+                    <div class="payment-card" id="card-cod">
+                        <label class="payment-main-row">
+                            <div class="pay-cod">
+                                <img src="assets/images/cod.png" alt="COD" onerror="this.style.display='none'">
+                                <span>Bayar di tempat</span>
+                            </div>
+                            <input type="radio" name="payment" value="COD">
+                        </label>
+                    </div>
+
+                    <!-- QRIS -->
+                    <div class="payment-card" id="card-qris">
                         <label class="payment-main-row">
                             <div class="pay-left">
                                 <img class="pay-qris-logo" src="assets/images/Qris.png" alt="QRIS" onerror="this.style.display='none'">
@@ -407,7 +426,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="radio" name="payment" value="QRIS" onchange="validatePayment()">
+                            <input type="radio" name="payment" value="QRIS">
                         </label>
                         <div class="other-payments" id="otherPayments">
                             <img src="assets/images/dana.png" alt="Dana" onerror="this.style.display='none'">
@@ -415,22 +434,12 @@
                             <img src="assets/images/bca.png" alt="BCA" onerror="this.style.display='none'">
                         </div>
                     </div>
-
-                    <div class="payment-card">
-                        <label class="payment-main-row">
-                            <div class="pay-cod">
-                                <img src="assets/images/cod.png" alt="COD" onerror="this.style.display='none'">
-                                <span>Bayar di tempat</span>
-                            </div>
-                            <input type="radio" name="payment" value="COD" onchange="validatePayment()">
-                        </label>
-                    </div>
                 </div>
-                <div class="error-msg" id="err-payment"><span class="error-icon">!</span> Pilih metode pembayaran!</div>
+                <div class="error-msg" id="err-payment" role="alert"><span class="error-icon">!</span> Harap Pilih metode pembayaran yang tersedia!</div>
             </div>
 
             <div class="action-bottom">
-                <button class="btn-confirm" onclick="prosesBooking()">Konfirmasi</button>
+                <button class="btn-confirm" id="btnConfirm" type="button">Konfirmasi</button>
             </div>
         </div>
     </main>
@@ -463,7 +472,7 @@
         }
 
         // =========================================================================
-        // 2. NAVBAR
+        // 2. NAVBAR (TIDAK DIUBAH)
         // =========================================================================
         function normalizeUser(u) { if (!u) return null; const nama = u.nama || u.name || u.nama_lengkap || u.username || 'User'; return { nama: nama, email: u.email || '-', whatsapp: u.whatsapp || u.no_wa || u.no_hp || '-', foto_url: u.foto_url || u.foto || u.foto_profil || u.avatar || '', initial: u.initial || nama.charAt(0).toUpperCase() }; }
 
@@ -540,6 +549,10 @@
             if (!userLogin) return;
             renderNavbar(normalizeUser(userLogin));
 
+            // true  = slot yang sudah terbooking tetap tampil (abu-abu) + legend "sudah terbooking"
+            // false = hanya slot tersedia yang tampil (sesuai desain utama)
+            const TAMPILKAN_SLOT_TERBOOKING = false;
+
             const urlParams = new URLSearchParams(window.location.search);
             let fieldId = urlParams.get('id') || '1'; 
             if (!['1', '2'].includes(fieldId)) fieldId = '1'; 
@@ -551,10 +564,13 @@
 
             const currentField = dataLapangan[fieldId];
             let selectedSlots = [];
-            let submitted = false;
+
+            // Breadcrumb
+            const bcDetail = document.getElementById('breadcrumb-detail');
+            bcDetail.textContent = 'Detail Lapangan ' + fieldId;
+            bcDetail.href = 'detail_lapangan.html?id=' + fieldId;
 
             // Render data lapangan
-            document.getElementById('breadcrumb-current').textContent = currentField.nama;
             document.getElementById('lapangan-name').textContent = currentField.nama;
             document.getElementById('lapangan-deskripsi').textContent = currentField.desc;
             document.getElementById('lapangan-image').src = currentField.img;
@@ -566,16 +582,23 @@
 
             document.getElementById('lapangan-harga').textContent = `Rp${currentField.harga.toLocaleString('id-ID')}`;
 
-            // Fasilitas (ikon SAMA dengan halaman detail)
+            // Fasilitas
             const svgIcons = {
                 'Indoor': '<svg viewBox="0 0 24 24"><path d="M22 8.35V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.35A2 2 0 0 1 3.26 6.5l8-3.2a2 2 0 0 1 1.48 0l8 3.2A2 2 0 0 1 22 8.35Z"/><path d="M6 18h12"/><path d="M6 14h12"/><rect x="6" y="10" width="12" height="12"/></svg>',
                 'Area Luas': '<svg viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></svg>',
+                'Area Luas Lapangan': '<svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="12" y1="5" x2="12" y2="19"/><circle cx="12" cy="12" r="2.5"/><path d="M2 9.5h3v5H2"/><path d="M22 9.5h-3v5h3"/></svg>',
                 'Area Penonton': '<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
                 'Sirkulasi udara': '<svg viewBox="0 0 24 24"><path d="M12.8 19.6A2 2 0 1 0 14 16H2"/><path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"/><path d="M9.8 4.4A2 2 0 1 1 11 8H2"/></svg>'
             };
             const fasContainer = document.getElementById('fasilitas-container');
-            fasContainer.innerHTML = currentField.fasilitas.map(item => `<div class="fasilitas-item">${svgIcons[item] || ''} ${item}</div>`).join('');
+            fasContainer.innerHTML = currentField.fasilitas.map(item => {
+                const iconKey = (fieldId === '2' && item === 'Area Luas') ? 'Area Luas Lapangan' : item;
+                return `<div class="fasilitas-item">${svgIcons[iconKey] || ''} ${item}</div>`;
+            }).join('');
             if (fieldId === '2') fasContainer.classList.add('vertical');
+
+            // Legend "sudah terbooking" hanya jika slot terbooking ditampilkan
+            document.getElementById('legendBooked').style.display = TAMPILKAN_SLOT_TERBOOKING ? 'flex' : 'none';
 
             // Toggle pembayaran lainnya
             document.getElementById('toggleLainnya').addEventListener('click', function(e) {
@@ -586,7 +609,7 @@
                 this.textContent = other.classList.contains('show') ? '- Sembunyikan' : '+ Lainnya';
             });
 
-            // Kalender
+            // ================= KALENDER =================
             let currentDate = new Date(2026, 10, 1);
             let selectedDate = new Date(2026, 10, 5);
             const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
@@ -631,16 +654,67 @@
             document.getElementById('prevMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); });
             document.getElementById('nextMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); });
 
+            // ================= VALIDASI REALTIME =================
+            // Error tampil begitu field disentuh (ketik / klik / blur) atau saat tombol Konfirmasi ditekan.
+            const touched = { nama: false, jam: false, pay: false };
+            let submitted = false;
+            const show = key => submitted || touched[key];
+
+            const namaInput = document.getElementById('namaPemesan');
+            const errNama = document.getElementById('err-nama');
+            const errJam = document.getElementById('err-jam');
+            const errPay = document.getElementById('err-payment');
+            const payCards = [document.getElementById('card-cod'), document.getElementById('card-qris')];
+
+            const isNamaValid = () => namaInput.value.trim() !== '';
+            const isJamValid = () => selectedSlots.length > 0;
+            const isPayValid = () => !!document.querySelector('input[name="payment"]:checked');
+
+            function renderNama() {
+                const bad = show('nama') && !isNamaValid();
+                namaInput.classList.toggle('is-invalid', bad);
+                namaInput.setAttribute('aria-invalid', bad ? 'true' : 'false');
+                errNama.classList.toggle('show', bad);
+            }
+            function renderJam() {
+                const bad = show('jam') && !isJamValid();
+                errJam.classList.toggle('show', bad);
+                document.querySelectorAll('.time-slot:not(.booked)').forEach(s => s.classList.toggle('error-border', bad));
+            }
+            function renderPay() {
+                const bad = show('pay') && !isPayValid();
+                errPay.classList.toggle('show', bad);
+                payCards.forEach(c => c.classList.toggle('is-invalid', bad));
+            }
+
+            // Nama: validasi saat mengetik & saat keluar dari kolom
+            namaInput.addEventListener('input', () => { touched.nama = true; renderNama(); });
+            namaInput.addEventListener('blur', () => { touched.nama = true; renderNama(); });
+
+            // Pembayaran: error hilang begitu metode dipilih
+            document.querySelectorAll('input[name="payment"]').forEach(r => {
+                r.addEventListener('change', () => { touched.pay = true; renderPay(); });
+            });
+
+            // ================= SLOT WAKTU =================
             function generateTimeSlots() {
                 const timeGrid = document.getElementById('timeGrid');
                 timeGrid.innerHTML = '';
                 selectedSlots = [];
+                touched.jam = false;
 
                 const dateKey = `${selectedDate.getFullYear()}-${selectedDate.getMonth()}-${selectedDate.getDate()}`;
                 const bookedSlotsToday = jadwalTerbooking[dateKey] || [];
-                document.getElementById('availCount').textContent = `${jamOperasional.length - bookedSlotsToday.length} Jadwal Jadwal Tersedia`;
+                const availableCount = jamOperasional.length - bookedSlotsToday.length;
+                document.getElementById('availCount').textContent = `${availableCount} Jadwal Jadwal Tersedia`;
 
-                jamOperasional.forEach(jam => {
+                const list = TAMPILKAN_SLOT_TERBOOKING ? jamOperasional : jamOperasional.filter(j => !bookedSlotsToday.includes(j));
+
+                if (list.length === 0) {
+                    timeGrid.innerHTML = '<div class="no-slot">Tidak ada jadwal tersedia pada tanggal ini</div>';
+                }
+
+                list.forEach(jam => {
                     const slotDiv = document.createElement('div');
                     slotDiv.className = 'time-slot';
                     slotDiv.textContent = jam;
@@ -655,43 +729,17 @@
                                 slotDiv.classList.add('selected');
                                 selectedSlots.push(jam);
                             }
-                            validateJam();
+                            touched.jam = true;
+                            renderJam();
                         });
                     }
                     timeGrid.appendChild(slotDiv);
                 });
-                validateJam();
+                renderJam();
             }
 
-            // Validasi
-            window.validateNama = function() {
-                const input = document.getElementById('namaPemesan');
-                const err = document.getElementById('err-nama');
-                if (input.value.trim() === '') {
-                    input.classList.add('is-invalid');
-                    err.classList.add('show');
-                    return false;
-                }
-                input.classList.remove('is-invalid');
-                err.classList.remove('show');
-                return true;
-            };
-
-            window.validateJam = function() {
-                const ok = selectedSlots.length > 0;
-                const show = submitted && !ok;
-                document.getElementById('err-jam').classList.toggle('show', show);
-                document.querySelectorAll('.time-slot:not(.booked)').forEach(s => s.classList.toggle('error-border', show));
-                return ok;
-            };
-
-            window.validatePayment = function() {
-                const ok = !!document.querySelector('input[name="payment"]:checked');
-                document.getElementById('err-payment').classList.toggle('show', submitted && !ok);
-                return ok;
-            };
-
-            window.prosesBooking = function() {
+            // ================= KONFIRMASI =================
+            document.getElementById('btnConfirm').addEventListener('click', function() {
                 if (!localStorage.getItem('vsq_user')) {
                     sessionStorage.setItem('vsq_redirect', window.location.href);
                     window.location.replace('login.html');
@@ -699,10 +747,12 @@
                 }
 
                 submitted = true;
-                const okNama = validateNama();
-                const okJam = validateJam();
-                const okPay = validatePayment();
-                if (!okNama || !okJam || !okPay) return;
+                renderNama(); renderJam(); renderPay();
+
+                // Arahkan ke kolom pertama yang bermasalah
+                if (!isNamaValid()) { namaInput.focus(); namaInput.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+                if (!isJamValid()) { document.getElementById('group-jam').scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+                if (!isPayValid()) { document.getElementById('group-payment').scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
 
                 const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
                 const sortedSlots = [...selectedSlots].sort((a, b) => jamOperasional.indexOf(a) - jamOperasional.indexOf(b));
@@ -710,7 +760,7 @@
                     lapangan_id: fieldId,
                     lapangan: currentField.nama,
                     img: currentField.img,
-                    nama: document.getElementById('namaPemesan').value.trim(),
+                    nama: namaInput.value.trim(),
                     tanggal: `${selectedDate.getDate()}, ${monthNames[selectedDate.getMonth()]} ${selectedDate.getFullYear()}`,
                     jam: sortedSlots,
                     total: sortedSlots.length * currentField.harga,
@@ -719,7 +769,7 @@
 
                 localStorage.setItem('temp_booking', JSON.stringify(bookingData));
                 window.location.href = 'pembayaran.html';
-            };
+            });
 
             renderCalendar();
             generateTimeSlots();

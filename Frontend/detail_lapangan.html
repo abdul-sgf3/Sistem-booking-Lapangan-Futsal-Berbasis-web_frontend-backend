@@ -182,14 +182,31 @@
         @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
         .skeleton-box { background: #E2E8F0; background-image: linear-gradient(to right, #E2E8F0 0%, #F1F5F9 20%, #E2E8F0 40%, #E2E8F0 100%); background-repeat: no-repeat; background-size: 1000px 100%; animation: shimmer 2s infinite linear forwards; border-radius: 8px; }
 
-        /* NETWORK OVERLAY & TOAST */
-        .network-overlay { position: fixed; inset: 0; background: rgba(255,255,255,.96); z-index: 9998; align-items: center; justify-content: center; transition: opacity .3s; }
-        .network-content { text-align: center; padding: 20px; }
-        .network-icon svg { width: 64px; height: 64px; stroke: #131B2E; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-        .network-title { font-size: 22px; font-weight: 700; color: #131B2E; margin: 16px 0 6px; }
-        .network-message { font-size: 14px; color: #64748B; margin-bottom: 20px; }
-        .network-btn { background: #131B2E; color: #FFF; border: none; padding: 12px 28px; border-radius: 10px; font-weight: 600; font-family: inherit; cursor: pointer; }
-        #slow-connection-toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #131B2E; color: #FFF; padding: 10px 18px; border-radius: 10px; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 8px; z-index: 9997; }
+        /* ===== GAGAL MEMUAT (sama dengan halaman lapangan) ===== */
+        .vsq-error-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; margin: 0 auto; width: 100%; min-height: calc(100vh - 106px); }
+        .vsq-error-icon { margin-bottom: 28px; line-height: 0; }
+        .vsq-error-icon svg { width: 80px; height: 80px; stroke: #000000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .vsq-error-title { font-size: 40px; font-weight: 700; color: #000000; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 24px; }
+        .vsq-error-text { font-size: 17px; font-weight: 500; color: #000000; line-height: 1.5; margin-bottom: 40px; }
+        .vsq-btn-refresh { background: #131B2E; color: #FFFFFF; width: 440px; max-width: 100%; height: 46px; border-radius: 14px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; font-weight: 500; border: none; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; padding: 0; }
+        .vsq-btn-refresh:hover { background: #1a2b4c; }
+
+        /* Saat error, breadcrumb & detail disembunyikan (sesuai desain) */
+        body.is-error .breadcrumb,
+        body.is-error .detail-container { display: none; }
+
+        /* ===== TIDAK ADA KONEKSI (sama dengan halaman lapangan) ===== */
+        .network-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #121B2E; z-index: 99999; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease; }
+        .network-content { text-align: center; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .network-icon { line-height: 0; margin-bottom: 36px; }
+        .network-icon svg { width: 220px; height: auto; display: block; fill: none; stroke: #FF2B2B; stroke-width: 26; stroke-linecap: round; stroke-linejoin: round; }
+        .network-icon svg .dot { fill: #FF2B2B; stroke: none; }
+        .network-title { color: #FFFFFF; font-size: 48px; font-weight: 700; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 14px; }
+        .network-message { color: #D9D9D9; font-size: 32px; font-weight: 300; line-height: 1.3; margin-bottom: 40px; }
+        .network-btn { background-color: #FF2B2B; color: #FFFFFF; border: none; width: 186px; height: 63px; font-size: 20px; font-weight: 500; border-radius: 18px; cursor: pointer; transition: background 0.2s ease; font-family: 'Plus Jakarta Sans', sans-serif; display: flex; align-items: center; justify-content: center; padding: 0; }
+        .network-btn:hover { background-color: #E32424; }
+
+        #slow-connection-toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #FEF3C7; color: #92400E; padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 10000; display: flex; align-items: center; gap: 8px; }
 
         /* RESPONSIVE */
         @media screen and (max-width: 1300px) {
@@ -226,6 +243,17 @@
             .vsq-profile-avatar { width: 26px; height: 26px; font-size: 11px; }
             .vsq-btn-logout, .vsq-btn-login-outline, .vsq-btn-register { padding: 0 12px; height: 40px; font-size: 12px; border-radius: 8px; width: auto; }
             .vsq-profile-dropdown { position: fixed; top: 85px; right: 16px; left: 16px; width: auto; }
+
+            .vsq-error-state { min-height: calc(100vh - 80px); }
+            .vsq-error-icon svg { width: 64px; height: 64px; }
+            .vsq-error-title { font-size: 28px; }
+            .vsq-error-text { font-size: 14px; margin-bottom: 28px; }
+            .vsq-btn-refresh { font-size: 18px; height: 44px; }
+
+            .network-icon svg { width: 130px; }
+            .network-title { font-size: 26px; }
+            .network-message { font-size: 17px; margin-bottom: 28px; }
+            .network-btn { width: 150px; height: 50px; font-size: 16px; border-radius: 14px; }
         }
     </style>
 </head>
@@ -324,18 +352,32 @@
         </div>
     </main>
 
-    <!-- NETWORK OVERLAY HTML -->
+    <!-- GAGAL MEMUAT -->
+    <div id="error-container" class="vsq-error-state" style="display: none;">
+        <div class="vsq-error-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+                <line x1="4" y1="21" x2="19" y2="3" stroke="#FFFFFF" stroke-width="5"></line>
+                <line x1="4" y1="21" x2="19" y2="3"></line>
+            </svg>
+        </div>
+        <h2 class="vsq-error-title">Gagal memuat</h2>
+        <p class="vsq-error-text">Maaf, data lapangan belum dapat dimuat. Silakan coba beberapa saat lagi</p>
+        <button class="vsq-btn-refresh" onclick="loadDetail()">Refresh</button>
+    </div>
+
+    <!-- TIDAK ADA KONEKSI -->
     <div id="network-overlay" class="network-overlay" style="display: none; opacity: 0;">
         <div class="network-content">
             <div class="network-icon">
-                <svg viewBox="0 0 24 24">
-                    <path d="M1 1l22 22"/>
-                    <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
-                    <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
-                    <path d="M10.71 5.05A16 16 0 0 1 22.58 9"/>
-                    <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
-                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
-                    <line x1="12" y1="20" x2="12.01" y2="20"/>
+                <svg viewBox="0 0 370 320">
+                    <path d="M148 39 Q263 26 356 100"/>
+                    <path d="M13 100 Q43 75 78 61"/>
+                    <path d="M223 121 Q268 131 303 159"/>
+                    <path d="M66 158 Q98 133 138 124"/>
+                    <path d="M117 219 Q148 193 188 196"/>
+                    <line x1="52" y1="11" x2="316" y2="305"/>
+                    <circle class="dot" cx="184" cy="282" r="20"/>
                 </svg>
             </div>
             <h2 class="network-title">Tidak Ada Koneksi Internet</h2>
@@ -384,7 +426,7 @@
         }
         
         window.addEventListener('offline', () => { showNetworkOverlay(); });
-        window.addEventListener('online', () => { hideNetworkOverlay(); });
+        window.addEventListener('online', () => { hideNetworkOverlay(); loadDetail(); });
         window.addEventListener('load', () => { if (!navigator.onLine) showNetworkOverlay(); });
         
         function retryConnection() { 
@@ -498,6 +540,9 @@
         let slowTimer;
 
         function showSkeleton(id) {
+            document.body.classList.remove('is-error');
+            document.getElementById('error-container').style.display = 'none';
+
             const imgWrapper = document.getElementById('img-wrapper');
             imgWrapper.innerHTML = `<div class="skeleton-box" style="width:100%; height:100%;"></div>`;
             
@@ -518,12 +563,20 @@
             document.getElementById('lapangan-deskripsi').innerHTML = `<div class="skeleton-box" style="width:100%; height:16px; margin-bottom:8px;"></div><div class="skeleton-box" style="width:80%; height:16px;"></div>`;
             document.getElementById('lapangan-harga').innerHTML = `<div class="skeleton-box" style="width:120px; height:28px; display:inline-block;"></div>`;
             
+            clearTimeout(slowTimer);
             slowTimer = setTimeout(() => { showSlowConnectionWarning(); }, 2000);
         }
 
         function hideSkeleton() {
             clearTimeout(slowTimer);
             hideSlowConnectionWarning();
+        }
+
+        function showError() {
+            clearTimeout(slowTimer);
+            hideSlowConnectionWarning();
+            document.body.classList.add('is-error');
+            document.getElementById('error-container').style.display = 'flex';
         }
 
         function showSlowConnectionWarning() {
@@ -565,12 +618,17 @@
             'Sirkulasi udara': '<svg viewBox="0 0 24 24"><path d="M12.8 19.6A2 2 0 1 0 14 16H2"/><path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"/><path d="M9.8 4.4A2 2 0 1 1 11 8H2"/></svg>'
         };
 
+        /* Deteksi koneksi lambat (Slow/Fast 3G di DevTools terbaca '2g' atau '3g') */
+        function isSlowConnection() {
+            const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+            return !!c && ['slow-2g', '2g', '3g'].includes(c.effectiveType);
+        }
+
         async function loadDetail() {
             const urlParams = new URLSearchParams(window.location.search);
             const id = ['1','2'].includes(urlParams.get('id')) ? urlParams.get('id') : '1';
 
             showSkeleton(id); 
-            let isLoaded = false;
             
             const data = {
                 '1': { nama: 'Lapangan Futsal 1', badge: 'VIP', badgeClass: 'badge-vip', harga: 100000, img: 'assets/uploads/lapangan/Lapangan1.jpeg', desc: 'Lapangan futsal 1 adalah lapangan yang berkategorikan VIP dengan permukaan Vinyl dengan kualitas premium yang memberikan kenyamanan dan Keamanan saat bermain lapangan ini cocok untuk berbagai kebutuhan mulai dari latihan rutin sampai turnamen pertandingan antar tim hingga profesional', fasilitas: ['Indoor', 'Area Luas', 'Area Penonton', 'Sirkulasi udara'] },
@@ -578,10 +636,23 @@
             };
             
             try {
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                // Offline -> layar "Tidak Ada Koneksi Internet"
+                if (!navigator.onLine) throw new TypeError('Failed to fetch');
+
+                // 3G / lambat -> langsung "Gagal memuat", tanpa menunggu 8 detik
+                if (isSlowConnection()) {
+                    showError();
+                    return;
+                }
+
+                // Request sungguhan, jadi terpengaruh throttling DevTools
+                const response = await fetchWithTimeout(
+                    API_BASE + '/auth/check.php?_=' + Date.now(),
+                    { credentials: 'include', headers: { 'Accept': 'application/json' }, cache: 'no-store' }
+                );
+                if (response.status >= 500) throw new Error('Server error ' + response.status);
                 
                 const info = data[id];
-                isLoaded = true;
                 hideSkeleton();
 
                 currentLapangan = { id: id, nama: info.nama };
@@ -615,10 +686,20 @@
                 document.getElementById('btn-booking-link').href = `booking_lapangan.html?id=${id}`;
 
             } catch (error) {
-                isLoaded = true;
-                hideSkeleton();
-                showNetworkOverlay();
+                if (error.name === 'TypeError' && !navigator.onLine) {
+                    hideSkeleton();
+                    showNetworkOverlay();
+                } else {
+                    showError();
+                }
             }
+        }
+
+        /* Saat pilihan throttling di DevTools diganti, langsung muat ulang */
+        if (navigator.connection) {
+            navigator.connection.addEventListener('change', () => {
+                if (navigator.onLine) loadDetail();
+            });
         }
 
         document.addEventListener('DOMContentLoaded', function() {

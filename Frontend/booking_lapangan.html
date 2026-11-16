@@ -13,38 +13,39 @@
             --vsq-gold: #FFD700; 
             --vsq-gray: #848484; 
             --vsq-white: #FFFFFF; 
-            --vsq-bg: #F8FAFC; 
+            --vsq-bg: #F6F7FB; 
             --vsq-green: #3DB268;
             --vsq-error: #F04646;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', sans-serif; color: #000; overflow-x: hidden; }
+        body { background-color: var(--vsq-bg); font-family: 'Plus Jakarta Sans', sans-serif; color: #000; overflow-x: hidden; }
 
-        /* =========================================
-           NAVBAR (TIDAK DIUBAH)
-           ========================================= */
+        /* ==========================================================================
+           NAVBAR
+           ========================================================================== */
         #navbar { position: sticky; top: 0; z-index: 1000; background: #FFF; }
-        .vsq-header { background: #FFFFFF; width: 100%; height: 106px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
-        .vsq-nav-left { display: flex; align-items: center; gap: 40px; }
-        .vsq-logo { display: flex; flex-direction: column; text-decoration: none; width: 130px; flex-shrink: 0; }
-        .vsq-logo-title { font-size: 22px; font-weight: 800; color: #131B2E; line-height: 1.1; letter-spacing: -0.5px; }
-        .vsq-logo-sub { font-size: 13px; font-weight: 800; color: #FF0000; line-height: 1.2; letter-spacing: 0.5px; margin-top: 2px; }
-        .vsq-nav-menu { display: flex; align-items: center; gap: 32px; }
-        .vsq-nav-link { font-size: 15px; font-weight: 600; color: #000000; text-decoration: none; transition: color 0.2s; white-space: nowrap; }
-        .vsq-nav-link:hover { color: var(--vsq-blue); }
-        .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 14px 24px; border-radius: 12px; height: auto; display: flex; align-items: center; justify-content: center; }
+        .vsq-header { background: #FFFFFF; width: 100%; height: 106px; position: relative; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
+        .vsq-nav-left { display: flex; align-items: center; gap: 48px; }
+        .vsq-logo { display: flex; flex-direction: column; text-decoration: none; flex-shrink: 0; justify-content: center; }
+        .vsq-logo-img { width: 118px; height: auto; display: block; object-fit: contain; }
+        .vsq-logo-title { font-size: 22px; font-weight: 800; color: #131B2E; line-height: 1.1; letter-spacing: -0.5px; font-style: italic; }
+        .vsq-logo-sub { font-size: 11px; font-weight: 800; color: #FF0000; line-height: 1.2; letter-spacing: 0.5px; margin-top: 2px; }
+        .vsq-nav-menu { display: flex; align-items: center; gap: 35px; }
+        .vsq-nav-link { font-size: 15px; font-weight: 500; color: #000000; text-decoration: none; transition: color 0.2s; white-space: nowrap; }
+        .vsq-nav-link:hover { color: #000000; }
+        .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 0 32px; border-radius: 12px; height: 50px; display: flex; align-items: center; justify-content: center; }
         .vsq-nav-right { display: flex; align-items: center; gap: 16px; position: relative; flex-shrink: 0; }
-        .vsq-btn-login-outline { background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
-        .vsq-btn-register { background: #131B2E; color: #FFF; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
-        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: auto; max-width: 160px; height: 42px; border: 1px solid #000000; border-radius: 10px; padding: 0 8px 0 12px; text-decoration: none; cursor: pointer; transition: background 0.2s; flex-shrink: 1; overflow: hidden; }
+        .vsq-btn-login-outline { background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E; width: 90px; height: 46px; border-radius: 12px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        .vsq-btn-register { background: #131B2E; color: #FFF; width: 90px; height: 46px; border-radius: 12px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; min-width: 152px; max-width: 200px; height: 50px; border: 2px solid #131B2E; border-radius: 12px; padding: 0 8px 0 18px; text-decoration: none; cursor: pointer; transition: background 0.2s; flex-shrink: 1; overflow: hidden; background: #FFF; }
         .vsq-profile-box:hover { background: #F8FAFC; }
-        .vsq-profile-name { font-size: 14px; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; margin-right: 8px; }
-        .vsq-profile-avatar { width: 28px; height: 28px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; overflow: hidden; }
-        .vsq-btn-logout { background: #131B2E; color: #FFF; width: auto; padding: 0 16px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+        .vsq-profile-name { font-size: 16px; color: #131B2E; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; margin-right: 8px; }
+        .vsq-profile-avatar { width: 34px; height: 34px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; flex-shrink: 0; overflow: hidden; }
+        .vsq-btn-logout { background: #131B2E; color: #FFF; width: auto; min-width: 119px; padding: 0 28px; height: 50px; border-radius: 12px; font-size: 16px; font-weight: 500; font-family: inherit; text-decoration: none; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
         .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; padding: 0; }
-        .vsq-notif-btn img { width: 28px; height: 28px; object-fit: contain; }
+        .vsq-notif-btn img { width: 30px; height: 30px; object-fit: contain; }
 
-        .vsq-profile-dropdown { position: absolute; top: 60px; right: 0; width: 280px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.12); padding: 0; display: none; flex-direction: column; z-index: 1001; overflow: hidden; animation: slideDown 0.3s ease; }
+        .vsq-profile-dropdown { position: absolute; top: 66px; right: 0; width: 280px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.12); padding: 0; display: none; flex-direction: column; z-index: 1001; overflow: hidden; animation: slideDown 0.3s ease; }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         .vsq-profile-dropdown.show { display: flex; }
         .vsq-dd-header { background: linear-gradient(135deg, #131B2E 0%, #2C437B 100%); padding: 20px; display: flex; align-items: center; gap: 15px; color: #FFFFFF; }
@@ -62,21 +63,22 @@
         .vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .vsq-btn-logout-dropdown:hover { background: #FEF2F2; border-color: #EF4444; }
 
-        /* =========================================
+        /* ==========================================================================
            BREADCRUMB & KONTAINER
-           ========================================= */
+           ========================================================================== */
         .breadcrumb { width: 100%; margin: 42px 0 48px; padding: 0 46px; display: flex; align-items: center; gap: 16px; color: #848484; font-size: 16px; font-weight: 400; }
         .breadcrumb a { text-decoration: none; color: #848484; display: flex; align-items: center; transition: 0.2s; }
         .breadcrumb a:hover { color: var(--vsq-navy); }
         .breadcrumb svg { width: 24px; height: 24px; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+        .breadcrumb a.home { color: #131B2E; }
         .breadcrumb a.home svg { width: 31px; height: 31px; }
         .breadcrumb .current { color: #848484; }
 
         .detail-container { max-width: 1242px; margin: 0 auto 60px; padding: 0; }
 
-        /* =========================================
-           CARD DETAIL LAPANGAN (tanpa garis & tombol)
-           ========================================= */
+        /* ==========================================================================
+           CARD DETAIL LAPANGAN
+           ========================================================================== */
         .detail-card { display: flex; border: 1px solid #848484; border-radius: 20px; overflow: hidden; background: #fff; width: 100%; height: 532px; margin-bottom: 51px; position: relative; }
         .detail-image-wrapper { width: 50%; flex-shrink: 0; position: relative; background: #E2E8F0; }
         .detail-image { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; inset: 0; }
@@ -107,9 +109,9 @@
         .harga { width: 144px; text-align: center; font-size: 24px; font-weight: 600; color: #131B2E; white-space: nowrap; }
         .harga-unit { font-size: 18px; font-weight: 500; color: #131B2E; white-space: nowrap; }
 
-        /* =========================================
+        /* ==========================================================================
            ATURAN & JAM OPERASIONAL
-           ========================================= */
+           ========================================================================== */
         .bottom-grid-wrapper { width: 100%; display: flex; justify-content: flex-start; margin-bottom: 62px; }
         .bottom-grid { display: flex; align-items: flex-start; gap: 41.79px; width: 1026.21px; }
         .info-box { border: 1px solid #848484; border-radius: 18px; background: #fff; display: flex; flex-direction: column; box-sizing: border-box; position: relative; }
@@ -130,9 +132,9 @@
         .jam-box-content .text { font-size: 14px; line-height: 20px; color: #000; font-weight: 400; }
         .jam-box-time { font-size: 14px; line-height: 20px; font-weight: 400; color: #000; padding-left: 35px; }
 
-        /* =========================================
+        /* ==========================================================================
            FORM BOOKING
-           ========================================= */
+           ========================================================================== */
         .booking-card { background: #FFF; border: 1px solid #848484; border-radius: 20px; padding: 46px 100px 45px; width: 100%; }
         .booking-header h2 { font-size: 28px; line-height: 36px; font-weight: 500; text-align: center; color: #000; margin-bottom: 71px; }
 
@@ -144,12 +146,10 @@
         .form-control:-webkit-autofill, .form-control:-webkit-autofill:hover, .form-control:-webkit-autofill:focus, .form-control:-webkit-autofill:active { -webkit-box-shadow: 0 0 0 1000px #FFFFFF inset !important; box-shadow: 0 0 0 1000px #FFFFFF inset !important; -webkit-text-fill-color: #000000 !important; transition: background-color 5000s ease-in-out 0s; }
         .form-control.is-invalid, .form-control.is-invalid:focus { border-color: var(--vsq-error) !important; }
 
-        /* Pesan error: absolut agar tidak menggeser layout (sesuai desain) */
         .error-msg { display: none; position: absolute; left: 0; top: calc(100% + 14px); color: var(--vsq-error); font-size: 13px; font-weight: 500; align-items: center; gap: 7px; white-space: nowrap; text-align: left; }
         .error-msg.show { display: flex; }
         .error-icon { width: 15px; height: 15px; border: 1.5px solid var(--vsq-error); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; line-height: 1; }
 
-        /* Judul jadwal + badge */
         .schedule-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; gap: 16px; flex-wrap: wrap; }
         .cal-title { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 600; padding-top: 3px; }
         .cal-title svg { width: 28px; height: 28px; stroke: #111C3A; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
@@ -158,7 +158,6 @@
         .legend-badge-booked { height: 47px; padding: 0 37px; display: none; align-items: center; gap: 6px; font-size: 15px; font-weight: 400; color: #000; background: #D9D9D9; border-radius: 16px; white-space: nowrap; }
         .legend-dot { width: 10px; height: 10px; background: #000; border-radius: 50%; flex-shrink: 0; }
 
-        /* Kalender + waktu */
         .schedule-layout { display: flex; gap: 60px; align-items: flex-start; }
         .calendar-box { width: 334px; flex-shrink: 0; border: 1px solid #848484; border-radius: 18px; padding: 20px 10px 16px; background: #fff; }
         .calendar-header { display: flex; justify-content: space-between; align-items: center; height: 24px; margin-bottom: 12px; padding: 0 12px; }
@@ -175,12 +174,17 @@
         .day.active { background: #111C3A; color: #FFF; font-weight: 700; width: 34px; height: 34px; margin: -1px auto; }
         .day.active.sun { color: #FFF; }
         .day.empty { visibility: hidden; }
+        .day.full { color: #B8B8B8; text-decoration: line-through; cursor: not-allowed; }
+        .day.full:hover, .day.disabled:hover { background: transparent; }
+        .day.disabled { color: #CFCFCF; cursor: not-allowed; }
+        .day.active.full { color: #FFF; text-decoration: none; }
 
         .time-section { flex: 1; padding-top: 20px; min-width: 0; position: relative; }
         .time-title { font-size: 20px; line-height: 24px; font-weight: 500; margin-bottom: 16px; }
         .time-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
         .time-slot { height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #848484; border-radius: 20px; font-size: 15px; font-weight: 400; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; user-select: none; background: #FFFFFF; color: #000; white-space: nowrap; }
         .time-slot:hover { border-color: #000; }
+        .time-slot:focus-visible { outline: 2px solid #131B2E; outline-offset: 2px; }
         .time-slot.booked { background: #D9D9D9; border-color: #D9D9D9; color: #222; cursor: not-allowed; }
         .time-slot.booked:hover { border-color: #D9D9D9; }
         .time-slot.error-border, .time-slot.error-border:hover { border-color: var(--vsq-error); }
@@ -188,86 +192,164 @@
         .no-slot { grid-column: 1 / -1; font-size: 15px; color: #848484; padding: 10px 0; }
         #err-jam { top: calc(100% + 16px); }
 
-        /* Metode pembayaran */
         .payment-section { margin-top: 56px; position: relative; }
         .payment-title { font-size: 22px; line-height: 28px; font-weight: 500; margin-bottom: 18px; color: #000; }
         .payment-cards { display: flex; flex-direction: column; gap: 20px; }
         .payment-card { border: 1px solid #848484; border-radius: 16px; background: #fff; overflow: hidden; transition: border-color 0.2s; }
         .payment-card.is-invalid { border-color: var(--vsq-error); }
-        .payment-main-row { display: flex; align-items: center; justify-content: space-between; min-height: 75px; padding: 0 26px 0 24px; cursor: pointer; width: 100%; }
+        .payment-main-row { display: flex; align-items: center; justify-content: space-between; min-height: 75px; padding: 0 26px 0 30px; cursor: pointer; width: 100%; }
         .payment-main-row input[type="radio"] { appearance: none; -webkit-appearance: none; width: 30px; height: 30px; border: 2px solid #000; border-radius: 50%; outline: none; cursor: pointer; position: relative; flex-shrink: 0; background: #fff; }
         .payment-main-row input[type="radio"]:checked::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 14px; height: 14px; background: #000; border-radius: 50%; }
-        .pay-left { display: flex; align-items: flex-start; }
-        .pay-qris-logo { width: 41px; height: 16px; object-fit: contain; object-position: left center; margin: 4px 14px 0 0; flex-shrink: 0; }
-        .pay-name { display: block; font-size: 20px; line-height: 24px; font-weight: 400; }
-        .pay-logos { display: flex; align-items: center; gap: 7px; margin-top: 6px; height: 14px; }
+        .payment-main-row input[type="radio"]:focus-visible { box-shadow: 0 0 0 3px rgba(19,27,46,.25); }
+        .pay-bank { display: flex; align-items: center; gap: 14px; }
+        .pay-bank-icon { width: 36px; height: 36px; flex-shrink: 0; fill: none; stroke: #111C3A; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+        .pay-name { display: block; font-size: 20px; line-height: 24px; font-weight: 500; color: #111C3A; }
+        .pay-logos { display: flex; align-items: center; margin-top: 4px; height: 14px; }
         .pay-logos img { height: 14px; width: auto; object-fit: contain; }
-        .btn-lainnya { font-size: 15px; color: #000; cursor: pointer; text-decoration: none; font-weight: 400; margin-left: 2px; }
-        .btn-lainnya:hover { text-decoration: underline; }
-        .pay-cod { display: flex; align-items: center; }
-        .pay-cod img { width: 52px; height: 28px; object-fit: contain; margin-right: 28px; }
-        .pay-cod span { font-size: 20px; font-weight: 400; }
-        .other-payments { display: none; padding: 0 26px 16px 77px; align-items: center; gap: 20px; flex-wrap: wrap; }
-        .other-payments.show { display: flex; }
-        .other-payments img { height: 20px; object-fit: contain; }
+        .bca-text { font-size: 13px; font-weight: 800; font-style: italic; color: #0060AF; }
         #err-payment { top: calc(100% + 14px); }
 
         .action-bottom { display: flex; justify-content: flex-end; align-items: center; margin-top: 42px; }
         .btn-confirm { background: var(--vsq-navy); color: #FFF; border: none; width: 220px; height: 59px; border-radius: 10px; font-size: 18px; font-weight: 500; font-family: inherit; cursor: pointer; transition: 0.3s; }
         .btn-confirm:hover { background: #1a2b4c; }
+        .btn-confirm:disabled { opacity: .6; cursor: not-allowed; }
 
         .img-fail { width: 100%; height: 100%; background: #D9D9D9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #131B2E; font-size: 14px; cursor: pointer; position: absolute; inset: 0; }
         .img-fail svg { width: 40px; height: 40px; stroke: #131B2E; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
+        /* ==========================================================================
+           SKELETON LOADING (mengikuti layout desain final)
+           ========================================================================== */
+        @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
+        @keyframes fadeInContent { from { opacity: 0; } to { opacity: 1; } }
+        .skeleton-box { background: #E2E8F0; background-image: linear-gradient(to right, #E2E8F0 0%, #F1F5F9 20%, #E2E8F0 40%, #E2E8F0 100%); background-repeat: no-repeat; background-size: 1000px 100%; animation: shimmer 1.8s infinite linear forwards; border-radius: 8px; }
+        .fade-in { animation: fadeInContent .35s ease; }
+
+        /* --- Card detail --- */
+        .sk-detail-card { display: flex; border: 1px solid #E2E8F0; border-radius: 20px; overflow: hidden; background: #FFF; width: 100%; height: 532px; margin-bottom: 51px; }
+        .sk-detail-img { width: 50%; height: 100%; border-radius: 0; flex-shrink: 0; }
+        .sk-detail-content { width: 50%; padding: 24px 64px 24px 68px; display: flex; flex-direction: column; position: relative; }
+        .sk-detail-head { display: flex; align-items: center; gap: 18px; margin-bottom: 14px; }
+        .sk-detail-title { width: 210px; height: 30px; }
+        .sk-detail-badge { width: 115px; height: 48px; border-radius: 60px; }
+        .sk-detail-status { position: absolute; right: 64px; top: 42px; width: 70px; height: 16px; }
+        .sk-detail-loc { width: 190px; height: 14px; margin-bottom: 22px; }
+        .sk-detail-chips { display: flex; flex-wrap: wrap; gap: 20px 14px; margin-bottom: 32px; }
+        .sk-detail-chip { height: 40px; border-radius: 20px; }
+        .sk-detail-desc-title { width: 110px; height: 22px; margin-bottom: 22px; }
+        .sk-detail-desc { width: 100%; height: 14px; margin-bottom: 4px; }
+        .sk-detail-desc.short { width: 55%; }
+        .sk-detail-footer { margin-top: auto; display: flex; align-items: center; min-height: 59px; gap: 10px; }
+        .sk-detail-price { width: 144px; height: 32px; }
+        .sk-detail-unit { width: 40px; height: 18px; }
+
+        /* --- Aturan & Jam --- */
+        .sk-bottom-grid { display: flex; align-items: flex-start; gap: 41.79px; width: 1026.21px; margin-bottom: 62px; }
+        .sk-box-aturan { width: 740.21px; height: 274px; padding: 32px 35px; border: 1px solid #E2E8F0; border-radius: 18px; background: #FFF; }
+        .sk-box-title { width: 220px; height: 30px; margin: 0 auto 30px; }
+        .sk-box-text { height: 14px; margin-bottom: 22px; }
+        .sk-box-text:last-child { margin-bottom: 0; }
+        .sk-box-jam { width: 244px; height: 153px; padding: 30px 22px; border: 1px solid #E2E8F0; border-radius: 18px; background: #FFF; }
+        .sk-box-jam-title { width: 170px; height: 24px; margin-bottom: 16px; }
+        .sk-box-jam-text { width: 110px; height: 18px; margin: 0 0 14px 5px; }
+        .sk-box-jam-time { width: 90px; height: 18px; margin-left: 35px; }
+
+        /* --- Form booking --- */
+        .sk-booking-card { background: #FFF; border: 1px solid #E2E8F0; border-radius: 20px; padding: 46px 100px 45px; width: 100%; }
+        .sk-booking-header { width: 50%; height: 34px; margin: 0 auto 71px; }
+        .sk-form-group { margin-bottom: 51px; }
+        .sk-form-label { width: 70px; height: 22px; margin-bottom: 14px; }
+        .sk-form-input { width: 100%; height: 76px; border-radius: 18px; }
+
+        .sk-schedule-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; gap: 16px; flex-wrap: wrap; }
+        .sk-schedule-title { width: 230px; height: 28px; }
+        .sk-schedule-legend { width: 210px; height: 45px; border-radius: 16px; }
+
+        .sk-schedule-layout { display: flex; gap: 60px; align-items: flex-start; }
+        .sk-calendar-box { width: 334px; flex-shrink: 0; border: 1px solid #E2E8F0; border-radius: 18px; padding: 20px 10px 16px; background: #FFF; }
+        .sk-calendar-header { width: 180px; height: 22px; margin: 0 auto 14px; }
+        .sk-calendar-week { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 9px; justify-items: center; }
+        .sk-calendar-week .skeleton-box { width: 24px; height: 12px; border-radius: 6px; }
+        .sk-calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); grid-auto-rows: 32px; justify-items: center; align-items: center; }
+        .sk-calendar-day { width: 24px; height: 24px; border-radius: 50%; }
+
+        .sk-time-section { flex: 1; padding-top: 20px; min-width: 0; }
+        .sk-time-title { width: 130px; height: 24px; margin-bottom: 16px; }
+        .sk-time-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+        .sk-time-slot { width: 100%; height: 40px; border-radius: 20px; }
+
+        .sk-payment { margin-top: 56px; }
+        .sk-payment-title { width: 200px; height: 26px; margin-bottom: 18px; }
+        .sk-payment-card { width: 100%; height: 75px; border-radius: 16px; }
+        .sk-action-bottom { display: flex; justify-content: flex-end; margin-top: 42px; }
+        .sk-btn-confirm { width: 220px; height: 59px; border-radius: 10px; }
+
+        .hidden-loading { display: none !important; }
+        
+        /* Toast */
+        .vsq-toast { position: fixed; top: 124px; left: 50%; transform: translate(-50%, -12px); max-width: calc(100% - 32px); background: #FDE2E2; color: #C02626; border-radius: 14px; padding: 14px 22px; font-size: 14px; font-weight: 500; z-index: 3000; opacity: 0; pointer-events: none; transition: .25s; text-align: center; }
+        .vsq-toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+        /* Halaman tanpa jaringan */
+        #vsqOffline { position: fixed; inset: 0; z-index: 99999; background: #131B2E; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; }
+        #vsqOffline.show { display: flex; }
+        #vsqOffline svg { width: clamp(72px, 8vw, 124px); height: auto; stroke: #FF2A2A; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+        #vsqOffline h1 { margin-top: clamp(20px, 3vw, 44px); color: #fff; font-size: clamp(24px, 3vw, 44px); font-weight: 700; line-height: 1.2; }
+        #vsqOffline p { margin-top: 18px; color: #D4D4D4; font-size: clamp(16px, 2.2vw, 32px); font-weight: 400; }
+        #vsqOffline button { margin-top: clamp(24px, 3vw, 48px); background: #FF2A2A; color: #fff; border: 0; border-radius: 16px; width: clamp(150px, 13vw, 186px); height: clamp(48px, 4.4vw, 63px); font-size: clamp(14px, 1.2vw, 17px); font-weight: 500; font-family: inherit; cursor: pointer; transition: opacity .2s; }
+        #vsqOffline button:disabled { opacity: .7; cursor: wait; }
+
         /* RESPONSIVE */
         @media screen and (max-width: 1300px) { .detail-container { padding: 0 20px; } }
         @media screen and (max-width: 1100px) {
-            .bottom-grid { flex-direction: column; width: 100%; align-items: center; gap: 20px; }
-            .box-aturan, .box-jam { width: 100%; max-width: 740.21px; height: auto; }
-            .box-aturan { min-height: 274px; padding: 30px 20px; }
-            .box-aturan .info-box-header { position: static; transform: none; justify-content: center; margin-bottom: 20px; }
+            .bottom-grid, .sk-bottom-grid { flex-direction: column; width: 100%; align-items: center; gap: 20px; }
+            .box-aturan, .box-jam, .sk-box-aturan, .sk-box-jam { width: 100%; max-width: 740.21px; height: auto; }
+            .box-aturan, .sk-box-aturan { min-height: 274px; padding: 30px 20px; }
+            .box-aturan .info-box-header { position: static; transform: none; justify-content: center; margin: 0 auto 20px; }
             .aturan-content { margin-top: 0; }
-            .box-jam { min-height: 153px; padding-bottom: 20px; }
-            .br-desktop { display: none; }
-            .booking-card { padding: 40px 40px 45px; }
-            .schedule-layout { flex-direction: column; gap: 24px; }
-            .calendar-box { width: 100%; max-width: 334px; }
-            .time-section { padding-top: 0; width: 100%; }
-            .time-grid { grid-template-columns: repeat(4, 1fr); }
+            .box-jam, .sk-box-jam { min-height: 153px; padding-bottom: 20px; }
+            .booking-card, .sk-booking-card { padding: 40px 40px 45px; }
+            .schedule-layout, .sk-schedule-layout { flex-direction: column; gap: 24px; }
+            .calendar-box, .sk-calendar-box { width: 100%; max-width: 334px; }
+            .time-section, .sk-time-section { padding-top: 0; width: 100%; }
+            .time-grid, .sk-time-grid { grid-template-columns: repeat(4, 1fr); }
         }
         @media screen and (max-width: 900px) {
             .breadcrumb { margin: 20px 0 15px; padding: 0 16px; font-size: 13px; gap: 8px; flex-wrap: wrap; }
             .breadcrumb svg { width: 18px; height: 18px; }
             .breadcrumb a.home svg { width: 22px; height: 22px; }
-            .detail-card { flex-direction: column; height: auto; margin-bottom: 30px; }
-            .detail-image-wrapper { width: 100%; height: 250px; }
-            .detail-content { width: 100%; padding: 20px; }
+            .detail-card, .sk-detail-card { flex-direction: column; height: auto; margin-bottom: 30px; }
+            .detail-image-wrapper, .sk-detail-img { width: 100%; height: 250px; }
+            .detail-content, .sk-detail-content { width: 100%; padding: 20px; }
+            .sk-detail-status { display: none; }
             .status-tersedia { position: static; margin-bottom: 10px; justify-content: flex-start; }
-            .header-title { flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
-            .detail-footer { margin-top: 24px; }
+            .header-title, .sk-detail-head { flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+            .detail-footer, .sk-detail-footer { margin-top: 24px; }
             .harga { width: auto; text-align: left; }
 
-            .booking-card { padding: 24px 16px 30px; }
+            .booking-card, .sk-booking-card { padding: 24px 16px 30px; }
             .booking-header h2 { font-size: 20px; line-height: 28px; margin-bottom: 30px; }
-            .form-control { height: 56px; padding: 0 20px; font-size: 16px; }
-            .form-group { margin-bottom: 30px; }
-            .time-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .sk-booking-header { width: 80%; margin-bottom: 30px; }
+            .form-control, .sk-form-input { height: 56px; padding: 0 20px; font-size: 16px; }
+            .form-group, .sk-form-group { margin-bottom: 30px; }
+            .time-grid, .sk-time-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
             .time-legend { gap: 10px; flex-wrap: wrap; }
             .legend-badge-booked { padding: 0 20px; }
-            .btn-confirm { width: 100%; }
-            /* error ikut alur halaman di layar kecil */
+            .btn-confirm, .sk-btn-confirm { width: 100%; }
             .error-msg { position: static; margin-top: 10px; white-space: normal; }
             #err-jam, #err-payment { top: auto; }
         }
         @media screen and (max-width: 768px) {
             .vsq-header { height: 80px; padding: 0 16px; }
             .vsq-nav-menu { display: none; }
+            .vsq-logo-img { width: 96px; }
             .vsq-nav-right { gap: 8px; }
-            .vsq-profile-box { max-width: 60px; padding: 0 6px; height: 40px; justify-content: center; border-radius: 8px; }
+            .vsq-profile-box { min-width: 0; max-width: 64px; padding: 0 6px; height: 42px; justify-content: center; border-radius: 10px; }
             .vsq-profile-name { display: none; }
-            .vsq-profile-avatar { width: 26px; height: 26px; font-size: 11px; }
-            .vsq-btn-logout, .vsq-btn-login-outline, .vsq-btn-register { padding: 0 12px; height: 40px; font-size: 12px; border-radius: 8px; width: auto; }
+            .vsq-profile-avatar { width: 28px; height: 28px; font-size: 11px; }
+            .vsq-btn-logout, .vsq-btn-login-outline, .vsq-btn-register { min-width: 0; padding: 0 14px; height: 42px; font-size: 13px; border-radius: 10px; width: auto; }
             .vsq-profile-dropdown { position: fixed; top: 85px; right: 16px; left: 16px; width: auto; }
+            .vsq-toast { top: 100px; }
         }
     </style>
 </head>
@@ -275,7 +357,7 @@
 
     <header id="navbar"></header>
 
-    <!-- BREADCRUMB: Home > Booking Lapangan > Detail Lapangan N > Formulir Booking -->
+    <!-- BREADCRUMB -->
     <div class="breadcrumb">
         <a href="index.html" class="home">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5L12 3l9 7.5v10a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 20.5v-10z" /><path d="M9 22v-6h6v6" /></svg>
@@ -289,157 +371,237 @@
     </div>
 
     <main class="detail-container">
-        <!-- CARD DETAIL LAPANGAN -->
-        <div class="detail-card">
-            <div class="detail-image-wrapper" id="img-wrapper">
-                <img id="lapangan-image" class="detail-image" src="" alt="Lapangan" onerror="imgFail(this)">
-            </div>
-            <div class="detail-content">
-                <div class="status-tersedia"><span class="dot"></span> Tersedia</div>
-                <div class="header-title">
-                    <h1 id="lapangan-name">Memuat...</h1>
-                    <span id="lapangan-badge" class="badge-vip">...</span>
-                </div>
-                
-                <div class="location">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
-                    <span>Tuparev, Kota Cirebon- jawabarat</span>
-                </div>
-                
-                <div class="fasilitas-list" id="fasilitas-container"></div>
-                
-                <div class="deskripsi-title">Deskripsi:</div>
-                <p class="deskripsi-text" id="lapangan-deskripsi">Memuat deskripsi...</p>
-                
-                <div class="detail-footer">
-                    <div class="harga-wrap">
-                        <div class="harga" id="lapangan-harga">Rp0</div>
-                        <span class="harga-unit">/ Jam</span>
+
+        <!-- ===================== SKELETON ===================== -->
+        <div id="skeleton-container" aria-hidden="true">
+
+            <!-- Skeleton card detail lapangan -->
+            <div class="sk-detail-card">
+                <div class="skeleton-box sk-detail-img"></div>
+                <div class="sk-detail-content">
+                    <div class="skeleton-box sk-detail-status"></div>
+                    <div class="sk-detail-head">
+                        <div class="skeleton-box sk-detail-title"></div>
+                        <div class="skeleton-box sk-detail-badge"></div>
                     </div>
+                    <div class="skeleton-box sk-detail-loc"></div>
+                    <div class="sk-detail-chips">
+                        <div class="skeleton-box sk-detail-chip" style="width:105px"></div>
+                        <div class="skeleton-box sk-detail-chip" style="width:137px"></div>
+                        <div class="skeleton-box sk-detail-chip" style="width:158px"></div>
+                        <div class="skeleton-box sk-detail-chip" style="width:146px"></div>
+                    </div>
+                    <div class="skeleton-box sk-detail-desc-title"></div>
+                    <div class="skeleton-box sk-detail-desc"></div>
+                    <div class="skeleton-box sk-detail-desc"></div>
+                    <div class="skeleton-box sk-detail-desc"></div>
+                    <div class="skeleton-box sk-detail-desc"></div>
+                    <div class="skeleton-box sk-detail-desc short"></div>
+                    <div class="sk-detail-footer">
+                        <div class="skeleton-box sk-detail-price"></div>
+                        <div class="skeleton-box sk-detail-unit"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skeleton aturan & jam operasional -->
+            <div class="bottom-grid-wrapper">
+                <div class="sk-bottom-grid">
+                    <div class="sk-box-aturan">
+                        <div class="skeleton-box sk-box-title"></div>
+                        <div class="skeleton-box sk-box-text" style="width:42%"></div>
+                        <div class="skeleton-box sk-box-text" style="width:96%"></div>
+                        <div class="skeleton-box sk-box-text" style="width:58%"></div>
+                        <div class="skeleton-box sk-box-text" style="width:50%"></div>
+                    </div>
+                    <div class="sk-box-jam">
+                        <div class="skeleton-box sk-box-jam-title"></div>
+                        <div class="skeleton-box sk-box-jam-text"></div>
+                        <div class="skeleton-box sk-box-jam-time"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skeleton form booking -->
+            <div class="sk-booking-card">
+                <div class="skeleton-box sk-booking-header"></div>
+
+                <div class="sk-form-group">
+                    <div class="skeleton-box sk-form-label"></div>
+                    <div class="skeleton-box sk-form-input"></div>
+                </div>
+
+                <div class="sk-schedule-head">
+                    <div class="skeleton-box sk-schedule-title"></div>
+                    <div class="skeleton-box sk-schedule-legend"></div>
+                </div>
+
+                <div class="sk-schedule-layout">
+                    <div class="sk-calendar-box">
+                        <div class="skeleton-box sk-calendar-header"></div>
+                        <div class="sk-calendar-week" id="sk-calendar-week"></div>
+                        <div class="sk-calendar-grid" id="sk-calendar-grid"></div>
+                    </div>
+                    <div class="sk-time-section">
+                        <div class="skeleton-box sk-time-title"></div>
+                        <div class="sk-time-grid" id="sk-time-grid"></div>
+                    </div>
+                </div>
+
+                <div class="sk-payment">
+                    <div class="skeleton-box sk-payment-title"></div>
+                    <div class="skeleton-box sk-payment-card"></div>
+                </div>
+
+                <div class="sk-action-bottom">
+                    <div class="skeleton-box sk-btn-confirm"></div>
                 </div>
             </div>
         </div>
 
-        <!-- ATURAN & JAM OPERASIONAL -->
-        <div class="bottom-grid-wrapper">
-            <div class="bottom-grid">
-                <div class="info-box box-aturan">
-                    <div class="info-box-header">
-                        <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="18" rx="2.5"></rect><rect x="9" y="2" width="6" height="4" rx="1"></rect><line x1="8" y1="11" x2="8.01" y2="11"></line><line x1="8" y1="15" x2="8.01" y2="15"></line><line x1="8" y1="19" x2="8.01" y2="19"></line><line x1="11.5" y1="11" x2="16" y2="11"></line><line x1="11.5" y1="15" x2="16" y2="15"></line><line x1="11.5" y1="19" x2="16" y2="19"></line></svg>
-                        Aturan Pemesanan
-                    </div>
-                    <div class="aturan-content">
-                        <ol>
-                            <li>Lakukan pemesanan minimal 3 hari sebelumnya</li>
-                            <li>Pembatalan dan perubahan dapat dilakukan dalam H-3 jam dan akan dikenakan tarif sebesar 10%<br class="br-desktop"> yang diberikan</li>
-                            <li>Dilarang membawa makanan dan minuman dari luar</li>
-                            <li>Jaga kebersihan dan fasilitas selama penggunaan</li>
-                        </ol>
-                    </div>
+        <!-- ===================== KONTEN ASLI ===================== -->
+        <div id="main-content" class="hidden-loading">
+            <!-- CARD DETAIL LAPANGAN -->
+            <div class="detail-card">
+                <div class="detail-image-wrapper" id="img-wrapper">
+                    <img id="lapangan-image" class="detail-image" src="" alt="Lapangan" onerror="imgFail(this)">
                 </div>
-                
-                <div class="info-box box-jam">
-                    <div class="jam-box-header">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                        <h5>Jam Operasional</h5>
+                <div class="detail-content">
+                    <div class="status-tersedia"><span class="dot"></span> Tersedia</div>
+                    <div class="header-title">
+                        <h1 id="lapangan-name">Memuat...</h1>
+                        <span id="lapangan-badge" class="badge-vip">...</span>
                     </div>
-                    <div class="jam-box-content">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                        <div class="text">Setiap hari</div>
+                    
+                    <div class="location">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                        <span>Tuparev, Kota Cirebon- jawabarat</span>
                     </div>
-                    <div class="jam-box-time">08:00–22:00</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- FORM BOOKING -->
-        <div class="booking-card" id="bookingCard">
-            <div class="booking-header">
-                <h2>Isi Nama ,Pilih tanggal dan jam booking</h2>
-            </div>
-
-            <div class="form-group" id="group-nama">
-                <label for="namaPemesan">Nama*</label>
-                <input type="text" id="namaPemesan" class="form-control" placeholder="Contoh: Mifa miftahul....." maxlength="60" autocomplete="name">
-                <div class="error-msg" id="err-nama" role="alert"><span class="error-icon">!</span> Nama Wajib Di isi!</div>
-            </div>
-
-            <div class="schedule-head">
-                <div class="cal-title">
-                    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="14" x2="8.01" y2="14"></line><line x1="12" y1="14" x2="12.01" y2="14"></line><line x1="16" y1="14" x2="16.01" y2="14"></line><line x1="8" y1="18" x2="8.01" y2="18"></line><line x1="12" y1="18" x2="12.01" y2="18"></line><line x1="16" y1="18" x2="16.01" y2="18"></line></svg>
-                    Jadwal Ketersediaan
-                </div>
-                <div class="time-legend">
-                    <span class="legend-badge-avail" id="availCount">0 Jadwal Jadwal Tersedia</span>
-                    <span class="legend-badge-booked" id="legendBooked"><span class="legend-dot"></span> sudah terbooking</span>
-                </div>
-            </div>
-
-            <div class="schedule-layout">
-                <div class="calendar-box">
-                    <div class="calendar-header">
-                        <button class="cal-btn" id="prevMonth" aria-label="Bulan sebelumnya"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-                        <h4 id="monthYearDisplay">November 2026</h4>
-                        <button class="cal-btn" id="nextMonth" aria-label="Bulan berikutnya"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-                    </div>
-                    <div class="calendar-grid">
-                        <div class="day-name sun">Min</div><div class="day-name">Sen</div><div class="day-name">Sel</div>
-                        <div class="day-name">Rab</div><div class="day-name">Kam</div><div class="day-name">Jum</div><div class="day-name">Sab</div>
-                    </div>
-                    <div class="calendar-days" id="calendarDays"></div>
-                </div>
-
-                <div class="time-section" id="group-jam">
-                    <div class="time-title">Pilih Waktu</div>
-                    <div class="time-grid" id="timeGrid"></div>
-                    <div class="error-msg" id="err-jam" role="alert"><span class="error-icon">!</span> Harap Pilih Waktu yang tersedia!</div>
-                </div>
-            </div>
-
-            <div class="payment-section" id="group-payment">
-                <div class="payment-title">Metode Pembayaran</div>
-                
-                <div class="payment-cards">
-                    <!-- COD (pertama sesuai desain) -->
-                    <div class="payment-card" id="card-cod">
-                        <label class="payment-main-row">
-                            <div class="pay-cod">
-                                <img src="assets/images/cod.png" alt="COD" onerror="this.style.display='none'">
-                                <span>Bayar di tempat</span>
-                            </div>
-                            <input type="radio" name="payment" value="COD">
-                        </label>
-                    </div>
-
-                    <!-- QRIS -->
-                    <div class="payment-card" id="card-qris">
-                        <label class="payment-main-row">
-                            <div class="pay-left">
-                                <img class="pay-qris-logo" src="assets/images/Qris.png" alt="QRIS" onerror="this.style.display='none'">
-                                <div>
-                                    <span class="pay-name">Qris</span>
-                                    <div class="pay-logos">
-                                        <img src="assets/images/dana.png" alt="Dana" onerror="this.style.display='none'">
-                                        <img src="assets/images/gopay.png" alt="Gopay" onerror="this.style.display='none'">
-                                        <img src="assets/images/bca.png" alt="BCA" onerror="this.style.display='none'">
-                                        <a href="javascript:void(0)" class="btn-lainnya" id="toggleLainnya">+ Lainnya</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="radio" name="payment" value="QRIS">
-                        </label>
-                        <div class="other-payments" id="otherPayments">
-                            <img src="assets/images/dana.png" alt="Dana" onerror="this.style.display='none'">
-                            <img src="assets/images/gopay.png" alt="GoPay" onerror="this.style.display='none'">
-                            <img src="assets/images/bca.png" alt="BCA" onerror="this.style.display='none'">
+                    
+                    <div class="fasilitas-list" id="fasilitas-container"></div>
+                    
+                    <div class="deskripsi-title">Deskripsi:</div>
+                    <p class="deskripsi-text" id="lapangan-deskripsi">Memuat deskripsi...</p>
+                    
+                    <div class="detail-footer">
+                        <div class="harga-wrap">
+                            <div class="harga" id="lapangan-harga">Rp0</div>
+                            <span class="harga-unit">/ Jam</span>
                         </div>
                     </div>
                 </div>
-                <div class="error-msg" id="err-payment" role="alert"><span class="error-icon">!</span> Harap Pilih metode pembayaran yang tersedia!</div>
             </div>
 
-            <div class="action-bottom">
-                <button class="btn-confirm" id="btnConfirm" type="button">Konfirmasi</button>
+            <!-- ATURAN & JAM OPERASIONAL -->
+            <div class="bottom-grid-wrapper">
+                <div class="bottom-grid">
+                    <div class="info-box box-aturan">
+                        <div class="info-box-header">
+                            <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="18" rx="2.5"></rect><rect x="9" y="2" width="6" height="4" rx="1"></rect><line x1="8" y1="11" x2="8.01" y2="11"></line><line x1="8" y1="15" x2="8.01" y2="15"></line><line x1="8" y1="19" x2="8.01" y2="19"></line><line x1="11.5" y1="11" x2="16" y2="11"></line><line x1="11.5" y1="15" x2="16" y2="15"></line><line x1="11.5" y1="19" x2="16" y2="19"></line></svg>
+                            Aturan Pemesanan
+                        </div>
+                        <div class="aturan-content">
+                            <ol>
+                                <li>Lakukan pemesanan minimal 3 hari sebelumnya</li>
+                                <li>Pembatalan dan perubahan dapat dilakukan dalam H-3 jam dan akan dikenakan tarif sebesar 10% yang diberikan</li>
+                                <li>Dilarang membawa makanan dan minuman dari luar</li>
+                                <li>Jaga kebersihan dan fasilitas selama penggunaan</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box box-jam">
+                        <div class="jam-box-header">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            <h5>Jam Operasional</h5>
+                        </div>
+                        <div class="jam-box-content">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            <div class="text">Setiap hari</div>
+                        </div>
+                        <div class="jam-box-time">08:00–22:00</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORM BOOKING -->
+            <div class="booking-card" id="bookingCard">
+                <div class="booking-header">
+                    <h2>Isi Nama ,Pilih tanggal dan jam booking</h2>
+                </div>
+
+                <div class="form-group" id="group-nama">
+                    <label for="namaPemesan">Nama*</label>
+                    <input type="text" id="namaPemesan" class="form-control" placeholder="Contoh: Mifa miftahul....." maxlength="60" autocomplete="name">
+                    <div class="error-msg" id="err-nama" role="alert"><span class="error-icon">!</span> Nama Wajib Di isi!</div>
+                </div>
+
+                <div class="schedule-head">
+                    <div class="cal-title">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="14" x2="8.01" y2="14"></line><line x1="12" y1="14" x2="12.01" y2="14"></line><line x1="16" y1="14" x2="16.01" y2="14"></line><line x1="8" y1="18" x2="8.01" y2="18"></line><line x1="12" y1="18" x2="12.01" y2="18"></line><line x1="16" y1="18" x2="16.01" y2="18"></line></svg>
+                        Jadwal Ketersediaan
+                    </div>
+                    <div class="time-legend">
+                        <span class="legend-badge-avail" id="availCount">0 Jadwal Jadwal Tersedia</span>
+                        <span class="legend-badge-booked" id="legendBooked"><span class="legend-dot"></span> sudah terbooking</span>
+                    </div>
+                </div>
+
+                <div class="schedule-layout">
+                    <div class="calendar-box">
+                        <div class="calendar-header">
+                            <button class="cal-btn" id="prevMonth" aria-label="Bulan sebelumnya"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                            <h4 id="monthYearDisplay">November 2026</h4>
+                            <button class="cal-btn" id="nextMonth" aria-label="Bulan berikutnya"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+                        </div>
+                        <div class="calendar-grid">
+                            <div class="day-name sun">Min</div><div class="day-name">Sen</div><div class="day-name">Sel</div>
+                            <div class="day-name">Rab</div><div class="day-name">Kam</div><div class="day-name">Jum</div><div class="day-name">Sab</div>
+                        </div>
+                        <div class="calendar-days" id="calendarDays"></div>
+                    </div>
+
+                    <div class="time-section" id="group-jam">
+                        <div class="time-title">Pilih Waktu</div>
+                        <div class="time-grid" id="timeGrid"></div>
+                        <div class="error-msg" id="err-jam" role="alert"><span class="error-icon">!</span> Harap Pilih Waktu yang tersedia!</div>
+                    </div>
+                </div>
+
+                <div class="payment-section" id="group-payment">
+                    <div class="payment-title">Metode Pembayaran</div>
+                    
+                    <div class="payment-cards">
+                        <div class="payment-card" id="card-bank">
+                            <label class="payment-main-row">
+                                <div class="pay-bank">
+                                    <svg class="pay-bank-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M3 9.5 12 3l9 6.5"></path>
+                                        <path d="M3 9.5h18"></path>
+                                        <path d="M5.5 12v6"></path>
+                                        <path d="M9.5 12v6"></path>
+                                        <path d="M14.5 12v6"></path>
+                                        <path d="M18.5 12v6"></path>
+                                        <path d="M4 18.5h16"></path>
+                                        <path d="M2.5 21h19"></path>
+                                    </svg>
+                                    <div>
+                                        <span class="pay-name">Transfer Bank</span>
+                                        <div class="pay-logos">
+                                            <img src="assets/images/bca.png" alt="BCA" onerror="this.outerHTML='<span class=&quot;bca-text&quot;>BCA</span>'">
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="radio" name="payment" value="Transfer Bank BCA">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="error-msg" id="err-payment" role="alert"><span class="error-icon">!</span> Harap Pilih metode pembayaran yang tersedia!</div>
+                </div>
+
+                <div class="action-bottom">
+                    <button class="btn-confirm" id="btnConfirm" type="button">Konfirmasi</button>
+                </div>
             </div>
         </div>
     </main>
@@ -455,10 +617,72 @@
         </div>
     </div>
 
+    <!-- HALAMAN TANPA JARINGAN -->
+    <div id="vsqOffline" role="alertdialog" aria-live="assertive">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/>
+            <path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/>
+            <path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/>
+            <path d="m2 2 20 20"/>
+        </svg>
+        <h1>Tidak Ada Koneksi Internet</h1>
+        <p>Periksa Koneksi Anda Kembali</p>
+        <button type="button" id="vsqRetryBtn">Coba Lagi</button>
+    </div>
+
     <script>
         const API_BASE = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')
             ? 'http://localhost/vincent-arena/Backend/API' 
             : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
+
+        // =========================================================================
+        // 0. DETEKSI JARINGAN (halaman tanpa koneksi)
+        // =========================================================================
+        const VSQNet = (function () {
+            const el = document.getElementById('vsqOffline');
+            const btn = document.getElementById('vsqRetryBtn');
+            let autoCheck = null;
+
+            async function ping() {
+                if (!navigator.onLine) return false;
+                const ctrl = new AbortController();
+                const t = setTimeout(() => ctrl.abort(), 6000);
+                try {
+                    await fetch(location.pathname + '?_ping=' + Date.now(), { method: 'HEAD', cache: 'no-store', signal: ctrl.signal });
+                    return true;
+                } catch (e) { return false; } finally { clearTimeout(t); }
+            }
+            function show() {
+                el.classList.add('show');
+                document.documentElement.style.overflow = 'hidden';
+                if (!autoCheck) autoCheck = setInterval(recover, 5000);
+            }
+            function hide() {
+                el.classList.remove('show');
+                document.documentElement.style.overflow = '';
+                clearInterval(autoCheck); autoCheck = null;
+            }
+            async function recover() {
+                if (await ping()) { hide(); window.dispatchEvent(new CustomEvent('vsq:online')); return true; }
+                show(); return false;
+            }
+            function handleError(err) {
+                const isNetwork = !navigator.onLine || (err && (err.name === 'TypeError' || err.name === 'AbortError'));
+                if (isNetwork) show();
+                return isNetwork;
+            }
+
+            btn.addEventListener('click', async () => {
+                btn.disabled = true; btn.textContent = 'Memeriksa...';
+                await recover();
+                btn.disabled = false; btn.textContent = 'Coba Lagi';
+            });
+            window.addEventListener('offline', show);
+            window.addEventListener('online', recover);
+            if (!navigator.onLine) show();
+
+            return { show, hide, recover, handleError };
+        })();
 
         // =========================================================================
         // 1. AUTH GUARD
@@ -472,9 +696,22 @@
         }
 
         // =========================================================================
-        // 2. NAVBAR (TIDAK DIUBAH)
+        // 2. NAVBAR
         // =========================================================================
         function normalizeUser(u) { if (!u) return null; const nama = u.nama || u.name || u.nama_lengkap || u.username || 'User'; return { nama: nama, email: u.email || '-', whatsapp: u.whatsapp || u.no_wa || u.no_hp || '-', foto_url: u.foto_url || u.foto || u.foto_profil || u.avatar || '', initial: u.initial || nama.charAt(0).toUpperCase() }; }
+
+        // Fallback logo teks bila gambar logo gagal dimuat
+        function logoFail(img) {
+            const wrap = document.createDocumentFragment();
+            const t = document.createElement('span');
+            t.className = 'vsq-logo-title';
+            t.textContent = "Vincent'SQ";
+            const s = document.createElement('span');
+            s.className = 'vsq-logo-sub';
+            s.textContent = 'SPORTS ARENA';
+            wrap.appendChild(t); wrap.appendChild(s);
+            img.replaceWith(wrap);
+        }
 
         function renderNavbar(user) {
             const navbarEl = document.getElementById('navbar');
@@ -500,7 +737,7 @@
             navbarEl.innerHTML = `
             <div class="vsq-header">
                 <div class="vsq-nav-left">
-                    <a href="index.html" class="vsq-logo"><span class="vsq-logo-title">Vincent'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span></a>
+                    <a href="index.html" class="vsq-logo"><img class="vsq-logo-img" src="assets/images/logo.png" alt="Vincent'SQ Sports Arena" onerror="logoFail(this)"></a>
                     <nav class="vsq-nav-menu">
                         <a href="index.html" class="vsq-nav-link">Beranda</a>
                         <a href="lapangan.html" class="vsq-nav-link active">Booking Lapangan</a>
@@ -545,44 +782,66 @@
         // =========================================================================
         // 3. LOGIKA HALAMAN BOOKING
         // =========================================================================
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // ---------------- ISI SKELETON (kalender & slot waktu) ----------------
+            (function buildSkeleton() {
+                const week = document.getElementById('sk-calendar-week');
+                const grid = document.getElementById('sk-calendar-grid');
+                const times = document.getElementById('sk-time-grid');
+                let w = '', g = '', t = '';
+                for (let i = 0; i < 7; i++) w += '<div class="skeleton-box"></div>';
+                for (let i = 0; i < 30; i++) g += '<div class="skeleton-box sk-calendar-day"></div>';
+                for (let i = 0; i < 5; i++) t += '<div class="skeleton-box sk-time-slot"></div>';
+                week.innerHTML = w; grid.innerHTML = g; times.innerHTML = t;
+            })();
+
             if (!userLogin) return;
             renderNavbar(normalizeUser(userLogin));
 
-            // true  = slot yang sudah terbooking tetap tampil (abu-abu) + legend "sudah terbooking"
-            // false = hanya slot tersedia yang tampil (sesuai desain utama)
-            const TAMPILKAN_SLOT_TERBOOKING = false;
+            // ---------------- KONFIGURASI ----------------
+            const TAMPILKAN_SLOT_TERBOOKING = false; 
+            const PAKAI_DATA_DUMMY = true;           
+            const POLLING_MS = 5000;                 
+            const MIN_HARI_SEBELUM = null;           
+            const HALAMAN_PEMBAYARAN = 'pembayaran.html';
+            const ENDPOINT_JADWAL = API_BASE + '/booking/jadwal.php'; 
+            const ENDPOINT_BUAT = API_BASE + '/booking/buat.php';     
+
+            // Pengaturan skeleton
+            const SKELETON_MIN_MS = 700;   // minimal tampil agar tidak berkedip
+            const SKELETON_MAX_MS = 8000;  // batas maksimal menunggu
+
+            const pad = n => String(n).padStart(2, '0');
+            const isoDate = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+            const ymKey = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}`;
+            const delay = ms => new Promise(r => setTimeout(r, ms));
 
             const urlParams = new URLSearchParams(window.location.search);
-            let fieldId = urlParams.get('id') || '1'; 
-            if (!['1', '2'].includes(fieldId)) fieldId = '1'; 
+            let fieldId = urlParams.get('id') || '1';
+            if (!['1', '2'].includes(fieldId)) fieldId = '1';
 
+            // ---------------- DATA LAPANGAN ----------------
             const dataLapangan = {
                 '1': { nama: 'Lapangan Futsal 1', badge: 'VIP', badgeClass: 'badge-vip', harga: 100000, img: 'assets/uploads/lapangan/Lapangan1.jpeg', desc: 'Lapangan futsal 1 adalah lapangan yang berkategorikan VIP dengan permukaan Vinyl dengan kualitas premium yang memberikan kenyamanan dan Keamanan saat bermain lapangan ini cocok untuk berbagai kebutuhan mulai dari latihan rutin sampai turnamen pertandingan antar tim hingga profesional', fasilitas: ['Indoor', 'Area Luas', 'Area Penonton', 'Sirkulasi udara'] },
                 '2': { nama: 'Lapangan Futsal 2', badge: 'Reguler', badgeClass: 'badge-reguler', harga: 90000, img: 'assets/uploads/lapangan/Lapangan2.jpeg', desc: 'Lapangan futsal 2 adalah lapangan yang berkategorikan Reguler dengan permukaan Vinyl dengan kualitas standar yang memberikan kesan kenyamanan dan Fun, cocok digunakan untuk berlatih, dan bermain funmatch dengan rekan', fasilitas: ['Indoor', 'Area Luas'] }
             };
-
             const currentField = dataLapangan[fieldId];
-            let selectedSlots = [];
 
-            // Breadcrumb
             const bcDetail = document.getElementById('breadcrumb-detail');
             bcDetail.textContent = 'Detail Lapangan ' + fieldId;
             bcDetail.href = 'detail_lapangan.html?id=' + fieldId;
 
-            // Render data lapangan
+            const imgEl = document.getElementById('lapangan-image');
             document.getElementById('lapangan-name').textContent = currentField.nama;
             document.getElementById('lapangan-deskripsi').textContent = currentField.desc;
-            document.getElementById('lapangan-image').src = currentField.img;
-            document.getElementById('lapangan-image').alt = currentField.nama;
-
+            imgEl.alt = currentField.nama;
+            imgEl.src = currentField.img;
             const badgeEl = document.getElementById('lapangan-badge');
             badgeEl.textContent = currentField.badge;
             badgeEl.className = currentField.badgeClass;
-
             document.getElementById('lapangan-harga').textContent = `Rp${currentField.harga.toLocaleString('id-ID')}`;
 
-            // Fasilitas
             const svgIcons = {
                 'Indoor': '<svg viewBox="0 0 24 24"><path d="M22 8.35V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.35A2 2 0 0 1 3.26 6.5l8-3.2a2 2 0 0 1 1.48 0l8 3.2A2 2 0 0 1 22 8.35Z"/><path d="M6 18h12"/><path d="M6 14h12"/><rect x="6" y="10" width="12" height="12"/></svg>',
                 'Area Luas': '<svg viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></svg>',
@@ -597,65 +856,47 @@
             }).join('');
             if (fieldId === '2') fasContainer.classList.add('vertical');
 
-            // Legend "sudah terbooking" hanya jika slot terbooking ditampilkan
             document.getElementById('legendBooked').style.display = TAMPILKAN_SLOT_TERBOOKING ? 'flex' : 'none';
 
-            // Toggle pembayaran lainnya
-            document.getElementById('toggleLainnya').addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                const other = document.getElementById('otherPayments');
-                other.classList.toggle('show');
-                this.textContent = other.classList.contains('show') ? '- Sembunyikan' : '+ Lainnya';
-            });
+            // ---------------- TOAST ----------------
+            function toast(msg) {
+                let t = document.getElementById('vsqToast');
+                if (!t) { t = document.createElement('div'); t.id = 'vsqToast'; t.className = 'vsq-toast'; t.setAttribute('role', 'alert'); document.body.appendChild(t); }
+                t.textContent = msg;
+                t.classList.add('show');
+                clearTimeout(t._h);
+                t._h = setTimeout(() => t.classList.remove('show'), 5000);
+            }
 
-            // ================= KALENDER =================
-            let currentDate = new Date(2026, 10, 1);
-            let selectedDate = new Date(2026, 10, 5);
+            // ---------------- STATE & DATA JADWAL ----------------
             const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
             const jamOperasional = ["08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "12:00 - 13:00", "13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00", "19:00 - 20:00", "20:00 - 21:00", "21:00 - 22:00"];
 
-            // Data dummy terbooking (kunci: tahun-bulan(0-11)-tanggal). 5 November 2026 sesuai desain.
-            const jadwalTerbooking = {
-                "2026-10-5": ["09:00 - 10:00", "10:00 - 11:00", "12:00 - 13:00", "13:00 - 14:00", "15:00 - 16:00", "17:00 - 18:00", "18:00 - 19:00", "19:00 - 20:00", "20:00 - 21:00"],
-                "2026-10-6": ["08:00 - 09:00", "10:00 - 11:00", "15:00 - 16:00", "19:00 - 20:00"],
-                "2026-10-7": ["13:00 - 14:00", "14:00 - 15:00", "20:00 - 21:00", "21:00 - 22:00"],
-                "2026-10-8": ["08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00"],
-                "2026-10-10": ["11:00 - 12:00", "16:00 - 17:00"]
+            const JADWAL_DUMMY = {
+                "2026-11-05": ["09:00 - 10:00", "10:00 - 11:00", "12:00 - 13:00", "13:00 - 14:00", "15:00 - 16:00", "17:00 - 18:00", "18:00 - 19:00", "19:00 - 20:00", "20:00 - 21:00"],
+                "2026-11-06": ["08:00 - 09:00", "10:00 - 11:00", "15:00 - 16:00", "19:00 - 20:00"],
+                "2026-11-07": ["13:00 - 14:00", "14:00 - 15:00", "20:00 - 21:00", "21:00 - 22:00"],
+                "2026-11-08": ["08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00"],
+                "2026-11-10": ["11:00 - 12:00", "16:00 - 17:00"],
+                "2026-11-12": jamOperasional.slice()
             };
 
-            function renderCalendar() {
-                const year = currentDate.getFullYear();
-                const month = currentDate.getMonth();
-                document.getElementById('monthYearDisplay').textContent = `${monthNames[month]} ${year}`;
-                const firstDay = new Date(year, month, 1).getDay();
-                const daysInMonth = new Date(year, month + 1, 0).getDate();
-                const daysContainer = document.getElementById('calendarDays');
-                daysContainer.innerHTML = '';
-                
-                for (let i = 0; i < firstDay; i++) daysContainer.appendChild(Object.assign(document.createElement('div'), { className: 'day empty' }));
-                
-                for (let i = 1; i <= daysInMonth; i++) {
-                    const thisDate = new Date(year, month, i);
-                    const dayDiv = document.createElement('div');
-                    dayDiv.className = 'day';
-                    dayDiv.textContent = i;
-                    if (thisDate.getDay() === 0) dayDiv.classList.add('sun');
-                    if (thisDate.getTime() === selectedDate.getTime()) dayDiv.classList.add('active');
-                    dayDiv.addEventListener('click', () => {
-                        selectedDate = thisDate;
-                        renderCalendar();
-                        generateTimeSlots();
-                    });
-                    daysContainer.appendChild(dayDiv);
-                }
-            }
+            let booked = {};            
+            let selectedSlots = [];
 
-            document.getElementById('prevMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); });
-            document.getElementById('nextMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); });
+            const minDate = () => {
+                if (MIN_HARI_SEBELUM === null) return null;
+                const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + MIN_HARI_SEBELUM); return d;
+            };
+            let selectedDate = new Date(2026, 10, 5); 
+            { const m = minDate(); if (m && selectedDate < m) selectedDate = m; }
+            let currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
 
-            // ================= VALIDASI REALTIME =================
-            // Error tampil begitu field disentuh (ketik / klik / blur) atau saat tombol Konfirmasi ditekan.
+            const bookedOn = d => booked[isoDate(d)] || [];
+            const isPast = d => { const m = minDate(); return !!m && d < m; };
+            const isFull = d => jamOperasional.every(j => bookedOn(d).includes(j));
+
+            // ---------------- VALIDASI ----------------
             const touched = { nama: false, jam: false, pay: false };
             let submitted = false;
             const show = key => submitted || touched[key];
@@ -664,7 +905,7 @@
             const errNama = document.getElementById('err-nama');
             const errJam = document.getElementById('err-jam');
             const errPay = document.getElementById('err-payment');
-            const payCards = [document.getElementById('card-cod'), document.getElementById('card-qris')];
+            const payCards = [document.getElementById('card-bank')];
 
             const isNamaValid = () => namaInput.value.trim() !== '';
             const isJamValid = () => selectedSlots.length > 0;
@@ -687,59 +928,147 @@
                 payCards.forEach(c => c.classList.toggle('is-invalid', bad));
             }
 
-            // Nama: validasi saat mengetik & saat keluar dari kolom
             namaInput.addEventListener('input', () => { touched.nama = true; renderNama(); });
             namaInput.addEventListener('blur', () => { touched.nama = true; renderNama(); });
-
-            // Pembayaran: error hilang begitu metode dipilih
             document.querySelectorAll('input[name="payment"]').forEach(r => {
                 r.addEventListener('change', () => { touched.pay = true; renderPay(); });
             });
 
-            // ================= SLOT WAKTU =================
-            function generateTimeSlots() {
-                const timeGrid = document.getElementById('timeGrid');
-                timeGrid.innerHTML = '';
-                selectedSlots = [];
-                touched.jam = false;
-
-                const dateKey = `${selectedDate.getFullYear()}-${selectedDate.getMonth()}-${selectedDate.getDate()}`;
-                const bookedSlotsToday = jadwalTerbooking[dateKey] || [];
-                const availableCount = jamOperasional.length - bookedSlotsToday.length;
-                document.getElementById('availCount').textContent = `${availableCount} Jadwal Jadwal Tersedia`;
-
-                const list = TAMPILKAN_SLOT_TERBOOKING ? jamOperasional : jamOperasional.filter(j => !bookedSlotsToday.includes(j));
-
-                if (list.length === 0) {
-                    timeGrid.innerHTML = '<div class="no-slot">Tidak ada jadwal tersedia pada tanggal ini</div>';
+            // ---------------- AMBIL JADWAL ----------------
+            async function fetchJadwal(ym) {
+                if (PAKAI_DATA_DUMMY) {
+                    return Object.fromEntries(Object.entries(JADWAL_DUMMY).filter(([k]) => k.startsWith(ym)));
                 }
+                const res = await fetch(`${ENDPOINT_JADWAL}?lapangan_id=${fieldId}&bulan=${ym}`, { credentials: 'include', cache: 'no-store' });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const json = await res.json();
+                return json.data || {};
+            }
+
+            let inflight = null;
+            function muatJadwal() {
+                if (inflight) return inflight;
+                inflight = (async () => {
+                    try {
+                        const months = [...new Set([ymKey(currentDate), ymKey(selectedDate)])];
+                        const results = await Promise.all(months.map(fetchJadwal));
+                        const next = Object.assign({}, ...results);
+                        if (JSON.stringify(next) !== JSON.stringify(booked)) {
+                            booked = next;
+                            sinkronkanUI();
+                        }
+                        return true;
+                    } catch (e) {
+                        if (!VSQNet.handleError(e)) console.error('Gagal memuat jadwal:', e);
+                        return false;
+                    }
+                })().finally(() => { inflight = null; });
+                return inflight;
+            }
+
+            function sinkronkanUI() {
+                const taken = bookedOn(selectedDate);
+                const lost = selectedSlots.filter(s => taken.includes(s));
+                if (lost.length) {
+                    selectedSlots = selectedSlots.filter(s => !taken.includes(s));
+                    toast(`Jadwal ${lost.join(', ')} baru saja dipesan orang lain. Silakan pilih jam lain.`);
+                }
+                renderCalendar();
+                renderTimeSlots();
+            }
+
+            // ---------------- KALENDER ----------------
+            function renderCalendar() {
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth();
+                document.getElementById('monthYearDisplay').textContent = `${monthNames[month]} ${year}`;
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const daysContainer = document.getElementById('calendarDays');
+                daysContainer.innerHTML = '';
+
+                for (let i = 0; i < firstDay; i++) daysContainer.appendChild(Object.assign(document.createElement('div'), { className: 'day empty' }));
+
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const thisDate = new Date(year, month, i);
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'day';
+                    dayDiv.textContent = i;
+                    if (thisDate.getDay() === 0) dayDiv.classList.add('sun');
+                    if (thisDate.getTime() === selectedDate.getTime()) dayDiv.classList.add('active');
+
+                    const past = isPast(thisDate);
+                    const full = isFull(thisDate);
+                    if (past) dayDiv.classList.add('disabled');
+                    if (full) { dayDiv.classList.add('full'); dayDiv.title = 'Semua jadwal sudah terbooking'; }
+
+                    if (past || full) {
+                        dayDiv.setAttribute('aria-disabled', 'true');
+                    } else {
+                        dayDiv.addEventListener('click', () => {
+                            selectedDate = thisDate;
+                            selectedSlots = [];
+                            touched.jam = false;
+                            renderCalendar();
+                            renderTimeSlots();
+                        });
+                    }
+                    daysContainer.appendChild(dayDiv);
+                }
+            }
+
+            document.getElementById('prevMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); muatJadwal(); });
+            document.getElementById('nextMonth').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); muatJadwal(); });
+
+            // ---------------- SLOT WAKTU ----------------
+            function renderTimeSlots() {
+                const grid = document.getElementById('timeGrid');
+                const takenToday = bookedOn(selectedDate);
+                const available = jamOperasional.filter(j => !takenToday.includes(j));
+                document.getElementById('availCount').textContent = `${available.length} Jadwal Jadwal Tersedia`;
+
+                const list = TAMPILKAN_SLOT_TERBOOKING ? jamOperasional : available;
+                grid.innerHTML = '';
+                if (list.length === 0) grid.innerHTML = '<div class="no-slot">Tidak ada jadwal tersedia pada tanggal ini</div>';
 
                 list.forEach(jam => {
-                    const slotDiv = document.createElement('div');
-                    slotDiv.className = 'time-slot';
-                    slotDiv.textContent = jam;
-                    if (bookedSlotsToday.includes(jam)) {
-                        slotDiv.classList.add('booked');
+                    const slot = document.createElement('div');
+                    slot.className = 'time-slot';
+                    slot.textContent = jam;
+                    if (takenToday.includes(jam)) {
+                        slot.classList.add('booked');
                     } else {
-                        slotDiv.addEventListener('click', () => {
-                            if (slotDiv.classList.contains('selected')) {
-                                slotDiv.classList.remove('selected');
+                        slot.tabIndex = 0;
+                        if (selectedSlots.includes(jam)) slot.classList.add('selected');
+                        const toggle = () => {
+                            if (selectedSlots.includes(jam)) {
                                 selectedSlots = selectedSlots.filter(s => s !== jam);
+                                slot.classList.remove('selected');
                             } else {
-                                slotDiv.classList.add('selected');
                                 selectedSlots.push(jam);
+                                slot.classList.add('selected');
                             }
                             touched.jam = true;
                             renderJam();
-                        });
+                        };
+                        slot.addEventListener('click', toggle);
+                        slot.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
                     }
-                    timeGrid.appendChild(slotDiv);
+                    grid.appendChild(slot);
                 });
                 renderJam();
             }
 
-            // ================= KONFIRMASI =================
-            document.getElementById('btnConfirm').addEventListener('click', function() {
+            // ---------------- KONFIRMASI ----------------
+            function arahkanKe(scrollEl, focusEl) {
+                scrollEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (focusEl) setTimeout(() => focusEl.focus({ preventScroll: true }), 400);
+            }
+
+            const btnConfirm = document.getElementById('btnConfirm');
+            function resetBtn() { btnConfirm.disabled = false; btnConfirm.textContent = 'Konfirmasi'; }
+
+            btnConfirm.addEventListener('click', async function () {
                 if (!localStorage.getItem('vsq_user')) {
                     sessionStorage.setItem('vsq_redirect', window.location.href);
                     window.location.replace('login.html');
@@ -749,30 +1078,102 @@
                 submitted = true;
                 renderNama(); renderJam(); renderPay();
 
-                // Arahkan ke kolom pertama yang bermasalah
-                if (!isNamaValid()) { namaInput.focus(); namaInput.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
-                if (!isJamValid()) { document.getElementById('group-jam').scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
-                if (!isPayValid()) { document.getElementById('group-payment').scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+                if (!isNamaValid()) return arahkanKe(namaInput, namaInput);
+                if (!isJamValid()) return arahkanKe(document.getElementById('group-jam'), document.querySelector('.time-slot:not(.booked)'));
+                if (!isPayValid()) return arahkanKe(document.getElementById('group-payment'), document.querySelector('input[name="payment"]'));
 
-                const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
-                const sortedSlots = [...selectedSlots].sort((a, b) => jamOperasional.indexOf(a) - jamOperasional.indexOf(b));
-                const bookingData = {
-                    lapangan_id: fieldId,
-                    lapangan: currentField.nama,
-                    img: currentField.img,
-                    nama: namaInput.value.trim(),
-                    tanggal: `${selectedDate.getDate()}, ${monthNames[selectedDate.getMonth()]} ${selectedDate.getFullYear()}`,
-                    jam: sortedSlots,
-                    total: sortedSlots.length * currentField.harga,
-                    metode_pembayaran: paymentMethod
-                };
+                btnConfirm.disabled = true;
+                btnConfirm.textContent = 'Memproses...';
 
-                localStorage.setItem('temp_booking', JSON.stringify(bookingData));
-                window.location.href = 'pembayaran.html';
+                try {
+                    const ok = await muatJadwal();
+                    if (!ok) return resetBtn();
+                    if (!isJamValid()) { 
+                        renderJam();
+                        resetBtn();
+                        return arahkanKe(document.getElementById('group-jam'), document.querySelector('.time-slot:not(.booked)'));
+                    }
+
+                    const sortedSlots = [...selectedSlots].sort((a, b) => jamOperasional.indexOf(a) - jamOperasional.indexOf(b));
+                    const bookingData = {
+                        lapangan_id: fieldId,
+                        lapangan: currentField.nama,
+                        img: currentField.img,
+                        nama: namaInput.value.trim(),
+                        tanggal: `${pad(selectedDate.getDate())}, ${monthNames[selectedDate.getMonth()]} ${selectedDate.getFullYear()}`,
+                        tanggal_iso: isoDate(selectedDate),
+                        jam: sortedSlots,
+                        total: sortedSlots.length * currentField.harga,
+                        metode_pembayaran: document.querySelector('input[name="payment"]:checked').value,
+                        expires_at: Date.now() + 24 * 3600 * 1000 
+                    };
+
+                    if (!PAKAI_DATA_DUMMY) {
+                        const res = await fetch(ENDPOINT_BUAT, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            credentials: 'include',
+                            body: JSON.stringify({
+                                lapangan_id: fieldId, nama: bookingData.nama, tanggal: bookingData.tanggal_iso,
+                                jam: sortedSlots, metode_pembayaran: bookingData.metode_pembayaran
+                            })
+                        });
+                        const json = await res.json().catch(() => ({}));
+                        if (res.status === 409) {
+                            toast(json.message || 'Jadwal baru saja dibooking orang lain. Silakan pilih jam lain.');
+                            await muatJadwal();
+                            return resetBtn();
+                        }
+                        if (!res.ok || json.success === false) {
+                            toast(json.message || 'Gagal membuat booking. Silakan coba lagi.');
+                            return resetBtn();
+                        }
+                        bookingData.booking_id = json.data && json.data.id;
+                        if (json.data && json.data.expires_at) {
+                            bookingData.expires_at = Date.parse(String(json.data.expires_at).replace(' ', 'T'));
+                        }
+                    }
+
+                    localStorage.setItem('temp_booking', JSON.stringify(bookingData));
+                    window.location.href = HALAMAN_PEMBAYARAN;
+                } catch (e) {
+                    if (!VSQNet.handleError(e)) toast('Terjadi kesalahan. Silakan coba lagi.');
+                    resetBtn();
+                }
             });
 
+            // ---------------- REALTIME ----------------
+            setInterval(() => { if (!document.hidden) muatJadwal(); }, POLLING_MS);
+            document.addEventListener('visibilitychange', () => { if (!document.hidden) muatJadwal(); });
+            window.addEventListener('vsq:online', muatJadwal);
+
+            // ---------------- INISIALISASI ----------------
             renderCalendar();
-            generateTimeSlots();
+            renderTimeSlots();
+            const jadwalAwal = muatJadwal();
+
+            // ---------------- SKELETON -> KONTEN ASLI ----------------
+            // Tunggu: data jadwal + gambar lapangan + durasi minimum (maks. SKELETON_MAX_MS)
+            function waitImage(img) {
+                return new Promise(resolve => {
+                    if (img.complete) return resolve();
+                    img.addEventListener('load', resolve, { once: true });
+                    img.addEventListener('error', resolve, { once: true });
+                });
+            }
+
+            function tampilkanKonten() {
+                const sk = document.getElementById('skeleton-container');
+                const main = document.getElementById('main-content');
+                sk.style.display = 'none';
+                main.classList.remove('hidden-loading');
+                main.classList.add('fade-in');
+            }
+
+            Promise.race([
+                Promise.all([jadwalAwal, waitImage(imgEl), delay(SKELETON_MIN_MS)]),
+                delay(SKELETON_MAX_MS)
+            ]).then(tampilkanKonten);
         });
     </script>
 </body>

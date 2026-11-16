@@ -6,44 +6,37 @@
     <title>Detail Lapangan - Vincent SQ Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --vsq-navy: #131B2E; 
-            --vsq-blue: #477FEB; 
-            --vsq-red: #FF0000; 
-            --vsq-gold: #FFD700; 
-            --vsq-gray: #848484; 
-            --vsq-white: #FFFFFF; 
-            --vsq-bg: #F8FAFC; 
-            --vsq-green: #3DB268;
-        }
+        :root { --vsq-navy: #131B2E; --vsq-blue: #477FEB; --vsq-red: #E11D1D; --vsq-gold: #FFD700; --vsq-gray: #6B7280; --vsq-green: #3DB268; --vsq-white: #FFFFFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', sans-serif; color: #000; }
+        body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', sans-serif; color: var(--vsq-navy); }
+        #page { width: 100%; }
 
-        /* =========================================
-           NAVBAR (sama persis dengan index.html)
-           ========================================= */
+        /* ================= NAVBAR (sama dengan index.html) ================= */
         #navbar { position: sticky; top: 0; z-index: 1000; background: #FFF; }
-        .vsq-header { background: #FFFFFF; width: 100%; height: 106px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
-        .vsq-nav-left { display: flex; align-items: center; gap: 40px; }
-        .vsq-logo { display: flex; flex-direction: column; text-decoration: none; width: 130px; flex-shrink: 0; }
+        .vsq-header { background: #FFFFFF; width: 100%; height: 94px; border-bottom: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: space-between; box-sizing: border-box;
+            padding: 0 max(50px, calc((100% - 1540px) / 2 + 50px)) 0 max(44px, calc((100% - 1540px) / 2 + 44px)); }
+        .vsq-nav-left { display: flex; align-items: center; gap: 10px; }
+        .vsq-logo { display: flex; align-items: center; text-decoration: none; width: 168px; flex-shrink: 0; }
+        .vsq-logo-img { width: 100%; height: auto; display: block; object-fit: contain; }
+        .vsq-logo-fallback { display: flex; flex-direction: column; padding-left: 18px; }
         .vsq-logo-title { font-size: 22px; font-weight: 800; color: #131B2E; line-height: 1.1; letter-spacing: -0.5px; }
         .vsq-logo-sub { font-size: 13px; font-weight: 800; color: #FF0000; line-height: 1.2; letter-spacing: 0.5px; margin-top: 2px; }
         .vsq-nav-menu { display: flex; align-items: center; gap: 32px; }
-        .vsq-nav-link { font-size: 15px; font-weight: 600; color: #000000; text-decoration: none; transition: color 0.2s; white-space: nowrap; }
-        .vsq-nav-link:hover { color: var(--vsq-blue); }
-        .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 14px 24px; border-radius: 12px; height: auto; display: flex; align-items: center; justify-content: center; }
-        .vsq-nav-right { display: flex; align-items: center; gap: 16px; position: relative; flex-shrink: 0; }
-        .vsq-btn-login-outline { background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
-        .vsq-btn-register { background: #131B2E; color: #FFF; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
-        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: auto; max-width: 160px; height: 42px; border: 1px solid #000000; border-radius: 10px; padding: 0 8px 0 12px; text-decoration: none; cursor: pointer; transition: background 0.2s; flex-shrink: 1; overflow: hidden; }
+        .vsq-nav-link { font-size: 16px; font-weight: 500; line-height: 21px; color: #000000; text-decoration: none; transition: color 0.2s; white-space: nowrap; padding: 16px 19px; border-radius: 14px; }
+        .vsq-nav-link:hover { color: #000000; }
+        .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; display: flex; align-items: center; justify-content: center; }
+        .vsq-nav-right { display: flex; align-items: center; gap: 17px; position: relative; flex-shrink: 0; }
+        .vsq-btn-login-outline { background: #FFFFFF; color: #131B2E; border: 1.5px solid #131B2E; width: 128px; height: 52px; border-radius: 12px; font-size: 16px; font-weight: 500; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        .vsq-btn-register { background: #131B2E; color: #FFF; width: 128px; height: 52px; border-radius: 12px; font-size: 16px; font-weight: 500; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; min-width: 163px; height: 52px; border: 2px solid #131B2E; border-radius: 12px; padding: 0 8px 0 22px; text-decoration: none; cursor: pointer; transition: background 0.2s; flex-shrink: 1; overflow: hidden; }
         .vsq-profile-box:hover { background: #F8FAFC; }
-        .vsq-profile-name { font-size: 14px; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; margin-right: 8px; }
-        .vsq-profile-avatar { width: 28px; height: 28px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; overflow: hidden; }
-        .vsq-btn-logout { background: #131B2E; color: #FFF; width: auto; padding: 0 16px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
-        .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; padding: 0; }
-        .vsq-notif-btn img { width: 28px; height: 28px; object-fit: contain; }
+        .vsq-profile-name { font-size: 16px; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 400; margin-right: 8px; }
+        .vsq-profile-avatar { width: 36px; height: 36px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; flex-shrink: 0; overflow: hidden; }
+        .vsq-btn-logout { background: #131B2E; color: #FFF; width: 128px; padding: 0; height: 52px; border-radius: 12px; font-size: 16px; font-weight: 500; text-decoration: none; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; font-family: inherit; }
+        .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; flex-shrink: 0; padding: 0; }
+        .vsq-notif-btn img { width: 34px; height: 34px; object-fit: contain; }
 
-        .vsq-profile-dropdown { position: absolute; top: 60px; right: 0; width: 280px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.12); padding: 0; display: none; flex-direction: column; z-index: 1001; overflow: hidden; animation: slideDown 0.3s ease; }
+        .vsq-profile-dropdown { position: absolute; top: 64px; right: 0; width: 280px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.12); padding: 0; display: none; flex-direction: column; z-index: 1001; overflow: hidden; animation: slideDown 0.3s ease; }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         .vsq-profile-dropdown.show { display: flex; }
         .vsq-dd-header { background: linear-gradient(135deg, #131B2E 0%, #2C437B 100%); padding: 20px; display: flex; align-items: center; gap: 15px; color: #FFFFFF; }
@@ -61,128 +54,81 @@
         .vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .vsq-btn-logout-dropdown:hover { background: #FEF2F2; border-color: #EF4444; }
 
-        /* =========================================
-           BREADCRUMB & KONTAINER UTAMA
-           ========================================= */
-        .breadcrumb { width: 100%; margin: 42px 0 48px; padding: 0 46px; display: flex; align-items: center; gap: 16px; color: #848484; font-size: 16px; font-weight: 400; }
+        /* ================= BREADCRUMB ================= */
+        .breadcrumb { width: 100%; margin: 0; padding: 64px 49px 51px; display: flex; align-items: center; gap: 14px; color: #848484; font-size: 18px; font-weight: 400; line-height: 1; }
         .breadcrumb a { text-decoration: none; color: #848484; display: flex; align-items: center; transition: 0.2s; }
         .breadcrumb a:hover { color: var(--vsq-navy); }
-        .breadcrumb svg { width: 24px; height: 24px; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
-        .breadcrumb a.home svg { width: 31px; height: 31px; }
+        .breadcrumb svg { width: 22px; height: 22px; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+        .breadcrumb a.home svg { width: 34px; height: 34px; }
         .breadcrumb .current { color: #848484; }
 
-        .detail-container { max-width: 1242px; margin: 0 auto 60px; padding: 0; }
-        
-        /* =========================================
-           CARD UTAMA
-           ========================================= */
-        .detail-card { 
-            display: flex; 
-            border: 1px solid #848484; 
-            border-radius: 20px; 
-            overflow: hidden; 
-            background: #fff; 
-            width: 100%; 
-            height: 532px;
-            margin-bottom: 51px; 
-            position: relative; 
-        }
-        
-        .detail-image-wrapper { width: 50%; flex-shrink: 0; position: relative; background: #E2E8F0; }
+        /* ================= KONTAINER ================= */
+        .detail-container { max-width: 1328px; margin: 0 auto 80px; padding: 0; }
+
+        /* ================= CARD UTAMA ================= */
+        .detail-card { display: flex; border: 1px solid #C0C4CC; border-radius: 28px; overflow: hidden; background: #fff; width: 100%; min-height: 568px; margin-bottom: 54px; position: relative; }
+        .detail-image-wrapper { width: 50%; flex-shrink: 0; position: relative; background: #E2E8F0; min-height: 400px; }
         .detail-image { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; inset: 0; }
-        
-        .detail-content { 
-            width: 50%; 
-            padding: 24px 64px 24px 68px;
-            display: flex; 
-            flex-direction: column; 
-            position: relative; 
-        }
-        
-        .header-title { display: flex; align-items: center; gap: 18px; margin-bottom: 14px; }
-        .header-title h1 { font-size: 24px; font-weight: 600; color: #000; margin: 0; white-space: nowrap; }
-        
-        /* Badge VIP / Reguler */
-        .badge-vip, .badge-reguler { width: 115px; height: 48px; padding: 0; border-radius: 60px; font-weight: 500; font-size: 16px; color: #000; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .detail-content { flex: 1; min-width: 0; padding: 26px 64px 26px 73px; display: flex; flex-direction: column; position: relative; }
+
+        .header-title { display: flex; align-items: center; gap: 22px; margin-bottom: 12px; }
+        .header-title h1 { font-size: 27px; font-weight: 600; color: #000; margin: 0; white-space: nowrap; }
+        .badge-vip, .badge-reguler { height: 51px; min-width: 122px; padding: 0 24px; border-radius: 40px; font-weight: 500; font-size: 17px; color: #000; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .badge-vip { background: #FFD700; }
         .badge-reguler { background: #D9D9D9; }
-        
-        /* Status Tersedia */
-        .status-tersedia { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--vsq-green); font-weight: 400; position: absolute; right: 64px; top: 42px; }
-        .dot { width: 10px; height: 10px; background-color: var(--vsq-green); border-radius: 50%; }
-        
-        /* Lokasi */
-        .location { display: flex; align-items: center; gap: 6px; color: #000; font-size: 12px; font-weight: 500; margin-bottom: 22px; }
-        .location svg { width: 16px; height: 16px; fill: #131B2E; stroke: none; flex-shrink: 0; }
-        
-        /* Fasilitas */
-        .fasilitas-list { display: flex; flex-wrap: wrap; gap: 20px 14px; margin-bottom: 32px; }
-        .fasilitas-list.vertical { flex-direction: column; align-items: flex-start; gap: 24px; }
-        
-        .fasilitas-item { 
-            display: flex; 
-            align-items: center; 
-            gap: 7px; 
-            border: 1px solid #131B2E; 
-            padding: 6px 14px 6px 12px; 
-            border-radius: 20px; 
-            font-size: 14px; 
-            font-weight: 500; 
-            color: #000; 
-            background: #FFF; 
-            height: 40px; 
-        }
-        .fasilitas-item svg { width: 24px; height: 24px; min-width: 24px; flex-shrink: 0; fill: none; stroke: #111C3A; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-        
-        /* Deskripsi */
-        .deskripsi-title { font-size: 18px; font-weight: 500; color: #000; margin-bottom: 22px; }
-        .deskripsi-text { font-size: 14px; color: #000; line-height: 18px; margin-bottom: 0; text-align: justify; }
-        
-        .divider { height: 1px; background: #000; width: 100%; margin-top: auto; margin-bottom: 28px; flex-shrink: 0; }
-        
-        /* Footer Harga & Tombol */
-        .detail-footer { display: flex; align-items: center; justify-content: space-between; }
-        .harga-wrap { display: flex; align-items: baseline; gap: 6px; }
-        .harga { width: 144px; text-align: center; font-size: 24px; font-weight: 600; color: #131B2E; white-space: nowrap; }
-        .harga-unit { font-size: 18px; font-weight: 500; color: #131B2E; white-space: nowrap; }
-        
-        .btn-booking { background: #131B2E; color: white; padding: 0 16px 0 20px; border-radius: 10px; font-weight: 600; font-size: 16px; display: flex; align-items: center; gap: 10px; text-decoration: none; width: 220px; height: 59px; justify-content: space-between; transition: 0.3s; white-space: nowrap; }
-        .btn-booking:hover { background: #1a2b4c; }
-        .btn-booking svg { width: 31px !important; height: 20px !important; stroke: #FFF; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
-        /* =========================================
-           BOTTOM GRID (ATURAN & JAM)
-           ========================================= */
-        .bottom-grid-wrapper { width: 100%; display: flex; justify-content: flex-start; }
-        .bottom-grid { display: flex; align-items: flex-start; gap: 41.79px; width: 1026.21px; }
-        
-        .info-box { border: 1px solid #848484; border-radius: 18px; background: #fff; display: flex; flex-direction: column; box-sizing: border-box; position: relative; }
-        
-        .box-aturan { width: 740.21px; height: 274px; padding: 0 35px; }
-        .box-aturan .info-box-header { position: absolute; top: 32px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 600; color: #000; white-space: nowrap; }
-        .info-box-header svg { width: 36px; height: 36px; stroke: #111C3A; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-        
-        .aturan-content { margin-top: 95px; }
+        .status-tersedia { display: flex; align-items: center; gap: 7px; font-size: 16px; color: var(--vsq-green); font-weight: 400; position: absolute; right: 64px; top: 40px; }
+        .dot { width: 10px; height: 10px; background-color: var(--vsq-green); border-radius: 50%; }
+
+        .location { display: flex; align-items: center; gap: 7px; color: #000; font-size: 14px; font-weight: 500; margin-bottom: 26px; }
+        .location svg { width: 16px; height: 16px; fill: #131B2E; stroke: none; flex-shrink: 0; }
+
+        /* Fasilitas: PNG sudah berisi ikon + teks, jadi gambar ditampilkan apa adanya */
+        .fasilitas-list { display: flex; flex-wrap: wrap; gap: 22px 15px; margin-bottom: 28px; }
+        .fasilitas-list.vertical { flex-direction: column; align-items: flex-start; gap: 28px; }
+        .fasilitas-item { display: block; line-height: 0; flex-shrink: 0; }
+        .fasilitas-item img { height: 42px; width: auto; max-width: none; display: block; }
+
+        .deskripsi-title { font-size: 21px; font-weight: 500; color: #000; margin-bottom: 22px; }
+        .deskripsi-text { font-size: 15px; color: #000; line-height: 1.7; text-align: justify; }
+
+        .divider { height: 1px; background: #000; width: 100%; margin-top: auto; margin-bottom: 26px; flex-shrink: 0; }
+        .detail-content .spacer { height: 24px; flex-shrink: 0; }
+
+        .detail-footer { display: flex; align-items: center; justify-content: space-between; }
+        .harga-wrap { display: flex; align-items: baseline; gap: 8px; padding-left: 6px; }
+        .harga { font-size: 29px; font-weight: 500; color: #131B2E; white-space: nowrap; }
+        .harga-unit { font-size: 18px; font-weight: 500; color: #131B2E; white-space: nowrap; }
+        .btn-booking { background: #131B2E; color: white; padding: 0 22px; border-radius: 14px; font-weight: 500; font-size: 18px; display: flex; align-items: center; gap: 12px; text-decoration: none; height: 63px; justify-content: center; transition: 0.3s; white-space: nowrap; }
+        .btn-booking:hover { background: #1a2b4c; }
+        .btn-booking svg { width: 28px; height: 20px; stroke: #FFF; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+        /* ================= BOTTOM GRID ================= */
+        .bottom-grid { display: flex; align-items: flex-start; gap: 45px; width: 100%; }
+        .info-box { border: 1px solid #C0C4CC; border-radius: 22px; background: #fff; display: flex; flex-direction: column; position: relative; }
+        .box-aturan { width: 790px; max-width: 100%; padding: 33px 37px 30px; }
+        .box-aturan .info-box-header { display: flex; align-items: center; justify-content: center; gap: 14px; font-size: 20px; font-weight: 500; color: #000; margin-bottom: 26px; }
+        .info-box-header svg { width: 32px; height: 32px; stroke: #111C3A; stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
         .aturan-content ol { margin: 0; padding: 0; list-style-position: inside; }
-        .aturan-content li { font-size: 14px; line-height: 18px; color: #000; padding: 9px 0; }
-        
-        .box-jam { width: 244px; height: 153px; padding: 30px 22px 0; }
-        .jam-box-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; height: 24px; }
-        .jam-box-header svg { width: 24px; height: 24px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
-        .jam-box-header h5 { font-size: 18px; font-weight: 600; margin: 0; color: #000; white-space: nowrap; }
-        .jam-box-content { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; height: 20px; padding-left: 5px; }
-        .jam-box-content svg { width: 16px; height: 16px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
-        .jam-box-content .text { font-size: 14px; line-height: 20px; color: #000; font-weight: 400; }
-        .jam-box-time { font-size: 14px; line-height: 20px; font-weight: 400; color: #000; padding-left: 35px; }
+        .aturan-content li { font-size: 15px; line-height: 1.6; color: #000; padding: 9px 0; }
+
+        .box-jam { width: 260px; padding: 28px 24px 26px; flex-shrink: 0; }
+        .jam-box-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+        .jam-box-header svg { width: 28px; height: 28px; stroke: #000; stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+        .jam-box-header h5 { font-size: 20px; font-weight: 500; margin: 0; color: #000; white-space: nowrap; }
+        .jam-box-content { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding-left: 4px; }
+        .jam-box-content svg { width: 20px; height: 20px; stroke: #000; stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+        .jam-box-content .text { font-size: 15px; color: #000; font-weight: 400; }
+        .jam-box-time { font-size: 15px; font-weight: 400; color: #000; padding-left: 36px; }
 
         .img-fail { width: 100%; height: 100%; background: #D9D9D9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #131B2E; font-size: 14px; cursor: pointer; position: absolute; inset: 0; }
         .img-fail svg { width: 40px; height: 40px; stroke: #131B2E; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
-        /* SKELETON LOADING */
+        /* SKELETON */
         @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
         .skeleton-box { background: #E2E8F0; background-image: linear-gradient(to right, #E2E8F0 0%, #F1F5F9 20%, #E2E8F0 40%, #E2E8F0 100%); background-repeat: no-repeat; background-size: 1000px 100%; animation: shimmer 2s infinite linear forwards; border-radius: 8px; }
 
-        /* ===== GAGAL MEMUAT (sama dengan halaman lapangan) ===== */
+        /* ===== GAGAL MEMUAT ===== */
         .vsq-error-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; margin: 0 auto; width: 100%; min-height: calc(100vh - 106px); }
         .vsq-error-icon { margin-bottom: 28px; line-height: 0; }
         .vsq-error-icon svg { width: 80px; height: 80px; stroke: #000000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
@@ -190,17 +136,16 @@
         .vsq-error-text { font-size: 17px; font-weight: 500; color: #000000; line-height: 1.5; margin-bottom: 40px; }
         .vsq-btn-refresh { background: #131B2E; color: #FFFFFF; width: 440px; max-width: 100%; height: 46px; border-radius: 14px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; font-weight: 500; border: none; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; padding: 0; }
         .vsq-btn-refresh:hover { background: #1a2b4c; }
+        .vsq-btn-refresh:disabled { background: #6B7280; cursor: wait; }
 
-        /* Saat error, breadcrumb & detail disembunyikan (sesuai desain) */
-        body.is-error .breadcrumb,
-        body.is-error .detail-container { display: none; }
+        body.is-error .breadcrumb, body.is-error .detail-container { display: none; }
 
-        /* ===== TIDAK ADA KONEKSI (sama dengan halaman lapangan) ===== */
+        /* ===== TIDAK ADA KONEKSI ===== */
         .network-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #121B2E; z-index: 99999; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease; }
         .network-content { text-align: center; display: flex; flex-direction: column; align-items: center; padding: 20px; }
         .network-icon { line-height: 0; margin-bottom: 36px; }
         .network-icon svg { width: 220px; height: auto; display: block; fill: none; stroke: #FF2B2B; stroke-width: 26; stroke-linecap: round; stroke-linejoin: round; }
-        .network-icon svg .dot { fill: #FF2B2B; stroke: none; }
+        .network-icon svg .net-dot { fill: #FF2B2B; stroke: none; }
         .network-title { color: #FFFFFF; font-size: 48px; font-weight: 700; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 14px; }
         .network-message { color: #D9D9D9; font-size: 32px; font-weight: 300; line-height: 1.3; margin-bottom: 40px; }
         .network-btn { background-color: #FF2B2B; color: #FFFFFF; border: none; width: 186px; height: 63px; font-size: 20px; font-weight: 500; border-radius: 18px; cursor: pointer; transition: background 0.2s ease; font-family: 'Plus Jakarta Sans', sans-serif; display: flex; align-items: center; justify-content: center; padding: 0; }
@@ -208,37 +153,56 @@
 
         #slow-connection-toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #FEF3C7; color: #92400E; padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 10000; display: flex; align-items: center; gap: 8px; }
 
-        /* RESPONSIVE */
-        @media screen and (max-width: 1300px) {
-            .detail-container { padding: 0 20px; }
-        }
+        /* MODAL LOGOUT (sama dengan index.html) */
+        .vsq-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(19, 27, 46, 0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 9999; opacity: 0; transition: opacity 0.3s ease; }
+        .vsq-modal-overlay.show { display: flex; opacity: 1; }
+        .vsq-modal-box { background: #FFFFFF; width: 90%; max-width: 400px; border-radius: 16px; padding: 30px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.3s ease; }
+        .vsq-modal-overlay.show .vsq-modal-box { transform: translateY(0); }
+        .vsq-modal-icon { width: 60px; height: 60px; background: #FEE2E2; color: #EF4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+        .vsq-modal-icon svg { width: 30px; height: 30px; stroke: currentColor; stroke-width: 2; }
+        .vsq-modal-title { font-size: 20px; font-weight: 700; color: #131B2E; margin-bottom: 10px; }
+        .vsq-modal-text { font-size: 14px; color: #64748B; margin-bottom: 25px; line-height: 1.5; }
+        .vsq-modal-actions { display: flex; gap: 12px; justify-content: center; }
+        .vsq-btn-cancel { background: #FFFFFF; color: #131B2E; border: 1px solid #CBD5E1; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .vsq-btn-cancel:hover { background: #F8FAFC; border-color: #94A3B8; }
+        .vsq-btn-confirm-logout { background: #EF4444; color: #FFFFFF; border: 1px solid #EF4444; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .vsq-btn-confirm-logout:hover { background: #DC2626; border-color: #DC2626; }
+
+        /* ================= RESPONSIVE ================= */
         @media screen and (max-width: 1100px) {
-            .bottom-grid { flex-direction: column; width: 100%; align-items: center; gap: 20px; }
-            .box-aturan, .box-jam { width: 100%; max-width: 740.21px; height: auto; }
-            .box-aturan { min-height: 274px; padding: 30px 20px; }
-            .box-aturan .info-box-header { position: static; transform: none; justify-content: center; margin-bottom: 20px; }
-            .aturan-content { margin-top: 0; }
-            .box-jam { min-height: 153px; padding-bottom: 20px; }
+            .vsq-nav-menu { gap: 4px; }
+            .vsq-nav-link { font-size: 14px; padding: 12px 10px; }
+            .vsq-logo { width: 140px; }
+            .vsq-btn-login-outline, .vsq-btn-register, .vsq-btn-logout { width: 100px; height: 44px; font-size: 14px; }
+            .vsq-profile-box { min-width: 130px; height: 44px; }
+            .detail-container { padding: 0 20px; }
+            .bottom-grid { flex-direction: column; align-items: stretch; gap: 20px; }
+            .box-aturan, .box-jam { width: 100%; }
         }
         @media screen and (max-width: 900px) {
-            .breadcrumb { margin: 20px 0 15px; padding: 0 16px; font-size: 13px; gap: 8px; }
+            .breadcrumb { padding: 24px 16px 18px; font-size: 13px; gap: 8px; }
             .breadcrumb svg { width: 18px; height: 18px; }
-            .breadcrumb a.home svg { width: 22px; height: 22px; }
-            .detail-card { flex-direction: column; height: auto; margin-bottom: 30px; }
-            .detail-image-wrapper { width: 100%; height: 250px; }
+            .breadcrumb a.home svg { width: 24px; height: 24px; }
+            .detail-card { flex-direction: column; margin-bottom: 30px; border-radius: 20px; }
+            .detail-image-wrapper { width: 100%; height: 250px; min-height: 250px; }
             .detail-content { width: 100%; padding: 20px; }
-            .status-tersedia { position: static; margin-bottom: 10px; justify-content: flex-start; }
-            .header-title { flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+            .status-tersedia { position: static; margin-bottom: 10px; }
+            .header-title { flex-wrap: wrap; gap: 10px; }
+            .header-title h1 { font-size: 22px; }
+            .badge-vip, .badge-reguler { height: 38px; min-width: 0; font-size: 14px; }
+            .fasilitas-item img { height: 36px; }
             .divider { margin-top: 24px; }
             .detail-footer { flex-direction: column; align-items: stretch; gap: 16px; }
-            .harga { width: auto; text-align: left; }
-            .btn-booking { width: 100%; justify-content: center; gap: 12px; }
+            .btn-booking { width: 100%; }
         }
         @media screen and (max-width: 768px) {
             .vsq-header { height: 80px; padding: 0 16px; }
+            .vsq-logo { width: 120px; }
             .vsq-nav-menu { display: none; }
             .vsq-nav-right { gap: 8px; }
-            .vsq-profile-box { max-width: 60px; padding: 0 6px; height: 40px; justify-content: center; border-radius: 8px; }
+            .vsq-notif-btn { width: 40px; height: 40px; }
+            .vsq-notif-btn img { width: 28px; height: 28px; }
+            .vsq-profile-box { min-width: 0; max-width: 60px; padding: 0 6px; height: 40px; justify-content: center; border-radius: 8px; border-width: 1px; }
             .vsq-profile-name { display: none; }
             .vsq-profile-avatar { width: 26px; height: 26px; font-size: 11px; }
             .vsq-btn-logout, .vsq-btn-login-outline, .vsq-btn-register { padding: 0 12px; height: 40px; font-size: 12px; border-radius: 8px; width: auto; }
@@ -249,7 +213,6 @@
             .vsq-error-title { font-size: 28px; }
             .vsq-error-text { font-size: 14px; margin-bottom: 28px; }
             .vsq-btn-refresh { font-size: 18px; height: 44px; }
-
             .network-icon svg { width: 130px; }
             .network-title { font-size: 26px; }
             .network-message { font-size: 17px; margin-bottom: 28px; }
@@ -259,23 +222,24 @@
 </head>
 <body>
 
+<div id="page">
     <header id="navbar"></header>
 
     <div class="breadcrumb">
         <a href="index.html" class="home">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5L12 3l9 7.5v10a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 20.5v-10z" /><path d="M9 22v-6h6v6" /></svg>
         </a>
-        <svg viewBox="0 0 24 24" fill="none" stroke="#848484" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#848484"><polyline points="9 18 15 12 9 6"></polyline></svg>
         <a href="lapangan.html">Booking Lapangan</a>
-        <svg viewBox="0 0 24 24" fill="none" stroke="#848484" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        <span class="current" id="breadcrumb-current">Memuat...</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#848484"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        <span class="current" id="breadcrumb-current">Detail Lapangan 1</span>
     </div>
 
     <main class="detail-container">
-        <!-- CARD UTAMA -->
+        <!-- CARD UTAMA (Dengan Skeleton Loading) -->
         <div class="detail-card">
             <div class="detail-image-wrapper" id="img-wrapper">
-                <div class="skeleton-box" style="width:100%; height:100%;"></div>
+                <div class="skeleton-box" style="width:100%; height:100%; border-radius:0;"></div>
             </div>
             <div class="detail-content">
                 <div class="status-tersedia"><span class="dot"></span> Tersedia</div>
@@ -283,429 +247,439 @@
                     <h1 id="lapangan-name">Memuat...</h1>
                     <span id="lapangan-badge" class="badge-vip" style="display:none;">...</span>
                 </div>
-                
+
                 <div class="location">
                     <svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
-                    <span>Tuparev, Kota Cirebon- jawabarat</span>
+                    <span>Tuparev, Kota Cirebon, Jawa Barat</span>
                 </div>
-                
-                <div class="fasilitas-list" id="fasilitas-container">
-                    <div class="skeleton-box" style="width:100px; height:40px; border-radius:20px;"></div>
-                    <div class="skeleton-box" style="width:100px; height:40px; border-radius:20px;"></div>
-                </div>
-                
+
+                <div class="fasilitas-list" id="fasilitas-container"></div>
+
                 <div class="deskripsi-title">Deskripsi:</div>
-                <p class="deskripsi-text" id="lapangan-deskripsi">
-                    <span class="skeleton-box" style="width:100%; height:16px; margin-bottom:8px; display:block;"></span>
-                    <span class="skeleton-box" style="width:80%; height:16px; display:block;"></span>
-                </p>
-                
+                <p class="deskripsi-text" id="lapangan-deskripsi"></p>
+
+                <div class="spacer"></div>
                 <div class="divider"></div>
-                
+
                 <div class="detail-footer">
                     <div class="harga-wrap">
-                        <div class="harga" id="lapangan-harga">
-                            <div class="skeleton-box" style="width:120px; height:28px; display:inline-block;"></div>
-                        </div>
+                        <div class="harga" id="lapangan-harga"></div>
                         <span class="harga-unit">/ Jam</span>
                     </div>
                     <a href="#" id="btn-booking-link" class="btn-booking">
                         Booking Sekarang
-                        <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg>
+                        <svg viewBox="0 0 28 20"><line x1="2" y1="10" x2="25" y2="10"></line><polyline points="18 3 25 10 18 17"></polyline></svg>
                     </a>
                 </div>
             </div>
         </div>
 
-        <!-- BOTTOM GRID -->
-        <div class="bottom-grid-wrapper">
-            <div class="bottom-grid">
-                <!-- ATURAN PEMESANAN -->
-                <div class="info-box box-aturan">
-                    <div class="info-box-header">
-                        <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="18" rx="2.5"></rect><rect x="9" y="2" width="6" height="4" rx="1"></rect><line x1="8" y1="11" x2="8.01" y2="11"></line><line x1="8" y1="15" x2="8.01" y2="15"></line><line x1="8" y1="19" x2="8.01" y2="19"></line><line x1="11.5" y1="11" x2="16" y2="11"></line><line x1="11.5" y1="15" x2="16" y2="15"></line><line x1="11.5" y1="19" x2="16" y2="19"></line></svg>
-                        Aturan Pemesanan
-                    </div>
-                    <div class="aturan-content">
-                        <ol>
-                            <li>Lakukan pemesanan minimal 1 hari sebelumnya</li>
-                            <li>Pembatalan dapat dilakukan dalam H-3 jam dan akan dikenakan tarif sebesar 10% yang diberikan</li>
-                            <li>Dilarang membawa makanan dan minuman dari luar</li>
-                            <li>Jaga kebersihan dan fasilitas selama penggunaan</li>
-                        </ol>
-                    </div>
+        <!-- BOTTOM GRID (Dengan Skeleton Loading) -->
+        <div class="bottom-grid" id="bottom-grid-wrapper">
+            <div class="info-box box-aturan" id="skeleton-aturan">
+                <div class="info-box-header">
+                    <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="18" rx="2.5"></rect><rect x="9" y="2" width="6" height="4" rx="1"></rect><line x1="8" y1="11" x2="8.01" y2="11"></line><line x1="8" y1="15" x2="8.01" y2="15"></line><line x1="8" y1="19" x2="8.01" y2="19"></line><line x1="11.5" y1="11" x2="16" y2="11"></line><line x1="11.5" y1="15" x2="16" y2="15"></line><line x1="11.5" y1="19" x2="16" y2="19"></line></svg>
+                    Aturan Pemesanan
                 </div>
-                
-                <!-- JAM OPERASIONAL -->
-                <div class="info-box box-jam">
-                    <div class="jam-box-header">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                        <h5>Jam Operasional</h5>
-                    </div>
-                    <div class="jam-box-content">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                        <div class="text">Setiap hari</div>
-                    </div>
-                    <div class="jam-box-time">08:00–22:00</div>
+                <div class="aturan-content">
+                    <ol>
+                        <li>Lakukan pemesanan minimal 1 hari sebelumnya</li>
+                        <li>Pembatalan dapat dilakukan dalam H-3 jam dan akan dikenakan tarif sebesar 10% yang diberikan</li>
+                        <li>Dilarang membawa makanan dan minuman dari luar</li>
+                        <li>Jaga kebersihan dan fasilitas selama penggunaan</li>
+                    </ol>
                 </div>
+            </div>
+
+            <div class="info-box box-jam" id="skeleton-jam">
+                <div class="jam-box-header">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <h5>Jam Operasional</h5>
+                </div>
+                <div class="jam-box-content">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <div class="text">Setiap hari</div>
+                </div>
+                <div class="jam-box-time">08:00–22:00</div>
             </div>
         </div>
     </main>
+</div>
 
-    <!-- GAGAL MEMUAT -->
-    <div id="error-container" class="vsq-error-state" style="display: none;">
-        <div class="vsq-error-icon">
-            <svg viewBox="0 0 24 24">
-                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
-                <line x1="4" y1="21" x2="19" y2="3" stroke="#FFFFFF" stroke-width="5"></line>
-                <line x1="4" y1="21" x2="19" y2="3"></line>
+<!-- GAGAL MEMUAT -->
+<div id="error-container" class="vsq-error-state" style="display: none;">
+    <div class="vsq-error-icon">
+        <svg viewBox="0 0 24 24">
+            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+            <line x1="4" y1="21" x2="19" y2="3" stroke="#FFFFFF" stroke-width="5"></line>
+            <line x1="4" y1="21" x2="19" y2="3"></line>
+        </svg>
+    </div>
+    <h2 class="vsq-error-title">Gagal memuat</h2>
+    <p class="vsq-error-text">Maaf, data lapangan belum dapat dimuat. Silakan coba beberapa saat lagi</p>
+    <!-- PERBAIKAN: Tombol refresh langsung memanggil loadDetail(true) -->
+    <button class="vsq-btn-refresh" onclick="loadDetail(true)">Refresh</button>
+</div>
+
+<!-- TIDAK ADA KONEKSI -->
+<div id="network-overlay" class="network-overlay" style="display: none; opacity: 0;">
+    <div class="network-content">
+        <div class="network-icon">
+            <svg viewBox="0 0 370 320">
+                <path d="M148 39 Q263 26 356 100"/>
+                <path d="M13 100 Q43 75 78 61"/>
+                <path d="M223 121 Q268 131 303 159"/>
+                <path d="M66 158 Q98 133 138 124"/>
+                <path d="M117 219 Q148 193 188 196"/>
+                <line x1="52" y1="11" x2="316" y2="305"/>
+                <circle class="net-dot" cx="184" cy="282" r="20"/>
             </svg>
         </div>
-        <h2 class="vsq-error-title">Gagal memuat</h2>
-        <p class="vsq-error-text">Maaf, data lapangan belum dapat dimuat. Silakan coba beberapa saat lagi</p>
-        <button class="vsq-btn-refresh" onclick="loadDetail()">Refresh</button>
+        <h2 class="network-title">Tidak Ada Koneksi Internet</h2>
+        <p class="network-message">Periksa Koneksi Anda Kembali</p>
+        <button onclick="retryConnection()" class="network-btn">Coba Lagi</button>
     </div>
+</div>
 
-    <!-- TIDAK ADA KONEKSI -->
-    <div id="network-overlay" class="network-overlay" style="display: none; opacity: 0;">
-        <div class="network-content">
-            <div class="network-icon">
-                <svg viewBox="0 0 370 320">
-                    <path d="M148 39 Q263 26 356 100"/>
-                    <path d="M13 100 Q43 75 78 61"/>
-                    <path d="M223 121 Q268 131 303 159"/>
-                    <path d="M66 158 Q98 133 138 124"/>
-                    <path d="M117 219 Q148 193 188 196"/>
-                    <line x1="52" y1="11" x2="316" y2="305"/>
-                    <circle class="dot" cx="184" cy="282" r="20"/>
-                </svg>
-            </div>
-            <h2 class="network-title">Tidak Ada Koneksi Internet</h2>
-            <p class="network-message">Periksa Koneksi Anda Kembali</p>
-            <button onclick="retryConnection()" class="network-btn">Coba Lagi</button>
+<!-- MODAL LOGOUT -->
+<div class="vsq-modal-overlay" id="logoutModal">
+    <div class="vsq-modal-box">
+        <div class="vsq-modal-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg></div>
+        <h3 class="vsq-modal-title">Konfirmasi Keluar</h3>
+        <p class="vsq-modal-text">Apakah Anda yakin ingin keluar dari akun ini? Anda harus login kembali untuk melakukan booking.</p>
+        <div class="vsq-modal-actions">
+            <button class="vsq-btn-cancel" onclick="closeLogoutModal()">Batal</button>
+            <button class="vsq-btn-confirm-logout" onclick="confirmLogout()">Ya, Keluar</button>
         </div>
     </div>
+</div>
 
-    <div id="logoutModal" class="vsq-modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(19,27,46,.6); z-index:9999; align-items:center; justify-content:center;">
-        <div style="background:#FFF; padding:30px; border-radius:16px; text-align:center; max-width:400px; width:90%;">
-            <h3 style="font-size:20px; font-weight:700; color:#131B2E; margin-bottom:10px;">Konfirmasi Keluar</h3>
-            <p style="font-size:14px; color:#64748B; margin-bottom:25px;">Apakah Anda yakin ingin keluar dari akun ini?</p>
-            <div style="display:flex; gap:12px;">
-                <button onclick="closeLogoutModal()" style="flex:1; padding:12px; border-radius:8px; border:1px solid #CBD5E1; background:#FFF; cursor:pointer; font-weight:600;">Batal</button>
-                <button onclick="confirmLogout()" style="flex:1; padding:12px; border-radius:8px; border:none; background:#EF4444; color:#FFF; cursor:pointer; font-weight:600;">Ya, Keluar</button>
-            </div>
-        </div>
-    </div>
+<script>
+    /* ===== SKALA PROPORSIONAL DARI KANVAS DESAIN 1540px ===== */
+    const DESIGN_WIDTH = 1540;
+    const SCALE_MIN_WIDTH = 1100;
+    function applyScale() {
+        const page = document.getElementById('page');
+        if (!page) return;
+        page.style.zoom = 1;
+        const w = document.documentElement.clientWidth;
+        const z = (w > SCALE_MIN_WIDTH && w < DESIGN_WIDTH) ? (w / DESIGN_WIDTH) : 1;
+        page.style.zoom = z;
+    }
+    applyScale();
+    window.addEventListener('resize', applyScale);
+    window.addEventListener('load', function () { applyScale(); requestAnimationFrame(applyScale); });
 
-    <script>
-        const API_BASE = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')
-            ? 'http://localhost/vincent-arena/Backend/API' 
-            : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
-        
-        async function fetchWithTimeout(resource, options = {}) {
-            const { timeout = 8000 } = options;
-            const controller = new AbortController();
-            const id = setTimeout(() => controller.abort(), timeout);
-            try { return await fetch(resource, { ...options, signal: controller.signal }); } finally { clearTimeout(id); }
-        }
+    /* ===== API BASE ===== */
+    const API_BASE = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')
+        ? 'http://localhost/vincent-arena/Backend/API'
+        : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
 
-        // ===== NETWORK OVERLAY LOGIC =====
-        function showNetworkOverlay() { 
-            const overlay = document.getElementById('network-overlay'); 
-            if (!overlay) return; 
-            overlay.style.display = 'flex'; 
-            void overlay.offsetWidth; 
-            overlay.style.opacity = '1'; 
-        }
-        
-        function hideNetworkOverlay() { 
-            const overlay = document.getElementById('network-overlay'); 
-            if (!overlay) return; 
-            overlay.style.opacity = '0'; 
-            setTimeout(() => { overlay.style.display = 'none'; }, 300); 
-        }
-        
-        window.addEventListener('offline', () => { showNetworkOverlay(); });
-        window.addEventListener('online', () => { hideNetworkOverlay(); loadDetail(); });
-        window.addEventListener('load', () => { if (!navigator.onLine) showNetworkOverlay(); });
-        
-        function retryConnection() { 
-            if (navigator.onLine) { 
-                hideNetworkOverlay(); 
-                updateNavbar(); 
-                loadDetail();
-            } else { 
-                alert('Masih offline. Periksa koneksi internet Anda.'); 
-            } 
-        }
+    async function fetchWithTimeout(resource, options = {}) {
+        const { timeout = 8000 } = options;
+        const controller = new AbortController();
+        const id = setTimeout(() => controller.abort(), timeout);
+        try { return await fetch(resource, { ...options, signal: controller.signal }); } finally { clearTimeout(id); }
+    }
 
-        // ===== BREADCRUMB (guest = "Detail Lapangan N", login = "Lapangan Futsal N") =====
-        let currentLapangan = { id: '1', nama: '' };
-        let isLoggedInView = false;
+    /* ===== NETWORK OVERLAY ===== */
+    function showNetworkOverlay() {
+        const overlay = document.getElementById('network-overlay');
+        if (!overlay) return;
+        overlay.style.display = 'flex';
+        void overlay.offsetWidth;
+        overlay.style.opacity = '1';
+    }
+    function hideNetworkOverlay() {
+        const overlay = document.getElementById('network-overlay');
+        if (!overlay) return;
+        overlay.style.opacity = '0';
+        setTimeout(() => { overlay.style.display = 'none'; }, 300);
+    }
+    window.addEventListener('offline', () => { showNetworkOverlay(); });
+    window.addEventListener('online', () => { hideNetworkOverlay(); loadDetail(); });
+    window.addEventListener('load', () => { if (!navigator.onLine) showNetworkOverlay(); });
 
-        function updateBreadcrumb() {
-            const el = document.getElementById('breadcrumb-current');
-            if (!el || !currentLapangan.nama) return;
-            el.innerText = isLoggedInView ? currentLapangan.nama : 'Detail Lapangan ' + currentLapangan.id;
-        }
-
-        // ===== AUTH & NAVBAR =====
-        const USER_KEYS = ['vsq_user', 'user', 'userData', 'user_data', 'currentUser'];
-        function getCachedUser() { for (const key of USER_KEYS) { try { const raw = localStorage.getItem(key); if (!raw) continue; const parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') return parsed; } catch (e) {} } return null; }
-        function normalizeUser(u) { if (!u) return null; const nama = u.nama || u.name || u.nama_lengkap || u.username || 'User'; return { nama: nama, email: u.email || '-', whatsapp: u.whatsapp || u.no_wa || u.no_hp || '-', foto_url: u.foto_url || u.foto || u.foto_profil || u.avatar || '', initial: u.initial || nama.charAt(0).toUpperCase() }; }
-
-        function renderNavbar(user) {
-            const navbarEl = document.getElementById('navbar');
-            let rightNavHTML = '';
-            
-            const path = window.location.pathname;
-            let isBeranda = path.includes('index.html') || path === '/' ? 'active' : '';
-            let isLapangan = path.includes('lapangan.html') || path.includes('detail_lapangan.html') || path.includes('booking_lapangan.html') ? 'active' : '';
-            let isRiwayat = path.includes('riwayat.html') ? 'active' : '';
-            let isMakanan = path.includes('makanan.html') ? 'active' : '';
-
-            if (user) {
-                const firstName = user.nama.split(' ')[0];
-                const avatarContent = user.foto_url ? `<img src="${user.foto_url}" alt="${user.nama}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.outerHTML='${user.initial}'">` : user.initial;
-                rightNavHTML = `
-                    <button class="vsq-notif-btn" aria-label="Notifikasi"><img src="assets/images/notifikasi.png" alt="Notifikasi"></button>
-                    <div class="vsq-profile-box" id="profileToggle"><span class="vsq-profile-name">Hai ${firstName}</span><div class="vsq-profile-avatar">${avatarContent}</div></div>
-                    <button class="vsq-btn-logout" onclick="logout()">Logout</button>
-                    <div class="vsq-profile-dropdown" id="profileDropdown">
-                        <div class="vsq-dd-header"><div class="vsq-dd-avatar">${avatarContent}</div><div class="vsq-dd-info"><h4>${user.nama}</h4><div class="vsq-badge-verified"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Terverifikasi</div></div></div>
-                        <div class="vsq-dd-body"><div class="vsq-dd-item"><span class="value">${user.email}</span></div><div class="vsq-dd-item"><span class="value">${user.whatsapp}</span></div></div>
-                        <div class="vsq-dd-divider"></div>
-                        <div class="vsq-dd-footer"><a href="profil_user.html" class="vsq-btn-edit-profile">Edit Profil</a><button class="vsq-btn-logout-dropdown" onclick="logout()">Keluar</button></div>
-                    </div>
-                `;
-            } else {
-                rightNavHTML = `<a href="login.html" class="vsq-btn-login-outline">Login</a><a href="register.html" class="vsq-btn-register">Register</a>`;
-            }
-
-            navbarEl.innerHTML = `
-            <div class="vsq-header">
-                <div class="vsq-nav-left">
-                    <a href="index.html" class="vsq-logo"><span class="vsq-logo-title">Vincent'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span></a>
-                    <nav class="vsq-nav-menu">
-                        <a href="index.html" class="vsq-nav-link ${isBeranda}">Beranda</a>
-                        <a href="lapangan.html" class="vsq-nav-link ${isLapangan}">Booking Lapangan</a>
-                        <a href="riwayat.html" class="vsq-nav-link ${isRiwayat}">Riwayat Booking</a>
-                        <a href="makanan.html" class="vsq-nav-link ${isMakanan}">Makanan Minuman</a>
-                    </nav>
-                </div>
-                <div class="vsq-nav-right">${rightNavHTML}</div>
-            </div>`;
-
-            isLoggedInView = !!user;
-            updateBreadcrumb();
-
-            const pt = document.getElementById('profileToggle'), pd = document.getElementById('profileDropdown');
-            if (pt && pd) { pt.addEventListener('click', e => { e.stopPropagation(); pd.classList.toggle('show'); }); document.addEventListener('click', e => { if (!pd.contains(e.target) && !pt.contains(e.target)) pd.classList.remove('show'); }); }
-        }
-
-        async function updateNavbar() {
-            const localUser = getCachedUser();
-            if (localUser) {
-                renderNavbar(normalizeUser(localUser));
-            }
-
-            try {
-                const response = await fetchWithTimeout(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' } });
-                const result = await response.json();
-                const loggedIn = (result.data && result.data.logged_in) || result.logged_in;
-                const serverUser = (result.data && result.data.user) || result.user;
-                
-                if (loggedIn && serverUser) { 
-                    localStorage.setItem('vsq_user', JSON.stringify(serverUser)); 
-                    renderNavbar(normalizeUser(serverUser)); 
-                } else {
-                    if (!localUser) {
-                        renderNavbar(null);
-                    }
-                }
-            } catch (error) { 
-                console.log('Catatan: API tidak dapat dihubungi, menggunakan data sesi lokal.'); 
-                if (!localUser) renderNavbar(null);
-            }
-        }
-
-        function logout() { document.getElementById('logoutModal').style.display = 'flex'; }
-        function closeLogoutModal() { document.getElementById('logoutModal').style.display = 'none'; }
-        async function confirmLogout() {
-            try { await fetch(API_BASE + '/auth/logout.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ type: 'user' }) }); } catch (error) {}
-            localStorage.clear(); window.location.href = 'login.html';
-        }
-
-        // ===== DETAIL LAPANGAN & SKELETON LOGIC =====
-        let slowTimer;
-
-        function showSkeleton(id) {
-            document.body.classList.remove('is-error');
-            document.getElementById('error-container').style.display = 'none';
-
-            const imgWrapper = document.getElementById('img-wrapper');
-            imgWrapper.innerHTML = `<div class="skeleton-box" style="width:100%; height:100%;"></div>`;
-            
-            document.getElementById('lapangan-name').innerText = 'Memuat...';
-            document.getElementById('lapangan-badge').style.display = 'none';
-            
-            let skeletonFasilitas = `
-                <div class="skeleton-box" style="width:100px; height:40px; border-radius:20px;"></div>
-                <div class="skeleton-box" style="width:100px; height:40px; border-radius:20px;"></div>
-            `;
-            
-            const container = document.getElementById('fasilitas-container');
-            container.className = 'fasilitas-list'; 
-            if (id === '2') container.classList.add('vertical');
-            
-            container.innerHTML = skeletonFasilitas;
-            
-            document.getElementById('lapangan-deskripsi').innerHTML = `<div class="skeleton-box" style="width:100%; height:16px; margin-bottom:8px;"></div><div class="skeleton-box" style="width:80%; height:16px;"></div>`;
-            document.getElementById('lapangan-harga').innerHTML = `<div class="skeleton-box" style="width:120px; height:28px; display:inline-block;"></div>`;
-            
-            clearTimeout(slowTimer);
-            slowTimer = setTimeout(() => { showSlowConnectionWarning(); }, 2000);
-        }
-
-        function hideSkeleton() {
-            clearTimeout(slowTimer);
-            hideSlowConnectionWarning();
-        }
-
-        function showError() {
-            clearTimeout(slowTimer);
-            hideSlowConnectionWarning();
-            document.body.classList.add('is-error');
-            document.getElementById('error-container').style.display = 'flex';
-        }
-
-        function showSlowConnectionWarning() {
-            if(document.getElementById('slow-connection-toast')) return;
-            const toast = document.createElement('div');
-            toast.id = 'slow-connection-toast';
-            toast.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> Koneksi Internet Lambat...`;
-            document.body.appendChild(toast);
-        }
-
-        function hideSlowConnectionWarning() {
-            const existing = document.getElementById('slow-connection-toast');
-            if (existing) existing.remove();
-        }
-
-        const REFRESH_SVG = '<svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>';
-        function imgFail(img) {
-            const src = img.getAttribute('src');
-            const box = document.createElement('div');
-            box.className = 'img-fail';
-            box.title = 'Klik untuk coba lagi';
-            box.innerHTML = REFRESH_SVG + '<span>Gagal Muat</span>';
-            box.onclick = () => {
-                const retry = new Image();
-                retry.className = 'detail-image';
-                retry.alt = img.alt;
-                retry.onerror = () => imgFail(retry);
-                retry.src = src.split('?')[0] + '?r=' + Date.now();
-                box.replaceWith(retry);
-            };
-            img.replaceWith(box);
-        }
-
-        // Ikon fasilitas (SVG) - sama untuk Lapangan 1 dan 2
-        const svgIcons = {
-            'Indoor': '<svg viewBox="0 0 24 24"><path d="M22 8.35V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.35A2 2 0 0 1 3.26 6.5l8-3.2a2 2 0 0 1 1.48 0l8 3.2A2 2 0 0 1 22 8.35Z"/><path d="M6 18h12"/><path d="M6 14h12"/><rect x="6" y="10" width="12" height="12"/></svg>',
-            'Area Luas': '<svg viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></svg>',
-            'Area Penonton': '<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
-            'Sirkulasi udara': '<svg viewBox="0 0 24 24"><path d="M12.8 19.6A2 2 0 1 0 14 16H2"/><path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"/><path d="M9.8 4.4A2 2 0 1 1 11 8H2"/></svg>'
-        };
-
-        /* Deteksi koneksi lambat (Slow/Fast 3G di DevTools terbaca '2g' atau '3g') */
-        function isSlowConnection() {
-            const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-            return !!c && ['slow-2g', '2g', '3g'].includes(c.effectiveType);
-        }
-
-        async function loadDetail() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = ['1','2'].includes(urlParams.get('id')) ? urlParams.get('id') : '1';
-
-            showSkeleton(id); 
-            
-            const data = {
-                '1': { nama: 'Lapangan Futsal 1', badge: 'VIP', badgeClass: 'badge-vip', harga: 100000, img: 'assets/uploads/lapangan/Lapangan1.jpeg', desc: 'Lapangan futsal 1 adalah lapangan yang berkategorikan VIP dengan permukaan Vinyl dengan kualitas premium yang memberikan kenyamanan dan Keamanan saat bermain lapangan ini cocok untuk berbagai kebutuhan mulai dari latihan rutin sampai turnamen pertandingan antar tim hingga profesional', fasilitas: ['Indoor', 'Area Luas', 'Area Penonton', 'Sirkulasi udara'] },
-                '2': { nama: 'Lapangan Futsal 2', badge: 'Reguler', badgeClass: 'badge-reguler', harga: 90000, img: 'assets/uploads/lapangan/Lapangan2.jpeg', desc: 'Lapangan futsal 2 adalah lapangan yang berkategorikan Reguler dengan permukaan Vinyl dengan kualitas standar yang memberikan kesan kenyamanan dan Fun, cocok digunakan untuk berlatih, dan bermain funmatch dengan rekan', fasilitas: ['Indoor', 'Area Luas'] }
-            };
-            
-            try {
-                // Offline -> layar "Tidak Ada Koneksi Internet"
-                if (!navigator.onLine) throw new TypeError('Failed to fetch');
-
-                // 3G / lambat -> langsung "Gagal memuat", tanpa menunggu 8 detik
-                if (isSlowConnection()) {
-                    showError();
-                    return;
-                }
-
-                // Request sungguhan, jadi terpengaruh throttling DevTools
-                const response = await fetchWithTimeout(
-                    API_BASE + '/auth/check.php?_=' + Date.now(),
-                    { credentials: 'include', headers: { 'Accept': 'application/json' }, cache: 'no-store' }
-                );
-                if (response.status >= 500) throw new Error('Server error ' + response.status);
-                
-                const info = data[id];
-                hideSkeleton();
-
-                currentLapangan = { id: id, nama: info.nama };
-                updateBreadcrumb();
-
-                document.getElementById('lapangan-name').innerText = info.nama;
-                document.getElementById('lapangan-deskripsi').innerText = info.desc;
-                
-                const imgWrapper = document.getElementById('img-wrapper');
-                imgWrapper.innerHTML = `<img id="lapangan-image" class="detail-image" src="${info.img}" alt="${info.nama}" onerror="imgFail(this)">`;
-                
-                const b = document.getElementById('lapangan-badge'); 
-                b.innerText = info.badge; 
-                b.className = info.badgeClass;
-                b.style.display = 'inline-flex';
-
-                document.getElementById('lapangan-harga').innerHTML = `Rp${info.harga.toLocaleString('id-ID')}`;
-
-                const fasContainer = document.getElementById('fasilitas-container');
-                fasContainer.innerHTML = '';
-                info.fasilitas.forEach(item => {
-                    fasContainer.innerHTML += `<div class="fasilitas-item">${svgIcons[item] || ''} ${item}</div>`;
-                });
-
-                if (id === '2') {
-                    fasContainer.classList.add('vertical');
-                } else {
-                    fasContainer.classList.remove('vertical');
-                }
-
-                document.getElementById('btn-booking-link').href = `booking_lapangan.html?id=${id}`;
-
-            } catch (error) {
-                if (error.name === 'TypeError' && !navigator.onLine) {
-                    hideSkeleton();
-                    showNetworkOverlay();
-                } else {
-                    showError();
-                }
-            }
-        }
-
-        /* Saat pilihan throttling di DevTools diganti, langsung muat ulang */
-        if (navigator.connection) {
-            navigator.connection.addEventListener('change', () => {
-                if (navigator.onLine) loadDetail();
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
+    function retryConnection() {
+        if (navigator.onLine) {
+            hideNetworkOverlay();
             updateNavbar();
             loadDetail();
-        });
-    </script>
+        } else {
+            alert('Masih offline. Periksa koneksi internet Anda.');
+        }
+    }
+
+    /* ===== AUTH & NAVBAR ===== */
+    const USER_KEYS = ['vsq_user', 'user', 'userData', 'user_data', 'currentUser'];
+    function getCachedUser() { for (const key of USER_KEYS) { try { const raw = localStorage.getItem(key); if (!raw) continue; const parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') return parsed; } catch (e) {} } return null; }
+    function normalizeUser(u) { if (!u) return null; const nama = u.nama || u.name || u.nama_lengkap || u.username || 'User'; return { nama: nama, email: u.email || '-', whatsapp: u.whatsapp || u.no_wa || u.no_hp || '-', foto_url: u.foto_url || u.foto || u.foto_profil || u.avatar || '', initial: u.initial || nama.charAt(0).toUpperCase() }; }
+
+    function logoFallback(img) {
+        const wrap = document.createElement('span');
+        wrap.className = 'vsq-logo-fallback';
+        wrap.innerHTML = '<span class="vsq-logo-title">Vincent\'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span>';
+        img.replaceWith(wrap);
+    }
+
+    function renderNavbar(user) {
+        const navbarEl = document.getElementById('navbar');
+        let rightNavHTML = '';
+        if (user) {
+            const firstName = user.nama.split(' ')[0];
+            const avatarContent = user.foto_url ? `<img src="${user.foto_url}" alt="${user.nama}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.outerHTML='${user.initial}'">` : user.initial;
+            rightNavHTML = `
+                <button class="vsq-notif-btn" aria-label="Notifikasi"><img src="assets/images/notifikasi.png" alt="Notifikasi"></button>
+                <div class="vsq-profile-box" id="profileToggle"><span class="vsq-profile-name">Hai ${firstName}</span><div class="vsq-profile-avatar">${avatarContent}</div></div>
+                <button class="vsq-btn-logout" onclick="logout()">Logout</button>
+                <div class="vsq-profile-dropdown" id="profileDropdown">
+                    <div class="vsq-dd-header"><div class="vsq-dd-avatar">${avatarContent}</div><div class="vsq-dd-info"><h4>${user.nama}</h4><div class="vsq-badge-verified"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Terverifikasi</div></div></div>
+                    <div class="vsq-dd-body"><div class="vsq-dd-item"><span class="value">${user.email}</span></div><div class="vsq-dd-item"><span class="value">${user.whatsapp}</span></div></div>
+                    <div class="vsq-dd-divider"></div>
+                    <div class="vsq-dd-footer"><a href="profil_user.html" class="vsq-btn-edit-profile">Edit Profil</a><button class="vsq-btn-logout-dropdown" onclick="logout()">Keluar</button></div>
+                </div>
+            `;
+        } else {
+            rightNavHTML = `<a href="login.html" class="vsq-btn-login-outline">Login</a><a href="register.html" class="vsq-btn-register">Register</a>`;
+        }
+        navbarEl.innerHTML = `
+        <div class="vsq-header">
+            <div class="vsq-nav-left">
+                <a href="index.html" class="vsq-logo"><img src="assets/images/logo.png" class="vsq-logo-img" alt="Vincent'SQ Sports Arena" onerror="logoFallback(this)"></a>
+                <nav class="vsq-nav-menu"><a href="index.html" class="vsq-nav-link">Beranda</a><a href="lapangan.html" class="vsq-nav-link active">Booking Lapangan</a><a href="riwayat.html" class="vsq-nav-link">Riwayat Booking</a><a href="makanan.html" class="vsq-nav-link">Makanan Minuman</a></nav>
+            </div>
+            <div class="vsq-nav-right">${rightNavHTML}</div>
+        </div>`;
+        const pt = document.getElementById('profileToggle'), pd = document.getElementById('profileDropdown');
+        if (pt && pd) { pt.addEventListener('click', e => { e.stopPropagation(); pd.classList.toggle('show'); }); document.addEventListener('click', e => { if (!pd.contains(e.target) && !pt.contains(e.target)) pd.classList.remove('show'); }); }
+    }
+
+    async function updateNavbar() {
+        renderNavbar(normalizeUser(getCachedUser()));
+        try {
+            const response = await fetchWithTimeout(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' } });
+            const result = await response.json();
+            const loggedIn = (result.data && result.data.logged_in) || result.logged_in;
+            const serverUser = (result.data && result.data.user) || result.user;
+            if (loggedIn && serverUser) { localStorage.setItem('vsq_user', JSON.stringify(serverUser)); renderNavbar(normalizeUser(serverUser)); }
+        } catch (error) { console.log('Catatan: Menggunakan data sesi lokal.'); }
+    }
+
+    function logout() { document.getElementById('logoutModal').classList.add('show'); }
+    function closeLogoutModal() { document.getElementById('logoutModal').classList.remove('show'); }
+    async function confirmLogout() {
+        try { await fetch(API_BASE + '/auth/logout.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ type: 'user' }) }); } catch (error) {}
+        localStorage.clear(); window.location.href = 'login.html';
+    }
+    document.getElementById('logoutModal').addEventListener('click', function(e) { if (e.target === this) closeLogoutModal(); });
+
+    /* ===== SKELETON & STATE ===== */
+    let slowTimer;
+
+    function showSkeleton(id) {
+        document.body.classList.remove('is-error');
+        document.getElementById('error-container').style.display = 'none';
+
+        // Skeleton untuk Card Utama
+        document.getElementById('img-wrapper').innerHTML = `<div class="skeleton-box" style="width:100%; height:100%; border-radius:0;"></div>`;
+        document.getElementById('lapangan-name').innerHTML = `<div class="skeleton-box" style="width: 250px; height: 32px;"></div>`;
+        document.getElementById('lapangan-badge').style.display = 'none';
+        document.getElementById('lapangan-deskripsi').innerHTML = `
+            <div class="skeleton-box" style="width: 100%; height: 16px; margin-bottom: 12px;"></div>
+            <div class="skeleton-box" style="width: 90%; height: 16px; margin-bottom: 12px;"></div>
+            <div class="skeleton-box" style="width: 75%; height: 16px;"></div>
+        `;
+
+        const container = document.getElementById('fasilitas-container');
+        container.className = 'fasilitas-list';
+        if (id === '2') container.classList.add('vertical');
+        container.innerHTML = `
+            <div class="skeleton-box" style="width: 130px; height: 42px; border-radius: 30px;"></div>
+            <div class="skeleton-box" style="width: 160px; height: 42px; border-radius: 30px;"></div>
+            <div class="skeleton-box" style="width: 140px; height: 42px; border-radius: 30px;"></div>
+            <div class="skeleton-box" style="width: 150px; height: 42px; border-radius: 30px;"></div>
+        `;
+
+        document.getElementById('lapangan-harga').innerHTML = `<div class="skeleton-box" style="width: 180px; height: 32px;"></div>`;
+
+        // Skeleton untuk Bottom Grid (Aturan & Jam)
+        document.getElementById('skeleton-aturan').innerHTML = `
+            <div style="display: flex; justify-content: center; margin-bottom: 26px;">
+                <div class="skeleton-box" style="width: 200px; height: 32px;"></div>
+            </div>
+            <div class="skeleton-box" style="width: 90%; height: 16px; margin-bottom: 16px;"></div>
+            <div class="skeleton-box" style="width: 95%; height: 16px; margin-bottom: 16px;"></div>
+            <div class="skeleton-box" style="width: 85%; height: 16px; margin-bottom: 16px;"></div>
+            <div class="skeleton-box" style="width: 70%; height: 16px;"></div>
+        `;
+
+        document.getElementById('skeleton-jam').innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                <div class="skeleton-box" style="width: 28px; height: 28px; border-radius: 50%;"></div>
+                <div class="skeleton-box" style="width: 150px; height: 24px;"></div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding-left: 4px;">
+                <div class="skeleton-box" style="width: 20px; height: 20px; border-radius: 50%;"></div>
+                <div class="skeleton-box" style="width: 80px; height: 16px;"></div>
+            </div>
+            <div class="skeleton-box" style="width: 100px; height: 16px; margin-left: 36px;"></div>
+        `;
+
+        clearTimeout(slowTimer);
+        slowTimer = setTimeout(() => { showSlowConnectionWarning(); }, 2000);
+    }
+
+    function hideSkeleton() { clearTimeout(slowTimer); hideSlowConnectionWarning(); }
+
+    function showError() {
+        clearTimeout(slowTimer);
+        hideSlowConnectionWarning();
+        document.body.classList.add('is-error');
+        document.getElementById('error-container').style.display = 'flex';
+    }
+
+    function showSlowConnectionWarning() {
+        if (document.getElementById('slow-connection-toast')) return;
+        const toast = document.createElement('div');
+        toast.id = 'slow-connection-toast';
+        toast.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> Koneksi Internet Lambat...`;
+        document.body.appendChild(toast);
+    }
+    function hideSlowConnectionWarning() {
+        const existing = document.getElementById('slow-connection-toast');
+        if (existing) existing.remove();
+    }
+
+    const REFRESH_SVG = '<svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>';
+    function imgFail(img) {
+        const src = img.getAttribute('src');
+        const box = document.createElement('div');
+        box.className = 'img-fail';
+        box.title = 'Klik untuk coba lagi';
+        box.innerHTML = REFRESH_SVG + '<span>Gagal Muat</span>';
+        box.onclick = () => {
+            const retry = new Image();
+            retry.className = 'detail-image';
+            retry.alt = img.alt;
+            retry.onerror = () => imgFail(retry);
+            retry.src = src.split('?')[0] + '?r=' + Date.now();
+            box.replaceWith(retry);
+        };
+        img.replaceWith(box);
+    }
+
+    /* ===== FASILITAS: PNG ===== */
+    const FAS_ICONS = {
+        'Indoor': 'assets/images/icon-indoor.png',
+        'Sirkulasi udara': 'assets/images/icon-sirkulasi-udara.png',
+        'Area Luas': 'assets/images/icon-area-luas.png',
+        'Area Penonton': 'assets/images/icon-area-penonton.png'
+    };
+
+    function fasItem(label) {
+        return `<div class="fasilitas-item"><img src="${FAS_ICONS[label]}" alt="${label}"></div>`;
+    }
+
+    function isSlowConnection() {
+        const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        return !!c && ['slow-2g', '2g', '3g'].includes(c.effectiveType);
+    }
+
+    /* ===== LOAD DETAIL ===== */
+    async function loadDetail(isRefresh = false) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = ['1', '2'].includes(urlParams.get('id')) ? urlParams.get('id') : '1';
+
+        showSkeleton(id);
+        document.getElementById('breadcrumb-current').innerText = 'Detail Lapangan ' + id;
+
+        // Jika tombol Refresh diklik, kita abaikan deteksi koneksi lambat sementara
+        // agar bisa memaksa muat ulang data.
+        if (!isRefresh && isSlowConnection()) { 
+            showError(); 
+            return; 
+        }
+
+        const data = {
+            '1': { nama: 'Lapangan Futsal 1', badge: 'VIP', badgeClass: 'badge-vip', harga: 100000, img: 'assets/uploads/lapangan/Lapangan1.jpeg', desc: 'Lapangan futsal 1 adalah lapangan yang berkategorikan VIP dengan permukaan Vinyl dengan kualitas premium yang memberikan kenyamanan dan Keamanan saat bermain lapangan ini cocok untuk berbagai kebutuhan mulai dari latihan rutin sampai turnamen pertandingan antar tim hingga profesional', fasilitas: ['Indoor', 'Area Luas', 'Area Penonton', 'Sirkulasi udara'] },
+            '2': { nama: 'Lapangan Futsal 2', badge: 'Reguler', badgeClass: 'badge-reguler', harga: 90000, img: 'assets/uploads/lapangan/Lapangan2.jpeg', desc: 'Lapangan futsal 2 adalah lapangan yang berkategorikan Reguler dengan permukaan Vinyl dengan kualitas standar yang memberikan kesan kenyamanan dan Fun, cocok digunakan untuk berlatih, dan bermain funmatch dengan rekan', fasilitas: ['Indoor', 'Area Luas'] }
+        };
+
+        try {
+            if (!navigator.onLine) throw new TypeError('Failed to fetch');
+
+            const response = await fetchWithTimeout(
+                API_BASE + '/auth/check.php?_=' + Date.now(),
+                { credentials: 'include', headers: { 'Accept': 'application/json' }, cache: 'no-store' }
+            );
+            if (response.status >= 500) throw new Error('Server error ' + response.status);
+
+            const info = data[id];
+            hideSkeleton();
+
+            document.getElementById('lapangan-name').innerText = info.nama;
+            document.getElementById('lapangan-deskripsi').innerText = info.desc;
+            document.getElementById('img-wrapper').innerHTML = `<img id="lapangan-image" class="detail-image" src="${info.img}" alt="${info.nama}" onerror="imgFail(this)">`;
+
+            const b = document.getElementById('lapangan-badge');
+            b.innerText = info.badge;
+            b.className = info.badgeClass;
+            b.style.display = 'inline-flex';
+
+            document.getElementById('lapangan-harga').innerHTML = `Rp${info.harga.toLocaleString('id-ID')}`;
+
+            const fasContainer = document.getElementById('fasilitas-container');
+            fasContainer.className = 'fasilitas-list' + (id === '2' ? ' vertical' : '');
+            fasContainer.innerHTML = info.fasilitas.map(f => fasItem(f)).join('');
+
+            document.getElementById('btn-booking-link').href = `booking_lapangan.html?id=${id}`;
+
+            // Kembalikan konten asli untuk bottom grid
+            document.getElementById('skeleton-aturan').innerHTML = `
+                <div class="info-box-header">
+                    <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="18" rx="2.5"></rect><rect x="9" y="2" width="6" height="4" rx="1"></rect><line x1="8" y1="11" x2="8.01" y2="11"></line><line x1="8" y1="15" x2="8.01" y2="15"></line><line x1="8" y1="19" x2="8.01" y2="19"></line><line x1="11.5" y1="11" x2="16" y2="11"></line><line x1="11.5" y1="15" x2="16" y2="15"></line><line x1="11.5" y1="19" x2="16" y2="19"></line></svg>
+                    Aturan Pemesanan
+                </div>
+                <div class="aturan-content">
+                    <ol>
+                        <li>Lakukan pemesanan minimal 1 hari sebelumnya</li>
+                        <li>Pembatalan dapat dilakukan dalam H-3 jam dan akan dikenakan tarif sebesar 10% yang diberikan</li>
+                        <li>Dilarang membawa makanan dan minuman dari luar</li>
+                        <li>Jaga kebersihan dan fasilitas selama penggunaan</li>
+                    </ol>
+                </div>
+            `;
+
+            document.getElementById('skeleton-jam').innerHTML = `
+                <div class="jam-box-header">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <h5>Jam Operasional</h5>
+                </div>
+                <div class="jam-box-content">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <div class="text">Setiap hari</div>
+                </div>
+                <div class="jam-box-time">08:00–22:00</div>
+            `;
+
+        } catch (error) {
+            if (error.name === 'TypeError' && !navigator.onLine) {
+                hideSkeleton();
+                showNetworkOverlay();
+            } else {
+                showError();
+            }
+        }
+    }
+
+    if (navigator.connection) {
+        navigator.connection.addEventListener('change', () => { if (navigator.onLine) loadDetail(); });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        updateNavbar();
+        loadDetail();
+    });
+</script>
 </body>
 </html>

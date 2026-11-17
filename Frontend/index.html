@@ -23,7 +23,6 @@
         .vsq-logo-sub { font-size: 13px; font-weight: 800; color: #FF0000; line-height: 1.2; letter-spacing: 0.5px; margin-top: 2px; }
         .vsq-nav-menu { display: flex; align-items: center; gap: 32px; }
         .vsq-nav-link { font-size: 16px; font-weight: 500; line-height: 21px; color: #000000; text-decoration: none; white-space: nowrap; padding: 16px 19px; border-radius: 14px; }
-        /* Hover tidak mengubah warna (tetap konsisten) */
         .vsq-nav-link:hover { color: #000000; }
         .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; display: flex; align-items: center; justify-content: center; }
         .vsq-nav-link.active:hover { color: #FFFFFF; }
@@ -176,7 +175,7 @@
         .vsq-btn-confirm-logout { background: #EF4444; color: #FFFFFF; border: 1px solid #EF4444; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
         .vsq-btn-confirm-logout:hover { background: #DC2626; border-color: #DC2626; }
 
-        /* NETWORK OVERLAY */
+        /* NETWORK OVERLAY (offline - desain lama) */
         .network-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #1A2235; z-index: 99999; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease; }
         .network-content { text-align: center; display: flex; flex-direction: column; align-items: center; padding: 20px; }
         .network-icon svg { width: 120px; height: 120px; stroke: #FF3B30; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 30px; }
@@ -192,6 +191,19 @@
         /* Tampilkan skeleton saat loading, konten asli saat selesai */
         body.is-loading #real-content { display: none; }
         body:not(.is-loading) #skeleton-page { display: none; }
+
+        /* ================= TAMPILAN GAGAL MEMUAT (jaringan lambat / 3G) ================= */
+        #load-error { display: none; min-height: calc(100vh - 94px); padding: 40px 24px 120px; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: #FFFFFF; }
+        body.has-error #load-error { display: flex; }
+        body.has-error #real-content,
+        body.has-error #skeleton-page { display: none; }
+
+        .load-error-icon { width: 98px; height: 98px; stroke: #000; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 38px; }
+        .load-error-title { font-size: 56px; line-height: 64px; font-weight: 700; color: #000; letter-spacing: -1px; margin-bottom: 42px; }
+        .load-error-text { font-size: 21px; line-height: 30px; font-weight: 400; color: #000; margin-bottom: 60px; }
+        .load-error-btn { width: 100%; max-width: 556px; height: 58px; background: var(--vsq-navy); color: #FFF; border: none; border-radius: 16px; font-family: inherit; font-size: 30px; font-weight: 500; cursor: pointer; transition: background 0.2s, opacity 0.2s; }
+        .load-error-btn:hover { background: #1d2a47; }
+        .load-error-btn:disabled { opacity: .7; cursor: wait; }
 
         /* Hero skeleton */
         .sk-hero { width: 100%; height: 543px; background: #F1F3F7; overflow: hidden; }
@@ -369,6 +381,13 @@
             .sk-footer-content { padding: 0 24px; }
             .sk-f-bottom { padding: 0 24px; margin-top: 40px; }
 
+            /* gagal memuat mobile */
+            #load-error { min-height: calc(100vh - 80px); padding: 40px 20px 80px; }
+            .load-error-icon { width: 72px; height: 72px; margin-bottom: 24px; }
+            .load-error-title { font-size: 32px; line-height: 40px; margin-bottom: 20px; }
+            .load-error-text { font-size: 15px; line-height: 22px; margin-bottom: 32px; }
+            .load-error-btn { height: 50px; font-size: 20px; border-radius: 12px; }
+
             .network-icon svg { width: 80px; height: 80px; margin-bottom: 20px; }
             .network-title { font-size: 24px; }
             .network-message { font-size: 15px; }
@@ -506,6 +525,20 @@
             <div class="sk-f-bottom"><div class="skeleton-box sk-f-copy"></div></div>
         </footer>
     </div>
+
+    <!-- ================================================================
+         TAMPILAN GAGAL MEMUAT (jaringan lambat / 3G / API gagal)
+         ================================================================ -->
+    <section id="load-error" role="alert">
+        <svg class="load-error-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m2 2 20 20"/>
+            <path d="M5.782 5.782A7 7 0 0 0 9 19h8.5a4.5 4.5 0 0 0 1.307-.193"/>
+            <path d="M21.532 16.5A4.5 4.5 0 0 0 17.5 10h-1.79A7.008 7.008 0 0 0 10 5.07"/>
+        </svg>
+        <h2 class="load-error-title">Gagal memuat</h2>
+        <p class="load-error-text">Maaf, beranda belum dapat dimuat. Silakan coba beberapa saat lagi</p>
+        <button type="button" class="load-error-btn" id="loadErrorBtn" onclick="retryLoad()">Refresh</button>
+    </section>
 
     <!-- ================================================================
          KONTEN ASLI (tampil setelah loading selesai)
@@ -659,7 +692,7 @@
 
 </div><!-- /#page -->
 
-    <!-- OVERLAY OFFLINE -->
+    <!-- OVERLAY OFFLINE (desain lama) -->
     <div id="network-overlay" class="network-overlay" style="display: none; opacity: 0;">
         <div class="network-content">
             <div class="network-icon">
@@ -709,14 +742,44 @@
         const API_BASE = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')
             ? 'http://localhost/vincent-arena/Backend/API' 
             : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
+
+        // ===== PENGATURAN JARINGAN LAMBAT =====
+        const LOAD_TIMEOUT_MS    = 4000;  // data + gambar belum selesai dalam waktu ini -> "Gagal memuat"
+        const SLOW_WARNING_MS    = 2000;  // lewat dari ini -> toast "Koneksi Internet Lambat..."
+        const SLOW_NETWORK_TYPES = ['slow-2g', '2g', '3g'];  // jenis koneksi yang langsung dianggap gagal
+        const SLOW_DOWNLINK_MBPS = 1.6;                      // kecepatan (Mbps) ke bawah dianggap lambat
+        const HERO_IMAGE         = 'assets/uploads/lapangan/hero.jpeg';
+
+        // Baca jenis koneksi (Chrome/Edge/Opera). Ikut berubah saat throttling DevTools diganti.
+        function getConnection() {
+            return navigator.connection || navigator.mozConnection || navigator.webkitConnection || null;
+        }
+        function isSlowNetwork() {
+            const c = getConnection();
+            if (!c) return false;
+            if (SLOW_NETWORK_TYPES.includes(c.effectiveType)) return true;
+            if (c.downlink > 0 && c.downlink <= SLOW_DOWNLINK_MBPS) return true;
+            return false;
+        }
         
         async function fetchWithTimeout(resource, options = {}) {
-            const { timeout = 8000 } = options;
+            const { timeout = 8000, ...fetchOptions } = options;
             const controller = new AbortController();
             const id = setTimeout(() => controller.abort(), timeout);
-            try { return await fetch(resource, { ...options, signal: controller.signal }); } finally { clearTimeout(id); }
+            try { return await fetch(resource, { ...fetchOptions, signal: controller.signal }); } finally { clearTimeout(id); }
         }
 
+        // Tunggu sebuah gambar selesai diunduh (error juga dianggap selesai agar tidak menggantung)
+        function preloadImage(src) {
+            return new Promise(resolve => {
+                if (!src) return resolve();
+                const img = new Image();
+                img.onload = img.onerror = () => resolve();
+                img.src = src;
+            });
+        }
+
+        /* ===== OVERLAY OFFLINE (desain lama) ===== */
         function showNetworkOverlay() { 
             const overlay = document.getElementById('network-overlay'); 
             if (!overlay) return; 
@@ -733,7 +796,11 @@
         }
         
         window.addEventListener('offline', () => { showNetworkOverlay(); });
-        window.addEventListener('online', () => { hideNetworkOverlay(); });
+        window.addEventListener('online', () => { 
+            hideNetworkOverlay(); 
+            updateNavbar(); 
+            loadLapangan();   // internet kembali -> muat ulang otomatis
+        });
         window.addEventListener('load', () => { if (!navigator.onLine) showNetworkOverlay(); });
         
         function retryConnection() { 
@@ -798,7 +865,8 @@
         async function updateNavbar() {
             renderNavbar(normalizeUser(getCachedUser()));
             try {
-                const response = await fetchWithTimeout(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' } });
+                if (!navigator.onLine || isSlowNetwork()) return;
+                const response = await fetchWithTimeout(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' }, timeout: LOAD_TIMEOUT_MS });
                 const result = await response.json();
                 const loggedIn = (result.data && result.data.logged_in) || result.logged_in;
                 const serverUser = (result.data && result.data.user) || result.user;
@@ -814,8 +882,9 @@
         }
         document.getElementById('logoutModal').addEventListener('click', function(e) { if (e.target === this) closeLogoutModal(); });
 
-        /* ===== SKELETON SATU HALAMAN ===== */
+        /* ===== SKELETON & GAGAL MEMUAT ===== */
         function showSkeleton() {
+            document.body.classList.remove('has-error');
             document.body.classList.add('is-loading');
             applyScale();
         }
@@ -823,6 +892,37 @@
         function hideSkeleton() {
             document.body.classList.remove('is-loading');
             applyScale();
+        }
+
+        function showLoadError() {
+            hideSlowConnectionWarning();
+            document.body.classList.remove('is-loading');
+            document.body.classList.add('has-error');
+            window.scrollTo(0, 0);
+            applyScale();
+        }
+
+        async function retryLoad() {
+            const btn = document.getElementById('loadErrorBtn');
+            if (btn) { btn.disabled = true; btn.textContent = 'Memuat...'; }
+            await new Promise(r => setTimeout(r, 500));   // jeda singkat agar terlihat sedang mengecek
+            updateNavbar();
+            try { await loadLapangan(); }
+            finally { if (btn) { btn.disabled = false; btn.textContent = 'Refresh'; } }
+        }
+
+        // Jenis koneksi berubah (mis. memilih 3G di DevTools) -> langsung bereaksi
+        const connection = getConnection();
+        if (connection && connection.addEventListener) {
+            connection.addEventListener('change', () => {
+                if (!navigator.onLine) return;               // offline ditangani overlay lama
+                if (isSlowNetwork()) {
+                    loadToken++;                              // batalkan pemuatan yang sedang berjalan
+                    showLoadError();                          // langsung tampil "Gagal memuat"
+                } else if (document.body.classList.contains('has-error')) {
+                    loadLapangan();                           // koneksi normal lagi -> muat ulang otomatis
+                }
+            });
         }
 
         function showSlowConnectionWarning() {
@@ -841,32 +941,74 @@
             if (existing) existing.remove();
         }
 
+        // Penanda pemuatan terbaru, supaya respons telat dari pemuatan lama diabaikan
+        let loadToken = 0;
+
         async function loadLapangan() {
+            const myToken = ++loadToken;
+
+            // Offline -> pakai overlay desain lama
+            if (!navigator.onLine) { showNetworkOverlay(); return; }
+
+            // Jaringan lambat (3G dst.) -> langsung "Gagal memuat" tanpa menunggu
+            if (isSlowNetwork()) { showLoadError(); return; }
+
             showSkeleton();
             let isLoaded = false;
-            const slowTimer = setTimeout(() => { if (!isLoaded) showSlowConnectionWarning(); }, 5000);
+            let failed = false;
+            let data = null;
+            const slowTimer = setTimeout(() => { if (!isLoaded) showSlowConnectionWarning(); }, SLOW_WARNING_MS);
+            let deadlineTimer;
 
             const fallbackData = [
                 { id: 1, nama_lapangan: 'Lapangan Futsal 1', harga_per_jam: 100000, foto_url: 'assets/uploads/lapangan/Lapangan1.jpeg' },
                 { id: 2, nama_lapangan: 'Lapangan Futsal 2', harga_per_jam: 90000, foto_url: 'assets/uploads/lapangan/Lapangan2.jpeg' }
             ];
-            
-            try {
-                const response = await fetchWithTimeout(API_BASE + '/public/lapangan.php', { method: 'GET', credentials: 'include' });
-                const result = await response.json();
-                isLoaded = true; clearTimeout(slowTimer); hideSlowConnectionWarning();
 
-                if (result.status === 'success' && result.data && result.data.length > 0) { 
-                    renderLapangan(result.data); 
-                } else { 
-                    renderLapangan(fallbackData); 
-                }
-            } catch (error) { 
-                isLoaded = true; clearTimeout(slowTimer); hideSlowConnectionWarning();
-                showNetworkOverlay();
-                renderLapangan(fallbackData); 
+            // Batas waktu total: data API + gambar harus selesai sebelum LOAD_TIMEOUT_MS
+            const deadline = new Promise((_, reject) => {
+                deadlineTimer = setTimeout(() => reject(new Error('timeout')), LOAD_TIMEOUT_MS);
+            });
+
+            const work = (async () => {
+                // Mode tes: buka index.html?gagal=1 untuk memaksa tampilan "Gagal memuat"
+                if (new URLSearchParams(location.search).has('gagal')) throw new Error('simulasi gagal');
+
+                const response = await fetchWithTimeout(API_BASE + '/public/lapangan.php', { method: 'GET', credentials: 'include', timeout: LOAD_TIMEOUT_MS });
+                if (!response.ok) throw new Error('HTTP ' + response.status);
+                const result = await response.json();
+
+                const list = (result.status === 'success' && result.data && result.data.length > 0) ? result.data : fallbackData;
+
+                // Tunggu gambar utama dan foto lapangan ikut terunduh
+                await Promise.all([
+                    preloadImage(HERO_IMAGE),
+                    ...list.map(l => preloadImage(l.foto_url))
+                ]);
+                return list;
+            })();
+
+            try {
+                data = await Promise.race([work, deadline]);
+                if (myToken !== loadToken) return;
+                renderLapangan(data);
+            } catch (error) {
+                if (myToken !== loadToken) return;
+                failed = true;
             } finally {
-                hideSkeleton();
+                clearTimeout(deadlineTimer);
+                isLoaded = true;
+                clearTimeout(slowTimer);
+                hideSlowConnectionWarning();
+                work.catch(() => {}); // cegah error "unhandled" bila work gagal setelah batas waktu
+                if (myToken === loadToken) {
+                    if (failed) {
+                        // Jika ternyata internet mati saat memuat -> overlay offline; selain itu "Gagal memuat"
+                        if (!navigator.onLine) { showNetworkOverlay(); } else { showLoadError(); }
+                    } else {
+                        hideSkeleton();
+                    }
+                }
             }
         }
 

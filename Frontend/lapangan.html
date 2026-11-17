@@ -168,7 +168,7 @@ body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', san
 .sk-btn { width: 205px; height: 55px; margin-top: auto; border-radius: 15px; align-self: flex-end; }
 .hidden-loading { display: none !important; }
 
-/* ===== TAMPILAN GAGAL MEMUAT (sama dengan index.html) ===== */
+/* ===== TAMPILAN GAGAL MEMUAT ===== */
 .vsq-error-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 24px 120px; margin: 0 auto; width: 100%; min-height: calc(100vh - 94px); background: #FFFFFF; }
 .vsq-error-icon { margin-bottom: 38px; line-height: 0; }
 .vsq-error-icon img { width: 98px; height: 98px; object-fit: contain; display: block; }
@@ -280,7 +280,7 @@ main.is-error .vsq-booking-section { padding-bottom: 0; }
         <div class="vsq-booking-section">
             <div id="skeleton-container"></div>
 
-            <!-- TAMPILAN GAGAL MEMUAT -->
+            <!-- TAMPILAN GAGAL MEMUAT (hanya muncul saat jaringan 3G) -->
             <div id="error-container" class="vsq-error-state" style="display: none;" role="alert">
                 <div class="vsq-error-icon">
                     <img src="assets/images/icon-gagalmuat.png" alt="Gagal memuat">
@@ -349,10 +349,11 @@ const API_BASE = window.location.hostname.includes('localhost') || window.locati
     ? 'http://localhost/vincent-arena/Backend/API'
     : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
 
-/* ===== PENGATURAN JARINGAN LAMBAT ===== */
-const LOAD_TIMEOUT_MS    = 4000;                      // lewat dari ini -> "Gagal memuat"
-const SLOW_NETWORK_TYPES = ['slow-2g', '2g', '3g'];   // jenis koneksi yang langsung dianggap gagal
-const SLOW_DOWNLINK_MBPS = 1.6;                       // kecepatan (Mbps) ke bawah dianggap lambat
+/* ===== DETEKSI JARINGAN LAMBAT =====
+   "Gagal memuat" HANYA muncul kalau Chrome melaporkan jenis koneksi 3g / 2g / slow-2g
+   (yaitu saat memilih Fast 3G / Slow 3G di DevTools). Saat "No throttling" halaman tampil normal. */
+const SLOW_NETWORK_TYPES = ['slow-2g', '2g', '3g'];
+const FETCH_TIMEOUT_MS   = 4000;
 
 function getConnection() {
     return navigator.connection || navigator.mozConnection || navigator.webkitConnection || null;
@@ -360,9 +361,7 @@ function getConnection() {
 function isSlowNetwork() {
     const c = getConnection();
     if (!c) return false;
-    if (SLOW_NETWORK_TYPES.includes(c.effectiveType)) return true;
-    if (c.downlink > 0 && c.downlink <= SLOW_DOWNLINK_MBPS) return true;
-    return false;
+    return SLOW_NETWORK_TYPES.includes(c.effectiveType);
 }
 
 // Penanda pemuatan terbaru, supaya respons telat dari pemuatan lama diabaikan
@@ -390,7 +389,7 @@ function fasItem(label) {
 const ARROW_SVG = '<svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg>';
 const REFRESH_SVG = '<svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>';
 
-/* ===== NETWORK OVERLAY ===== */
+/* ===== NETWORK OVERLAY (OFFLINE) ===== */
 function showNetworkOverlay() {
     const overlay = document.getElementById('network-overlay');
     if (!overlay) return;
@@ -466,7 +465,7 @@ async function updateNavbar() {
     renderNavbar(normalizeUser(getCachedUser()));
     try {
         if (!navigator.onLine || isSlowNetwork()) return;
-        const response = await fetchWithTimeout(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' }, timeout: LOAD_TIMEOUT_MS });
+        const response = await fetchWithTimeout(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' }, timeout: FETCH_TIMEOUT_MS });
         const result = await response.json();
         const loggedIn = (result.data && result.data.logged_in) || result.logged_in;
         const serverUser = (result.data && result.data.user) || result.user;
@@ -531,6 +530,8 @@ function showError() {
 }
 
 function hideSkeleton() {
+    document.querySelector('main').classList.remove('is-error');
+    document.getElementById('error-container').style.display = 'none';
     document.getElementById('skeleton-container').style.display = 'none';
     document.getElementById('lapangan-container').classList.remove('hidden-loading');
     clearTimeout(slowTimer);
@@ -626,26 +627,29 @@ async function loadLapangan() {
     // Offline -> overlay offline
     if (!navigator.onLine) { hideSkeleton(); showNetworkOverlay(); return; }
 
-    // Jaringan lambat (3G dst.) -> langsung "Gagal memuat"
+    // Jaringan 3G / 2G (mis. Fast 3G di DevTools) -> langsung "Gagal memuat"
     if (isSlowNetwork()) { showError(); return; }
 
     showSkeleton();
+
+    // Cek server (tidak wajib berhasil; kalau gagal halaman tetap tampil dengan data bawaan)
     try {
-        const response = await fetchWithTimeout(API_BASE + '/auth/check.php?_=' + Date.now(), {
+        await fetchWithTimeout(API_BASE + '/auth/check.php?_=' + Date.now(), {
             credentials: 'include',
             headers: { 'Accept': 'application/json' },
             cache: 'no-store',
-            timeout: LOAD_TIMEOUT_MS
+            timeout: FETCH_TIMEOUT_MS
         });
-        if (myToken !== loadToken) return;
-        if (response.status >= 500) throw new Error('Server error ' + response.status);
+    } catch (error) { /* abaikan */ }
 
-        renderLapanganData();
-        hideSkeleton();
-    } catch (error) {
-        if (myToken !== loadToken) return;
-        if (!navigator.onLine) { hideSkeleton(); showNetworkOverlay(); } else { showError(); }
-    }
+    // Ada pemuatan yang lebih baru / jaringan berubah -> abaikan hasil ini
+    if (myToken !== loadToken) return;
+
+    if (!navigator.onLine) { hideSkeleton(); showNetworkOverlay(); return; }
+    if (isSlowNetwork()) { showError(); return; }
+
+    renderLapanganData();
+    hideSkeleton();
 }
 
 /* ===== TOMBOL REFRESH (hanya memuat ulang konten, bukan seluruh halaman) ===== */
@@ -666,7 +670,7 @@ if (conn && conn.addEventListener) {
             loadToken++;      // batalkan pemuatan yang sedang berjalan
             showError();      // langsung tampil "Gagal memuat"
         } else if (document.querySelector('main').classList.contains('is-error')) {
-            loadLapangan();   // koneksi normal lagi -> muat ulang otomatis
+            loadLapangan();   // kembali normal -> muat ulang otomatis
         }
     });
 }

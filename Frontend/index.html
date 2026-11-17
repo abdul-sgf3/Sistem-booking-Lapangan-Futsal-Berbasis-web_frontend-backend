@@ -192,16 +192,16 @@
         body.is-loading #real-content { display: none; }
         body:not(.is-loading) #skeleton-page { display: none; }
 
-        /* ================= TAMPILAN GAGAL MEMUAT (jaringan lambat / 3G) ================= */
+        /* ================= TAMPILAN GAGAL MEMUAT (hanya saat jaringan 3G) ================= */
         #load-error { display: none; min-height: calc(100vh - 94px); padding: 40px 24px 120px; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: #FFFFFF; }
         body.has-error #load-error { display: flex; }
         body.has-error #real-content,
         body.has-error #skeleton-page { display: none; }
 
-        .load-error-icon { width: 98px; height: 98px; stroke: #000; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 38px; }
+        .load-error-icon { width: 98px; height: 98px; object-fit: contain; display: block; margin-bottom: 38px; }
         .load-error-title { font-size: 56px; line-height: 64px; font-weight: 700; color: #000; letter-spacing: -1px; margin-bottom: 42px; }
         .load-error-text { font-size: 21px; line-height: 30px; font-weight: 400; color: #000; margin-bottom: 60px; }
-        .load-error-btn { width: 100%; max-width: 556px; height: 58px; background: var(--vsq-navy); color: #FFF; border: none; border-radius: 16px; font-family: inherit; font-size: 30px; font-weight: 500; cursor: pointer; transition: background 0.2s, opacity 0.2s; }
+        .load-error-btn { width: 100%; max-width: 556px; height: 58px; background: var(--vsq-navy); color: #FFF; border: none; border-radius: 16px; font-family: inherit; font-size: 30px; font-weight: 500; cursor: pointer; transition: background 0.2s, opacity 0.2s; display: flex; align-items: center; justify-content: center; padding: 0; }
         .load-error-btn:hover { background: #1d2a47; }
         .load-error-btn:disabled { opacity: .7; cursor: wait; }
 
@@ -527,14 +527,10 @@
     </div>
 
     <!-- ================================================================
-         TAMPILAN GAGAL MEMUAT (jaringan lambat / 3G / API gagal)
+         TAMPILAN GAGAL MEMUAT (hanya muncul saat jaringan 3G)
          ================================================================ -->
     <section id="load-error" role="alert">
-        <svg class="load-error-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="m2 2 20 20"/>
-            <path d="M5.782 5.782A7 7 0 0 0 9 19h8.5a4.5 4.5 0 0 0 1.307-.193"/>
-            <path d="M21.532 16.5A4.5 4.5 0 0 0 17.5 10h-1.79A7.008 7.008 0 0 0 10 5.07"/>
-        </svg>
+        <img class="load-error-icon" src="assets/images/icon-gagalmuat.png" alt="Gagal memuat">
         <h2 class="load-error-title">Gagal memuat</h2>
         <p class="load-error-text">Maaf, beranda belum dapat dimuat. Silakan coba beberapa saat lagi</p>
         <button type="button" class="load-error-btn" id="loadErrorBtn" onclick="retryLoad()">Refresh</button>
@@ -743,23 +739,22 @@
             ? 'http://localhost/vincent-arena/Backend/API' 
             : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
 
-        // ===== PENGATURAN JARINGAN LAMBAT =====
-        const LOAD_TIMEOUT_MS    = 4000;  // data + gambar belum selesai dalam waktu ini -> "Gagal memuat"
-        const SLOW_WARNING_MS    = 2000;  // lewat dari ini -> toast "Koneksi Internet Lambat..."
-        const SLOW_NETWORK_TYPES = ['slow-2g', '2g', '3g'];  // jenis koneksi yang langsung dianggap gagal
-        const SLOW_DOWNLINK_MBPS = 1.6;                      // kecepatan (Mbps) ke bawah dianggap lambat
+        /* ===== DETEKSI JARINGAN LAMBAT =====
+           "Gagal memuat" HANYA muncul kalau Chrome melaporkan jenis koneksi 3g / 2g / slow-2g
+           (yaitu saat memilih Fast 3G / Slow 3G di DevTools). Saat "No throttling" halaman tampil normal. */
+        const SLOW_NETWORK_TYPES = ['slow-2g', '2g', '3g'];
+        const FETCH_TIMEOUT_MS   = 4000;   // batas tunggu API (kalau lewat, pakai data bawaan)
+        const IMAGE_WAIT_MS      = 6000;   // batas tunggu gambar (kalau lewat, tampilkan saja)
+        const SLOW_WARNING_MS    = 2000;   // lewat dari ini -> toast "Koneksi Internet Lambat..."
         const HERO_IMAGE         = 'assets/uploads/lapangan/hero.jpeg';
 
-        // Baca jenis koneksi (Chrome/Edge/Opera). Ikut berubah saat throttling DevTools diganti.
         function getConnection() {
             return navigator.connection || navigator.mozConnection || navigator.webkitConnection || null;
         }
         function isSlowNetwork() {
             const c = getConnection();
             if (!c) return false;
-            if (SLOW_NETWORK_TYPES.includes(c.effectiveType)) return true;
-            if (c.downlink > 0 && c.downlink <= SLOW_DOWNLINK_MBPS) return true;
-            return false;
+            return SLOW_NETWORK_TYPES.includes(c.effectiveType);
         }
         
         async function fetchWithTimeout(resource, options = {}) {
@@ -866,7 +861,7 @@
             renderNavbar(normalizeUser(getCachedUser()));
             try {
                 if (!navigator.onLine || isSlowNetwork()) return;
-                const response = await fetchWithTimeout(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' }, timeout: LOAD_TIMEOUT_MS });
+                const response = await fetchWithTimeout(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' }, timeout: FETCH_TIMEOUT_MS });
                 const result = await response.json();
                 const loggedIn = (result.data && result.data.logged_in) || result.logged_in;
                 const serverUser = (result.data && result.data.user) || result.user;
@@ -891,6 +886,7 @@
 
         function hideSkeleton() {
             document.body.classList.remove('is-loading');
+            document.body.classList.remove('has-error');
             applyScale();
         }
 
@@ -900,6 +896,9 @@
             document.body.classList.add('has-error');
             window.scrollTo(0, 0);
             applyScale();
+            // pastikan tombol Refresh kembali normal
+            const btn = document.getElementById('loadErrorBtn');
+            if (btn) { btn.disabled = false; btn.textContent = 'Refresh'; }
         }
 
         async function retryLoad() {
@@ -920,7 +919,7 @@
                     loadToken++;                              // batalkan pemuatan yang sedang berjalan
                     showLoadError();                          // langsung tampil "Gagal memuat"
                 } else if (document.body.classList.contains('has-error')) {
-                    loadLapangan();                           // koneksi normal lagi -> muat ulang otomatis
+                    loadLapangan();                           // kembali normal -> muat ulang otomatis
                 }
             });
         }
@@ -944,71 +943,57 @@
         // Penanda pemuatan terbaru, supaya respons telat dari pemuatan lama diabaikan
         let loadToken = 0;
 
+        const FALLBACK_DATA = [
+            { id: 1, nama_lapangan: 'Lapangan Futsal 1', harga_per_jam: 100000, foto_url: 'assets/uploads/lapangan/Lapangan1.jpeg' },
+            { id: 2, nama_lapangan: 'Lapangan Futsal 2', harga_per_jam: 90000, foto_url: 'assets/uploads/lapangan/Lapangan2.jpeg' }
+        ];
+
         async function loadLapangan() {
             const myToken = ++loadToken;
 
             // Offline -> pakai overlay desain lama
             if (!navigator.onLine) { showNetworkOverlay(); return; }
 
-            // Jaringan lambat (3G dst.) -> langsung "Gagal memuat" tanpa menunggu
+            // Jaringan 3G / 2G (mis. Fast 3G di DevTools) -> langsung "Gagal memuat"
             if (isSlowNetwork()) { showLoadError(); return; }
 
             showSkeleton();
-            let isLoaded = false;
-            let failed = false;
-            let data = null;
-            const slowTimer = setTimeout(() => { if (!isLoaded) showSlowConnectionWarning(); }, SLOW_WARNING_MS);
-            let deadlineTimer;
+            const slowTimer = setTimeout(() => { showSlowConnectionWarning(); }, SLOW_WARNING_MS);
 
-            const fallbackData = [
-                { id: 1, nama_lapangan: 'Lapangan Futsal 1', harga_per_jam: 100000, foto_url: 'assets/uploads/lapangan/Lapangan1.jpeg' },
-                { id: 2, nama_lapangan: 'Lapangan Futsal 2', harga_per_jam: 90000, foto_url: 'assets/uploads/lapangan/Lapangan2.jpeg' }
-            ];
-
-            // Batas waktu total: data API + gambar harus selesai sebelum LOAD_TIMEOUT_MS
-            const deadline = new Promise((_, reject) => {
-                deadlineTimer = setTimeout(() => reject(new Error('timeout')), LOAD_TIMEOUT_MS);
-            });
-
-            const work = (async () => {
+            try {
                 // Mode tes: buka index.html?gagal=1 untuk memaksa tampilan "Gagal memuat"
                 if (new URLSearchParams(location.search).has('gagal')) throw new Error('simulasi gagal');
 
-                const response = await fetchWithTimeout(API_BASE + '/public/lapangan.php', { method: 'GET', credentials: 'include', timeout: LOAD_TIMEOUT_MS });
-                if (!response.ok) throw new Error('HTTP ' + response.status);
-                const result = await response.json();
+                // Ambil data dari API. Kalau gagal / lambat, pakai data bawaan (tidak menampilkan error)
+                let list = FALLBACK_DATA;
+                try {
+                    const response = await fetchWithTimeout(API_BASE + '/public/lapangan.php', { method: 'GET', credentials: 'include', timeout: FETCH_TIMEOUT_MS });
+                    if (response.ok) {
+                        const result = await response.json();
+                        if (result.status === 'success' && result.data && result.data.length > 0) list = result.data;
+                    }
+                } catch (e) { /* abaikan, pakai data bawaan */ }
 
-                const list = (result.status === 'success' && result.data && result.data.length > 0) ? result.data : fallbackData;
-
-                // Tunggu gambar utama dan foto lapangan ikut terunduh
-                await Promise.all([
-                    preloadImage(HERO_IMAGE),
-                    ...list.map(l => preloadImage(l.foto_url))
+                // Tunggu gambar ikut terunduh, tapi tidak lebih dari IMAGE_WAIT_MS
+                await Promise.race([
+                    Promise.all([preloadImage(HERO_IMAGE), ...list.map(l => preloadImage(l.foto_url))]),
+                    new Promise(resolve => setTimeout(resolve, IMAGE_WAIT_MS))
                 ]);
-                return list;
-            })();
 
-            try {
-                data = await Promise.race([work, deadline]);
+                // Ada pemuatan yang lebih baru / jaringan berubah -> abaikan hasil ini
                 if (myToken !== loadToken) return;
-                renderLapangan(data);
+
+                if (!navigator.onLine) { showNetworkOverlay(); return; }
+                if (isSlowNetwork()) { showLoadError(); return; }
+
+                renderLapangan(list);
+                hideSkeleton();
             } catch (error) {
                 if (myToken !== loadToken) return;
-                failed = true;
+                if (!navigator.onLine) { showNetworkOverlay(); } else { showLoadError(); }
             } finally {
-                clearTimeout(deadlineTimer);
-                isLoaded = true;
                 clearTimeout(slowTimer);
-                hideSlowConnectionWarning();
-                work.catch(() => {}); // cegah error "unhandled" bila work gagal setelah batas waktu
-                if (myToken === loadToken) {
-                    if (failed) {
-                        // Jika ternyata internet mati saat memuat -> overlay offline; selain itu "Gagal memuat"
-                        if (!navigator.onLine) { showNetworkOverlay(); } else { showLoadError(); }
-                    } else {
-                        hideSkeleton();
-                    }
-                }
+                if (myToken === loadToken) hideSlowConnectionWarning();
             }
         }
 

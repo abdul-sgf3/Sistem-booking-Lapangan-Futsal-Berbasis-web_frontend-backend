@@ -27,7 +27,6 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', sans-serif; color: var(--vsq-navy); }
 
-/* Wrapper untuk scaling Navbar di resolusi menengah */
 #page { width: 100%; }
 
 /* ==========================================================================
@@ -88,7 +87,6 @@ body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', san
 .vsq-booking-section { padding: 0 20px 80px; max-width: 1242px; margin: 0 auto; }
 .vsq-booking-list { display: flex; flex-direction: column; gap: 52px; }
 
-/* CARD LAPANGAN */
 .vsq-booking-card { 
     display: flex; 
     border: 1px solid #848484; 
@@ -128,7 +126,6 @@ body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', san
 .vsq-status-tersedia { display: flex; align-items: center; gap: 6px; font-size: 15px; color: #3DB268; font-weight: 400; position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
 .vsq-dot { width: 10px; height: 10px; background: #3DB268; border-radius: 50%; }
 
-/* Fasilitas - Menggunakan gambar utuh dari assets */
 .vsq-booking-fasilitas { display: flex; flex-wrap: wrap; gap: 16px; margin: 58px 0 0; }
 .vsq-booking-fasilitas.vertical { flex-direction: column; align-items: flex-start; gap: 16px; }
 
@@ -171,14 +168,15 @@ body { background-color: var(--vsq-white); font-family: 'Plus Jakarta Sans', san
 .sk-btn { width: 205px; height: 55px; margin-top: auto; border-radius: 15px; align-self: flex-end; }
 .hidden-loading { display: none !important; }
 
-.vsq-error-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; margin: 0 auto; width: 100%; min-height: calc(100vh - 200px); }
-.vsq-error-icon { margin-bottom: 28px; line-height: 0; }
-.vsq-error-icon svg { width: 80px; height: 80px; stroke: #000000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.vsq-error-title { font-size: 40px; font-weight: 700; color: #000000; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 24px; }
-.vsq-error-text { font-size: 17px; font-weight: 500; color: #000000; line-height: 1.5; margin-bottom: 40px; }
-.vsq-btn-refresh { background: #131B2E; color: #FFFFFF; width: 440px; max-width: 100%; height: 46px; border-radius: 14px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; font-weight: 500; border: none; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; padding: 0; }
-.vsq-btn-refresh:hover { background: #1a2b4c; }
-.vsq-btn-refresh:disabled { background: #6B7280; cursor: wait; }
+/* ===== TAMPILAN GAGAL MEMUAT ===== */
+.vsq-error-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 24px 120px; margin: 0 auto; width: 100%; min-height: calc(100vh - 94px); background: #FFFFFF; }
+.vsq-error-icon { margin-bottom: 38px; line-height: 0; }
+.vsq-error-icon img { width: 98px; height: 98px; object-fit: contain; display: block; }
+.vsq-error-title { font-size: 56px; line-height: 64px; font-weight: 700; color: #000; letter-spacing: -1px; margin-bottom: 42px; }
+.vsq-error-text { font-size: 21px; line-height: 30px; font-weight: 400; color: #000; margin-bottom: 60px; }
+.vsq-btn-refresh { width: 100%; max-width: 556px; height: 58px; background: #131B2E; color: #FFF; border: none; border-radius: 16px; font-family: inherit; font-size: 30px; font-weight: 500; cursor: pointer; transition: background 0.2s, opacity 0.2s; display: flex; align-items: center; justify-content: center; padding: 0; }
+.vsq-btn-refresh:hover { background: #1d2a47; }
+.vsq-btn-refresh:disabled { opacity: .7; cursor: wait; }
 
 main.is-error .vsq-booking-header { display: none; }
 main.is-error .vsq-booking-section { padding-bottom: 0; }
@@ -253,11 +251,13 @@ main.is-error .vsq-booking-section { padding-bottom: 0; }
     .sk-title { width: 80%; height: 24px; }
     .sk-text { height: 16px; }
 
-    .vsq-error-state { min-height: calc(100vh - 80px); }
-    .vsq-error-icon svg { width: 64px; height: 64px; }
-    .vsq-error-title { font-size: 28px; }
-    .vsq-error-text { font-size: 14px; margin-bottom: 28px; }
-    .vsq-btn-refresh { font-size: 18px; height: 44px; }
+    /* gagal memuat mobile */
+    .vsq-error-state { min-height: calc(100vh - 80px); padding: 40px 20px 80px; }
+    .vsq-error-icon { margin-bottom: 24px; }
+    .vsq-error-icon img { width: 72px; height: 72px; }
+    .vsq-error-title { font-size: 32px; line-height: 40px; margin-bottom: 20px; }
+    .vsq-error-text { font-size: 15px; line-height: 22px; margin-bottom: 32px; }
+    .vsq-btn-refresh { height: 50px; font-size: 20px; border-radius: 12px; }
 
     .network-icon svg { width: 130px; }
     .network-title { font-size: 26px; }
@@ -268,7 +268,6 @@ main.is-error .vsq-booking-section { padding-bottom: 0; }
 </head>
 <body>
 
-<!-- WRAPPER UNTUK SCALING NAVBAR -->
 <div id="page">
     <header id="navbar"></header>
 
@@ -281,13 +280,10 @@ main.is-error .vsq-booking-section { padding-bottom: 0; }
         <div class="vsq-booking-section">
             <div id="skeleton-container"></div>
 
-            <div id="error-container" class="vsq-error-state" style="display: none;">
+            <!-- TAMPILAN GAGAL MEMUAT (hanya muncul saat jaringan 3G) -->
+            <div id="error-container" class="vsq-error-state" style="display: none;" role="alert">
                 <div class="vsq-error-icon">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
-                        <line x1="4" y1="21" x2="19" y2="3" stroke="#FFFFFF" stroke-width="5"></line>
-                        <line x1="4" y1="21" x2="19" y2="3"></line>
-                    </svg>
+                    <img src="assets/images/icon-gagalmuat.png" alt="Gagal memuat">
                 </div>
                 <h2 class="vsq-error-title">Gagal memuat</h2>
                 <p class="vsq-error-text">Maaf, data lapangan belum dapat dimuat. Silakan coba beberapa saat lagi</p>
@@ -353,11 +349,29 @@ const API_BASE = window.location.hostname.includes('localhost') || window.locati
     ? 'http://localhost/vincent-arena/Backend/API'
     : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
 
+/* ===== DETEKSI JARINGAN LAMBAT =====
+   "Gagal memuat" HANYA muncul kalau Chrome melaporkan jenis koneksi 3g / 2g / slow-2g
+   (yaitu saat memilih Fast 3G / Slow 3G di DevTools). Saat "No throttling" halaman tampil normal. */
+const SLOW_NETWORK_TYPES = ['slow-2g', '2g', '3g'];
+const FETCH_TIMEOUT_MS   = 4000;
+
+function getConnection() {
+    return navigator.connection || navigator.mozConnection || navigator.webkitConnection || null;
+}
+function isSlowNetwork() {
+    const c = getConnection();
+    if (!c) return false;
+    return SLOW_NETWORK_TYPES.includes(c.effectiveType);
+}
+
+// Penanda pemuatan terbaru, supaya respons telat dari pemuatan lama diabaikan
+let loadToken = 0;
+
 async function fetchWithTimeout(resource, options = {}) {
-    const { timeout = 8000 } = options;
+    const { timeout = 8000, ...fetchOptions } = options;
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), timeout);
-    try { return await fetch(resource, { ...options, signal: controller.signal }); } finally { clearTimeout(id); }
+    try { return await fetch(resource, { ...fetchOptions, signal: controller.signal }); } finally { clearTimeout(id); }
 }
 
 /* ===== ASSETS FASILITAS ===== */
@@ -375,7 +389,7 @@ function fasItem(label) {
 const ARROW_SVG = '<svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg>';
 const REFRESH_SVG = '<svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>';
 
-/* ===== NETWORK OVERLAY ===== */
+/* ===== NETWORK OVERLAY (OFFLINE) ===== */
 function showNetworkOverlay() {
     const overlay = document.getElementById('network-overlay');
     if (!overlay) return;
@@ -450,7 +464,8 @@ function renderNavbar(user) {
 async function updateNavbar() {
     renderNavbar(normalizeUser(getCachedUser()));
     try {
-        const response = await fetchWithTimeout(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' } });
+        if (!navigator.onLine || isSlowNetwork()) return;
+        const response = await fetchWithTimeout(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' }, timeout: FETCH_TIMEOUT_MS });
         const result = await response.json();
         const loggedIn = (result.data && result.data.logged_in) || result.logged_in;
         const serverUser = (result.data && result.data.user) || result.user;
@@ -509,9 +524,14 @@ function showError() {
     document.getElementById('error-container').style.display = 'flex';
     clearTimeout(slowTimer);
     hideSlowConnectionWarning();
+    // pastikan tombol Refresh kembali normal
+    const btn = document.querySelector('.vsq-btn-refresh');
+    if (btn) { btn.disabled = false; btn.textContent = 'Refresh'; }
 }
 
 function hideSkeleton() {
+    document.querySelector('main').classList.remove('is-error');
+    document.getElementById('error-container').style.display = 'none';
     document.getElementById('skeleton-container').style.display = 'none';
     document.getElementById('lapangan-container').classList.remove('hidden-loading');
     clearTimeout(slowTimer);
@@ -600,53 +620,59 @@ function renderLapanganData() {
     `;
 }
 
-function isSlowConnection() {
-    const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    return !!c && ['slow-2g', '2g', '3g'].includes(c.effectiveType);
-}
+/* ===== LOAD DATA ===== */
+async function loadLapangan() {
+    const myToken = ++loadToken;
 
-async function loadLapangan(isRefresh = false) {
+    // Offline -> overlay offline
+    if (!navigator.onLine) { hideSkeleton(); showNetworkOverlay(); return; }
+
+    // Jaringan 3G / 2G (mis. Fast 3G di DevTools) -> langsung "Gagal memuat"
+    if (isSlowNetwork()) { showError(); return; }
+
     showSkeleton();
+
+    // Cek server (tidak wajib berhasil; kalau gagal halaman tetap tampil dengan data bawaan)
     try {
-        if (!navigator.onLine) throw new TypeError('Failed to fetch');
-        
-        // Jika tombol Refresh diklik, kita abaikan deteksi koneksi lambat sementara
-        // agar bisa memaksa muat ulang data.
-        if (!isRefresh && isSlowConnection()) { 
-            showError(); 
-            return; 
-        }
-        
-        const response = await fetchWithTimeout(API_BASE + '/auth/check.php?_=' + Date.now(), { credentials: 'include', headers: { 'Accept': 'application/json' }, cache: 'no-store' });
-        if (response.status >= 500) throw new Error('Server error ' + response.status);
-        
-        renderLapanganData();
-        hideSkeleton();
-    } catch (error) {
-        if (error.name === 'TypeError' && !navigator.onLine) {
-            hideSkeleton();
-            showNetworkOverlay();
-        } else {
-            showError();
-        }
-    }
+        await fetchWithTimeout(API_BASE + '/auth/check.php?_=' + Date.now(), {
+            credentials: 'include',
+            headers: { 'Accept': 'application/json' },
+            cache: 'no-store',
+            timeout: FETCH_TIMEOUT_MS
+        });
+    } catch (error) { /* abaikan */ }
+
+    // Ada pemuatan yang lebih baru / jaringan berubah -> abaikan hasil ini
+    if (myToken !== loadToken) return;
+
+    if (!navigator.onLine) { hideSkeleton(); showNetworkOverlay(); return; }
+    if (isSlowNetwork()) { showError(); return; }
+
+    renderLapanganData();
+    hideSkeleton();
 }
 
-/* FUNGSI KHUSUS UNTUK TOMBOL REFRESH */
-function handleRefreshClick() {
+/* ===== TOMBOL REFRESH (hanya memuat ulang konten, bukan seluruh halaman) ===== */
+async function handleRefreshClick() {
     const btn = document.querySelector('.vsq-btn-refresh');
-    if(btn) {
-        btn.disabled = true;
-        btn.textContent = 'Memuat...';
-    }
-    // Memberikan jeda 500ms agar user melihat efek loading sebelum data dimuat ulang
-    setTimeout(() => {
-        loadLapangan(true); // true = paksa refresh
-    }, 500);
+    if (btn) { btn.disabled = true; btn.textContent = 'Memuat...'; }
+    await new Promise(r => setTimeout(r, 500));
+    try { await loadLapangan(); }
+    finally { if (btn) { btn.disabled = false; btn.textContent = 'Refresh'; } }
 }
 
-if (navigator.connection) {
-    navigator.connection.addEventListener('change', () => { if (navigator.onLine) loadLapangan(); });
+/* ===== JENIS KONEKSI BERUBAH (mis. pilih 3G di DevTools) ===== */
+const conn = getConnection();
+if (conn && conn.addEventListener) {
+    conn.addEventListener('change', () => {
+        if (!navigator.onLine) return;
+        if (isSlowNetwork()) {
+            loadToken++;      // batalkan pemuatan yang sedang berjalan
+            showError();      // langsung tampil "Gagal memuat"
+        } else if (document.querySelector('main').classList.contains('is-error')) {
+            loadLapangan();   // kembali normal -> muat ulang otomatis
+        }
+    });
 }
 
 document.addEventListener('DOMContentLoaded', function() {

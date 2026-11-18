@@ -83,7 +83,6 @@
         .location { display: flex; align-items: center; gap: 7px; color: #000; font-size: 14px; font-weight: 500; margin-bottom: 26px; }
         .location svg { width: 16px; height: 16px; fill: #131B2E; stroke: none; flex-shrink: 0; }
 
-        /* Fasilitas: PNG sudah berisi ikon + teks, jadi gambar ditampilkan apa adanya */
         .fasilitas-list { display: flex; flex-wrap: wrap; gap: 22px 15px; margin-bottom: 28px; }
         .fasilitas-list.vertical { flex-direction: column; align-items: flex-start; gap: 28px; }
         .fasilitas-item { display: block; line-height: 0; flex-shrink: 0; }
@@ -128,15 +127,15 @@
         @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
         .skeleton-box { background: #E2E8F0; background-image: linear-gradient(to right, #E2E8F0 0%, #F1F5F9 20%, #E2E8F0 40%, #E2E8F0 100%); background-repeat: no-repeat; background-size: 1000px 100%; animation: shimmer 2s infinite linear forwards; border-radius: 8px; }
 
-        /* ===== GAGAL MEMUAT ===== */
-        .vsq-error-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; margin: 0 auto; width: 100%; min-height: calc(100vh - 106px); }
-        .vsq-error-icon { margin-bottom: 28px; line-height: 0; }
-        .vsq-error-icon svg { width: 80px; height: 80px; stroke: #000000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-        .vsq-error-title { font-size: 40px; font-weight: 700; color: #000000; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 24px; }
-        .vsq-error-text { font-size: 17px; font-weight: 500; color: #000000; line-height: 1.5; margin-bottom: 40px; }
-        .vsq-btn-refresh { background: #131B2E; color: #FFFFFF; width: 440px; max-width: 100%; height: 46px; border-radius: 14px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; font-weight: 500; border: none; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; padding: 0; }
-        .vsq-btn-refresh:hover { background: #1a2b4c; }
-        .vsq-btn-refresh:disabled { background: #6B7280; cursor: wait; }
+        /* ===== TAMPILAN GAGAL MEMUAT ===== */
+        .vsq-error-state { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 24px 120px; margin: 0 auto; width: 100%; min-height: calc(100vh - 94px); background: #FFFFFF; }
+        .vsq-error-icon { margin-bottom: 38px; line-height: 0; }
+        .vsq-error-icon img { width: 98px; height: 98px; object-fit: contain; display: block; }
+        .vsq-error-title { font-size: 56px; line-height: 64px; font-weight: 700; color: #000; letter-spacing: -1px; margin-bottom: 42px; }
+        .vsq-error-text { font-size: 21px; line-height: 30px; font-weight: 400; color: #000; margin-bottom: 60px; }
+        .vsq-btn-refresh { width: 100%; max-width: 556px; height: 58px; background: #131B2E; color: #FFF; border: none; border-radius: 16px; font-family: inherit; font-size: 30px; font-weight: 500; cursor: pointer; transition: background 0.2s, opacity 0.2s; display: flex; align-items: center; justify-content: center; padding: 0; }
+        .vsq-btn-refresh:hover { background: #1d2a47; }
+        .vsq-btn-refresh:disabled { opacity: .7; cursor: wait; }
 
         body.is-error .breadcrumb, body.is-error .detail-container { display: none; }
 
@@ -208,11 +207,14 @@
             .vsq-btn-logout, .vsq-btn-login-outline, .vsq-btn-register { padding: 0 12px; height: 40px; font-size: 12px; border-radius: 8px; width: auto; }
             .vsq-profile-dropdown { position: fixed; top: 85px; right: 16px; left: 16px; width: auto; }
 
-            .vsq-error-state { min-height: calc(100vh - 80px); }
-            .vsq-error-icon svg { width: 64px; height: 64px; }
-            .vsq-error-title { font-size: 28px; }
-            .vsq-error-text { font-size: 14px; margin-bottom: 28px; }
-            .vsq-btn-refresh { font-size: 18px; height: 44px; }
+            /* gagal memuat mobile */
+            .vsq-error-state { min-height: calc(100vh - 80px); padding: 40px 20px 80px; }
+            .vsq-error-icon { margin-bottom: 24px; }
+            .vsq-error-icon img { width: 72px; height: 72px; }
+            .vsq-error-title { font-size: 32px; line-height: 40px; margin-bottom: 20px; }
+            .vsq-error-text { font-size: 15px; line-height: 22px; margin-bottom: 32px; }
+            .vsq-btn-refresh { height: 50px; font-size: 20px; border-radius: 12px; }
+
             .network-icon svg { width: 130px; }
             .network-title { font-size: 26px; }
             .network-message { font-size: 17px; margin-bottom: 28px; }
@@ -306,19 +308,14 @@
     </main>
 </div>
 
-<!-- GAGAL MEMUAT -->
-<div id="error-container" class="vsq-error-state" style="display: none;">
+<!-- TAMPILAN GAGAL MEMUAT (hanya muncul saat jaringan 3G) -->
+<div id="error-container" class="vsq-error-state" style="display: none;" role="alert">
     <div class="vsq-error-icon">
-        <svg viewBox="0 0 24 24">
-            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
-            <line x1="4" y1="21" x2="19" y2="3" stroke="#FFFFFF" stroke-width="5"></line>
-            <line x1="4" y1="21" x2="19" y2="3"></line>
-        </svg>
+        <img src="assets/images/icon-gagalmuat.png" alt="Gagal memuat">
     </div>
     <h2 class="vsq-error-title">Gagal memuat</h2>
     <p class="vsq-error-text">Maaf, data lapangan belum dapat dimuat. Silakan coba beberapa saat lagi</p>
-    <!-- PERBAIKAN: Tombol refresh langsung memanggil loadDetail(true) -->
-    <button class="vsq-btn-refresh" onclick="loadDetail(true)">Refresh</button>
+    <button class="vsq-btn-refresh" onclick="handleRefreshClick()">Refresh</button>
 </div>
 
 <!-- TIDAK ADA KONEKSI -->
@@ -375,14 +372,32 @@
         ? 'http://localhost/vincent-arena/Backend/API'
         : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
 
-    async function fetchWithTimeout(resource, options = {}) {
-        const { timeout = 8000 } = options;
-        const controller = new AbortController();
-        const id = setTimeout(() => controller.abort(), timeout);
-        try { return await fetch(resource, { ...options, signal: controller.signal }); } finally { clearTimeout(id); }
+    /* ===== DETEKSI JARINGAN LAMBAT =====
+       "Gagal memuat" HANYA muncul kalau Chrome melaporkan jenis koneksi 3g / 2g / slow-2g
+       (yaitu saat memilih Fast 3G / Slow 3G di DevTools). Saat "No throttling" halaman tampil normal. */
+    const SLOW_NETWORK_TYPES = ['slow-2g', '2g', '3g'];
+    const FETCH_TIMEOUT_MS   = 4000;
+
+    function getConnection() {
+        return navigator.connection || navigator.mozConnection || navigator.webkitConnection || null;
+    }
+    function isSlowNetwork() {
+        const c = getConnection();
+        if (!c) return false;
+        return SLOW_NETWORK_TYPES.includes(c.effectiveType);
     }
 
-    /* ===== NETWORK OVERLAY ===== */
+    // Penanda pemuatan terbaru, supaya respons telat dari pemuatan lama diabaikan
+    let loadToken = 0;
+
+    async function fetchWithTimeout(resource, options = {}) {
+        const { timeout = 8000, ...fetchOptions } = options;
+        const controller = new AbortController();
+        const id = setTimeout(() => controller.abort(), timeout);
+        try { return await fetch(resource, { ...fetchOptions, signal: controller.signal }); } finally { clearTimeout(id); }
+    }
+
+    /* ===== NETWORK OVERLAY (OFFLINE) ===== */
     function showNetworkOverlay() {
         const overlay = document.getElementById('network-overlay');
         if (!overlay) return;
@@ -457,7 +472,8 @@
     async function updateNavbar() {
         renderNavbar(normalizeUser(getCachedUser()));
         try {
-            const response = await fetchWithTimeout(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' } });
+            if (!navigator.onLine || isSlowNetwork()) return;
+            const response = await fetchWithTimeout(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' }, timeout: FETCH_TIMEOUT_MS });
             const result = await response.json();
             const loggedIn = (result.data && result.data.logged_in) || result.logged_in;
             const serverUser = (result.data && result.data.user) || result.user;
@@ -529,13 +545,22 @@
         slowTimer = setTimeout(() => { showSlowConnectionWarning(); }, 2000);
     }
 
-    function hideSkeleton() { clearTimeout(slowTimer); hideSlowConnectionWarning(); }
+    function hideSkeleton() {
+        clearTimeout(slowTimer);
+        hideSlowConnectionWarning();
+        document.body.classList.remove('is-error');
+        document.getElementById('error-container').style.display = 'none';
+    }
 
     function showError() {
         clearTimeout(slowTimer);
         hideSlowConnectionWarning();
         document.body.classList.add('is-error');
         document.getElementById('error-container').style.display = 'flex';
+        window.scrollTo(0, 0);
+        // pastikan tombol Refresh kembali normal
+        const btn = document.querySelector('.vsq-btn-refresh');
+        if (btn) { btn.disabled = false; btn.textContent = 'Refresh'; }
     }
 
     function showSlowConnectionWarning() {
@@ -580,100 +605,117 @@
         return `<div class="fasilitas-item"><img src="${FAS_ICONS[label]}" alt="${label}"></div>`;
     }
 
-    function isSlowConnection() {
-        const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        return !!c && ['slow-2g', '2g', '3g'].includes(c.effectiveType);
+    /* ===== DATA LAPANGAN ===== */
+    const DATA_LAPANGAN = {
+        '1': { nama: 'Lapangan Futsal 1', badge: 'VIP', badgeClass: 'badge-vip', harga: 100000, img: 'assets/uploads/lapangan/Lapangan1.jpeg', desc: 'Lapangan futsal 1 adalah lapangan yang berkategorikan VIP dengan permukaan Vinyl dengan kualitas premium yang memberikan kenyamanan dan Keamanan saat bermain lapangan ini cocok untuk berbagai kebutuhan mulai dari latihan rutin sampai turnamen pertandingan antar tim hingga profesional', fasilitas: ['Indoor', 'Area Luas', 'Area Penonton', 'Sirkulasi udara'] },
+        '2': { nama: 'Lapangan Futsal 2', badge: 'Reguler', badgeClass: 'badge-reguler', harga: 90000, img: 'assets/uploads/lapangan/Lapangan2.jpeg', desc: 'Lapangan futsal 2 adalah lapangan yang berkategorikan Reguler dengan permukaan Vinyl dengan kualitas standar yang memberikan kesan kenyamanan dan Fun, cocok digunakan untuk berlatih, dan bermain funmatch dengan rekan', fasilitas: ['Indoor', 'Area Luas'] }
+    };
+
+    function renderDetail(id) {
+        const info = DATA_LAPANGAN[id];
+
+        document.getElementById('lapangan-name').innerText = info.nama;
+        document.getElementById('lapangan-deskripsi').innerText = info.desc;
+        document.getElementById('img-wrapper').innerHTML = `<img id="lapangan-image" class="detail-image" src="${info.img}" alt="${info.nama}" onerror="imgFail(this)">`;
+
+        const b = document.getElementById('lapangan-badge');
+        b.innerText = info.badge;
+        b.className = info.badgeClass;
+        b.style.display = 'inline-flex';
+
+        document.getElementById('lapangan-harga').innerHTML = `Rp${info.harga.toLocaleString('id-ID')}`;
+
+        const fasContainer = document.getElementById('fasilitas-container');
+        fasContainer.className = 'fasilitas-list' + (id === '2' ? ' vertical' : '');
+        fasContainer.innerHTML = info.fasilitas.map(f => fasItem(f)).join('');
+
+        document.getElementById('btn-booking-link').href = `booking_lapangan.html?id=${id}`;
+
+        // Kembalikan konten asli untuk bottom grid
+        document.getElementById('skeleton-aturan').innerHTML = `
+            <div class="info-box-header">
+                <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="18" rx="2.5"></rect><rect x="9" y="2" width="6" height="4" rx="1"></rect><line x1="8" y1="11" x2="8.01" y2="11"></line><line x1="8" y1="15" x2="8.01" y2="15"></line><line x1="8" y1="19" x2="8.01" y2="19"></line><line x1="11.5" y1="11" x2="16" y2="11"></line><line x1="11.5" y1="15" x2="16" y2="15"></line><line x1="11.5" y1="19" x2="16" y2="19"></line></svg>
+                Aturan Pemesanan
+            </div>
+            <div class="aturan-content">
+                <ol>
+                    <li>Lakukan pemesanan minimal 1 hari sebelumnya</li>
+                    <li>Pembatalan dapat dilakukan dalam H-3 jam dan akan dikenakan tarif sebesar 10% yang diberikan</li>
+                    <li>Dilarang membawa makanan dan minuman dari luar</li>
+                    <li>Jaga kebersihan dan fasilitas selama penggunaan</li>
+                </ol>
+            </div>
+        `;
+
+        document.getElementById('skeleton-jam').innerHTML = `
+            <div class="jam-box-header">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <h5>Jam Operasional</h5>
+            </div>
+            <div class="jam-box-content">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <div class="text">Setiap hari</div>
+            </div>
+            <div class="jam-box-time">08:00–22:00</div>
+        `;
     }
 
     /* ===== LOAD DETAIL ===== */
-    async function loadDetail(isRefresh = false) {
+    async function loadDetail() {
+        const myToken = ++loadToken;
         const urlParams = new URLSearchParams(window.location.search);
         const id = ['1', '2'].includes(urlParams.get('id')) ? urlParams.get('id') : '1';
+
+        // Offline -> overlay offline
+        if (!navigator.onLine) { showNetworkOverlay(); return; }
+
+        // Jaringan 3G / 2G (mis. Fast 3G di DevTools) -> langsung "Gagal memuat"
+        if (isSlowNetwork()) { showError(); return; }
 
         showSkeleton(id);
         document.getElementById('breadcrumb-current').innerText = 'Detail Lapangan ' + id;
 
-        // Jika tombol Refresh diklik, kita abaikan deteksi koneksi lambat sementara
-        // agar bisa memaksa muat ulang data.
-        if (!isRefresh && isSlowConnection()) { 
-            showError(); 
-            return; 
-        }
-
-        const data = {
-            '1': { nama: 'Lapangan Futsal 1', badge: 'VIP', badgeClass: 'badge-vip', harga: 100000, img: 'assets/uploads/lapangan/Lapangan1.jpeg', desc: 'Lapangan futsal 1 adalah lapangan yang berkategorikan VIP dengan permukaan Vinyl dengan kualitas premium yang memberikan kenyamanan dan Keamanan saat bermain lapangan ini cocok untuk berbagai kebutuhan mulai dari latihan rutin sampai turnamen pertandingan antar tim hingga profesional', fasilitas: ['Indoor', 'Area Luas', 'Area Penonton', 'Sirkulasi udara'] },
-            '2': { nama: 'Lapangan Futsal 2', badge: 'Reguler', badgeClass: 'badge-reguler', harga: 90000, img: 'assets/uploads/lapangan/Lapangan2.jpeg', desc: 'Lapangan futsal 2 adalah lapangan yang berkategorikan Reguler dengan permukaan Vinyl dengan kualitas standar yang memberikan kesan kenyamanan dan Fun, cocok digunakan untuk berlatih, dan bermain funmatch dengan rekan', fasilitas: ['Indoor', 'Area Luas'] }
-        };
-
+        // Cek server (tidak wajib berhasil; kalau gagal halaman tetap tampil dengan data bawaan)
         try {
-            if (!navigator.onLine) throw new TypeError('Failed to fetch');
+            await fetchWithTimeout(API_BASE + '/auth/check.php?_=' + Date.now(), {
+                credentials: 'include',
+                headers: { 'Accept': 'application/json' },
+                cache: 'no-store',
+                timeout: FETCH_TIMEOUT_MS
+            });
+        } catch (error) { /* abaikan */ }
 
-            const response = await fetchWithTimeout(
-                API_BASE + '/auth/check.php?_=' + Date.now(),
-                { credentials: 'include', headers: { 'Accept': 'application/json' }, cache: 'no-store' }
-            );
-            if (response.status >= 500) throw new Error('Server error ' + response.status);
+        // Ada pemuatan yang lebih baru / jaringan berubah -> abaikan hasil ini
+        if (myToken !== loadToken) return;
 
-            const info = data[id];
-            hideSkeleton();
+        if (!navigator.onLine) { hideSkeleton(); showNetworkOverlay(); return; }
+        if (isSlowNetwork()) { showError(); return; }
 
-            document.getElementById('lapangan-name').innerText = info.nama;
-            document.getElementById('lapangan-deskripsi').innerText = info.desc;
-            document.getElementById('img-wrapper').innerHTML = `<img id="lapangan-image" class="detail-image" src="${info.img}" alt="${info.nama}" onerror="imgFail(this)">`;
-
-            const b = document.getElementById('lapangan-badge');
-            b.innerText = info.badge;
-            b.className = info.badgeClass;
-            b.style.display = 'inline-flex';
-
-            document.getElementById('lapangan-harga').innerHTML = `Rp${info.harga.toLocaleString('id-ID')}`;
-
-            const fasContainer = document.getElementById('fasilitas-container');
-            fasContainer.className = 'fasilitas-list' + (id === '2' ? ' vertical' : '');
-            fasContainer.innerHTML = info.fasilitas.map(f => fasItem(f)).join('');
-
-            document.getElementById('btn-booking-link').href = `booking_lapangan.html?id=${id}`;
-
-            // Kembalikan konten asli untuk bottom grid
-            document.getElementById('skeleton-aturan').innerHTML = `
-                <div class="info-box-header">
-                    <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="18" rx="2.5"></rect><rect x="9" y="2" width="6" height="4" rx="1"></rect><line x1="8" y1="11" x2="8.01" y2="11"></line><line x1="8" y1="15" x2="8.01" y2="15"></line><line x1="8" y1="19" x2="8.01" y2="19"></line><line x1="11.5" y1="11" x2="16" y2="11"></line><line x1="11.5" y1="15" x2="16" y2="15"></line><line x1="11.5" y1="19" x2="16" y2="19"></line></svg>
-                    Aturan Pemesanan
-                </div>
-                <div class="aturan-content">
-                    <ol>
-                        <li>Lakukan pemesanan minimal 1 hari sebelumnya</li>
-                        <li>Pembatalan dapat dilakukan dalam H-3 jam dan akan dikenakan tarif sebesar 10% yang diberikan</li>
-                        <li>Dilarang membawa makanan dan minuman dari luar</li>
-                        <li>Jaga kebersihan dan fasilitas selama penggunaan</li>
-                    </ol>
-                </div>
-            `;
-
-            document.getElementById('skeleton-jam').innerHTML = `
-                <div class="jam-box-header">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    <h5>Jam Operasional</h5>
-                </div>
-                <div class="jam-box-content">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    <div class="text">Setiap hari</div>
-                </div>
-                <div class="jam-box-time">08:00–22:00</div>
-            `;
-
-        } catch (error) {
-            if (error.name === 'TypeError' && !navigator.onLine) {
-                hideSkeleton();
-                showNetworkOverlay();
-            } else {
-                showError();
-            }
-        }
+        hideSkeleton();
+        renderDetail(id);
     }
 
-    if (navigator.connection) {
-        navigator.connection.addEventListener('change', () => { if (navigator.onLine) loadDetail(); });
+    /* ===== TOMBOL REFRESH (hanya memuat ulang konten, bukan seluruh halaman) ===== */
+    async function handleRefreshClick() {
+        const btn = document.querySelector('.vsq-btn-refresh');
+        if (btn) { btn.disabled = true; btn.textContent = 'Memuat...'; }
+        await new Promise(r => setTimeout(r, 500));
+        try { await loadDetail(); }
+        finally { if (btn) { btn.disabled = false; btn.textContent = 'Refresh'; } }
+    }
+
+    /* ===== JENIS KONEKSI BERUBAH (mis. pilih 3G di DevTools) ===== */
+    const conn = getConnection();
+    if (conn && conn.addEventListener) {
+        conn.addEventListener('change', () => {
+            if (!navigator.onLine) return;
+            if (isSlowNetwork()) {
+                loadToken++;      // batalkan pemuatan yang sedang berjalan
+                showError();      // langsung tampil "Gagal memuat"
+            } else if (document.body.classList.contains('is-error')) {
+                loadDetail();     // kembali normal -> muat ulang otomatis
+            }
+        });
     }
 
     document.addEventListener('DOMContentLoaded', function () {

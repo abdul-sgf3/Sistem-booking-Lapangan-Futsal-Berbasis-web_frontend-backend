@@ -33,9 +33,15 @@ if (empty($user['otp_code']) || !hash_equals((string)$user['otp_code'], $otp)) {
 }
 if (isOtpExpired($user['otp_expired_at'])) sendError('Kode OTP kadaluarsa', 400);
 
-otpAttemptReset('reset:' . $email);
+// OTP sudah valid, konsumsi OTP agar tidak dapat digunakan ulang
+clearOtpFromUser($conn, (int)$user['id']);
+
+// Buat session reset password
+session_regenerate_id(true);
+
 $_SESSION['reset_verified'] = true;
 $_SESSION['reset_email']    = $email;
+
 
 sendResponse(['verified' => true], 'OTP Valid. Silakan ganti password.');
 ?>

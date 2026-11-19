@@ -13,8 +13,7 @@ body { background-color: var(--vsq-bg); font-family: 'Plus Jakarta Sans', sans-s
 
 /* NAVBAR */
 #navbar { position: sticky; top: 0; z-index: 1000; }
-.vsq-header { background: #FFFFFF; width: 100%; height: 94px; border-bottom: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: space-between; box-sizing: border-box;
-    padding: 0 max(50px, calc((100% - 1540px) / 2 + 50px)) 0 max(44px, calc((100% - 1540px) / 2 + 44px)); }
+.vsq-header { background: #FFFFFF; width: 100%; height: 94px; border-bottom: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: space-between; box-sizing: border-box; padding: 0 max(50px, calc((100% - 1540px) / 2 + 50px)) 0 max(44px, calc((100% - 1540px) / 2 + 44px)); }
 .vsq-nav-left { display: flex; align-items: center; gap: 10px; }
 .vsq-logo { display: flex; align-items: center; text-decoration: none; width: 168px; flex-shrink: 0; }
 .vsq-logo-img { width: 100%; height: auto; display: block; object-fit: contain; }
@@ -189,16 +188,20 @@ body.is-loading #real-content { display: none; }
 body:not(.is-loading) #skeleton-page { display: none; }
 
 /* ===== GAGAL MEMUAT ===== */
-#load-error { display: none; min-height: calc(100vh - 94px); padding: 40px 24px 120px; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: #FFFFFF; }
+#load-error {
+    display: none;
+    min-height: calc(100vh - 94px);
+    padding: 40px 24px 120px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #FFFFFF;
+}
 body.has-error #load-error { display: flex !important; }
 body.has-error #real-content,
-body.has-error #skeleton-page,
-body.has-error #skeleton-container { display: none !important; }
-body.has-error .sk-hero,
-body.has-error .sk-section-lapangan,
-body.has-error .sk-section-steps,
-body.has-error .sk-section-faq,
-body.has-error .sk-footer { display: none !important; }
+body.has-error #skeleton-page { display: none !important; }
+
 .load-error-icon { width: 98px; height: 98px; object-fit: contain; display: block; margin-bottom: 38px; }
 .load-error-title { font-size: 56px; line-height: 64px; font-weight: 700; color: #000; letter-spacing: -1px; margin-bottom: 42px; }
 .load-error-text { font-size: 21px; line-height: 30px; font-weight: 400; color: #000; margin-bottom: 60px; }
@@ -363,15 +366,45 @@ body.has-error .sk-footer { display: none !important; }
     .sk-footer { padding: 50px 0 30px; margin-top: 46px; }
     .sk-footer-content { padding: 0 24px; }
     .sk-f-bottom { padding: 0 24px; margin-top: 40px; }
+
     #load-error { min-height: calc(100vh - 80px); padding: 40px 20px 80px; }
     .load-error-icon { width: 72px; height: 72px; margin-bottom: 24px; }
     .load-error-title { font-size: 32px; line-height: 40px; margin-bottom: 20px; }
     .load-error-text { font-size: 15px; line-height: 22px; margin-bottom: 32px; }
     .load-error-btn { height: 50px; font-size: 20px; border-radius: 12px; }
+
     .network-icon svg { width: 80px; height: 80px; margin-bottom: 20px; }
     .network-title { font-size: 24px; }
     .network-message { font-size: 15px; }
     .network-btn { padding: 12px 32px; font-size: 14px; }
+}
+
+/* ===== KONSISTENSI before/after login ===== */
+html { scrollbar-gutter: stable; }
+#navbar { min-height: 94px; background: #FFFFFF; }
+.vsq-header { min-height: 94px; }
+.vsq-card, .vsq-faq-item { background: #FFFFFF; }
+.vsq-card-title-row { height: 32px; }
+.vsq-card-chips { height: 22px; align-items: center; }
+.vsq-profile-avatar img, .vsq-dd-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.vsq-profile-box { flex-shrink: 0; }
+@media screen and (max-width: 768px) {
+    #navbar, .vsq-header { min-height: 80px; }
+    .vsq-card-title-row, .vsq-card-chips { height: auto; }
+}
+
+/* ===== FAQ sesuai desain ===== */
+.faq-number { width: 26px; font-weight: 400; }            /* teks pertanyaan selalu mulai di titik yang sama (01 = 02) */
+.faq-text-wrapper { gap: 20px; }
+.vsq-faq-col:first-child .faq-text { transform: translateY(3px); }  /* 1 baris sedikit di bawah nomor, seperti desain */
+.vsq-faq-col:nth-child(2) .faq-text { max-width: 345px; } /* 330px membuat "sekaligus?" turun ke baris ke-3 */
+@media screen and (max-width: 1100px) {
+    .vsq-faq-col:first-child .faq-text { transform: none; }
+    .vsq-faq-col:nth-child(2) .faq-text { max-width: none; }
+}
+@media screen and (max-width: 768px) {
+    .faq-number { width: auto; }
+    .faq-text-wrapper { gap: 12px; }
 }
 </style>
 </head>
@@ -478,7 +511,7 @@ body.has-error .sk-footer { display: none !important; }
                     <span class="vsq-check-chip"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 10 18 20 6"/></svg>Standar Nasional</span>
                     <span class="vsq-check-chip"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 10 18 20 6"/></svg>Konfirmasi Realtime</span>
                 </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Tuparev+No.64,+Kertawinangun,+Kec.+Kedawung,+Kabupaten+Cirebon,+Jawa+Barat+45153" target="_blank" class="vsq-location-pill">
+                <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Tuparev+No.64,+Kertawinangun,+Kec.+Kedawung,+Kabupaten+Cirebon,+Jawa+Barat+45153" target="_blank" rel="noopener" class="vsq-location-pill">
                     <svg viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                     <span>Tuparev, Kota Cirebon, Jawa Barat</span>
                 </a>
@@ -517,7 +550,7 @@ body.has-error .sk-footer { display: none !important; }
                 </div>
                 <div class="vsq-faq-col">
                     <div class="vsq-faq-item" onclick="toggleFaq(this)"><div class="vsq-faq-header"><div class="faq-text-wrapper"><span class="faq-number">03</span><span class="faq-text">Bagaimana cara saya mengetahui booking saya berhasil</span></div><span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="vsq-faq-body">Ketika sudah melakukan pembayaran, status pembookingan akan terlihat pada bagian menu "Riwayat Booking"</div></div>
-                    <div class="vsq-faq-item" onclick="toggleFaq(this)"><div class="vsq-faq-header"><div class="faq-text-wrapper"><span class="faq-number">04</span><span class="faq-text">Apakah bisa melakukan booking dengan beberapa jadwal sekaligus?</span></div><span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="vsq-faq-body">Bisa, ketika memilih jadwal anda bisa memilih dengan cara beberapa jadwal yang kosong/tersedia</div></div>
+                    <div class="vsq-faq-item" onclick="toggleFaq(this)"><div class="vsq-faq-header"><div class="faq-text-wrapper"><span class="faq-number">04</span><span class="faq-text">Apakah bisa melakukan booking dengan beberapa&nbsp; jadwal sekaligus?</span></div><span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="vsq-faq-body">Bisa, ketika memilih jadwal anda bisa memilih dengan cara beberapa jadwal yang kosong/tersedia</div></div>
                 </div>
             </div>
         </section>
@@ -593,7 +626,6 @@ const API_BASE = window.location.hostname.includes('localhost') || window.locati
     ? 'http://localhost/vincent-arena/Backend/API'
     : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
 
-/* ===== DETEKSI 3G ===== */
 const SLOW_NETWORK_TYPES = ['slow-2g', '2g', '3g'];
 const FETCH_TIMEOUT_MS   = 4000;
 const IMAGE_WAIT_MS      = 6000;
@@ -603,12 +635,14 @@ const HERO_IMAGE         = 'assets/uploads/lapangan/hero.jpeg';
 function getConnection() {
     return navigator.connection || navigator.mozConnection || navigator.webkitConnection || null;
 }
+
+// Deteksi 3G diperketat: true hanya jika effectiveType 3G/2G, atau RTT sangat lambat.
 function isSlowNetwork() {
     const c = getConnection();
     if (!c) return false;
-    if (SLOW_NETWORK_TYPES.includes((c.effectiveType || '').toLowerCase())) return true;
-    if (typeof c.rtt === 'number' && c.rtt >= 300) return true;
-    if (typeof c.downlink === 'number' && c.downlink > 0 && c.downlink < 1.5) return true;
+    const type = (c.effectiveType || '').toLowerCase();
+    if (SLOW_NETWORK_TYPES.includes(type)) return true;
+    if (type === '4g' && typeof c.rtt === 'number' && c.rtt >= 600) return true;
     return false;
 }
 
@@ -639,29 +673,57 @@ function toggleFaq(element) { const isActive = element.classList.contains('activ
 /* USER */
 const USER_KEYS = ['vsq_user', 'user', 'userData', 'user_data', 'currentUser'];
 function getCachedUser() { for (const key of USER_KEYS) { try { const raw = localStorage.getItem(key); if (!raw) continue; const parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') return parsed; } catch (e) {} } return null; }
-function normalizeUser(u) { if (!u) return null; const nama = u.nama || u.name || u.nama_lengkap || u.username || 'User'; return { nama: nama, email: u.email || '-', whatsapp: u.whatsapp || u.no_wa || u.no_hp || '-', foto_url: u.foto_url || u.foto || u.foto_profil || u.avatar || '', initial: u.initial || nama.charAt(0).toUpperCase() }; }
 function logoFallback(img) { const wrap = document.createElement('span'); wrap.className = 'vsq-logo-fallback'; wrap.innerHTML = '<span class="vsq-logo-title">Vincent\'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span>'; img.replaceWith(wrap); }
 
+function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+}
+
+function normalizeUser(u) {
+    if (!u) return null;
+    const nama = String(u.nama || u.name || u.nama_lengkap || u.username || 'User').trim() || 'User';
+    return {
+        nama: nama,
+        email: u.email || '-',
+        whatsapp: u.whatsapp || u.no_wa || u.no_hp || '-',
+        foto_url: u.foto_url || u.foto || u.foto_profil || u.avatar || '',
+        initial: (u.initial || nama.charAt(0)).toUpperCase()
+    };
+}
+
+function avatarHTML(user) {
+    return user.foto_url
+        ? `<img src="${esc(user.foto_url)}" alt="${esc(user.nama)}" data-initial="${esc(user.initial)}" onerror="avatarFallback(this)">`
+        : esc(user.initial);
+}
+function avatarFallback(img) { img.parentNode.textContent = img.dataset.initial || '?'; }
+
+let lastNavSignature = null;
+
 function renderNavbar(user) {
+    const signature = JSON.stringify(user);
+    if (signature === lastNavSignature) return;        // tidak render ulang = tidak berkedip
+    lastNavSignature = signature;
+
     const navbarEl = document.getElementById('navbar');
     let rightNavHTML = '';
     if (user) {
-        const firstName = user.nama.split(' ')[0];
-        const avatarContent = user.foto_url ? `<img src="${user.foto_url}" alt="${user.nama}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.outerHTML='${user.initial}'">` : user.initial;
+        const firstName = esc(user.nama.split(' ')[0]);
+        const avatar = avatarHTML(user);
         rightNavHTML = `
             <button class="vsq-notif-btn" aria-label="Notifikasi"><img src="assets/images/notifikasi.png" alt="Notifikasi"></button>
-            <div class="vsq-profile-box" id="profileToggle"><span class="vsq-profile-name">Hai ${firstName}</span><div class="vsq-profile-avatar">${avatarContent}</div></div>
+            <div class="vsq-profile-box" id="profileToggle"><span class="vsq-profile-name">Hai ${firstName}</span><div class="vsq-profile-avatar">${avatar}</div></div>
             <button class="vsq-btn-logout" onclick="logout()">Logout</button>
             <div class="vsq-profile-dropdown" id="profileDropdown">
-                <div class="vsq-dd-header"><div class="vsq-dd-avatar">${avatarContent}</div><div class="vsq-dd-info"><h4>${user.nama}</h4><div class="vsq-badge-verified"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Terverifikasi</div></div></div>
-                <div class="vsq-dd-body"><div class="vsq-dd-item"><span class="value">${user.email}</span></div><div class="vsq-dd-item"><span class="value">${user.whatsapp}</span></div></div>
+                <div class="vsq-dd-header"><div class="vsq-dd-avatar">${avatar}</div><div class="vsq-dd-info"><h4>${esc(user.nama)}</h4><div class="vsq-badge-verified"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Terverifikasi</div></div></div>
+                <div class="vsq-dd-body"><div class="vsq-dd-item"><span class="value">${esc(user.email)}</span></div><div class="vsq-dd-item"><span class="value">${esc(user.whatsapp)}</span></div></div>
                 <div class="vsq-dd-divider"></div>
                 <div class="vsq-dd-footer"><a href="profil_user.html" class="vsq-btn-edit-profile">Edit Profil</a><button class="vsq-btn-logout-dropdown" onclick="logout()">Keluar</button></div>
-            </div>
-        `;
+            </div>`;
     } else {
         rightNavHTML = `<a href="login.html" class="vsq-btn-login-outline">Login</a><a href="register.html" class="vsq-btn-register">Register</a>`;
     }
+
     navbarEl.innerHTML = `
     <div class="vsq-header">
         <div class="vsq-nav-left">
@@ -670,25 +732,44 @@ function renderNavbar(user) {
         </div>
         <div class="vsq-nav-right">${rightNavHTML}</div>
     </div>`;
-    const pt = document.getElementById('profileToggle'), pd = document.getElementById('profileDropdown');
-    if (pt && pd) { pt.addEventListener('click', e => { e.stopPropagation(); pd.classList.toggle('show'); }); document.addEventListener('click', e => { if (!pd.contains(e.target) && !pt.contains(e.target)) pd.classList.remove('show'); }); }
 }
+
+// Satu listener saja (delegasi), tidak menumpuk setiap render
+document.addEventListener('click', function (e) {
+    const pd = document.getElementById('profileDropdown');
+    if (!pd) return;
+    if (e.target.closest('#profileToggle')) { e.stopPropagation(); pd.classList.toggle('show'); }
+    else if (!pd.contains(e.target)) pd.classList.remove('show');
+});
+
 async function updateNavbar() {
     renderNavbar(normalizeUser(getCachedUser()));
     try {
         if (!navigator.onLine || isSlowNetwork()) return;
         const response = await fetchWithTimeout(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' }, timeout: FETCH_TIMEOUT_MS });
         const result = await response.json();
-        const loggedIn = (result.data && result.data.logged_in) || result.logged_in;
+        const loggedIn = (result.data && result.data.logged_in !== undefined) ? result.data.logged_in : result.logged_in;
         const serverUser = (result.data && result.data.user) || result.user;
-        if (loggedIn && serverUser) { localStorage.setItem('vsq_user', JSON.stringify(serverUser)); renderNavbar(normalizeUser(serverUser)); }
+        if (loggedIn && serverUser) {
+            localStorage.setItem('vsq_user', JSON.stringify(serverUser));
+            renderNavbar(normalizeUser(serverUser));
+        } else if (loggedIn === false) {
+            USER_KEYS.forEach(k => localStorage.removeItem(k));   // sesi basi dibersihkan
+            renderNavbar(null);
+        }
     } catch (error) { console.log('Catatan: Menggunakan data sesi lokal.'); }
 }
+
+// Render navbar SEKARANG (sebelum paint pertama), bukan menunggu DOMContentLoaded
+renderNavbar(normalizeUser(getCachedUser()));
+
 function logout() { document.getElementById('logoutModal').classList.add('show'); }
 function closeLogoutModal() { document.getElementById('logoutModal').classList.remove('show'); }
 async function confirmLogout() {
     try { await fetch(API_BASE + '/auth/logout.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ type: 'user' }) }); } catch (error) {}
-    localStorage.clear(); window.location.href = 'login.html';
+    localStorage.clear();
+    lastNavSignature = null;
+    window.location.href = 'login.html';
 }
 document.getElementById('logoutModal').addEventListener('click', function(e) { if (e.target === this) closeLogoutModal(); });
 
@@ -715,7 +796,6 @@ async function retryLoad() {
     finally { if (btn) { btn.disabled = false; btn.textContent = 'Refresh'; } }
 }
 
-/* Listener perubahan koneksi */
 const connection = getConnection();
 if (connection && connection.addEventListener) {
     connection.addEventListener('change', () => {
@@ -728,17 +808,7 @@ if (connection && connection.addEventListener) {
         }
     });
 }
-/* Cek awal */
 if (isSlowNetwork()) showLoadError();
-
-/* Listener resource gagal */
-window.addEventListener('error', function(e){
-    if (e.target && ['IMG','SCRIPT','LINK'].includes(e.target.tagName)) {
-        if (!navigator.onLine) return;
-        document.body.classList.add('has-error');
-        document.body.classList.remove('is-loading');
-    }
-}, true);
 
 function showSlowConnectionWarning() {
     if (document.getElementById('slow-connection-toast')) return;
@@ -803,14 +873,14 @@ function renderLapangan(data) {
         if (!finalImgUrl || finalImgUrl === 'null' || finalImgUrl.trim() === '') { finalImgUrl = 'assets/uploads/lapangan/hero.jpeg'; }
         return `
         <article class="vsq-card">
-            <div class="vsq-card-img-wrap"><div class="vsq-card-img" style="background-image: url('${finalImgUrl}');"></div></div>
+            <div class="vsq-card-img-wrap"><div class="vsq-card-img" style="background-image: url('${esc(finalImgUrl)}');"></div></div>
             <div class="vsq-card-body">
                 <div>
-                    <div class="vsq-card-title-row"><h3>${l.nama_lapangan}</h3><span class="vsq-card-badge ${badgeClass}">${badge}</span></div>
+                    <div class="vsq-card-title-row"><h3>${esc(l.nama_lapangan)}</h3><span class="vsq-card-badge ${badgeClass}">${badge}</span></div>
                     <div class="vsq-card-chips">${fasilitas.map(f => `<span class="vsq-check-chip">${CHECK_ICON}${f}</span>`).join('')}</div>
                 </div>
                 <div class="vsq-card-footer">
-                    <a href="detail_lapangan.html?id=${l.id}" class="vsq-btn-booking" onclick="handleBookingClick(event, this)">Booking Sekarang ${ARROW_ICON}</a>
+                    <a href="detail_lapangan.html?id=${encodeURIComponent(l.id)}" class="vsq-btn-booking" onclick="handleBookingClick(event, this)">Booking Sekarang ${ARROW_ICON}</a>
                 </div>
             </div>
         </article>`;

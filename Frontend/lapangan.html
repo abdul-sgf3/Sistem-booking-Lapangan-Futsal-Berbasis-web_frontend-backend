@@ -225,6 +225,33 @@ main.is-error .vsq-booking-section { padding: 0; max-width: none; }
     .network-message { font-size: 17px; margin-bottom: 28px; }
     .network-btn { width: 150px; height: 50px; font-size: 16px; border-radius: 14px; }
 }
+
+/* ===== HEADER SAMA PERSIS DENGAN INDEX (konsistensi antar halaman) ===== */
+html { scrollbar-gutter: stable; }
+#navbar { min-height: 94px; background: #FFFFFF; }
+.vsq-header { min-height: 94px; }
+.vsq-nav-link.active:hover { color: #FFFFFF; }
+.vsq-profile-avatar img, .vsq-dd-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.vsq-profile-box { flex-shrink: 0; }
+@media screen and (max-width: 768px) {
+    #navbar, .vsq-header { min-height: 80px; }
+}
+@media screen and (min-width: 1101px) {
+  .vsq-header { padding-left:max(47px, calc((100% - 1540px) / 2 + 47px)); }
+  .vsq-nav-left { gap:17px; }
+  .vsq-logo { width:158px; }
+  .vsq-nav-menu { gap:17px; }
+  .vsq-nav-link { height:53px; padding:9px 19px; border-radius:16px; font-size:15px; font-weight:600; line-height:19px; color:#131B2E; display:flex; align-items:center; justify-content:center; }
+  .vsq-nav-link.active { color:#FFFFFF; }
+  .vsq-nav-link:nth-child(1) { width:100px; }
+  .vsq-nav-link:nth-child(2) { width:203px; }
+  .vsq-nav-link:nth-child(3) { width:159px; }
+  .vsq-nav-link:nth-child(4) { width:181px; color:#111827; }
+}
+@media screen and (min-width: 769px) {
+  .vsq-btn-login-outline { width:128px; height:51px; border:1px solid #131B2E; border-radius:16px; font-size:17px; font-weight:600; }
+  .vsq-btn-register { width:128px; height:53px; border-radius:16px; font-size:17px; font-weight:600; }
+}
 </style>
 </head>
 <body>
@@ -310,25 +337,24 @@ const API_BASE = window.location.hostname.includes('localhost') || window.locati
     ? 'http://localhost/vincent-arena/Backend/API'
     : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
 
-/* ===== DETEKSI JARINGAN 3G =====
-   "Gagal memuat" HANYA muncul saat jaringan terdeteksi 3G / 2G / slow-2g
-   (yaitu ketika memilih Fast 3G / Slow 3G di DevTools > Network).
-   Saat "No throttling" halaman tampil normal. */
-const SLOW_NETWORK_TYPES = ['slow-2g', '2g', '3g'];
-const FETCH_TIMEOUT_MS   = 4000;
+/* ===== DETEKSI JARINGAN 3G (DevTools > Network throttling) =====
+   "Gagal memuat" HANYA muncul saat throttling Fast 3G / Slow 3G dipilih.
+   Saat "No throttling" halaman tampil normal.
 
-function getConnection() {
-    return navigator.connection || navigator.mozConnection || navigator.webkitConnection || null;
-}
-function isSlowNetwork() {
-    const c = getConnection();
-    if (!c) return false;
-    if (SLOW_NETWORK_TYPES.includes(c.effectiveType)) return true;
-    // cadangan: Chrome kadang telat memperbarui effectiveType
-    if (typeof c.rtt === 'number' && typeof c.downlink === 'number' && c.rtt >= 400 && c.downlink <= 2) return true;
-    return false;
-}
+   Kenapa tidak pakai navigator.connection.effectiveType?
+   Nilai itu hanya PERKIRAAN Chrome (bisa basi / salah, mis. tetap "3g"
+   padahal sudah No throttling). Jadi kita ukur langsung: kirim request
+   kecil ke server yang sama lalu hitung berapa lama responsnya.
+   - No throttling (localhost)  : beberapa ms
+   - Fast 3G (latensi ~562 ms)  : >= ~560 ms
+   - Slow 3G (latensi ~2000 ms) : >= ~2000 ms (atau timeout)
+   Ubah SLOW_LATENCY_MS jika ingin lebih sensitif / lebih longgar. */
+const SLOW_LATENCY_MS  = 400;
+const PROBE_TIMEOUT_MS = 3000;
+const POLL_INTERVAL_MS = 3000;
+const FETCH_TIMEOUT_MS = 4000;
 
+let networkIsSlow = false;
 let loadToken = 0;
 
 async function fetchWithTimeout(resource, options = {}) {
@@ -336,6 +362,20 @@ async function fetchWithTimeout(resource, options = {}) {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), timeout);
     try { return await fetch(resource, { ...fetchOptions, signal: controller.signal }); } finally { clearTimeout(id); }
+}
+
+async function detectSlowNetwork() {
+    if (!navigator.onLine) { networkIsSlow = false; return false; }
+    const url = window.location.pathname + '?_probe=' + Date.now() + Math.random().toString(36).slice(2);
+    const start = performance.now();
+    try {
+        await fetchWithTimeout(url, { method: 'HEAD', cache: 'no-store', timeout: PROBE_TIMEOUT_MS });
+        networkIsSlow = (performance.now() - start) >= SLOW_LATENCY_MS;
+    } catch (e) {
+        // timeout (AbortError) = sangat lambat; error lain (mis. offline) tidak dianggap lambat
+        networkIsSlow = (e && e.name === 'AbortError');
+    }
+    return networkIsSlow;
 }
 
 /* ===== ASSETS FASILITAS ===== */
@@ -383,35 +423,57 @@ function retryConnection() {
 /* ===== NAVBAR LOGIC ===== */
 const USER_KEYS = ['vsq_user', 'user', 'userData', 'user_data', 'currentUser'];
 function getCachedUser() { for (const key of USER_KEYS) { try { const raw = localStorage.getItem(key); if (!raw) continue; const parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') return parsed; } catch (e) {} } return null; }
-function normalizeUser(u) { if (!u) return null; const nama = u.nama || u.name || u.nama_lengkap || u.username || 'User'; return { nama: nama, email: u.email || '-', whatsapp: u.whatsapp || u.no_wa || u.no_hp || '-', foto_url: u.foto_url || u.foto || u.foto_profil || u.avatar || '', initial: u.initial || nama.charAt(0).toUpperCase() }; }
-
-function logoFallback(img) {
-    const wrap = document.createElement('span');
-    wrap.className = 'vsq-logo-fallback';
-    wrap.innerHTML = '<span class="vsq-logo-title">Vincent\'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span>';
-    img.replaceWith(wrap);
+function normalizeUser(u) {
+    if (!u) return null;
+    const nama = String(u.nama || u.name || u.nama_lengkap || u.username || 'User').trim() || 'User';
+    return {
+        nama: nama,
+        email: u.email || '-',
+        whatsapp: u.whatsapp || u.no_wa || u.no_hp || '-',
+        foto_url: u.foto_url || u.foto || u.foto_profil || u.avatar || '',
+        initial: (u.initial || nama.charAt(0)).toUpperCase()
+    };
 }
 
+function logoFallback(img) { const wrap = document.createElement('span'); wrap.className = 'vsq-logo-fallback'; wrap.innerHTML = '<span class="vsq-logo-title">Vincent\'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span>'; img.replaceWith(wrap); }
+
+function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+}
+
+function avatarHTML(user) {
+    return user.foto_url
+        ? `<img src="${esc(user.foto_url)}" alt="${esc(user.nama)}" data-initial="${esc(user.initial)}" onerror="avatarFallback(this)">`
+        : esc(user.initial);
+}
+function avatarFallback(img) { img.parentNode.textContent = img.dataset.initial || '?'; }
+
+let lastNavSignature = null;
+
 function renderNavbar(user) {
+    const signature = JSON.stringify(user);
+    if (signature === lastNavSignature) return;
+    lastNavSignature = signature;
+
     const navbarEl = document.getElementById('navbar');
     let rightNavHTML = '';
     if (user) {
-        const firstName = user.nama.split(' ')[0];
-        const avatarContent = user.foto_url ? `<img src="${user.foto_url}" alt="${user.nama}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.outerHTML='${user.initial}'">` : user.initial;
+        const firstName = esc(user.nama.split(' ')[0]);
+        const avatar = avatarHTML(user);
         rightNavHTML = `
             <button class="vsq-notif-btn" aria-label="Notifikasi"><img src="assets/images/notifikasi.png" alt="Notifikasi"></button>
-            <div class="vsq-profile-box" id="profileToggle"><span class="vsq-profile-name">Hai ${firstName}</span><div class="vsq-profile-avatar">${avatarContent}</div></div>
+            <div class="vsq-profile-box" id="profileToggle"><span class="vsq-profile-name">Hai ${firstName}</span><div class="vsq-profile-avatar">${avatar}</div></div>
             <button class="vsq-btn-logout" onclick="logout()">Logout</button>
             <div class="vsq-profile-dropdown" id="profileDropdown">
-                <div class="vsq-dd-header"><div class="vsq-dd-avatar">${avatarContent}</div><div class="vsq-dd-info"><h4>${user.nama}</h4><div class="vsq-badge-verified"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Terverifikasi</div></div></div>
-                <div class="vsq-dd-body"><div class="vsq-dd-item"><span class="value">${user.email}</span></div><div class="vsq-dd-item"><span class="value">${user.whatsapp}</span></div></div>
+                <div class="vsq-dd-header"><div class="vsq-dd-avatar">${avatar}</div><div class="vsq-dd-info"><h4>${esc(user.nama)}</h4><div class="vsq-badge-verified"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Terverifikasi</div></div></div>
+                <div class="vsq-dd-body"><div class="vsq-dd-item"><span class="value">${esc(user.email)}</span></div><div class="vsq-dd-item"><span class="value">${esc(user.whatsapp)}</span></div></div>
                 <div class="vsq-dd-divider"></div>
                 <div class="vsq-dd-footer"><a href="profil_user.html" class="vsq-btn-edit-profile">Edit Profil</a><button class="vsq-btn-logout-dropdown" onclick="logout()">Keluar</button></div>
-            </div>
-        `;
+            </div>`;
     } else {
         rightNavHTML = `<a href="login.html" class="vsq-btn-login-outline">Login</a><a href="register.html" class="vsq-btn-register">Register</a>`;
     }
+
     navbarEl.innerHTML = `
     <div class="vsq-header">
         <div class="vsq-nav-left">
@@ -420,21 +482,35 @@ function renderNavbar(user) {
         </div>
         <div class="vsq-nav-right">${rightNavHTML}</div>
     </div>`;
-    const pt = document.getElementById('profileToggle'), pd = document.getElementById('profileDropdown');
-    if (pt && pd) { pt.addEventListener('click', e => { e.stopPropagation(); pd.classList.toggle('show'); }); document.addEventListener('click', e => { if (!pd.contains(e.target) && !pt.contains(e.target)) pd.classList.remove('show'); }); }
 }
+
+document.addEventListener('click', function (e) {
+    const pd = document.getElementById('profileDropdown');
+    if (!pd) return;
+    if (e.target.closest('#profileToggle')) { e.stopPropagation(); pd.classList.toggle('show'); }
+    else if (!pd.contains(e.target)) pd.classList.remove('show');
+});
 
 async function updateNavbar() {
     renderNavbar(normalizeUser(getCachedUser()));
     try {
-        if (!navigator.onLine || isSlowNetwork()) return;
+        if (!navigator.onLine || networkIsSlow) return;
         const response = await fetchWithTimeout(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' }, timeout: FETCH_TIMEOUT_MS });
         const result = await response.json();
-        const loggedIn = (result.data && result.data.logged_in) || result.logged_in;
+        const loggedIn = (result.data && result.data.logged_in !== undefined) ? result.data.logged_in : result.logged_in;
         const serverUser = (result.data && result.data.user) || result.user;
-        if (loggedIn && serverUser) { localStorage.setItem('vsq_user', JSON.stringify(serverUser)); renderNavbar(normalizeUser(serverUser)); }
+        if (loggedIn && serverUser) {
+            localStorage.setItem('vsq_user', JSON.stringify(serverUser));
+            renderNavbar(normalizeUser(serverUser));
+        } else if (loggedIn === false) {
+            USER_KEYS.forEach(k => localStorage.removeItem(k));
+            renderNavbar(null);
+        }
     } catch (error) { console.log('Catatan: Menggunakan data sesi lokal.'); }
 }
+
+// Render navbar langsung dari cache supaya tidak ada "kedip" (sama seperti index)
+renderNavbar(normalizeUser(getCachedUser()));
 
 function logout() { document.getElementById('logoutModal').classList.add('show'); }
 function closeLogoutModal() { document.getElementById('logoutModal').classList.remove('show'); }
@@ -587,10 +663,14 @@ async function loadLapangan() {
 
     if (!navigator.onLine) { hideSkeleton(); showNetworkOverlay(); return; }
 
-    // Jaringan 3G / 2G -> langsung "Gagal memuat"
-    if (isSlowNetwork()) { showError(); return; }
-
     showSkeleton();
+
+    // Ukur kecepatan jaringan yang sebenarnya (bukan perkiraan Chrome)
+    const slow = await detectSlowNetwork();
+    if (myToken !== loadToken) return;
+
+    if (!navigator.onLine) { hideSkeleton(); showNetworkOverlay(); return; }
+    if (slow) { showError(); return; }
 
     try {
         await fetchWithTimeout(API_BASE + '/auth/check.php?_=' + Date.now(), {
@@ -604,7 +684,6 @@ async function loadLapangan() {
     if (myToken !== loadToken) return;
 
     if (!navigator.onLine) { hideSkeleton(); showNetworkOverlay(); return; }
-    if (isSlowNetwork()) { showError(); return; }
 
     renderLapanganData();
     hideSkeleton();
@@ -619,22 +698,25 @@ async function handleRefreshClick() {
     finally { if (btn) { btn.disabled = false; btn.textContent = 'Refresh'; } }
 }
 
-/* ===== PANTAU PERUBAHAN JENIS KONEKSI (3G / No throttling di DevTools) ===== */
-function syncNetworkState() {
-    if (!navigator.onLine) return;
-    const isError = document.querySelector('main').classList.contains('is-error');
-    if (isSlowNetwork()) {
-        if (!isError) {
-            loadToken++;
+/* ===== PANTAU PERUBAHAN KECEPATAN (ganti 3G <-> No throttling di DevTools) ===== */
+let probing = false;
+async function syncNetworkState() {
+    if (!navigator.onLine || probing) return;
+    probing = true;
+    try {
+        const slow = await detectSlowNetwork();
+        const isError = document.querySelector('main').classList.contains('is-error');
+        if (slow && !isError) {
+            loadToken++;      // batalkan proses load yang sedang berjalan
             showError();
+        } else if (!slow && isError) {
+            loadLapangan();   // kembali normal -> muat ulang otomatis
         }
-    } else if (isError) {
-        loadLapangan();
-    }
+    } finally { probing = false; }
 }
-const conn = getConnection();
+const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 if (conn && conn.addEventListener) conn.addEventListener('change', syncNetworkState);
-setInterval(syncNetworkState, 1000);
+setInterval(syncNetworkState, POLL_INTERVAL_MS);
 
 document.addEventListener('DOMContentLoaded', function() {
     updateNavbar();

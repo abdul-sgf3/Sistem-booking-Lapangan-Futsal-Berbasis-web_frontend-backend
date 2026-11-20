@@ -157,7 +157,7 @@ body { background-color: var(--vsq-bg); font-family: 'Plus Jakarta Sans', sans-s
 .vsq-footer-contact-item strong { display: block; font-size: 21px; line-height: 26px; font-weight: 500; }
 .vsq-footer-bottom { max-width: 1540px; margin: 80px auto 0; padding: 0 48px; text-align: center; font-size: 17px; color: #8A93A6; }
 
-/* MODAL LOGOUT (sesuai desain) */
+/* MODAL LOGOUT */
 .vsq-modal-overlay { position: fixed; inset: 0; background: rgba(19, 27, 46, 0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 9999; opacity: 0; transition: opacity 0.3s ease; }
 .vsq-modal-overlay.show { display: flex; opacity: 1; }
 .vsq-modal-box { background: #FFFFFF; width: 90%; max-width: 458px; border: 1px solid #9CA3AF; border-radius: 16px; padding: 46px 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.3s ease; }
@@ -177,7 +177,7 @@ body { background-color: var(--vsq-bg); font-family: 'Plus Jakarta Sans', sans-s
     .vsq-modal-text br { display: none; }
 }
 
-/* NETWORK OVERLAY (offline lama) */
+/* NETWORK OVERLAY */
 .network-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #1A2235; z-index: 99999; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease; }
 .network-content { text-align: center; display: flex; flex-direction: column; align-items: center; padding: 20px; }
 .network-icon svg { width: 120px; height: 120px; stroke: #FF3B30; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 30px; }
@@ -192,21 +192,10 @@ body { background-color: var(--vsq-bg); font-family: 'Plus Jakarta Sans', sans-s
 body.is-loading #real-content { display: none; }
 body:not(.is-loading) #skeleton-page { display: none; }
 
-/* ===== GAGAL MEMUAT ===== */
-#load-error {
-    display: none;
-    min-height: calc(100vh - 94px);
-    padding: 40px 24px 120px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: #FFFFFF;
-}
+/* GAGAL MEMUAT */
+#load-error { display: none; min-height: calc(100vh - 94px); padding: 40px 24px 120px; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: #FFFFFF; }
 body.has-error #load-error { display: flex !important; }
-body.has-error #real-content,
-body.has-error #skeleton-page { display: none !important; }
-
+body.has-error #real-content, body.has-error #skeleton-page { display: none !important; }
 .load-error-icon { width: 98px; height: 98px; object-fit: contain; display: block; margin-bottom: 38px; }
 .load-error-title { font-size: 56px; line-height: 64px; font-weight: 700; color: #000; letter-spacing: -1px; margin-bottom: 42px; }
 .load-error-text { font-size: 21px; line-height: 30px; font-weight: 400; color: #000; margin-bottom: 60px; }
@@ -384,7 +373,7 @@ body.has-error #skeleton-page { display: none !important; }
     .network-btn { padding: 12px 32px; font-size: 14px; }
 }
 
-/* ===== KONSISTENSI before/after login ===== */
+/* KONSISTENSI before/after login */
 html { scrollbar-gutter: stable; }
 #navbar { min-height: 94px; background: #FFFFFF; }
 .vsq-header { min-height: 94px; }
@@ -399,17 +388,31 @@ html { scrollbar-gutter: stable; }
 }
 
 /* ===== FAQ sesuai desain ===== */
-.faq-number { width: 26px; font-weight: 400; }            /* teks pertanyaan selalu mulai di titik yang sama (01 = 02) */
+.vsq-faq-cols { padding-left: 3px; }
+.faq-number { width: 26px; font-weight: 400; }
 .faq-text-wrapper { gap: 20px; }
-.vsq-faq-col:first-child .faq-text { transform: translateY(3px); }  /* 1 baris sedikit di bawah nomor, seperti desain */
-.vsq-faq-col:nth-child(2) .faq-text { max-width: 345px; } /* 330px membuat "sekaligus?" turun ke baris ke-3 */
+.vsq-faq-col:first-child .faq-text { transform: translateY(3px); }
+.vsq-faq-col:nth-child(2) .faq-text { max-width: 345px; }
+
+.vsq-faq-body { transition: max-height .4s ease, padding .4s ease, margin-top .4s ease; }
+.vsq-faq-item.active .vsq-faq-body { max-height: 300px; padding: 0 52px 27px 99px; margin-top: -10px; }
+
+.faq-answer { font-size: 16px; line-height: 19px; letter-spacing: -0.2px; color: #131B2E; text-align: justify; }
+.fa-1 { width: 440px; }
+.fa-2 { width: 475px; }
+.fa-3 { width: 430px; text-align: left; }
+.fa-4 { width: 430px; }
+
 @media screen and (max-width: 1100px) {
+    .vsq-faq-cols { padding-left: 0; }
     .vsq-faq-col:first-child .faq-text { transform: none; }
     .vsq-faq-col:nth-child(2) .faq-text { max-width: none; }
 }
 @media screen and (max-width: 768px) {
     .faq-number { width: auto; }
     .faq-text-wrapper { gap: 12px; }
+    .vsq-faq-item.active .vsq-faq-body { padding: 0 16px 16px 45px; margin-top: 0; }
+    .faq-answer { width: auto; font-size: 14px; line-height: 21px; letter-spacing: 0; text-align: left; }
 }
 </style>
 </head>
@@ -550,12 +553,12 @@ html { scrollbar-gutter: stable; }
             <h2 class="vsq-big-title upper">Pertanyaan yang sering diajukan</h2>
             <div class="vsq-faq-cols">
                 <div class="vsq-faq-col">
-                    <div class="vsq-faq-item" onclick="toggleFaq(this)"><div class="vsq-faq-header"><div class="faq-text-wrapper"><span class="faq-number">01</span><span class="faq-text">Apakah booking dapat dibatalkan?</span></div><span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="vsq-faq-body">Bisa, pada bagian menu "Riwayat pembookingan" pilih lapangan yang kalian booking, lalu klik "Batal booking"</div></div>
-                    <div class="vsq-faq-item" onclick="toggleFaq(this)"><div class="vsq-faq-header"><div class="faq-text-wrapper"><span class="faq-number">02</span><span class="faq-text">Apakah saya bisa mengubah jadwal lapangan?</span></div><span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="vsq-faq-body">Bisa, untuk perubahan jadwal langsung saja hubungi kontak kami</div></div>
+                    <div class="vsq-faq-item" onclick="toggleFaq(this)"><div class="vsq-faq-header"><div class="faq-text-wrapper"><span class="faq-number">01</span><span class="faq-text">Apakah booking dapat dibatalkan?</span></div><span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="vsq-faq-body"><div class="faq-answer fa-1">Bisa, pada bagian menu “Riwayat pembookingan” pilih lapangan yang kalian booking, lalu klik “Batal booking”</div></div></div>
+                    <div class="vsq-faq-item" onclick="toggleFaq(this)"><div class="vsq-faq-header"><div class="faq-text-wrapper"><span class="faq-number">02</span><span class="faq-text">Apakah saya bisa mengubah jadwal lapangan?</span></div><span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="vsq-faq-body"><div class="faq-answer fa-2">Bisa, untuk perubahan jadwal bisa dengan mengklik tombol ubah pada riwayat booking jika sudah membooking</div></div></div>
                 </div>
                 <div class="vsq-faq-col">
-                    <div class="vsq-faq-item" onclick="toggleFaq(this)"><div class="vsq-faq-header"><div class="faq-text-wrapper"><span class="faq-number">03</span><span class="faq-text">Bagaimana cara saya mengetahui booking saya berhasil</span></div><span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="vsq-faq-body">Ketika sudah melakukan pembayaran, status pembookingan akan terlihat pada bagian menu "Riwayat Booking"</div></div>
-                    <div class="vsq-faq-item" onclick="toggleFaq(this)"><div class="vsq-faq-header"><div class="faq-text-wrapper"><span class="faq-number">04</span><span class="faq-text">Apakah bisa melakukan booking dengan beberapa&nbsp; jadwal sekaligus?</span></div><span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="vsq-faq-body">Bisa, ketika memilih jadwal anda bisa memilih dengan cara beberapa jadwal yang kosong/tersedia</div></div>
+                    <div class="vsq-faq-item" onclick="toggleFaq(this)"><div class="vsq-faq-header"><div class="faq-text-wrapper"><span class="faq-number">03</span><span class="faq-text">Bagaimana cara saya mengetahui booking saya berhasil</span></div><span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="vsq-faq-body"><div class="faq-answer fa-3">ketika sudah melakukan pembayaran, status pembookingan akan terlihat pada bagian menu “Riwayat Booking”</div></div></div>
+                    <div class="vsq-faq-item" onclick="toggleFaq(this)"><div class="vsq-faq-header"><div class="faq-text-wrapper"><span class="faq-number">04</span><span class="faq-text">Apakah bisa melakukan booking dengan beberapa&nbsp; jadwal sekaligus?</span></div><span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="vsq-faq-body"><div class="faq-answer fa-4">Bisa, ketika memilih jadwal&nbsp; anda bisa memilih dengan cara beberapa jadwal yang kosong/tersedia</div></div></div>
                 </div>
             </div>
         </section>
@@ -641,13 +644,14 @@ function getConnection() {
     return navigator.connection || navigator.mozConnection || navigator.webkitConnection || null;
 }
 
-// Deteksi 3G diperketat: true hanya jika effectiveType 3G/2G, atau RTT sangat lambat.
+// Hanya true untuk throttling 3G/2G (DevTools: Slow 3G / Fast 3G).
+// Jaringan asli yang kebetulan terbaca "3g" dengan RTT kecil TIDAK dianggap lambat.
 function isSlowNetwork() {
     const c = getConnection();
     if (!c) return false;
     const type = (c.effectiveType || '').toLowerCase();
-    if (SLOW_NETWORK_TYPES.includes(type)) return true;
-    if (type === '4g' && typeof c.rtt === 'number' && c.rtt >= 600) return true;
+    if (type === 'slow-2g' || type === '2g') return true;
+    if (type === '3g') return (typeof c.rtt !== 'number') || c.rtt >= 500;
     return false;
 }
 
@@ -707,7 +711,7 @@ let lastNavSignature = null;
 
 function renderNavbar(user) {
     const signature = JSON.stringify(user);
-    if (signature === lastNavSignature) return;        // tidak render ulang = tidak berkedip
+    if (signature === lastNavSignature) return;
     lastNavSignature = signature;
 
     const navbarEl = document.getElementById('navbar');
@@ -739,7 +743,6 @@ function renderNavbar(user) {
     </div>`;
 }
 
-// Satu listener saja (delegasi), tidak menumpuk setiap render
 document.addEventListener('click', function (e) {
     const pd = document.getElementById('profileDropdown');
     if (!pd) return;
@@ -759,13 +762,12 @@ async function updateNavbar() {
             localStorage.setItem('vsq_user', JSON.stringify(serverUser));
             renderNavbar(normalizeUser(serverUser));
         } else if (loggedIn === false) {
-            USER_KEYS.forEach(k => localStorage.removeItem(k));   // sesi basi dibersihkan
+            USER_KEYS.forEach(k => localStorage.removeItem(k));
             renderNavbar(null);
         }
     } catch (error) { console.log('Catatan: Menggunakan data sesi lokal.'); }
 }
 
-// Render navbar SEKARANG (sebelum paint pertama), bukan menunggu DOMContentLoaded
 renderNavbar(normalizeUser(getCachedUser()));
 
 function logout() { document.getElementById('logoutModal').classList.add('show'); }
@@ -814,6 +816,13 @@ if (connection && connection.addEventListener) {
     });
 }
 if (isSlowNetwork()) showLoadError();
+
+// Pulihkan otomatis saat throttling dimatikan (event 'change' kadang tidak terpicu di DevTools)
+setInterval(() => {
+    if (document.body.classList.contains('has-error') && navigator.onLine && !isSlowNetwork()) {
+        loadLapangan();
+    }
+}, 1500);
 
 function showSlowConnectionWarning() {
     if (document.getElementById('slow-connection-toast')) return;

@@ -1,0 +1,70 @@
+$kind: http-example
+request:
+  url: "{{base_url}}/{{backend_path}}/auth/login.php"
+  method: POST
+  headers:
+    Accept: application/json
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "email": "{{login_email}}",
+        "password": "{{login_password}}"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    - key: Date
+      value: Thu, 19 Nov 2026 10:13:23 GMT
+    - key: Server
+      value: Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12
+    - key: X-Powered-By
+      value: PHP/8.2.12
+    - key: Vary
+      value: Origin
+    - key: Access-Control-Allow-Methods
+      value: GET, POST, PUT, PATCH, DELETE, OPTIONS
+    - key: Access-Control-Allow-Headers
+      value: Content-Type, Authorization, X-Requested-With, Accept
+    - key: Access-Control-Max-Age
+      value: "86400"
+    - key: X-Content-Type-Options
+      value: nosniff
+    - key: Set-Cookie
+      value: PHPSESSID=df9kuaa66ucne9tfl9rm4nvcb8; expires=Thu, 26 Nov 2026 10:13:23 GMT; Max-Age=604800; path=/; HttpOnly; SameSite=Lax
+    - key: Set-Cookie
+      value: PHPSESSID=ldc14a7ekmmrsmqp7p2u5ltigg; expires=Thu, 26 Nov 2026 10:13:23 GMT; Max-Age=604800; path=/; HttpOnly; SameSite=Lax
+    - key: Expires
+      value: Thu, 19 Nov 1981 08:52:00 GMT
+    - key: Cache-Control
+      value: no-store, no-cache, must-revalidate
+    - key: Pragma
+      value: no-cache
+    - key: Content-Length
+      value: "255"
+    - key: Keep-Alive
+      value: timeout=5, max=100
+    - key: Connection
+      value: Keep-Alive
+    - key: Content-Type
+      value: application/json; charset=UTF-8
+  body:
+    type: json
+    content: |-
+      {
+        "status": "success",
+        "message": "Login berhasil",
+        "data": {
+          "user_id": 32,
+          "email": "login.1795082617922.37548@example.com",
+          "nama": "login.1795082617922.37548",
+          "whatsapp": "",
+          "foto_profil_url": "",
+          "role": "user",
+          "need_profile": true,
+          "redirect": "lengkapi_profil.html"
+        }
+      }
+order: 1000

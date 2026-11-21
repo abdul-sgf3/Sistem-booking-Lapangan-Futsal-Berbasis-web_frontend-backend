@@ -1,0 +1,3 @@
+$kind: collection
+description: "Endpoint: auth/login.php, auth/check.php, auth/logout.php + pengecekan endpoint terproteksi (customer/booking.php, admin/user_list.php)."
+order: 2000

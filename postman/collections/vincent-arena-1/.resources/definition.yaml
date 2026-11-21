@@ -1,0 +1,43 @@
+$kind: collection
+name: vincent-arena
+description: |-
+  Test API Vincent SQ Arena (Backend PHP).
+
+  Folder:
+  1. US-4.1 [BE] API Registrasi Akun
+  2. US-5.1 [BE] API Login & Autentikasi
+
+  Cara pakai: pilih Environment 'vincent-arena - Local', jalankan folder lewat Collection Runner secara berurutan (jangan diacak, karena request saling bergantung lewat Collection Variables & cookie session PHP).
+
+  Output tiap request: Body (JSON respons asli di tab Body), Headers, Test Results, plus tab Visualize yang merangkum ketiganya. Console menampilkan BODY dan HEADERS lengkap.
+variables:
+  base_url: http://localhost
+  backend_path: vincent-arena/Backend/API
+  test_password: FutsalTest123
+  login_password: FutsalTest123
+  test_email: ""
+  otp: ""
+  user_id: ""
+  unverified_email: ""
+  login_email: ""
+  login_otp: ""
+  login_user_id: ""
+  login_unverified_email: ""
+scripts:
+  - type: http:beforeRequest
+    code: |-
+      // Normalisasi variabel URL & validasi sebelum request dikirim
+      const b = String(pm.variables.get('base_url') || '').trim();
+      const p = String(pm.variables.get('backend_path') || '').trim();
+      if (!b || !p) {
+        throw new Error('Variabel base_url / backend_path kosong. Pilih Environment "vincent-arena - Local" di pojok kanan atas.');
+      }
+      pm.variables.set('base_url', b.replace(/\/+$/, ''));
+      pm.variables.set('backend_path', p.replace(/^\/+|\/+$/g, ''));
+    language: text/javascript
+  - type: http:afterResponse
+    code: |-
+      pm.test('Response time < 5000 ms', function () {
+        pm.expect(pm.response.responseTime).to.be.below(5000);
+      });
+    language: text/javascript

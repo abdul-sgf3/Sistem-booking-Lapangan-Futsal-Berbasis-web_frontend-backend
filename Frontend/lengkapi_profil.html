@@ -44,7 +44,6 @@
         .vsq-logo h1 { height: 1.125rem; font-size: 1.9375rem; line-height: 1.125rem; font-weight: 700; color: var(--vsq-navy); letter-spacing: -0.028rem; display: flex; align-items: center; justify-content: center; }
         .vsq-logo p { height: 1rem; font-size: 1.125rem; line-height: 1rem; font-weight: 700; color: var(--vsq-red); letter-spacing: 0.0375rem; margin-top: 1.4375rem; text-transform: uppercase; display: flex; align-items: center; justify-content: center; }
 
-        /* Upload foto */
         .vsq-upload-container { display: flex; flex-direction: column; align-items: center; text-align: center; }
         .vsq-avatar-wrapper { position: relative; width: 8.625rem; height: 8.625rem; cursor: pointer; }
         .vsq-avatar-circle { 
@@ -71,7 +70,6 @@
 
         .vsq-info-text { margin-top: 0.7rem; font-size: 0.8125rem; line-height: 1.125rem; font-weight: 400; color: #000000; text-align: center; margin-bottom: 0.7rem; }
 
-        /* Form */
         .vsq-profile-form { display: flex; flex-direction: column; flex: 1; width: 100%; }
 
         .vsq-form-group { margin-bottom: 2.25rem; position: relative; text-align: left; }
@@ -94,7 +92,6 @@
         .vsq-form-control.is-invalid,
         .vsq-form-control.is-invalid:focus { border: 1px solid var(--vsq-error) !important; }
 
-        /* Pesan error (absolute, jadi layout tidak bergeser) */
         .vsq-error-msg { 
             display: none; position: absolute; top: 100%; left: 0; margin-top: 0.5rem;
             align-items: center; gap: 0.5rem; 
@@ -179,6 +176,13 @@
             ? 'http://localhost/vincent-arena/Backend/API'
             : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
 
+        // ---------- Cegah halaman ini muncul lagi dari cache setelah register selesai ----------
+        window.addEventListener('pageshow', function(e) {
+            if (sessionStorage.getItem('profil_selesai') === '1') {
+                window.location.replace('login.html');
+            }
+        });
+
         const fileInput = document.getElementById('fileUpload');
         const previewImg = document.getElementById('preview-img');
         const iconUser = document.getElementById('icon-user');
@@ -240,7 +244,7 @@
             namaInput.classList.remove('is-invalid');
             errNamaKosong.classList.remove('show');
 
-            if (namaInput.value.trim() === '') return showError(namaInput, errNamaKosong);
+            if (namaInput.value.trim() === '') return showError(namaInput, errNamaKosong);   // TC-REG-026
             return true;
         }
 
@@ -249,7 +253,7 @@
             [errWaKosong, errWaFormat, errWaMin].forEach(el => el.classList.remove('show'));
 
             const val = waInput.value.trim();
-            if (val === '') return showError(waInput, errWaKosong);          // TC-REG-027
+            if (val === '') return showError(waInput, errWaKosong);            // TC-REG-027
             if (!/^[0-9]+$/.test(val)) return showError(waInput, errWaFormat); // TC-REG-028
             if (val.length < 12) return showError(waInput, errWaMin);          // TC-REG-029
             return true;
@@ -258,21 +262,25 @@
         // ---------- Real time ----------
         namaInput.addEventListener('input', validateNama);
         namaInput.addEventListener('blur', validateNama);
-
         waInput.addEventListener('input', validateWa);
         waInput.addEventListener('blur', validateWa);
 
         // ---------- Hapus sesi login setelah register selesai (TC-REG-025) ----------
-        // Verifikasi OTP membuat sesi di server, sehingga beranda terbaca "sudah login".
-        // Setelah profil tersimpan, sesi itu harus dihapus karena user harus login manual.
-        // Sesuaikan nama endpoint & key storage dengan yang dipakai di project Anda.
-        const LOGOUT_ENDPOINT = '/auth/logout.php';
-        const AUTH_STORAGE_KEYS = ['register_email', 'user', 'user_data', 'token', 'isLoggedIn', 'is_logged_in', 'role'];
+        // Verifikasi OTP membuat sesi di server. Setelah profil tersimpan, user harus
+        // login manual, jadi sesi itu wajib dihapus. Endpoint yang ada akan dipakai.
+        const LOGOUT_ENDPOINTS = ['/auth/logout.php', '/logout.php'];
+        const AUTH_STORAGE_KEYS = [
+            'register_email', 'user', 'user_data', 'userData', 'user_login', 'token',
+            'auth_token', 'isLoggedIn', 'is_logged_in', 'logged_in', 'role', 'nama', 'email', 'foto_profil'
+        ];
 
         async function clearAuthSession() {
-            try {
-                await fetch(API_BASE + LOGOUT_ENDPOINT, { method: 'POST', credentials: 'include' });
-            } catch (err) { /* tetap lanjut meski gagal */ }
+            for (const ep of LOGOUT_ENDPOINTS) {
+                try {
+                    const res = await fetch(API_BASE + ep, { method: 'POST', credentials: 'include' });
+                    if (res.ok) break;
+                } catch (err) { /* coba endpoint berikutnya */ }
+            }
             AUTH_STORAGE_KEYS.forEach(key => {
                 localStorage.removeItem(key);
                 sessionStorage.removeItem(key);
@@ -283,7 +291,6 @@
         document.getElementById('profileForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            // Semua dicek agar semua pesan tampil sekaligus
             const okNama = validateNama();
             const okWa = validateWa();
             if (!(okNama && okWa)) {
@@ -307,7 +314,7 @@
                 const response = await fetch(API_BASE + '/auth/lengkapi_profil.php', {
                     method: 'POST',
                     body: formData,
-                    credentials: 'include' // WAJIB untuk session
+                    credentials: 'include'
                 });
                 
                 const result = await response.json();
@@ -315,7 +322,8 @@
                 if (result.status === 'success') {
                     alert('Profil berhasil disimpan! Silakan login.');
                     await clearAuthSession();
-                    window.location.replace('login.html'); // replace: tombol kembali tidak balik ke form ini
+                    sessionStorage.setItem('profil_selesai', '1');
+                    window.location.replace('login.html');
                 } else {
                     alert('Gagal menyimpan profil: ' + result.message);
                     btn.textContent = 'Simpan data';

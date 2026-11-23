@@ -424,11 +424,11 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!userLogin) return;
   renderNavbar(normalizeUser(userLogin));
 
-  const POLLING_MS = 5000;
+  const POLLING_MS = 10000;
   const MIN_HARI_SEBELUM = 0;            // isi 3 bila aturan "minimal 3 hari sebelumnya" diberlakukan
   const HALAMAN_PEMBAYARAN = 'pembayaran.html';
-  const ENDPOINT_JADWAL = API_BASE + '/booking/jadwal.php';
-  const ENDPOINT_BUAT = API_BASE + '/booking/buat.php';
+  const ENDPOINT_JADWAL = API_BASE + '/customer/check_availability.php';
+  const ENDPOINT_BUAT = API_BASE + '/customer/booking.php';
   const SKELETON_MIN_MS = 700, SKELETON_MAX_MS = 8000;
 
   const $ = id => document.getElementById(id);
@@ -477,7 +477,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ----- state ----- */
   const monthNames = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
-  const jamOperasional = Array.from({ length: 14 }, (_, i) => `${pad(8 + i)}:00 - ${pad(9 + i)}:00`);
+  let MAKS_DURASI = 5;
+  const buatJam = (buka, tutup) => Array.from({ length: Math.max(0, tutup - buka) }, (_, i) => `${pad(buka + i)}:00 - ${pad(buka + i + 1)}:00`);
+  let jamOperasional = buatJam(8, 22);   // diganti otomatis dari pengaturan server
 
   let bookedByMonth = {};          // { '2026-11': { '2026-11-20': ['09:00 - 10:00'] } }
   let selectedSlots = [];
@@ -494,47 +496,36 @@ document.addEventListener('DOMContentLoaded', function () {
   const startMin = j => parseInt(j.slice(0, 2), 10) * 60 + parseInt(j.slice(3, 5), 10);
   const expired = (d, j) => { const n = new Date(); return isoDate(d) === isoDate(n) && startMin(j) <= n.getHours() * 60 + n.getMinutes(); };
   const availableOn = d => jamOperasional.filter(j => !bookedOn(d).includes(j) && !expired(d, j));
-  const isFull = d => availableOn(d).length === 0;
+  const isFull = d => jamOperasional.every(j => expired(d, j));   // hanya hari ini yang jamnya sudah lewat semua
 
   /* ----- data real-time dari server ----- */
-  // Format respons yang didukung: { data: { "2026-11-20": ["09:00 - 10:00"] } }
-  // atau { data: [ { tanggal, jam_mulai, jam_selesai } ] }
-  function normalisasi(raw) {
-    const out = {}, hm = t => String(t).trim().slice(0, 5);
-    const add = (tgl, jam) => (out[tgl] = out[tgl] || []).push(jam);
-    if (Array.isArray(raw)) {
-      raw.forEach(r => {
-        const m = r.jam_mulai || r.mulai, s = r.jam_selesai || r.selesai;
-        if (r.tanggal && m && s) add(String(r.tanggal).slice(0, 10), `${hm(m)} - ${hm(s)}`);
-      });
-    } else {
-      Object.entries(raw || {}).forEach(([t, list]) => (list || []).forEach(j => add(t, String(j).split(/\s*[-–]\s*/).map(hm).join(' - '))));
-    }
-    return out;
-  }
-  async function fetchJadwal(ym) {
-    const res = await fetch(`${ENDPOINT_JADWAL}?lapangan_id=${fieldId}&bulan=${ym}`, { credentials: 'include', cache: 'no-store' });
+  // Backend tidak punya endpoint daftar jadwal, jadi tiap slot (durasi 1 jam)
+  // pada tanggal terpilih dicek lewat customer/check_availability.php.
+  async function cekSlot(tgl, jam) {
+    const res = await fetch(`${ENDPOINT_JADWAL}?id_lapangan=${fieldId}&tanggal=${tgl}&jam_mulai=${jam.slice(0, 5)}&durasi=1`, { credentials: 'include', cache: 'no-store' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const json = await res.json();
     if (json.success === false) throw new Error(json.message || 'Gagal memuat jadwal');
-    return normalisasi(json.data);
+    return (json.data || {}).tersedia === false;   // true = sudah dibooking
   }
   const inflight = {};
   function muatJadwal() {
-    const months = [...new Set([ymKey(viewDate), ymKey(selectedDate)])], key = months.join();
-    if (inflight[key]) return inflight[key];
-    inflight[key] = (async () => {
+    const tgl = isoDate(selectedDate);
+    if (inflight[tgl]) return inflight[tgl];
+    inflight[tgl] = (async () => {
       try {
-        const res = await Promise.all(months.map(fetchJadwal));
-        months.forEach((m, i) => { bookedByMonth[m] = res[i]; });
+        const cek = jamOperasional.filter(j => !expired(selectedDate, j));
+        const hasil = await Promise.all(cek.map(j => cekSlot(tgl, j)));
+        const ym = tgl.slice(0, 7);
+        (bookedByMonth[ym] = bookedByMonth[ym] || {})[tgl] = cek.filter((j, i) => hasil[i]);
         refreshIfChanged();
         return true;
       } catch (e) {
         if (!VSQNet.handleError(e)) console.error('Gagal memuat jadwal:', e);
         return false;
       }
-    })().finally(() => { delete inflight[key]; });
-    return inflight[key];
+    })().finally(() => { delete inflight[tgl]; });
+    return inflight[tgl];
   }
   function refreshIfChanged() {
     const sig = ymKey(viewDate) + isoDate(selectedDate) + availableOn(selectedDate).join() + JSON.stringify(bookedByMonth[ymKey(viewDate)] || {});
@@ -581,7 +572,7 @@ document.addEventListener('DOMContentLoaded', function () {
       el.textContent = i;
       const past = isPast(d), full = !past && isFull(d);
       if (past) el.classList.add('disabled');
-      if (full) { el.classList.add('full'); el.title = 'Semua jadwal sudah terbooking'; }
+      if (full) { el.classList.add('full'); el.title = 'Tidak ada jadwal tersedia'; }
       if (past || full) el.setAttribute('aria-disabled', 'true');
       else el.addEventListener('click', () => {
         selectedDate = d; selectedSlots = []; userPicked = true;
@@ -591,10 +582,26 @@ document.addEventListener('DOMContentLoaded', function () {
       box.appendChild(el);
     }
   }
-  $('prevMonth').addEventListener('click', () => { viewDate.setMonth(viewDate.getMonth() - 1); renderCalendar(); muatJadwal(); });
-  $('nextMonth').addEventListener('click', () => { viewDate.setMonth(viewDate.getMonth() + 1); renderCalendar(); muatJadwal(); });
+  $('prevMonth').addEventListener('click', () => { viewDate.setMonth(viewDate.getMonth() - 1); renderCalendar(); });
+  $('nextMonth').addEventListener('click', () => { viewDate.setMonth(viewDate.getMonth() + 1); renderCalendar(); });
 
   /* ----- slot waktu ----- */
+  // Backend menyimpan 1 booking = jam_mulai + durasi (berurutan, maks 5 jam),
+  // jadi pilihan jam harus berupa satu rentang yang bersambung.
+  function pilihSlot(jam) {
+    const idx = jamOperasional.indexOf(jam);
+    const ids = selectedSlots.map(j => jamOperasional.indexOf(j)).sort((a, b) => a - b);
+    const lo = ids[0], hi = ids[ids.length - 1];
+    let next;
+    if (!ids.length) next = [idx];
+    else if (idx === lo || idx === hi) next = ids.filter(i => i !== idx);
+    else if (idx === lo - 1 || idx === hi + 1) {
+      if (ids.length >= MAKS_DURASI) { toast(`Maksimal durasi booking ${MAKS_DURASI} jam.`); return; }
+      next = [...ids, idx];
+    } else next = [idx];
+    selectedSlots = next.sort((a, b) => a - b).map(i => jamOperasional[i]);
+    clearIfFixed('jam', isJamValid());
+  }
   function renderTimeSlots() {
     const grid = $('timeGrid'), list = availableOn(selectedDate);
     $('availCount').textContent = `${list.length} Jadwal Tersedia`;
@@ -604,9 +611,8 @@ document.addEventListener('DOMContentLoaded', function () {
       s.className = 'time-slot' + (selectedSlots.includes(jam) ? ' selected' : '');
       s.textContent = jam; s.tabIndex = 0; s.setAttribute('role', 'button');
       const toggle = () => {
-        selectedSlots = selectedSlots.includes(jam) ? selectedSlots.filter(x => x !== jam) : [...selectedSlots, jam];
-        s.classList.toggle('selected');
-        clearIfFixed('jam', isJamValid());
+        pilihSlot(jam);
+        grid.querySelectorAll('.time-slot').forEach(el => el.classList.toggle('selected', selectedSlots.includes(el.textContent)));
       };
       s.addEventListener('click', toggle);
       s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
@@ -642,30 +648,39 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!isJamValid()) { errorField = 'jam'; renderErrors(); resetBtn(); return arahkanKe($('group-jam'), document.querySelector('.time-slot')); }
 
       const sorted = [...selectedSlots].sort((a, b) => jamOperasional.indexOf(a) - jamOperasional.indexOf(b));
+      const jamMulai = sorted[0].slice(0, 5), durasi = sorted.length;
       const bookingData = {
         lapangan_id: fieldId, lapangan: currentField.nama, img: currentField.img,
         nama: namaInput.value.trim(),
         tanggal: `${pad(selectedDate.getDate())}, ${monthNames[selectedDate.getMonth()]} ${selectedDate.getFullYear()}`,
         tanggal_iso: isoDate(selectedDate), jam: sorted,
-        total: sorted.length * currentField.harga,
+        jam_mulai: jamMulai, jam_selesai: sorted[sorted.length - 1].slice(-5), durasi,
+        total: durasi * currentField.harga,
         metode_pembayaran: document.querySelector('input[name="payment"]:checked').value,
         expires_at: Date.now() + 24 * 3600 * 1000
       };
 
       const res = await fetch(ENDPOINT_BUAT, {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include',
-        body: JSON.stringify({ lapangan_id: fieldId, nama: bookingData.nama, tanggal: bookingData.tanggal_iso, jam: sorted, metode_pembayaran: bookingData.metode_pembayaran })
+        body: JSON.stringify({
+          id_lapangan: Number(fieldId), tanggal: bookingData.tanggal_iso, jam_mulai: jamMulai, durasi,
+          catatan: 'Atas nama: ' + bookingData.nama, metode_pembayaran: 'transfer'
+        })
       });
       const json = await res.json().catch(() => ({}));
+      if (res.status === 401) { sessionStorage.setItem('vsq_redirect', location.href); location.replace('login.html'); return; }
       if (res.status === 409) {
         toast(json.message || 'Jadwal baru saja dibooking orang lain. Silakan pilih jam lain.');
+        selectedSlots = [];
         await muatJadwal();
         return resetBtn();
       }
       if (!res.ok || json.success === false) { toast(json.message || 'Gagal membuat booking. Silakan coba lagi.'); return resetBtn(); }
 
-      bookingData.booking_id = json.data && json.data.id;
-      if (json.data && json.data.expires_at) bookingData.expires_at = Date.parse(String(json.data.expires_at).replace(' ', 'T'));
+      const d = json.data || {};
+      bookingData.booking_id = d.booking_id;
+      bookingData.kode_booking = d.kode_booking;
+      if (d.total_harga) bookingData.total = d.total_harga;
       localStorage.setItem('temp_booking', JSON.stringify(bookingData));
       location.href = HALAMAN_PEMBAYARAN;
     } catch (e) {
@@ -683,17 +698,23 @@ document.addEventListener('DOMContentLoaded', function () {
   renderCalendar();
   renderTimeSlots();
 
-  // jika hari ini sudah penuh / lewat jam, pilih tanggal terdekat yang masih kosong
+  // jika hari ini sudah lewat jam operasional, pindah ke tanggal berikutnya yang masih bisa dipilih
   function pilihTanggalAwal() {
-    if (userPicked || !isFull(selectedDate)) return;
-    const y = viewDate.getFullYear(), m = viewDate.getMonth(), n = new Date(y, m + 1, 0).getDate();
-    for (let i = 1; i <= n; i++) {
-      const d = new Date(y, m, i);
-      if (!isPast(d) && !isFull(d)) { selectedDate = d; break; }
+    if (userPicked || !isFull(selectedDate)) return false;
+    for (let i = 1; i <= 62; i++) {
+      const d = new Date(selectedDate);
+      d.setDate(d.getDate() + i);
+      if (!isPast(d) && !isFull(d)) {
+        selectedDate = d;
+        viewDate = new Date(d.getFullYear(), d.getMonth(), 1);
+        renderCalendar(); renderTimeSlots();
+        return true;
+      }
     }
-    renderCalendar(); renderTimeSlots();
+    return false;
   }
-  const jadwalAwal = muatJadwal().then(ok => { pilihTanggalAwal(); return ok; });
+  // tanggal berpindah -> jadwal tanggal baru harus dicek ulang ke server
+  const jadwalAwal = muatJadwal().then(ok => pilihTanggalAwal() ? muatJadwal() : ok);
 
   const waitImage = img => new Promise(res => {
     if (img.complete) return res();

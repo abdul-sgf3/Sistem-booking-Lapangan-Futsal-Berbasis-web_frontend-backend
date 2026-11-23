@@ -56,7 +56,6 @@
 
         .vsq-verify-form { display: flex; flex-direction: column; align-items: center; width: 100%; flex: 1; }
 
-        /* Kotak OTP */
         .vsq-otp-container { display: flex; justify-content: center; gap: 1rem; width: 100%; }
         .vsq-otp-input { 
             flex: 0 0 2.75rem; width: 2.75rem; height: 3.625rem; 
@@ -68,7 +67,6 @@
         .vsq-otp-input.is-invalid,
         .vsq-otp-input.is-invalid:focus { border: 1px solid var(--vsq-error) !important; }
 
-        /* Pesan error OTP (ruang selalu dicadangkan agar layout tidak bergeser) */
         .vsq-otp-error { 
             width: 100%; min-height: 1.25rem; margin-top: 1.2rem;
             text-align: center; font-size: 0.8125rem; line-height: 1.25rem; font-weight: 500; color: var(--vsq-error);
@@ -76,7 +74,6 @@
         }
         .vsq-otp-error.show { visibility: visible; }
 
-        /* Timer & kirim ulang */
         .vsq-timer-text { font-size: 0.8125rem; line-height: 1.25rem; font-weight: 400; color: var(--vsq-blue); margin-top: 0.15rem; }
         .vsq-timer-text #timer { color: #000000; margin-left: 0.25rem; }
         .vsq-resend-link { display: none; color: var(--vsq-blue); text-decoration: none; cursor: pointer; }
@@ -153,7 +150,6 @@
         const errOtp = document.getElementById('err-otp');
         const errOtpText = document.getElementById('err-otp-text');
 
-        // ---------- Teks validasi OTP (sesuai UI/UX) ----------
         const MSG_OTP_KOSONG = 'Kode OTP belum dimasukan!';
         const MSG_OTP_SALAH = 'Kode OTP yang anda masukan salah!';
         const MSG_OTP_EXPIRED = 'Kode OTP Kadaluwarsa';
@@ -169,7 +165,6 @@
             otpInputs.forEach(el => el.classList.remove('is-invalid'));
         }
 
-        // Pesan dari server TIDAK ditampilkan mentah, selalu dipetakan ke teks desain
         function resolveOtpMessage(serverMsg) {
             const m = (serverMsg || '').toLowerCase();
             const hasExpired = /kadaluwarsa|kedaluwarsa|kadaluarsa|kedaluarsa|expired|expire|hangus|habis/.test(m);
@@ -177,7 +172,6 @@
 
             if (hasExpired && !hasWrong) return MSG_OTP_EXPIRED;
             if (hasWrong && !hasExpired) return MSG_OTP_SALAH;
-            // Pesan ambigu / tidak dikenali: pakai status timer
             return timeLeft <= 0 ? MSG_OTP_EXPIRED : MSG_OTP_SALAH;
         }
 
@@ -186,7 +180,7 @@
             if (current.value.length === 1 && nextIndex < otpInputs.length) {
                 otpInputs[nextIndex].focus();
             }
-            resetErrorState(); // real time: error hilang saat user mengetik ulang
+            resetErrorState();
         }
 
         otpInputs.forEach((input, index) => {
@@ -195,7 +189,6 @@
                     otpInputs[index - 1].focus();
                 }
             });
-            // Dukungan paste 6 digit sekaligus
             input.addEventListener('paste', (e) => {
                 const text = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
                 if (!text) return;
@@ -206,7 +199,6 @@
             });
         });
 
-        // ---------- Timer & kirim ulang kode ----------
         const timerEl = document.getElementById('timer');
         const timerWait = document.getElementById('timerWait');
         const resendLink = document.getElementById('resendLink');
@@ -232,7 +224,6 @@
                 if (timeLeft <= 0) {
                     timeLeft = 0;
                     clearInterval(countdown);
-                    // Timer habis: teks berubah menjadi link yang bisa diklik
                     timerWait.style.display = 'none';
                     resendLink.style.display = 'inline';
                     return;
@@ -276,7 +267,6 @@
 
         startTimer(60);
 
-        // ---------- Submit ----------
         document.getElementById('otpForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             let code6Digit = '';
@@ -303,7 +293,10 @@
                 const result = await response.json();
 
                 if (result.status === 'success') {
-                    window.location.href = 'profil_user.html';
+                    // PERBAIKAN: tujuan yang benar adalah halaman Lengkapi Profil
+                    // (sebelumnya profil_user.html, yang tidak punya validasi)
+                    sessionStorage.removeItem('profil_selesai');
+                    window.location.replace('lengkapi_profil.html');
                 } else {
                     showOtpError(resolveOtpMessage(result.message));
                     btn.disabled = false;

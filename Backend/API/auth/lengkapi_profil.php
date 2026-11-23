@@ -1,95 +1,351 @@
-<?php
-// ============================================================
-// auth/lengkapi_profil.php - Lengkapi Profil User
-// POST /API/auth/lengkapi_profil.php  (multipart/form-data atau JSON)
-// Form: nama, whatsapp, foto_profil (opsional)
-// ============================================================
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lengkapi Profil - Vincent'SQ Arena</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --vsq-navy: #131B2E; 
+            --vsq-red: #FF0000; 
+            --vsq-gray: #848484; 
+            --vsq-error: #FF5555;
+            --vsq-blue: #477FEB;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-require_once '../config.php';
+        html { font-size: clamp(10px, calc(100vw / 90), 26px); }
 
-requireMethod('POST');
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            min-height: 100vh; 
+            background: linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)), 
+                        url('assets/uploads/lapangan/hero.jpeg') center/cover no-repeat fixed;
+            display: flex; 
+            padding: 20px; 
+        }
 
-if (!isset($_SESSION['user_id'])) {
-    sendError('Anda belum login. Silakan login terlebih dahulu.', 401);
-}
-$user_id = (int)$_SESSION['user_id'];
+        .vsq-profile-card { 
+            background: #FFFFFF; 
+            width: 100%; 
+            max-width: 28.75rem;
+            min-height: 45.25rem;
+            margin: auto;
+            border: 1px solid var(--vsq-gray);
+            border-radius: 1.25rem; 
+            padding: 2.5rem 2.5rem 2.5rem 2.5rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
 
-$input    = getJsonInput();            // JSON atau form-data ($_POST)
-$nama     = trim($input['nama'] ?? '');
-$whatsapp = trim($input['whatsapp'] ?? '');
+        .vsq-logo { text-align: center; margin-bottom: 1.625rem; }
+        .vsq-logo h1 { height: 1.125rem; font-size: 1.9375rem; line-height: 1.125rem; font-weight: 700; color: var(--vsq-navy); letter-spacing: -0.028rem; display: flex; align-items: center; justify-content: center; }
+        .vsq-logo p { height: 1rem; font-size: 1.125rem; line-height: 1rem; font-weight: 700; color: var(--vsq-red); letter-spacing: 0.0375rem; margin-top: 1.4375rem; text-transform: uppercase; display: flex; align-items: center; justify-content: center; }
 
-// ===== VALIDASI =====
-if ($nama === '') {
-    sendError('Nama wajib diisi', 400);
-}
-if (mb_strlen($nama) < 2 || mb_strlen($nama) > 100) {
-    sendError('Nama harus antara 2-100 karakter', 400);
-}
-if ($whatsapp === '') {
-    sendError('Nomor WhatsApp wajib diisi', 400);
-}
-$whatsapp = preg_replace('/[^0-9]/', '', $whatsapp);
-if (strlen($whatsapp) < 10 || strlen($whatsapp) > 15) {
-    sendError('Nomor WhatsApp harus 10-15 digit', 400);
-}
+        .vsq-upload-container { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .vsq-avatar-wrapper { position: relative; width: 8.625rem; height: 8.625rem; cursor: pointer; }
+        .vsq-avatar-circle { 
+            width: 100%; height: 100%; 
+            border: 1.5px dashed var(--vsq-blue); 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            overflow: hidden;
+        }
+        .vsq-avatar-circle.has-photo { border-style: solid; }
+        .vsq-avatar-circle img { width: 100%; height: 100%; object-fit: cover; display: none; }
+        .vsq-avatar-circle svg { width: 3.75rem; height: 3.75rem; display: block; }
+        .vsq-camera-badge { 
+            position: absolute; right: -0.5rem; bottom: 0.2rem; 
+            background: var(--vsq-blue); width: 2.75rem; height: 2.75rem; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            border: 0.125rem solid #FFFFFF; cursor: pointer;
+        }
+        .vsq-camera-badge svg { width: 1.5rem; height: 1.5rem; }
 
-// ===== CEK USER =====
-$stmt = mysqli_prepare($conn, "SELECT id, foto_profil FROM users WHERE id = ? LIMIT 1");
-mysqli_stmt_bind_param($stmt, "i", $user_id);
-mysqli_stmt_execute($stmt);
-$user = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
-if (!$user) {
-    sendError('User tidak ditemukan', 404);
-}
-$foto_lama = $user['foto_profil'] ?? null;
+        .vsq-upload-text { display: block; margin-top: 0.75rem; color: var(--vsq-blue); font-size: 0.8125rem; line-height: 1.5rem; font-weight: 400; cursor: pointer; }
+        .vsq-upload-hint { display: block; color: #000000; font-size: 0.75rem; line-height: 1.5rem; font-weight: 400; }
+        .vsq-upload-hint.is-error { color: var(--vsq-error); font-weight: 500; }
 
-// ===== UPLOAD FOTO (OPSIONAL) =====
-$foto_baru = null;
-if (isset($_FILES['foto_profil']) && $_FILES['foto_profil']['error'] !== UPLOAD_ERR_NO_FILE) {
-    $up = handleImageUpload($_FILES['foto_profil'], ABS_UPLOAD_PROFIL, 'user_' . $user_id, 2 * 1024 * 1024);
-    if (!$up['success']) {
-        sendError($up['error'], 400);
-    }
-    $foto_baru = $up['filename'];
-}
+        .vsq-info-text { margin-top: 0.7rem; font-size: 0.8125rem; line-height: 1.125rem; font-weight: 400; color: #000000; text-align: center; margin-bottom: 0.7rem; }
 
-// ===== UPDATE DATABASE =====
-if ($foto_baru) {
-    $stmt = mysqli_prepare($conn, "UPDATE users SET nama = ?, whatsapp = ?, foto_profil = ? WHERE id = ?");
-    mysqli_stmt_bind_param($stmt, "sssi", $nama, $whatsapp, $foto_baru, $user_id);
-} else {
-    $stmt = mysqli_prepare($conn, "UPDATE users SET nama = ?, whatsapp = ? WHERE id = ?");
-    mysqli_stmt_bind_param($stmt, "ssi", $nama, $whatsapp, $user_id);
-}
+        .vsq-profile-form { display: flex; flex-direction: column; flex: 1; width: 100%; }
 
-try {
-    mysqli_stmt_execute($stmt);
-} catch (Throwable $e) {
-    if ($foto_baru) deleteFile(ABS_UPLOAD_PROFIL . $foto_baru);
-    throw $e;
-}
+        .vsq-form-group { margin-bottom: 2.25rem; position: relative; text-align: left; }
+        .vsq-form-group.last { margin-bottom: 2.75rem; }
+        .vsq-form-group label { display: block; font-size: 1rem; line-height: 1.25rem; font-weight: 500; color: #000000; margin-bottom: 0.625rem; }
+        .vsq-form-group label span { color: #000000; }
 
-// Hapus foto lama setelah update sukses
-if ($foto_baru && !empty($foto_lama)) {
-    deleteFile(ABS_UPLOAD_PROFIL . basename($foto_lama));
-}
+        .vsq-form-control { 
+            width: 100%; height: 3.5rem;
+            padding: 0.625rem 1.875rem;
+            font-size: 1rem; line-height: 1.25rem; font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FFFFFF; 
+            border: 1px solid var(--vsq-gray);
+            border-radius: 0.9375rem; 
+            outline: none; transition: border-color 0.2s; color: #000000; font-weight: 400;
+            -webkit-box-shadow: 0 0 0 30px white inset !important;
+        }
+        .vsq-form-control::placeholder { color: var(--vsq-gray); font-weight: 400; font-size: 1rem; }
+        .vsq-form-control:focus { border-color: var(--vsq-navy); }
+        .vsq-form-control.is-invalid,
+        .vsq-form-control.is-invalid:focus { border: 1px solid var(--vsq-error) !important; }
 
-// ===== UPDATE SESSION =====
-$_SESSION['nama']     = $nama;
-$_SESSION['whatsapp'] = $whatsapp;
-if ($foto_baru) $_SESSION['foto_profil'] = $foto_baru;
+        .vsq-error-msg { 
+            display: none; position: absolute; top: 100%; left: 0; margin-top: 0.5rem;
+            align-items: center; gap: 0.5rem; 
+            font-size: 0.75rem; font-weight: 500; color: var(--vsq-error); line-height: 1rem; 
+        }
+        .vsq-error-msg.show { display: flex; }
+        .vsq-error-icon { 
+            width: 1rem; height: 1rem; 
+            background: transparent;
+            border: 1.5px solid var(--vsq-error); 
+            color: var(--vsq-error); 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 0.625rem; font-weight: 800; line-height: 1; flex-shrink: 0; 
+        }
 
-$foto_final = $foto_baru ?? $foto_lama;
+        .vsq-btn-submit { display: block; width: 100%; height: 3.3125rem; margin-top: auto; font-size: 1rem; line-height: 1.25rem; font-weight: 600; color: #FFFFFF; background-color: var(--vsq-navy); border: none; border-radius: 0.9375rem; cursor: pointer; transition: background-color 0.2s; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .vsq-btn-submit:hover { background-color: #0a0e1a; }
+        .vsq-btn-submit:disabled { cursor: not-allowed; opacity: 0.7; }
 
-sendResponse([
-    'user' => [
-        'id'              => $user_id,
-        'nama'            => $nama,
-        'whatsapp'        => $whatsapp,
-        'foto_profil'     => $foto_final,
-        'foto_profil_url' => fotoProfilUrl($foto_final),
-        'initial'         => strtoupper(mb_substr($nama, 0, 1)),
-    ],
-    'redirect' => 'index.html',
-], 'Profil berhasil dilengkapi');
-?>
+        @media (max-width: 520px) {
+            html { font-size: 16px; }
+            .vsq-profile-card { padding: 2rem 1.5rem 2rem 1.5rem; min-height: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="vsq-profile-card">
+        
+        <div class="vsq-logo">
+            <h1>Vincent’SQ</h1>
+            <p>SPORTS ARENA</p>
+        </div>
+
+        <div class="vsq-upload-container">
+            <input type="file" id="fileUpload" accept="image/png, image/jpeg" style="display: none;">
+            <div class="vsq-avatar-wrapper" onclick="document.getElementById('fileUpload').click()">
+                <div class="vsq-avatar-circle" id="avatarCircle">
+                    <svg id="icon-user" viewBox="0 0 24 24" fill="none" stroke="#477FEB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <img id="preview-img" src="" alt="Preview Foto">
+                </div>
+                <div class="vsq-camera-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                </div>
+            </div>
+            <span class="vsq-upload-text" onclick="document.getElementById('fileUpload').click()">Unggah foto profil</span>
+            <span class="vsq-upload-hint" id="photoHint">JPG atau PNG, maks. 2 MB</span>
+        </div>
+
+        <p class="vsq-info-text">
+            Email sudah terverifikasi. Isi data singkat ini untuk menyelesaikan register
+        </p>
+
+        <form id="profileForm" class="vsq-profile-form" novalidate>
+            <div class="vsq-form-group">
+                <label for="nama">Nama<span>*</span></label>
+                <input type="text" id="nama" class="vsq-form-control" placeholder="Masukkan nama..." autocomplete="name">
+                <div class="vsq-error-msg" id="err-nama-kosong"><span class="vsq-error-icon">!</span> Nama Wajib Di isi!</div>
+            </div>
+
+            <div class="vsq-form-group last">
+                <label for="wa">No. Whatsapp<span>*</span></label>
+                <input type="text" id="wa" class="vsq-form-control" placeholder="Masukkan no WA..." inputmode="tel" maxlength="15" autocomplete="tel">
+                <div class="vsq-error-msg" id="err-wa-kosong"><span class="vsq-error-icon">!</span> No Whatsapp Wajib Di isi</div>
+                <div class="vsq-error-msg" id="err-wa-format"><span class="vsq-error-icon">!</span> Format Nomer tidak Valid!</div>
+                <div class="vsq-error-msg" id="err-wa-min"><span class="vsq-error-icon">!</span> No Whatsapp harus terdiri minimal 12 karakter</div>
+            </div>
+
+            <button type="submit" class="vsq-btn-submit" id="btnSimpan">Simpan data</button>
+        </form>
+    </div>
+
+    <script>
+        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost/vincent-arena/Backend/API'
+            : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
+
+        // Cegah halaman ini tampil lagi dari cache setelah register selesai
+        window.addEventListener('pageshow', function() {
+            if (sessionStorage.getItem('profil_selesai') === '1') {
+                window.location.replace('login.html');
+            }
+        });
+
+        const fileInput = document.getElementById('fileUpload');
+        const previewImg = document.getElementById('preview-img');
+        const iconUser = document.getElementById('icon-user');
+        const avatarCircle = document.getElementById('avatarCircle');
+        const photoHint = document.getElementById('photoHint');
+        const DEFAULT_HINT = 'JPG atau PNG, maks. 2 MB';
+
+        const namaInput = document.getElementById('nama');
+        const waInput = document.getElementById('wa');
+        const errNamaKosong = document.getElementById('err-nama-kosong');
+        const errWaKosong = document.getElementById('err-wa-kosong');
+        const errWaFormat = document.getElementById('err-wa-format');
+        const errWaMin = document.getElementById('err-wa-min');
+
+        function showError(input, errEl) {
+            input.classList.add('is-invalid');
+            errEl.classList.add('show');
+            return false;
+        }
+
+        // ---------- Foto profil ----------
+        function setPhotoError(message) {
+            photoHint.textContent = message;
+            photoHint.classList.add('is-error');
+        }
+        function resetPhotoError() {
+            photoHint.textContent = DEFAULT_HINT;
+            photoHint.classList.remove('is-error');
+        }
+
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            resetPhotoError();
+            if (!file) return;
+
+            if (!['image/jpeg', 'image/png'].includes(file.type)) {
+                setPhotoError('Format foto harus JPG atau PNG!');
+                fileInput.value = '';
+                return;
+            }
+            if (file.size > 2 * 1024 * 1024) {
+                setPhotoError('Ukuran foto terlalu besar! Maksimal 2 MB');
+                fileInput.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                previewImg.style.display = 'block'; 
+                iconUser.style.display = 'none';
+                avatarCircle.classList.add('has-photo');
+            }
+            reader.readAsDataURL(file);
+        });
+
+        // ---------- Validasi (identik dengan backend) ----------
+        function validateNama() {
+            namaInput.classList.remove('is-invalid');
+            errNamaKosong.classList.remove('show');
+
+            if (namaInput.value.trim() === '') return showError(namaInput, errNamaKosong);   // TC-REG-026
+            return true;
+        }
+
+        function validateWa() {
+            waInput.classList.remove('is-invalid');
+            [errWaKosong, errWaFormat, errWaMin].forEach(el => el.classList.remove('show'));
+
+            const val = waInput.value.trim();
+            if (val === '') return showError(waInput, errWaKosong);            // TC-REG-027
+            if (!/^[0-9]+$/.test(val)) return showError(waInput, errWaFormat); // TC-REG-028
+            if (val.length < 12) return showError(waInput, errWaMin);          // TC-REG-029
+            return true;
+        }
+
+        // Tampilkan pesan validasi dari server di field yang sesuai
+        function showServerError(message) {
+            const m = (message || '').toLowerCase();
+            if (m.includes('nama')) {
+                namaInput.classList.add('is-invalid');
+                errNamaKosong.classList.add('show');
+                return true;
+            }
+            if (m.includes('whatsapp') || m.includes('nomer')) {
+                waInput.classList.add('is-invalid');
+                if (m.includes('format')) errWaFormat.classList.add('show');
+                else if (m.includes('minimal')) errWaMin.classList.add('show');
+                else errWaKosong.classList.add('show');
+                return true;
+            }
+            return false;
+        }
+
+        // ---------- Real time ----------
+        namaInput.addEventListener('input', validateNama);
+        namaInput.addEventListener('blur', validateNama);
+        waInput.addEventListener('input', validateWa);
+        waInput.addEventListener('blur', validateWa);
+
+        // Sesi server sudah diakhiri oleh lengkapi_profil.php.
+        // Di sini hanya membersihkan data login yang tersimpan di browser.
+        const AUTH_STORAGE_KEYS = [
+            'register_email', 'user', 'user_data', 'userData', 'user_login', 'token',
+            'auth_token', 'isLoggedIn', 'is_logged_in', 'logged_in', 'role', 'nama', 'email', 'foto_profil'
+        ];
+        function clearLocalAuth() {
+            AUTH_STORAGE_KEYS.forEach(key => {
+                localStorage.removeItem(key);
+                sessionStorage.removeItem(key);
+            });
+        }
+
+        // ---------- Submit ----------
+        document.getElementById('profileForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const okNama = validateNama();
+            const okWa = validateWa();
+            if (!(okNama && okWa)) {
+                (!okNama ? namaInput : waInput).focus();
+                return;
+            }
+
+            const btn = document.getElementById('btnSimpan');
+            btn.textContent = 'Menyimpan...';
+            btn.disabled = true;
+
+            const formData = new FormData();
+            formData.append('nama', namaInput.value.trim());
+            formData.append('whatsapp', waInput.value.trim());
+            
+            if (fileInput.files.length > 0) {
+                formData.append('foto_profil', fileInput.files[0]);
+            }
+
+            try {
+                const response = await fetch(API_BASE + '/auth/lengkapi_profil.php', {
+                    method: 'POST',
+                    body: formData,
+                    credentials: 'include'
+                });
+                
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    alert('Profil berhasil disimpan! Silakan login.');
+                    clearLocalAuth();
+                    sessionStorage.setItem('profil_selesai', '1');
+                    window.location.replace('login.html');
+                } else {
+                    if (!showServerError(result.message)) {
+                        alert('Gagal menyimpan profil: ' + (result.message || 'Terjadi kesalahan'));
+                    }
+                    btn.textContent = 'Simpan data';
+                    btn.disabled = false;
+                }
+            } catch (error) {
+                alert('Terjadi kesalahan koneksi ke server.');
+                btn.textContent = 'Simpan data';
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+name: vincent-arena - Local
+values:
+  - key: base_url
+    value: 'http://localhost'
+  - key: backend_path
+    value: vincent-arena/Backend/API
+  - key: test_password
+    value: FutsalTest123
+  - key: login_password
+    value: FutsalTest123

@@ -1,0 +1,97 @@
+$kind: http-request
+name: "S1 - Setup: Register Akun Login"
+description: "Fixture: membuat akun untuk dipakai test login."
+url: "{{base_url}}/{{backend_path}}/auth/register.php"
+method: POST
+headers:
+  Accept: application/json
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "{{login_email}}",
+      "password": "{{login_password}}",
+      "confirm_password": "{{login_password}}"
+    }
+scripts:
+  - type: beforeRequest
+    code: |-
+      const em = 'login.' + Date.now() + '.' + Math.floor(Math.random()*100000) + '@example.com';
+      pm.collectionVariables.set('login_email', em.toLowerCase());
+      pm.collectionVariables.set('login_otp', '');
+      pm.collectionVariables.set('login_user_id', '');
+    language: text/javascript
+  - type: afterResponse
+    code: |-
+      // ===== HELPER (tidak pernah melempar error di luar pm.test) =====
+      const res = pm.response;
+      const rawText = res.text();
+      let body = null, jsonValid = false, parseError = '';
+      try {
+        body = res.json();
+        jsonValid = body !== null && typeof body === 'object' && !Array.isArray(body);
+      } catch (e) { parseError = e.message; }
+      const data = (jsonValid && body.data !== undefined) ? body.data : undefined;
+      const results = [];
+      function check(name, fn) {
+        pm.test(name, function () {
+          try { fn(); results.push({ name: name, ok: true, err: '' }); }
+          catch (e) { results.push({ name: name, ok: false, err: e.message }); throw e; }
+        });
+      }
+      function hdr(name) {
+        const h = res.headers.filter(function (x) { return String(x.key).toLowerCase() === name.toLowerCase(); });
+        return h.map(function (x) { return x.value; }).join('; ');
+      }
+
+      // ===== OUTPUT 1: BODY (lihat tab Console / Visualize) =====
+      console.log('REQUEST :', pm.request.method, pm.request.url.toString());
+      console.log('STATUS  :', res.code, res.status, '|', res.responseTime + ' ms |', res.size().total + ' B');
+      if (jsonValid) { console.log('BODY (JSON):\n' + JSON.stringify(body, null, 2)); }
+      else { console.warn('BODY BUKAN JSON (' + parseError + '):\n' + rawText.substring(0, 600)); }
+      // ===== OUTPUT 2: HEADERS =====
+      console.log('HEADERS :\n' + JSON.stringify(res.headers.toObject(), null, 2));
+
+      // ===== OUTPUT 3: RESULTS (assertion di tab Test Results) =====
+      check('HTTP status = 201', function () { pm.expect(res.code, 'Status aktual ' + res.code + ' ' + res.status + ' | cek Environment base_url/backend_path').to.eql(201); });
+      check('Header Content-Type = application/json', function () { pm.expect(hdr('Content-Type').toLowerCase()).to.include('application/json'); });
+      check('Header X-Content-Type-Options = nosniff', function () { pm.expect(hdr('X-Content-Type-Options').toLowerCase()).to.include('nosniff'); });
+      check('Body adalah JSON object yang valid', function () { pm.expect(jsonValid, 'Body bukan JSON. Awal body: ' + rawText.substring(0, 120)).to.eql(true); });
+      check('Envelope lengkap: status, message, data', function () {
+        pm.expect(body, 'body null').to.be.an('object');
+        pm.expect(body).to.have.property('status');
+        pm.expect(body).to.have.property('message');
+        pm.expect(body).to.have.property('data');
+        pm.expect(body.message).to.be.a('string').and.not.empty;
+      });
+      check('Body status = success', function () { pm.expect(body && body.status).to.eql('success'); });
+
+      check('Pesan mengandung "registrasi berhasil"', function () { pm.expect(String((body && body.message) || '').toLowerCase()).to.include('registrasi berhasil'); });
+
+      // ===== CHECK KHUSUS ENDPOINT =====
+      check('data.email = login_email', function () { pm.expect(data.email).to.eql(pm.collectionVariables.get('login_email')); });
+
+      check('otp_debug tersedia & 6 digit (OTP_DEBUG aktif)', function () {
+        pm.expect(data && data.otp_debug, 'otp_debug tidak ada. Aktifkan OTP_DEBUG=1 atau isi variabel login_otp manual dari email').to.match(/^\d{6}$/);
+      });
+      if (data && data.otp_debug) { pm.collectionVariables.set('login_otp', String(data.otp_debug)); }
+
+      // ===== VISUALIZE: Body + Headers + Results dalam satu tampilan =====
+      const passed = results.filter(function (r) { return r.ok; }).length;
+      const tpl = '<style>body{font-family:Arial,sans-serif;font-size:13px;color:#1f2937;background:#fff;padding:8px}h3{margin:4px 0}h4{margin:14px 0 4px;border-bottom:1px solid #d1d5db;padding-bottom:3px}pre{background:#f3f4f6;padding:8px;border-radius:6px;white-space:pre-wrap;word-break:break-all}table{border-collapse:collapse;width:100%}td{border:1px solid #e5e7eb;padding:3px 6px;vertical-align:top;word-break:break-all}.ok{color:#15803d}.bad{color:#b91c1c;font-weight:bold}.meta{color:#6b7280}</style>' +
+        '<h3>{{request}}</h3><div class="meta">{{status}} | {{time}} ms | {{size}} B</div>' +
+        '<h4>Body</h4><pre>{{body}}</pre>' +
+        '<h4>Headers</h4><table>{{#each headers}}<tr><td>{{k}}</td><td>{{v}}</td></tr>{{/each}}</table>' +
+        '<h4>Results ({{passed}}/{{total}} lulus)</h4><ul>{{#each results}}<li class="{{cls}}">{{icon}} {{name}}{{#if err}} - {{err}}{{/if}}</li>{{/each}}</ul>';
+      pm.visualizer.set(tpl, {
+        request: pm.request.method + ' ' + pm.request.url.getPath(),
+        status: res.code + ' ' + res.status, time: res.responseTime, size: res.size().total,
+        body: jsonValid ? JSON.stringify(body, null, 2) : rawText.substring(0, 2000),
+        headers: res.headers.map(function (h) { return { k: h.key, v: h.value }; }),
+        results: results.map(function (r) { return { name: r.name, err: r.err, cls: r.ok ? 'ok' : 'bad', icon: r.ok ? 'PASS' : 'FAIL' }; }),
+        passed: passed, total: results.length
+      });
+    language: text/javascript
+examples: .resources/S1 - Setup- Register Akun Login.resources/examples
+order: 1000

@@ -161,7 +161,7 @@
 
             <div class="vsq-form-group last">
                 <label for="wa">No. Whatsapp<span>*</span></label>
-                <input type="text" id="wa" class="vsq-form-control" placeholder="Masukkan no WA..." inputmode="tel" autocomplete="tel">
+                <input type="text" id="wa" class="vsq-form-control" placeholder="Masukkan no WA..." inputmode="tel" maxlength="15" autocomplete="tel">
                 <div class="vsq-error-msg" id="err-wa-kosong"><span class="vsq-error-icon">!</span> No Whatsapp Wajib Di isi</div>
                 <div class="vsq-error-msg" id="err-wa-format"><span class="vsq-error-icon">!</span> Format Nomer tidak Valid!</div>
                 <div class="vsq-error-msg" id="err-wa-min"><span class="vsq-error-icon">!</span> No Whatsapp harus terdiri minimal 12 karakter</div>
@@ -176,8 +176,8 @@
             ? 'http://localhost/vincent-arena/Backend/API'
             : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
 
-        // ---------- Cegah halaman ini muncul lagi dari cache setelah register selesai ----------
-        window.addEventListener('pageshow', function(e) {
+        // Cegah halaman ini tampil lagi dari cache setelah register selesai
+        window.addEventListener('pageshow', function() {
             if (sessionStorage.getItem('profil_selesai') === '1') {
                 window.location.replace('login.html');
             }
@@ -239,7 +239,7 @@
             reader.readAsDataURL(file);
         });
 
-        // ---------- Validasi ----------
+        // ---------- Validasi (identik dengan backend) ----------
         function validateNama() {
             namaInput.classList.remove('is-invalid');
             errNamaKosong.classList.remove('show');
@@ -259,28 +259,37 @@
             return true;
         }
 
+        // Tampilkan pesan validasi dari server di field yang sesuai
+        function showServerError(message) {
+            const m = (message || '').toLowerCase();
+            if (m.includes('nama')) {
+                namaInput.classList.add('is-invalid');
+                errNamaKosong.classList.add('show');
+                return true;
+            }
+            if (m.includes('whatsapp') || m.includes('nomer')) {
+                waInput.classList.add('is-invalid');
+                if (m.includes('format')) errWaFormat.classList.add('show');
+                else if (m.includes('minimal')) errWaMin.classList.add('show');
+                else errWaKosong.classList.add('show');
+                return true;
+            }
+            return false;
+        }
+
         // ---------- Real time ----------
         namaInput.addEventListener('input', validateNama);
         namaInput.addEventListener('blur', validateNama);
         waInput.addEventListener('input', validateWa);
         waInput.addEventListener('blur', validateWa);
 
-        // ---------- Hapus sesi login setelah register selesai (TC-REG-025) ----------
-        // Verifikasi OTP membuat sesi di server. Setelah profil tersimpan, user harus
-        // login manual, jadi sesi itu wajib dihapus. Endpoint yang ada akan dipakai.
-        const LOGOUT_ENDPOINTS = ['/auth/logout.php', '/logout.php'];
+        // Sesi server sudah diakhiri oleh lengkapi_profil.php.
+        // Di sini hanya membersihkan data login yang tersimpan di browser.
         const AUTH_STORAGE_KEYS = [
             'register_email', 'user', 'user_data', 'userData', 'user_login', 'token',
             'auth_token', 'isLoggedIn', 'is_logged_in', 'logged_in', 'role', 'nama', 'email', 'foto_profil'
         ];
-
-        async function clearAuthSession() {
-            for (const ep of LOGOUT_ENDPOINTS) {
-                try {
-                    const res = await fetch(API_BASE + ep, { method: 'POST', credentials: 'include' });
-                    if (res.ok) break;
-                } catch (err) { /* coba endpoint berikutnya */ }
-            }
+        function clearLocalAuth() {
             AUTH_STORAGE_KEYS.forEach(key => {
                 localStorage.removeItem(key);
                 sessionStorage.removeItem(key);
@@ -305,7 +314,6 @@
             const formData = new FormData();
             formData.append('nama', namaInput.value.trim());
             formData.append('whatsapp', waInput.value.trim());
-            
             if (fileInput.files.length > 0) {
                 formData.append('foto_profil', fileInput.files[0]);
             }
@@ -316,16 +324,17 @@
                     body: formData,
                     credentials: 'include'
                 });
-                
                 const result = await response.json();
 
                 if (result.status === 'success') {
                     alert('Profil berhasil disimpan! Silakan login.');
-                    await clearAuthSession();
+                    clearLocalAuth();
                     sessionStorage.setItem('profil_selesai', '1');
                     window.location.replace('login.html');
                 } else {
-                    alert('Gagal menyimpan profil: ' + result.message);
+                    if (!showServerError(result.message)) {
+                        alert('Gagal menyimpan profil: ' + (result.message || 'Terjadi kesalahan'));
+                    }
                     btn.textContent = 'Simpan data';
                     btn.disabled = false;
                 }

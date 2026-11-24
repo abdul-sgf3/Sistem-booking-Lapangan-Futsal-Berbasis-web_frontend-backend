@@ -837,6 +837,13 @@ async function updateNavbar() {
 
 renderNavbar(normalizeUser(getCachedUser()));
 
+// Tombol back: jangan pakai halaman dari cache (bfcache), ambil status login terbaru dari server
+window.addEventListener('pageshow', function (e) {
+    if (e.persisted) {
+        window.location.reload();
+    }
+});
+
 function logout() { document.getElementById('logoutModal').classList.add('show'); }
 function closeLogoutModal() { document.getElementById('logoutModal').classList.remove('show'); }
 async function confirmLogout() {

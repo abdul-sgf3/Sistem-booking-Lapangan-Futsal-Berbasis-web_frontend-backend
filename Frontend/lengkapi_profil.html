@@ -283,17 +283,34 @@
         waInput.addEventListener('input', validateWa);
         waInput.addEventListener('blur', validateWa);
 
-        // Sesi server sudah diakhiri oleh lengkapi_profil.php.
-        // Di sini hanya membersihkan data login yang tersimpan di browser.
+        // Hapus semua data login yang tersimpan di browser.
+        // Termasuk key yang dibaca index.html (USER_KEYS): vsq_user, user, userData, user_data, currentUser
         const AUTH_STORAGE_KEYS = [
-            'register_email', 'user', 'user_data', 'userData', 'user_login', 'token',
-            'auth_token', 'isLoggedIn', 'is_logged_in', 'logged_in', 'role', 'nama', 'email', 'foto_profil'
+            // key yang dibaca index.html (USER_KEYS)
+            'vsq_user', 'user', 'userData', 'user_data', 'currentUser',
+            // key lain yang mungkin dipakai halaman auth
+            'register_email', 'user_login', 'token', 'auth_token',
+            'isLoggedIn', 'is_logged_in', 'logged_in', 'role', 'nama', 'email', 'foto_profil'
         ];
         function clearLocalAuth() {
             AUTH_STORAGE_KEYS.forEach(key => {
                 localStorage.removeItem(key);
                 sessionStorage.removeItem(key);
             });
+            sessionStorage.removeItem('otp_started_at');
+        }
+
+        // Cadangan: akhiri sesi server dari frontend (format sama dengan logout di index.html)
+        async function endServerSession() {
+            try {
+                await fetch(API_BASE + '/auth/logout.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    cache: 'no-store',
+                    body: JSON.stringify({ type: 'user' })
+                });
+            } catch (err) { /* abaikan, backend sudah menghancurkan sesi */ }
         }
 
         // ---------- Submit ----------
@@ -328,6 +345,7 @@
 
                 if (result.status === 'success') {
                     alert('Profil berhasil disimpan! Silakan login.');
+                    await endServerSession();
                     clearLocalAuth();
                     sessionStorage.setItem('profil_selesai', '1');
                     window.location.replace('login.html');

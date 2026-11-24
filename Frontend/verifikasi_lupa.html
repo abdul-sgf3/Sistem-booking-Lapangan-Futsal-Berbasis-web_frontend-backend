@@ -6,94 +6,77 @@
     <title>Verifikasi Lupa Password - Vincent'SQ Arena</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --vsq-navy: #131B2E; --vsq-blue: #477FEB; --vsq-red: #FF0000; --vsq-gray: #848484; --vsq-error: #FF5555; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { height: 100%; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; margin: 0; padding: 0; }
-        
-        .vsq-wrapper { display: flex; min-height: 100vh; width: 100%; }
-        .vsq-left { flex: 1; background: #FFFFFF; display: flex; align-items: center; justify-content: center; padding: 40px 30px; position: relative; }
-        .vsq-back-btn { position: absolute; top: 40px; left: 40px; color: #000; text-decoration: none; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
-        .vsq-back-btn:hover { transform: translateX(-4px); }
-        .vsq-back-btn svg { width: 32px; height: 32px; stroke: #000; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-
-        .vsq-card { width: 100%; max-width: 400px; text-align: center; }
-        
-        .vsq-logo { margin-bottom: 24px; }
-        .vsq-logo h1 { font-size: 38px; font-weight: 800; color: var(--vsq-navy); margin: 0; letter-spacing: -0.5px; line-height: 1.2; }
-        .vsq-logo p { font-size: 22px; font-weight: 800; color: var(--vsq-red); letter-spacing: 0.6px; margin-top: 4px; text-transform: uppercase; line-height: 1.1; }
-
-        .vsq-illustration { margin-bottom: 24px; display: flex; justify-content: center; }
-        .vsq-illustration img { width: 200px; height: auto; object-fit: contain; }
-
-        .vsq-text { font-size: 14px; color: #4B5563; line-height: 1.5; margin-bottom: 24px; text-align: center; }
-        .vsq-text strong { color: #1F2937; font-weight: 700; display: block; margin-top: 4px; font-size: 15px; }
-
-        .vsq-otp-container { display: flex; justify-content: center; gap: 12px; margin-bottom: 12px; }
-        .vsq-otp-input { 
-            width: 56px; height: 64px; text-align: center; font-size: 24px; font-weight: 600; font-family: 'Plus Jakarta Sans', sans-serif;
-            border: 1px solid var(--vsq-gray); border-radius: 10px; outline: none; transition: all 0.2s; background: #FFF; color: #000;
-        }
-        .vsq-otp-input:focus { border-color: var(--vsq-navy); box-shadow: 0 0 0 3px rgba(19, 27, 46, 0.1); }
-        .vsq-otp-input.is-invalid { border-color: var(--vsq-error) !important; }
-
-        .vsq-error-msg { display: none; justify-content: center; align-items: center; gap: 6px; font-size: 12px; color: var(--vsq-error); margin-bottom: 16px; font-weight: 500; }
-        .vsq-error-msg.show { display: flex; }
-        .vsq-error-icon { width: 14px; height: 14px; background: transparent; border: 2px solid var(--vsq-error); color: var(--vsq-error); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: bold; flex-shrink: 0; margin-top: 1px; }
-
-        .vsq-timer { font-size: 13px; color: #4B5563; margin-bottom: 8px; text-align: center; }
-        .vsq-timer span { color: var(--vsq-blue); font-weight: 600; }
-        
-        .vsq-resend { font-size: 13px; color: #4B5563; margin-bottom: 24px; text-align: center; }
-        .vsq-resend a { color: var(--vsq-blue); text-decoration: none; font-weight: 500; }
-        .vsq-resend a:hover { text-decoration: underline; }
-
-        .vsq-btn { display: block; width: 100%; height: 48px; padding: 0 20px; font-size: 15px; font-weight: 600; font-family: 'Plus Jakarta Sans', sans-serif; color: #FFFFFF; background-color: var(--vsq-navy); border: none; border-radius: 12px; cursor: pointer; transition: background 0.2s; margin-top: 10px; }
-        .vsq-btn:hover { background-color: #0a0e1a; }
-
-        .vsq-right { flex: 1; background: linear-gradient(rgba(19, 27, 46, 0.6), rgba(19, 27, 46, 0.6)), url('assets/uploads/lapangan/Lapangan2.jpeg') center/cover no-repeat; border-left: 1px solid #000; }
-
-        @media (max-width: 900px) { 
-            .vsq-wrapper { flex-direction: column; } 
-            .vsq-left { padding: 80px 20px 40px; } 
-            .vsq-right { min-height: 200px; order: -1; border-left: none; border-bottom: 1px solid #000; } 
-            .vsq-back-btn { top: 20px; left: 20px; }
-            .vsq-otp-container { gap: 8px; }
-            .vsq-otp-input { width: 45px; height: 55px; font-size: 20px; }
+        :root { --vsq-navy:#131B2E; --vsq-blue:#477FEB; --vsq-red:#FF0000; --vsq-gray:#848484; --vsq-error:#FF5555; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Plus Jakarta Sans',sans-serif; min-height:100vh; }
+        .vsq-wrapper { display:flex; min-height:100vh; width:100%; }
+        .vsq-left { flex:1; background:#fff; display:flex; align-items:center; justify-content:center; padding:40px 30px; position:relative; }
+        .vsq-back-btn { position:absolute; top:40px; left:40px; display:flex; transition:transform .2s; }
+        .vsq-back-btn:hover { transform:translateX(-4px); }
+        .vsq-back-btn svg { width:32px; height:32px; stroke:#000; stroke-width:2.5; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+        .vsq-card { width:100%; max-width:400px; text-align:center; }
+        .vsq-logo { margin-bottom:24px; }
+        .vsq-logo h1 { font-size:38px; font-weight:800; color:var(--vsq-navy); letter-spacing:-.5px; line-height:1.2; }
+        .vsq-logo p { font-size:22px; font-weight:800; color:var(--vsq-red); letter-spacing:.6px; margin-top:4px; text-transform:uppercase; line-height:1.1; }
+        .vsq-illustration { margin-bottom:24px; display:flex; justify-content:center; }
+        .vsq-illustration img { width:200px; height:auto; object-fit:contain; }
+        .vsq-text { font-size:14px; color:#4B5563; line-height:1.5; margin-bottom:24px; }
+        .vsq-text strong { color:#1F2937; font-weight:700; display:block; margin-top:4px; font-size:15px; word-break:break-all; }
+        .vsq-otp-container { display:flex; justify-content:center; gap:12px; margin-bottom:12px; }
+        .vsq-otp-input { width:56px; height:64px; text-align:center; font-size:24px; font-weight:600; font-family:inherit; border:1px solid var(--vsq-gray); border-radius:10px; outline:none; transition:all .2s; background:#fff; color:#000; }
+        .vsq-otp-input:focus { border-color:var(--vsq-navy); box-shadow:0 0 0 3px rgba(19,27,46,.1); }
+        .vsq-otp-input.is-invalid { border-color:var(--vsq-error) !important; }
+        .vsq-error-msg { display:none; justify-content:center; align-items:center; gap:6px; font-size:12px; color:var(--vsq-error); margin-bottom:16px; font-weight:500; }
+        .vsq-error-msg.show { display:flex; }
+        .vsq-error-icon { width:14px; height:14px; border:2px solid var(--vsq-error); color:var(--vsq-error); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; flex-shrink:0; }
+        .vsq-timer { font-size:13px; color:#4B5563; margin-bottom:8px; }
+        .vsq-timer span { color:var(--vsq-blue); font-weight:600; }
+        .vsq-timer a { color:var(--vsq-blue); font-weight:500; text-decoration:none; }
+        .vsq-timer a:hover { text-decoration:underline; }
+        .vsq-resend { font-size:13px; color:#4B5563; margin-bottom:24px; }
+        .vsq-resend a { color:var(--vsq-blue); text-decoration:none; font-weight:500; }
+        .vsq-resend a:hover { text-decoration:underline; }
+        .vsq-btn { display:block; width:100%; height:48px; padding:0 20px; font-size:15px; font-weight:600; font-family:inherit; color:#fff; background:var(--vsq-navy); border:none; border-radius:12px; cursor:pointer; transition:background .2s; margin-top:10px; }
+        .vsq-btn:hover { background:#0a0e1a; }
+        .vsq-btn:disabled { opacity:.6; cursor:not-allowed; }
+        .vsq-right { flex:1; background:linear-gradient(rgba(19,27,46,.6),rgba(19,27,46,.6)),url('assets/uploads/lapangan/Lapangan2.jpeg') center/cover no-repeat; border-left:1px solid #000; }
+        @media (max-width:900px) {
+            .vsq-wrapper { flex-direction:column; }
+            .vsq-left { padding:80px 20px 40px; }
+            .vsq-right { min-height:200px; order:-1; border-left:none; border-bottom:1px solid #000; }
+            .vsq-back-btn { top:20px; left:20px; }
+            .vsq-otp-container { gap:8px; }
+            .vsq-otp-input { width:45px; height:55px; font-size:20px; }
         }
     </style>
 </head>
 <body>
     <div class="vsq-wrapper">
         <div class="vsq-left">
-            <a href="lupa_password.html" class="vsq-back-btn"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a>
-            
+            <a href="lupa_password.html" class="vsq-back-btn" aria-label="Kembali"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></a>
+
             <div class="vsq-card">
                 <div class="vsq-logo"><h1>Vincent'SQ</h1><p>SPORTS ARENA</p></div>
-                
+
                 <div class="vsq-illustration">
-                    <!-- Ilustrasi Kurir / Kotak Surat -->
                     <img src="assets/images/ilustrasi-kurir.png" alt="Ilustrasi" onerror="this.src='https://illustrations.popsy.co/blue/opened-envelope.svg'">
                 </div>
 
                 <div class="vsq-text">Kami telah mengirimkan kode verifikasi ke <strong id="email-target">email@anda.com</strong></div>
 
                 <form id="formOTP" novalidate>
-                    <div class="vsq-otp-container" id="otp-container">
-                        <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" autocomplete="one-time-code" onkeyup="moveFocus(this, 1)" onkeydown="moveBack(event, this, 0)" autofocus>
-                        <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" onkeyup="moveFocus(this, 2)" onkeydown="moveBack(event, this, 1)">
-                        <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" onkeyup="moveFocus(this, 3)" onkeydown="moveBack(event, this, 2)">
-                        <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" onkeyup="moveFocus(this, 4)" onkeydown="moveBack(event, this, 3)">
-                        <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" onkeyup="moveFocus(this, 5)" onkeydown="moveBack(event, this, 4)">
-                    </div>
-                    
-                    <div class="vsq-error-msg" id="err-otp-kosong">
-                        <span class="vsq-error-icon">!</span> 
-                        Kode OTP belum dimasukan!
+                    <div class="vsq-otp-container">
+                        <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" autocomplete="one-time-code" aria-label="Digit 1" autofocus>
+                        <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" aria-label="Digit 2">
+                        <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" aria-label="Digit 3">
+                        <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" aria-label="Digit 4">
+                        <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" aria-label="Digit 5">
                     </div>
 
-                    <div class="vsq-timer">Kirim ulang kode dalam <span id="timer-display">01:00</span></div>
-                    <div class="vsq-resend">Salah mengirim email? <a href="lupa_password.html">Klik disini!</a></div>
+                    <div class="vsq-error-msg" id="err-otp"><span class="vsq-error-icon">!</span><span id="err-otp-text"></span></div>
+
+                    <div class="vsq-timer" id="timer-wrap">Kirim ulang kode dalam <span id="timer-display">01:00</span></div>
+                    <div class="vsq-resend">Salah memasukkan email? <a href="lupa_password.html" onclick="localStorage.removeItem('reset_email')">Klik di sini!</a></div>
 
                     <button type="submit" class="vsq-btn" id="btnVerifikasi">Melanjutkan</button>
                 </form>
@@ -102,78 +85,109 @@
         <div class="vsq-right"></div>
     </div>
 
+    <script src="assets/js/api.js"></script>
     <script>
-        const savedEmail = localStorage.getItem('reset_email');
-        if(savedEmail) { document.getElementById('email-target').textContent = savedEmail; } 
-        else { window.location.href = 'lupa_password.html'; }
+        const email = localStorage.getItem('reset_email');
+        if (!email) window.location.href = 'lupa_password.html';
+        document.getElementById('email-target').textContent = email || '';
 
-        const otpInputs = document.querySelectorAll('.vsq-otp-input');
+        const otpInputs = [...document.querySelectorAll('.vsq-otp-input')];
         const formOTP = document.getElementById('formOTP');
-        const btnVerifikasi = document.getElementById('btnVerifikasi');
-        const errOtpKosong = document.getElementById('err-otp-kosong');
+        const btn = document.getElementById('btnVerifikasi');
+        const errBox = document.getElementById('err-otp');
+        const errText = document.getElementById('err-otp-text');
+        const timerWrap = document.getElementById('timer-wrap');
 
-        // Pindah fokus otomatis ke kotak berikutnya
-        function moveFocus(current, nextIndex) {
-            current.value = current.value.replace(/[^0-9]/g, ''); // Hanya angka
-            if (current.value.length === 1 && nextIndex < otpInputs.length) {
-                otpInputs[nextIndex].focus();
-            }
-            resetErrorState();
+        function showErr(msg) {
+            errText.textContent = msg;
+            errBox.classList.add('show');
+            otpInputs.forEach(i => i.classList.add('is-invalid'));
+        }
+        function resetErr() {
+            errBox.classList.remove('show');
+            otpInputs.forEach(i => i.classList.remove('is-invalid'));
         }
 
-        // Kembali ke kotak sebelumnya jika dihapus (Backspace)
-        function moveBack(event, current, prevIndex) {
-            if (event.key === 'Backspace' && current.value.length === 0 && prevIndex >= 0) {
-                otpInputs[prevIndex].focus();
-            }
-            resetErrorState();
-        }
-
-        function resetErrorState() {
-            errOtpKosong.classList.remove('show');
-            otpInputs.forEach(input => input.classList.remove('is-invalid'));
-        }
-
-        // Timer Hitung Mundur
-        let timeLeft = 60;
-        const timerDisplay = document.getElementById('timer-display');
-        const countdown = setInterval(() => {
-            if (timeLeft <= 0) { 
-                clearInterval(countdown); 
-                timerDisplay.textContent = "00:00"; 
-                timerDisplay.style.color = "#FF5555"; // Berubah merah jika habis
-                return; 
-            }
-            timeLeft--;
-            timerDisplay.textContent = `0${Math.floor(timeLeft / 60)}:${(timeLeft % 60).toString().padStart(2, '0')}`;
-        }, 1000);
-
-        // Submit Form
-        formOTP.addEventListener('submit', function(e) {
-            e.preventDefault();
-            resetErrorState();
-
-            let isComplete = true;
-            otpInputs.forEach(input => {
-                if (input.value.trim() === '') {
-                    isComplete = false;
-                    input.classList.add('is-invalid');
-                }
+        // Input OTP: hanya angka, pindah fokus otomatis, dukung paste & backspace
+        otpInputs.forEach((inp, idx) => {
+            inp.addEventListener('input', () => {
+                inp.value = inp.value.replace(/\D/g, '').slice(0, 1);
+                if (inp.value && idx < otpInputs.length - 1) otpInputs[idx + 1].focus();
+                resetErr();
             });
+            inp.addEventListener('keydown', e => {
+                if (e.key === 'Backspace' && !inp.value && idx > 0) otpInputs[idx - 1].focus();
+            });
+            inp.addEventListener('paste', e => {
+                e.preventDefault();
+                const d = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, otpInputs.length);
+                d.split('').forEach((c, i) => { otpInputs[i].value = c; });
+                otpInputs[Math.min(d.length, otpInputs.length - 1)].focus();
+                resetErr();
+            });
+        });
 
-            // Validasi Realtime jika kosong
-            if (!isComplete) {
-                errOtpKosong.classList.add('show');
+        // Timer kirim ulang
+        let timeLeft = 0, timerId = null;
+        function renderTimer() {
+            if (timeLeft > 0) {
+                const m = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+                const s = String(timeLeft % 60).padStart(2, '0');
+                timerWrap.innerHTML = 'Kirim ulang kode dalam <span id="timer-display">' + m + ':' + s + '</span>';
+            } else {
+                timerWrap.innerHTML = 'Tidak menerima kode? <a href="#" id="resend">Kirim ulang</a>';
+                document.getElementById('resend').addEventListener('click', resend);
+            }
+        }
+        function startTimer(sec) {
+            clearInterval(timerId);
+            timeLeft = sec;
+            renderTimer();
+            timerId = setInterval(() => {
+                timeLeft--;
+                renderTimer();
+                if (timeLeft <= 0) clearInterval(timerId);
+            }, 1000);
+        }
+        async function resend(e) {
+            e.preventDefault();
+            const r = await apiPost('/auth/lupa_password.php', { email });
+            if (r.ok) {
+                otpInputs.forEach(i => { i.value = ''; });
+                otpInputs[0].focus();
+                resetErr();
+                startTimer(60);
+                return;
+            }
+            const m = r.message.match(/(\d+)\s*detik/);   // 429: "Tunggu N detik ..."
+            if (m) startTimer(parseInt(m[1], 10));
+            showErr(r.networkError ? 'Tidak dapat terhubung ke server.' : (r.message || 'Gagal mengirim ulang kode.'));
+        }
+        startTimer(60);
+
+        // Submit: verifikasi ke BE
+        formOTP.addEventListener('submit', async e => {
+            e.preventDefault();
+            resetErr();
+
+            const otp = otpInputs.map(i => i.value).join('');
+            if (otp.length < otpInputs.length) {
+                showErr('Kode OTP belum dimasukkan!');
                 return;
             }
 
-            btnVerifikasi.disabled = true;
-            btnVerifikasi.textContent = 'Memverifikasi...';
+            btn.disabled = true;
+            btn.textContent = 'Memverifikasi...';
 
-            // Simulasi Verifikasi Berhasil
-            setTimeout(() => {
+            const r = await apiPost('/auth/verify_reset_otp.php', { email, otp });
+            if (r.ok) {
                 window.location.href = 'password_baru.html';
-            }, 1000);
+                return;
+            }
+
+            showErr(r.networkError ? 'Tidak dapat terhubung ke server.' : (r.message || 'Kode OTP salah'));
+            btn.disabled = false;
+            btn.textContent = 'Melanjutkan';
         });
     </script>
 </body>

@@ -1,24 +1,29 @@
-async function fetchAPI(endpoint, method = 'GET', body = null) {
-    const options = {
-        method: method,
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include' // Penting untuk handle session login
-    };
-    
-    if (body && method !== 'GET') {
-        options.body = JSON.stringify(body);
-    }
-    
-    try {
-        const response = await fetch(APP_CONFIG.API_BASE + endpoint, options);
-        const data = await response.json();
-        return data;
-    } catch (err) {
-        console.error('API Error:', err);
-        return { status: 'error', message: 'Gagal terhubung ke server' };
-    }
-}
+// ===== api.js - helper API bersama (login, lupa password, verifikasi, password baru) =====
+const API_BASE = (location.hostname.includes('localhost') || location.hostname.includes('127.0.0.1'))
+    ? 'http://localhost/vincent-arena/Backend/API'
+    : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
 
-function formatRupiah(angka) {
-    return 'Rp ' + new Intl.NumberFormat('id-ID').format(angka);
+// Selalu mengembalikan objek: { ok, status, message, data, networkError }
+async function apiPost(path, body) {
+    let res;
+    try {
+        res = await fetch(API_BASE + path, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            mode: 'cors',
+            credentials: 'include', // wajib: BE memakai $_SESSION
+            body: JSON.stringify(body || {})
+        });
+    } catch (e) {
+        return { ok: false, status: 0, message: '', data: {}, networkError: true };
+    }
+    let json = {};
+    try { json = await res.json(); } catch (e) { /* respons bukan JSON */ }
+    return {
+        ok: res.ok && json.status === 'success',
+        status: res.status,
+        message: json.message || '',
+        data: json.data || {},
+        networkError: false
+    };
 }

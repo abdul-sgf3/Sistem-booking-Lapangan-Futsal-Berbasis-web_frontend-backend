@@ -143,9 +143,10 @@
             : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
         
         const savedEmail = localStorage.getItem('register_email');
-        if(savedEmail) { document.getElementById('email-target').textContent = savedEmail; } 
-        else { window.location.href = 'register.html'; }
+        if (savedEmail) { document.getElementById('email-target').textContent = savedEmail; } 
+        else { window.location.replace('register.html'); }
 
+        const OTP_DURATION = 60; // detik (samakan dengan masa berlaku OTP di backend)
         const otpInputs = document.querySelectorAll('.vsq-otp-input');
         const errOtp = document.getElementById('err-otp');
         const errOtpText = document.getElementById('err-otp-text');
@@ -163,16 +164,6 @@
         function resetErrorState() {
             errOtp.classList.remove('show');
             otpInputs.forEach(el => el.classList.remove('is-invalid'));
-        }
-
-        function resolveOtpMessage(serverMsg) {
-            const m = (serverMsg || '').toLowerCase();
-            const hasExpired = /kadaluwarsa|kedaluwarsa|kadaluarsa|kedaluarsa|expired|expire|hangus|habis/.test(m);
-            const hasWrong = /salah|invalid|tidak valid|tidak cocok|tidak sesuai|incorrect|wrong/.test(m);
-
-            if (hasExpired && !hasWrong) return MSG_OTP_EXPIRED;
-            if (hasWrong && !hasExpired) return MSG_OTP_SALAH;
-            return timeLeft <= 0 ? MSG_OTP_EXPIRED : MSG_OTP_SALAH;
         }
 
         function moveFocus(current, nextIndex) {
@@ -199,12 +190,24 @@
             });
         });
 
+        // ---------- Timer & kirim ulang kode ----------
         const timerEl = document.getElementById('timer');
         const timerWait = document.getElementById('timerWait');
         const resendLink = document.getElementById('resendLink');
-        let timeLeft = 60;
+        let timeLeft = OTP_DURATION;
         let countdown = null;
         let isResending = false;
+
+        // Sisa waktu dihitung dari waktu OTP dikirim, jadi refresh halaman tidak mengulang timer
+        function getRemainingSeconds() {
+            const started = parseInt(sessionStorage.getItem('otp_started_at') || '0', 10);
+            if (!started) {
+                sessionStorage.setItem('otp_started_at', String(Date.now()));
+                return OTP_DURATION;
+            }
+            const elapsed = Math.floor((Date.now() - started) / 1000);
+            return Math.max(0, OTP_DURATION - elapsed);
+        }
 
         function renderTimer() {
             const mm = String(Math.floor(timeLeft / 60)).padStart(2, '0');
@@ -212,9 +215,21 @@
             timerEl.textContent = `${mm}:${ss}`;
         }
 
+        function showResendLink() {
+            timerWait.style.display = 'none';
+            resendLink.style.display = 'inline';
+        }
+
         function startTimer(seconds) {
             clearInterval(countdown);
             timeLeft = seconds;
+
+            if (timeLeft <= 0) {
+                timeLeft = 0;
+                showResendLink();
+                return;
+            }
+
             timerWait.style.display = 'inline';
             resendLink.style.display = 'none';
             renderTimer();
@@ -224,12 +239,18 @@
                 if (timeLeft <= 0) {
                     timeLeft = 0;
                     clearInterval(countdown);
-                    timerWait.style.display = 'none';
-                    resendLink.style.display = 'inline';
+                    showResendLink();
                     return;
                 }
                 renderTimer();
             }, 1000);
+        }
+
+        // Server menyatakan OTP sudah tidak berlaku: hentikan timer, tampilkan link kirim ulang
+        function forceExpired() {
+            clearInterval(countdown);
+            timeLeft = 0;
+            showResendLink();
         }
 
         resendLink.addEventListener('click', async function(e) {
@@ -247,12 +268,31 @@
                     body: JSON.stringify({ email: savedEmail })
                 });
                 const result = await response.json();
+                const msg = (result.message || '').toLowerCase();
 
                 if (result.status === 'success') {
                     otpInputs.forEach(el => { el.value = ''; });
                     resetErrorState();
                     otpInputs[0].focus();
-                    startTimer(60);
+                    sessionStorage.setItem('otp_started_at', String(Date.now()));
+                    startTimer(OTP_DURATION);
+
+                    // OTP baru sudah dibuat, tetapi email gagal terkirim
+                    if (result.data && result.data.email_sent === false) {
+                        alert(result.message);
+                    }
+                } else if (response.status === 429) {
+                    // Cooldown dari server: "Tunggu N detik sebelum meminta kode baru."
+                    const match = (result.message || '').match(/(\d+)\s*detik/i);
+                    const wait = match ? parseInt(match[1], 10) : OTP_DURATION;
+                    sessionStorage.setItem('otp_started_at', String(Date.now() - (OTP_DURATION - Math.min(wait, OTP_DURATION)) * 1000));
+                    startTimer(wait);
+                } else if (msg.includes('sudah terverifikasi')) {
+                    alert(result.message + '. Silakan login.');
+                    window.location.replace('login.html');
+                } else if (msg.includes('tidak terdaftar')) {
+                    alert(result.message + '. Silakan daftar ulang.');
+                    window.location.replace('register.html');
                 } else {
                     alert(result.message || 'Gagal mengirim ulang kode OTP');
                 }
@@ -265,8 +305,43 @@
             }
         });
 
-        startTimer(60);
+        startTimer(getRemainingSeconds());
 
+        // ---------- Penanganan respons gagal dari verify_otp.php ----------
+        // Pesan BE: "Kode OTP salah" | "Kode OTP sudah kadaluarsa. Minta kirim ulang."
+        //           | "Kode OTP tidak ditemukan. Minta kirim ulang." | "Terlalu banyak percobaan salah..." (429)
+        //           | "Email sudah terverifikasi. Silakan login."
+        function handleOtpFailure(result, httpStatus, btn) {
+            const msg = (result.message || '').toLowerCase();
+            btn.disabled = false;
+            btn.textContent = 'Verifikasi';
+
+            if (httpStatus === 429 || msg.includes('terlalu banyak')) {
+                alert(result.message || 'Terlalu banyak percobaan. Silakan coba beberapa saat lagi.');
+                return;
+            }
+
+            if (msg.includes('sudah terverifikasi')) {
+                alert(result.message);
+                window.location.replace('login.html');
+                return;
+            }
+
+            if (/kadaluarsa|kadaluwarsa|kedaluwarsa|kedaluarsa|expired|tidak ditemukan/.test(msg)) {
+                showOtpError(MSG_OTP_EXPIRED);
+                forceExpired();
+                return;
+            }
+
+            if (msg.includes('otp') && msg.includes('salah')) {
+                showOtpError(MSG_OTP_SALAH);
+                return;
+            }
+
+            alert(result.message || 'Verifikasi gagal');
+        }
+
+        // ---------- Submit ----------
         document.getElementById('otpForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             let code6Digit = '';
@@ -293,14 +368,13 @@
                 const result = await response.json();
 
                 if (result.status === 'success') {
-                    // PERBAIKAN: tujuan yang benar adalah halaman Lengkapi Profil
-                    // (sebelumnya profil_user.html, yang tidak punya validasi)
                     sessionStorage.removeItem('profil_selesai');
-                    window.location.replace('lengkapi_profil.html');
+                    sessionStorage.removeItem('otp_started_at');
+                    const data = result.data || {};
+                    const target = data.need_profile === false ? 'index.html' : 'lengkapi_profil.html';
+                    window.location.replace(target);
                 } else {
-                    showOtpError(resolveOtpMessage(result.message));
-                    btn.disabled = false;
-                    btn.textContent = 'Verifikasi';
+                    handleOtpFailure(result, response.status, btn);
                 }
             } catch (error) {
                 alert('Gagal Terhubung: ' + error.message); 

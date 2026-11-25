@@ -1,194 +1,276 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verifikasi Lupa Password - Vincent'SQ Arena</title>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --vsq-navy:#131B2E; --vsq-blue:#477FEB; --vsq-red:#FF0000; --vsq-gray:#848484; --vsq-error:#FF5555; }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Plus Jakarta Sans',sans-serif; min-height:100vh; }
-        .vsq-wrapper { display:flex; min-height:100vh; width:100%; }
-        .vsq-left { flex:1; background:#fff; display:flex; align-items:center; justify-content:center; padding:40px 30px; position:relative; }
-        .vsq-back-btn { position:absolute; top:40px; left:40px; display:flex; transition:transform .2s; }
-        .vsq-back-btn:hover { transform:translateX(-4px); }
-        .vsq-back-btn svg { width:32px; height:32px; stroke:#000; stroke-width:2.5; fill:none; stroke-linecap:round; stroke-linejoin:round; }
-        .vsq-card { width:100%; max-width:400px; text-align:center; }
-        .vsq-logo { margin-bottom:24px; }
-        .vsq-logo h1 { font-size:38px; font-weight:800; color:var(--vsq-navy); letter-spacing:-.5px; line-height:1.2; }
-        .vsq-logo p { font-size:22px; font-weight:800; color:var(--vsq-red); letter-spacing:.6px; margin-top:4px; text-transform:uppercase; line-height:1.1; }
-        .vsq-illustration { margin-bottom:24px; display:flex; justify-content:center; }
-        .vsq-illustration img { width:200px; height:auto; object-fit:contain; }
-        .vsq-text { font-size:14px; color:#4B5563; line-height:1.5; margin-bottom:24px; }
-        .vsq-text strong { color:#1F2937; font-weight:700; display:block; margin-top:4px; font-size:15px; word-break:break-all; }
-        .vsq-otp-container { display:flex; justify-content:center; gap:12px; margin-bottom:12px; }
-        .vsq-otp-input { width:56px; height:64px; text-align:center; font-size:24px; font-weight:600; font-family:inherit; border:1px solid var(--vsq-gray); border-radius:10px; outline:none; transition:all .2s; background:#fff; color:#000; }
-        .vsq-otp-input:focus { border-color:var(--vsq-navy); box-shadow:0 0 0 3px rgba(19,27,46,.1); }
-        .vsq-otp-input.is-invalid { border-color:var(--vsq-error) !important; }
-        .vsq-error-msg { display:none; justify-content:center; align-items:center; gap:6px; font-size:12px; color:var(--vsq-error); margin-bottom:16px; font-weight:500; }
-        .vsq-error-msg.show { display:flex; }
-        .vsq-error-icon { width:14px; height:14px; border:2px solid var(--vsq-error); color:var(--vsq-error); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; flex-shrink:0; }
-        .vsq-timer { font-size:13px; color:#4B5563; margin-bottom:8px; }
-        .vsq-timer span { color:var(--vsq-blue); font-weight:600; }
-        .vsq-timer a { color:var(--vsq-blue); font-weight:500; text-decoration:none; }
-        .vsq-timer a:hover { text-decoration:underline; }
-        .vsq-resend { font-size:13px; color:#4B5563; margin-bottom:24px; }
-        .vsq-resend a { color:var(--vsq-blue); text-decoration:none; font-weight:500; }
-        .vsq-resend a:hover { text-decoration:underline; }
-        .vsq-btn { display:block; width:100%; height:48px; padding:0 20px; font-size:15px; font-weight:600; font-family:inherit; color:#fff; background:var(--vsq-navy); border:none; border-radius:12px; cursor:pointer; transition:background .2s; margin-top:10px; }
-        .vsq-btn:hover { background:#0a0e1a; }
-        .vsq-btn:disabled { opacity:.6; cursor:not-allowed; }
-        .vsq-right { flex:1; background:linear-gradient(rgba(19,27,46,.6),rgba(19,27,46,.6)),url('assets/uploads/lapangan/Lapangan2.jpeg') center/cover no-repeat; border-left:1px solid #000; }
-        @media (max-width:900px) {
-            .vsq-wrapper { flex-direction:column; }
-            .vsq-left { padding:80px 20px 40px; }
-            .vsq-right { min-height:200px; order:-1; border-left:none; border-bottom:1px solid #000; }
-            .vsq-back-btn { top:20px; left:20px; }
-            .vsq-otp-container { gap:8px; }
-            .vsq-otp-input { width:45px; height:55px; font-size:20px; }
-        }
+/* auth.css - gaya bersama: lupa_password, verifikasi_lupa, password_baru
+   Ukuran mengikuti login.html (kartu 515px, input 55px, tombol 53px) */
+:root { --vsq-navy:#131B2E; --vsq-blue:#477FEB; --vsq-red:#FF0000; --vsq-gray:#848484; --vsq-error:#F04B4B; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { min-height:100%; }
+body { font-family:'Plus Jakarta Sans',sans-serif; background:#fff; color:#111827; overflow-x:hidden; }
+
+.vsq-wrapper { display:flex; min-height:100vh; width:100%; }
+.vsq-left { flex:0 0 63.33%; background:#fff; display:flex; align-items:center; justify-content:center; padding:32px 24px; position:relative; }
+.vsq-right { flex:1; background:linear-gradient(rgba(19,27,46,.6),rgba(19,27,46,.6)),url('assets/uploads/lapangan/Lapangan2.jpeg') center/cover no-repeat; }
+
+.vsq-back-btn { position:absolute; top:50px; left:52px; display:flex; align-items:center; justify-content:center; transition:transform .2s; }
+.vsq-back-btn:hover { transform:translateX(-4px); }
+.vsq-back-btn svg { width:54px; height:52px; stroke:var(--vsq-navy); stroke-width:4; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+
+/* Kartu lebar (judul / OTP lebih lebar dari form), form tetap 515px */
+.vsq-card { width:100%; max-width:640px; text-align:center; }
+.vsq-narrow { width:100%; max-width:515px; margin:0 auto; text-align:left; }
+
+/* Logo (gambar + cadangan teks) */
+.vsq-logo { text-align:center; margin-bottom:24px; }
+.vsq-logo img { display:block; width:275px; height:auto; margin:0 auto; }
+.vsq-logo-text { display:none; }
+.vsq-logo-text h1 { font-size:38px; font-weight:800; color:var(--vsq-navy); letter-spacing:-.5px; line-height:1.2; }
+.vsq-logo-text p { font-size:22px; font-weight:800; color:var(--vsq-red); letter-spacing:.6px; text-transform:uppercase; margin-top:4px; line-height:1.1; }
+.vsq-logo.logo-fallback img { display:none; }
+.vsq-logo.logo-fallback .vsq-logo-text { display:block; }
+
+.vsq-title { font-size:20px; font-weight:600; line-height:26px; margin-bottom:14px; }
+.vsq-sub { font-size:20px; font-weight:400; line-height:26px; }
+.vsq-text { font-size:16px; font-weight:400; line-height:23px; }
+.vsq-illustration { display:flex; justify-content:center; }
+.vsq-illustration img { display:block; height:auto; max-width:100%; }
+
+/* Form */
+.vsq-form-group { margin-bottom:44px; }
+.vsq-form-group label { display:block; font-size:16px; font-weight:500; line-height:19px; margin-bottom:10px; }
+.vsq-input-wrapper { position:relative; width:100%; }
+.vsq-form-control { width:100%; height:55px; padding:0 56px 0 30px; font-size:16px; font-weight:400; font-family:inherit; color:#111827; background:#fff; border:1px solid var(--vsq-gray); border-radius:14px; outline:none; transition:border-color .2s ease; }
+.vsq-form-control::placeholder { color:#8E8E93; }
+.vsq-form-control:focus { border-color:var(--vsq-navy); }
+.vsq-form-control.is-invalid { border-color:var(--vsq-error) !important; }
+
+.vsq-error-msg { display:none; align-items:center; gap:8px; font-size:13px; font-weight:500; line-height:16px; color:var(--vsq-error); }
+.vsq-error-msg.show { display:flex; }
+.vsq-error-msg.abs { position:absolute; left:0; top:calc(100% + 9px); }
+.vsq-error-icon { width:14px; height:14px; border:1.5px solid var(--vsq-error); color:var(--vsq-error); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; line-height:1; flex-shrink:0; }
+
+.vsq-toggle-password { position:absolute; right:28px; top:50%; transform:translateY(-50%); cursor:pointer; color:var(--vsq-navy); background:transparent; border:none; display:flex; align-items:center; justify-content:center; z-index:2; }
+.vsq-form-control:placeholder-shown ~ .vsq-toggle-password { color:#8E8E93; }
+.vsq-toggle-password svg { width:30px; height:30px; stroke:currentColor; stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+
+.vsq-btn { display:flex; justify-content:center; align-items:center; width:100%; height:53px; padding:0 20px; font-size:17px; font-weight:600; font-family:inherit; color:#fff; background:var(--vsq-navy); border:none; border-radius:16px; cursor:pointer; transition:background-color .3s ease; }
+.vsq-btn:hover { background:#0a0e1a; }
+.vsq-btn:disabled { opacity:.6; cursor:not-allowed; }
+
+/* OTP */
+.vsq-otp { display:flex; justify-content:center; gap:clamp(10px,2.4vw,34px); }
+.vsq-otp-input { flex:0 1 76px; width:76px; min-width:0; height:98px; text-align:center; font-size:40px; font-weight:600; font-family:inherit; color:#111827; background:#FAFAFA; border:1px solid #9B9B9B; border-radius:12px; outline:none; transition:border-color .2s; }
+.vsq-otp-input:focus { border-color:var(--vsq-navy); }
+.vsq-otp-input.is-invalid { border-color:var(--vsq-error); }
+.vsq-otp-error { min-height:16px; line-height:16px; margin-top:14px; font-size:13px; font-weight:500; color:var(--vsq-error); visibility:hidden; }
+.vsq-otp-error.show { visibility:visible; }
+.vsq-timer { margin-top:12px; font-size:15px; font-weight:500; line-height:21px; }
+.vsq-timer .lbl, .vsq-timer a { font-size:13px; font-weight:500; color:var(--vsq-blue); text-decoration:none; }
+.vsq-timer a:hover, .vsq-resend a:hover { text-decoration:underline; }
+.vsq-resend { font-size:15px; font-weight:500; line-height:21px; }
+.vsq-resend a { font-size:13px; font-weight:500; color:var(--vsq-blue); text-decoration:none; margin-left:6px; }
+
+/* ===== Jarak vertikal per halaman (diukur dari desain) ===== */
+.pg-lupa .vsq-sub { margin-bottom:52px; }
+.pg-lupa .vsq-illustration { margin-bottom:62px; }
+.pg-lupa .vsq-illustration img { width:335px; }
+
+.pg-otp .vsq-logo { margin-bottom:35px; }
+.pg-otp .vsq-illustration { margin-bottom:55px; }
+.pg-otp .vsq-illustration img { width:315px; }
+.pg-otp .vsq-text { margin-bottom:23px; }
+.pg-otp .vsq-resend { margin-bottom:26px; }
+
+.pg-pw .vsq-logo { margin-bottom:44px; }
+.pg-pw .vsq-illustration { margin-bottom:23px; }
+.pg-pw .vsq-illustration img { width:306px; }
+.pg-pw .vsq-form-group label { margin-bottom:14px; }
+.pg-pw .vsq-form-group { margin-bottom:32px; }
+.pg-pw .vsq-form-group.last { margin-bottom:37px; }
+
+/* ===== Responsif (sama dengan login) ===== */
+@media (min-width:901px) and (max-height:860px) { .vsq-card { zoom:.9; } }
+@media (min-width:901px) and (max-height:760px) { .vsq-card { zoom:.8; } }
+@media (min-width:901px) and (max-width:1200px) { .vsq-back-btn { top:36px; left:36px; } .vsq-back-btn svg { width:40px; height:38px; } }
+@media (max-width:900px) {
+    .vsq-wrapper { flex-direction:column; }
+    .vsq-left { flex:none; width:100%; padding:80px 20px 40px; }
+    .vsq-right { min-height:200px; order:-1; }
+    .vsq-back-btn { top:20px; left:20px; }
+    .vsq-back-btn svg { width:36px; height:34px; }
+    .vsq-logo img { width:220px; }
+    .vsq-sub { font-size:16px; line-height:22px; margin-bottom:32px; }
+    .vsq-illustration img { width:240px !important; }
+    .pg-lupa .vsq-illustration, .pg-otp .vsq-illustration { margin-bottom:32px; }
+    .vsq-otp-input { height:60px; font-size:24px; flex-basis:46px; }
+    .vsq-otp { gap:8px; }
+}
+
     </style>
+    <title>Verifikasi Lupa Password - Vincent'SQ Arena</title>
 </head>
-<body>
-    <div class="vsq-wrapper">
-        <div class="vsq-left">
-            <a href="lupa_password.html" class="vsq-back-btn" aria-label="Kembali"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></a>
-
-            <div class="vsq-card">
-                <div class="vsq-logo"><h1>Vincent'SQ</h1><p>SPORTS ARENA</p></div>
-
-                <div class="vsq-illustration">
-                    <img src="assets/images/ilustrasi-kurir.png" alt="Ilustrasi" onerror="this.src='https://illustrations.popsy.co/blue/opened-envelope.svg'">
-                </div>
-
-                <div class="vsq-text">Kami telah mengirimkan kode verifikasi ke <strong id="email-target">email@anda.com</strong></div>
-
-                <form id="formOTP" novalidate>
-                    <div class="vsq-otp-container">
-                        <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" autocomplete="one-time-code" aria-label="Digit 1" autofocus>
-                        <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" aria-label="Digit 2">
-                        <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" aria-label="Digit 3">
-                        <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" aria-label="Digit 4">
-                        <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" aria-label="Digit 5">
-                    </div>
-
-                    <div class="vsq-error-msg" id="err-otp"><span class="vsq-error-icon">!</span><span id="err-otp-text"></span></div>
-
-                    <div class="vsq-timer" id="timer-wrap">Kirim ulang kode dalam <span id="timer-display">01:00</span></div>
-                    <div class="vsq-resend">Salah memasukkan email? <a href="lupa_password.html" onclick="localStorage.removeItem('reset_email')">Klik di sini!</a></div>
-
-                    <button type="submit" class="vsq-btn" id="btnVerifikasi">Melanjutkan</button>
-                </form>
+<body class="pg-otp">
+<div class="vsq-wrapper">
+    <div class="vsq-left">
+        <a href="lupa_password.html" class="vsq-back-btn" aria-label="Kembali"><svg viewBox="0 0 54 52"><path d="M52 26H2M26 2L2 26l24 24"/></svg></a>
+        <div class="vsq-card">
+            <div class="vsq-logo">
+                <img src="assets/images/logo.png" alt="Vincent'SQ Sports Arena" onerror="this.parentNode.classList.add('logo-fallback')">
+                <div class="vsq-logo-text"><h1>Vincent’SQ</h1><p>SPORTS ARENA</p></div>
             </div>
+            <div class="vsq-illustration"><img src="assets/images/ilustrasi-kurir.png" alt="Ilustrasi" onerror="this.src='https://illustrations.popsy.co/blue/opened-envelope.svg'"></div>
+            <p class="vsq-text">Kami telah mengirimkan kode verifikasi ke<br><span id="email-target"></span></p>
+
+            <form id="formOTP" novalidate>
+                <div class="vsq-otp" id="otp">
+                    <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" autocomplete="one-time-code" aria-label="Digit 1" autofocus>
+                    <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" aria-label="Digit 2">
+                    <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" aria-label="Digit 3">
+                    <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" aria-label="Digit 4">
+                    <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" aria-label="Digit 5">
+                    <input type="text" maxlength="1" class="vsq-otp-input" inputmode="numeric" aria-label="Digit 6">
+                </div>
+                <div class="vsq-otp-error" id="err-otp"></div>
+                <div class="vsq-timer" id="timer-wrap"></div>
+                <div class="vsq-resend">Salah mengirim email? <a href="lupa_password.html" onclick="localStorage.removeItem('reset_email')">Klik disini!</a></div>
+                <div class="vsq-narrow"><button type="submit" class="vsq-btn" id="btnVerifikasi">Melanjutkan</button></div>
+            </form>
         </div>
-        <div class="vsq-right"></div>
     </div>
+    <div class="vsq-right"></div>
+</div>
 
-    <script src="assets/js/api.js"></script>
-    <script>
-        const email = localStorage.getItem('reset_email');
-        if (!email) window.location.href = 'lupa_password.html';
-        document.getElementById('email-target').textContent = email || '';
+<script>
+// ===== api.js - helper API bersama =====
+const API_BASE = (location.hostname.includes('localhost') || location.hostname.includes('127.0.0.1'))
+    ? 'http://localhost/vincent-arena/Backend/API'
+    : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
 
-        const otpInputs = [...document.querySelectorAll('.vsq-otp-input')];
-        const formOTP = document.getElementById('formOTP');
-        const btn = document.getElementById('btnVerifikasi');
-        const errBox = document.getElementById('err-otp');
-        const errText = document.getElementById('err-otp-text');
-        const timerWrap = document.getElementById('timer-wrap');
-
-        function showErr(msg) {
-            errText.textContent = msg;
-            errBox.classList.add('show');
-            otpInputs.forEach(i => i.classList.add('is-invalid'));
-        }
-        function resetErr() {
-            errBox.classList.remove('show');
-            otpInputs.forEach(i => i.classList.remove('is-invalid'));
-        }
-
-        // Input OTP: hanya angka, pindah fokus otomatis, dukung paste & backspace
-        otpInputs.forEach((inp, idx) => {
-            inp.addEventListener('input', () => {
-                inp.value = inp.value.replace(/\D/g, '').slice(0, 1);
-                if (inp.value && idx < otpInputs.length - 1) otpInputs[idx + 1].focus();
-                resetErr();
-            });
-            inp.addEventListener('keydown', e => {
-                if (e.key === 'Backspace' && !inp.value && idx > 0) otpInputs[idx - 1].focus();
-            });
-            inp.addEventListener('paste', e => {
-                e.preventDefault();
-                const d = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, otpInputs.length);
-                d.split('').forEach((c, i) => { otpInputs[i].value = c; });
-                otpInputs[Math.min(d.length, otpInputs.length - 1)].focus();
-                resetErr();
-            });
+// Selalu mengembalikan: { ok, status, message, data, networkError, timeout }
+async function apiPost(path, body, timeoutMs) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), timeoutMs || 25000);
+    let res;
+    try {
+        res = await fetch(API_BASE + path, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            mode: 'cors',
+            credentials: 'include', // wajib: BE memakai $_SESSION
+            body: JSON.stringify(body || {}),
+            signal: ctrl.signal
         });
+    } catch (e) {
+        clearTimeout(timer);
+        const isTimeout = e && e.name === 'AbortError';
+        return { ok: false, status: 0, message: '', data: {}, networkError: !isTimeout, timeout: isTimeout };
+    }
+    clearTimeout(timer);
+    let json = {};
+    try { json = await res.json(); } catch (e) { /* bukan JSON */ }
+    return { ok: res.ok && json.status === 'success', status: res.status,
+             message: json.message || '', data: json.data || {}, networkError: false, timeout: false };
+}
 
-        // Timer kirim ulang
-        let timeLeft = 0, timerId = null;
-        function renderTimer() {
-            if (timeLeft > 0) {
-                const m = String(Math.floor(timeLeft / 60)).padStart(2, '0');
-                const s = String(timeLeft % 60).padStart(2, '0');
-                timerWrap.innerHTML = 'Kirim ulang kode dalam <span id="timer-display">' + m + ':' + s + '</span>';
-            } else {
-                timerWrap.innerHTML = 'Tidak menerima kode? <a href="#" id="resend">Kirim ulang</a>';
-                document.getElementById('resend').addEventListener('click', resend);
-            }
-        }
-        function startTimer(sec) {
-            clearInterval(timerId);
-            timeLeft = sec;
-            renderTimer();
-            timerId = setInterval(() => {
-                timeLeft--;
-                renderTimer();
-                if (timeLeft <= 0) clearInterval(timerId);
-            }, 1000);
-        }
-        async function resend(e) {
-            e.preventDefault();
-            const r = await apiPost('/auth/lupa_password.php', { email });
-            if (r.ok) {
-                otpInputs.forEach(i => { i.value = ''; });
-                otpInputs[0].focus();
-                resetErr();
-                startTimer(60);
-                return;
-            }
-            const m = r.message.match(/(\d+)\s*detik/);   // 429: "Tunggu N detik ..."
-            if (m) startTimer(parseInt(m[1], 10));
-            showErr(r.networkError ? 'Tidak dapat terhubung ke server.' : (r.message || 'Gagal mengirim ulang kode.'));
-        }
-        startTimer(60);
+// Pesan error umum untuk kegagalan koneksi
+function netMsg(r) {
+    if (r.timeout) return 'Server terlalu lama merespons. Silakan coba lagi.';
+    if (r.networkError) return 'Tidak dapat terhubung ke server. Periksa koneksi Anda.';
+    return '';
+}
 
-        // Submit: verifikasi ke BE
-        formOTP.addEventListener('submit', async e => {
-            e.preventDefault();
+</script>
+<script>
+function nextSrc(img){var l=(img.dataset.srcs||"").split(",").filter(Boolean);var n=l.shift();img.dataset.srcs=l.join(",");if(n){img.src=n;}else{img.onerror=null;if(img.dataset.fallback)img.src=img.dataset.fallback;}}
+</script>
+<script>
+    const email = localStorage.getItem('reset_email');
+    if (!email) window.location.href = 'lupa_password.html';
+    document.getElementById('email-target').textContent = email || '';
+
+    const otpInputs = [...document.querySelectorAll('.vsq-otp-input')];
+    const form = document.getElementById('formOTP');
+    const btn = document.getElementById('btnVerifikasi');
+    const errBox = document.getElementById('err-otp');
+    const timerWrap = document.getElementById('timer-wrap');
+
+    function showErr(msg) {
+        errBox.textContent = msg; errBox.classList.add('show');
+        otpInputs.forEach(i => i.classList.add('is-invalid'));
+    }
+    function resetErr() { errBox.classList.remove('show'); otpInputs.forEach(i => i.classList.remove('is-invalid')); }
+
+    otpInputs.forEach((inp, idx) => {
+        inp.addEventListener('input', () => {
+            inp.value = inp.value.replace(/\D/g, '').slice(0, 1);
+            if (inp.value && idx < otpInputs.length - 1) otpInputs[idx + 1].focus();
             resetErr();
-
-            const otp = otpInputs.map(i => i.value).join('');
-            if (otp.length < otpInputs.length) {
-                showErr('Kode OTP belum dimasukkan!');
-                return;
-            }
-
-            btn.disabled = true;
-            btn.textContent = 'Memverifikasi...';
-
-            const r = await apiPost('/auth/verify_reset_otp.php', { email, otp });
-            if (r.ok) {
-                window.location.href = 'password_baru.html';
-                return;
-            }
-
-            showErr(r.networkError ? 'Tidak dapat terhubung ke server.' : (r.message || 'Kode OTP salah'));
-            btn.disabled = false;
-            btn.textContent = 'Melanjutkan';
         });
-    </script>
+        inp.addEventListener('keydown', e => {
+            if (e.key === 'Backspace' && !inp.value && idx > 0) otpInputs[idx - 1].focus();
+        });
+        inp.addEventListener('paste', e => {
+            e.preventDefault();
+            const d = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, otpInputs.length);
+            d.split('').forEach((c, i) => { otpInputs[i].value = c; });
+            otpInputs[Math.min(d.length, otpInputs.length - 1)].focus();
+            resetErr();
+        });
+    });
+
+    // Timer kirim ulang
+    let timeLeft = 0, timerId = null;
+    function renderTimer() {
+        if (timeLeft > 0) {
+            const m = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+            const s = String(timeLeft % 60).padStart(2, '0');
+            timerWrap.innerHTML = '<span class="lbl">Kirim ulang kode dalam</span> ' + m + ':' + s;
+        } else {
+            timerWrap.innerHTML = '<a href="#" id="resend">Kirim ulang kode</a>';
+            document.getElementById('resend').addEventListener('click', resend);
+        }
+    }
+    function startTimer(sec) {
+        clearInterval(timerId); timeLeft = sec; renderTimer();
+        timerId = setInterval(() => { timeLeft--; renderTimer(); if (timeLeft <= 0) clearInterval(timerId); }, 1000);
+    }
+    async function resend(e) {
+        e.preventDefault();
+        timerWrap.textContent = 'Mengirim ulang...';
+        const r = await apiPost('/auth/lupa_password.php', { email });
+        if (r.ok) {
+            otpInputs.forEach(i => { i.value = ''; }); otpInputs[0].focus(); resetErr(); startTimer(60); return;
+        }
+        const m = r.message.match(/(\d+)\s*detik/);
+        startTimer(m ? parseInt(m[1], 10) : 0);
+        showErr(netMsg(r) || r.message || 'Gagal mengirim ulang kode.');
+    }
+    startTimer(parseInt(sessionStorage.getItem('reset_cooldown') || '60', 10));
+
+    function resetButton() { btn.disabled = false; btn.textContent = 'Melanjutkan'; }
+    window.addEventListener('pageshow', resetButton);
+
+    form.addEventListener('submit', async e => {
+        e.preventDefault();
+        resetErr();
+        const otp = otpInputs.map(i => i.value).join('');
+        if (otp.length < otpInputs.length) { showErr('Kode OTP belum dimasukan!'); return; }
+
+        btn.disabled = true; btn.textContent = 'Memverifikasi...';
+        const r = await apiPost('/auth/verify_reset_otp.php', { email, otp });
+
+        if (r.ok) { sessionStorage.removeItem('reset_cooldown'); window.location.href = 'password_baru.html'; return; }
+
+        if (netMsg(r)) showErr(netMsg(r));
+        else if (r.status === 429) showErr(r.message || 'Terlalu banyak percobaan. Minta kode baru.');
+        else if (/kadaluarsa/i.test(r.message)) showErr('Kode OTP kadaluwarsa');
+        else if (/salah/i.test(r.message)) showErr('Kode OTP yang anda masukan salah!');
+        else showErr(r.message || 'Kode OTP tidak valid');
+        resetButton();
+    });
+</script>
 </body>
 </html>

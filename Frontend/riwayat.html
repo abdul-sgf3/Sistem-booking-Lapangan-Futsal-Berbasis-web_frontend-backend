@@ -3,299 +3,516 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Riwayat Booking - Vincent'SQ Arena</title>
+<title>Riwayat Booking - Vincent'SQ Sports Arena</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
 <style>
-:root { --vsq-navy:#131B2E; --vsq-blue:#477FEB; --vsq-red:#FF0000; --vsq-white:#FFF; }
-* {margin:0;padding:0;box-sizing:border-box;}
-body {background:#F8FAFC; font-family:'Plus Jakarta Sans',sans-serif;}
+:root{--navy:#131B2E;--green:#3DB268;--error:#F04646}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#F6F7FB;font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);overflow-x:hidden}
+/* NAVBAR */
+#navbar{position:sticky;top:0;z-index:1000;background:#FFF}
+.vsq-header{height:106px;display:flex;align-items:center;justify-content:space-between;padding:0 44px}
+.vsq-nav-left{display:flex;align-items:center;gap:48px}
+.vsq-logo{display:flex;flex-direction:column;text-decoration:none}
+.vsq-logo-img{width:118px;height:auto;display:block}
+.vsq-logo-title{font-size:22px;font-weight:800;color:var(--navy);font-style:italic;letter-spacing:-.5px}
+.vsq-logo-sub{font-size:11px;font-weight:800;color:#F00;letter-spacing:.5px}
+.vsq-nav-menu{display:flex;align-items:center;gap:35px}
+.vsq-nav-link{font-size:15px;font-weight:500;color:#000;text-decoration:none;white-space:nowrap}
+.vsq-nav-link.active{color:#FFF;background:var(--navy);padding:0 32px;border-radius:12px;height:50px;display:flex;align-items:center}
+.vsq-nav-right{display:flex;align-items:center;gap:16px;position:relative}
+.vsq-btn-login-outline,.vsq-btn-register{width:90px;height:46px;border-radius:12px;font-size:14px;font-weight:600;text-decoration:none;display:flex;align-items:center;justify-content:center}
+.vsq-btn-login-outline{border:1px solid var(--navy);color:var(--navy);background:#FFF}
+.vsq-btn-register{background:var(--navy);color:#FFF}
+.vsq-profile-box{display:flex;align-items:center;justify-content:space-between;min-width:152px;max-width:200px;height:50px;border:2px solid var(--navy);border-radius:12px;padding:0 8px 0 18px;cursor:pointer;overflow:hidden;background:#FFF}
+.vsq-profile-name{font-size:16px;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:8px}
+.vsq-profile-avatar,.vsq-dd-avatar{background:#D9D9D9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0;overflow:hidden}
+.vsq-profile-avatar{width:34px;height:34px;font-size:13px}
+.vsq-btn-logout{background:var(--navy);color:#FFF;min-width:119px;padding:0 28px;height:50px;border-radius:12px;font-size:16px;font-weight:500;font-family:inherit;border:none;cursor:pointer}
+.vsq-notif-btn{background:none;border:none;cursor:pointer;width:40px;height:40px}
+.vsq-notif-btn img{width:30px;height:30px;object-fit:contain}
+.vsq-profile-dropdown{position:absolute;top:66px;right:0;width:280px;background:#FFF;border:1px solid #E2E8F0;border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,.12);display:none;flex-direction:column;z-index:1001;overflow:hidden}
+.vsq-profile-dropdown.show{display:flex}
+.vsq-dd-header{background:linear-gradient(135deg,#131B2E,#2C437B);padding:20px;display:flex;align-items:center;gap:15px;color:#FFF}
+.vsq-dd-avatar{width:50px;height:50px;background:#477FEB;color:#FFF;font-size:22px;border:2px solid #FFF}
+.vsq-dd-info{overflow:hidden}
+.vsq-dd-info h4{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vsq-badge-verified{display:inline-flex;align-items:center;gap:4px;background:rgba(22,163,74,.2);color:#4ADE80;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;margin-top:6px}
+.vsq-dd-body{padding:15px 20px;display:flex;flex-direction:column;gap:12px;font-size:13px;font-weight:600;color:var(--navy)}
+.vsq-dd-footer{padding:15px 20px;display:flex;flex-direction:column;gap:10px;background:#F8FAFC;border-top:1px solid #E2E8F0}
+.vsq-btn-edit-profile{background:#477FEB;color:#FFF;padding:10px;border-radius:8px;font-size:13px;font-weight:600;text-align:center;text-decoration:none}
+.vsq-btn-logout-dropdown{background:none;color:#EF4444;border:1px solid #FECACA;padding:9px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
 
-/* --- NAVBAR --- */
-.vsq-header { background: #FFFFFF; width: 100%; height: 106px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
-.vsq-nav-left { display: flex; align-items: center; gap: 40px; }
-.vsq-logo { display: flex; flex-direction: column; text-decoration: none; width: 130px; flex-shrink: 0; }
-.vsq-logo-title { font-size: 22px; font-weight: 800; color: #131B2E; line-height: 1.1; letter-spacing: -0.5px; }
-.vsq-logo-sub { font-size: 13px; font-weight: 800; color: #FF0000; line-height: 1.2; letter-spacing: 0.5px; margin-top: 2px; }
-.vsq-nav-menu { display: flex; align-items: center; gap: 32px; }
-.vsq-nav-link { font-size: 15px; font-weight: 600; color: #000000; text-decoration: none; transition: color 0.2s; white-space: nowrap; }
-.vsq-nav-link:hover { color: var(--vsq-blue); }
-.vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 14px 24px; border-radius: 12px; height: auto; display: flex; align-items: center; justify-content: center; }
-.vsq-nav-right { display: flex; align-items: center; gap: 16px; position: relative; flex-shrink: 0; }
-.vsq-btn-login-outline { background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
-.vsq-btn-register { background: #131B2E; color: #FFF; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
-.vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: auto; max-width: 160px; height: 42px; border: 1px solid #000000; border-radius: 10px; padding: 0 8px 0 12px; text-decoration: none; cursor: pointer; transition: background 0.2s; flex-shrink: 1; overflow: hidden; }
-.vsq-profile-box:hover { background: #F8FAFC; }
-.vsq-profile-name { font-size: 14px; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; margin-right: 8px; }
-.vsq-profile-avatar { width: 28px; height: 28px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; overflow: hidden; }
-.vsq-btn-logout { background: #131B2E; color: #FFF; width: auto; padding: 0 16px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
-.vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; }
-.vsq-notif-btn svg { width: 24px; height: 24px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.vsq-profile-dropdown { position: absolute; top: 60px; right: 0; width: 280px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.12); padding: 0; display: none; flex-direction: column; z-index: 1001; overflow: hidden; animation: slideDown 0.3s ease; }
-@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-.vsq-profile-dropdown.show { display: flex; }
-.vsq-dd-header { background: linear-gradient(135deg, #131B2E 0%, #2C437B 100%); padding: 20px; display: flex; align-items: center; gap: 15px; color: #FFFFFF; }
-.vsq-dd-avatar { width: 50px; height: 50px; background: #477FEB; color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; border: 2px solid #FFFFFF; box-shadow: 0 4px 10px rgba(0,0,0,0.2); flex-shrink: 0; overflow: hidden; }
-.vsq-dd-info { overflow: hidden; }
-.vsq-dd-info h4 { font-size: 16px; font-weight: 700; margin: 0; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.vsq-badge-verified { display: inline-flex; align-items: center; gap: 4px; background: rgba(22, 163, 74, 0.2); color: #4ADE80; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-top: 6px; }
-.vsq-dd-body { padding: 15px 20px; display: flex; flex-direction: column; gap: 12px; }
-.vsq-dd-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #131B2E; }
-.vsq-dd-item .value { font-weight: 600; color: #131B2E; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
-.vsq-dd-divider { height: 1px; background: #E2E8F0; margin: 5px 20px; }
-.vsq-dd-footer { padding: 15px 20px; display: flex; flex-direction: column; gap: 10px; background: #F8FAFC; }
-.vsq-btn-edit-profile { background: #477FEB; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
-.vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-/* KONTEN RIWAYAT */
-.vsq-section { padding:50px 20px; max-width:1000px; margin:0 auto; text-align:center; }
-.vsq-section-title h2 { font-size:36px; font-weight:700; color:#131B2E; margin-bottom:20px; }
+.vsq-toast.ok{background:#DDF4E5;color:#1E7A45}
+.wrap{padding:0 40px 60px}
+.page-head{position:relative;text-align:center;padding-top:34px}
+.page-head h1{font-size:44px;font-weight:700;letter-spacing:-.5px}
+.page-head p{font-size:22px;font-weight:500;margin-top:14px}
+.ico{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.searchbar{display:flex;gap:30px;margin:44px 0 22px}
+.search-input{flex:1;display:flex;align-items:center;gap:14px;height:62px;padding:0 24px;background:#FFF;border:1px solid #848484;border-radius:16px}
+.search-input input{flex:1;min-width:0;border:0;outline:0;background:none;font:inherit;font-size:18px;color:var(--navy)}
+.btn-search{display:flex;align-items:center;justify-content:center;gap:10px;width:160px;height:62px;background:var(--navy);color:#FFF;border:0;border-radius:16px;font:inherit;font-size:18px;cursor:pointer}
+.filters{display:flex;align-items:center;gap:18px;margin-bottom:24px;flex-wrap:wrap}
+.filters>.ico{width:40px;height:40px;margin-right:4px}
+.chip{display:flex;align-items:center;gap:10px;height:50px;padding:0 18px;border:1px solid #848484;border-radius:14px;background:transparent;font:inherit;font-size:15px;font-weight:500;color:var(--navy);cursor:pointer}
+.chip.on{background:var(--navy);color:#FFF;border-color:var(--navy)}
+.bk{background:#FFF;border:1px solid #848484;border-radius:28px;padding:64px 52px 40px;margin-bottom:40px}
+.bk-main{display:flex;gap:40px}
+.bk-img{width:410px;height:276px;border-radius:20px;object-fit:cover;flex-shrink:0;background:#E2E8F0}
+.bk-mid{flex:1;min-width:0}
+.mid-top,.sec1{min-height:128px}
+.bk-name{display:flex;align-items:center;gap:20px;margin-bottom:6px;flex-wrap:wrap}
+.bk-name h3{font-size:24px;font-weight:500}
+.tag{display:inline-flex;align-items:center;justify-content:center;height:38px;padding:0 30px;border-radius:20px;font-size:16px;font-weight:500;color:#000}
+.tag.vip{background:#E5B800}.tag.reg{background:#D9D9D9}
+.row{display:flex;align-items:center;gap:14px;font-size:17px;margin-top:12px}
+.hr{height:1px;background:var(--navy);margin:22px 14px 20px}
+.bk h4{font-size:24px;font-weight:500}
+.bk-mid .row.price{margin-top:30px}
+.vline{width:1px;background:var(--navy);flex-shrink:0}
+.bk-right{flex:1.1;min-width:0}
+.badge{display:inline-block;background:var(--navy);color:#FFF;font-size:12px;font-weight:500;padding:5px 11px;border-radius:5px;margin:12px 0 10px}
+.desc{font-size:14px;line-height:1.35;text-align:justify}
+.acts{display:flex;justify-content:flex-end;gap:22px;margin-top:30px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:50px;padding:0 24px;border-radius:10px;font:inherit;font-size:16px;font-weight:500;cursor:pointer;text-decoration:none;border:1px solid var(--navy)}
+.btn-o{background:#FFF;color:var(--navy)}.btn-n{background:var(--navy);color:#FFF}
+.btn-r{background:#FFF;color:var(--error);border-color:#F5A3A3}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.info{background:#FFF;border:1px solid #848484;border-radius:24px;padding:34px 36px}
+.info h3{display:flex;align-items:center;gap:30px;font-size:26px;font-weight:500}
+.info h3 .ico{width:42px;height:42px;stroke-width:1.6}
+.info p{font-size:18px;line-height:1.45;margin:18px 0 0 72px;max-width:900px}
+.empty{text-align:center;padding:80px 0 20px}
+.empty .ico{width:84px;height:84px;stroke-width:1.5}
+.empty h2{font-size:30px;font-weight:500;margin:30px 0 26px}
+.empty p{font-size:20px;max-width:820px;margin:0 auto;line-height:1.5}
+.btn-reset{display:block;width:100%;height:60px;margin-top:70px;background:var(--navy);color:#FFF;border:0;border-radius:18px;font:inherit;font-size:18px;cursor:pointer}
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(246,247,251,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:9998}
+.modal.show{display:flex}
+.modal-box{width:min(420px,92%);background:#FFF;border:1px solid #848484;border-radius:16px;padding:34px 30px;text-align:center}
+.modal-box .ico{width:56px;height:56px;padding:8px;border-radius:50%;background:var(--navy);color:#FFF;stroke-width:2}
+.modal-box h3{font-size:20px;font-weight:600;margin:16px 0 8px}
+.modal-box p{font-size:14px}
+.mb{display:flex;justify-content:center;gap:16px;margin-top:26px}
+.mb .btn{height:42px;padding:0 24px;font-size:14px}
+.crumb{position:absolute;left:0;top:50px;display:flex;align-items:center;gap:12px;font-size:16px;color:#848484}
+.crumb a{color:#848484;text-decoration:none;display:flex}.crumb a:hover{color:var(--navy)}
+.crumb .ico{width:20px;height:20px}.crumb .home{color:var(--navy)}.crumb .home .ico{width:30px;height:30px}
+.dgrid{display:grid;grid-template-columns:2.1fr 1fr;gap:48px;margin-top:52px}
+.dcard{background:#FFF;border:1px solid #848484;border-radius:28px;padding:56px 56px 44px}
+.dtop{display:flex;gap:34px;align-items:flex-start}
+.dimg{width:56%;height:372px;border-radius:24px;object-fit:cover;background:#E2E8F0}
+.dinfo{flex:1;min-width:0}
+.fas{display:flex;flex-direction:column;align-items:flex-start;gap:14px;margin-top:26px}
+.fas span{display:flex;align-items:center;gap:8px;height:40px;padding:0 14px 0 12px;border:1px solid var(--navy);border-radius:20px;font-size:15px;font-weight:500}
+.dstat{display:flex;gap:36px;margin-top:50px;padding-top:30px;border-top:1px solid #848484}
+.dstat>div{flex:1}
+.dstat .vline{flex:0 0 1px}
+.badge.wide{display:block;text-align:center;padding:9px 0;font-size:14px;margin:16px 0}
+.sum h3{font-size:28px;font-weight:500;text-align:center;margin-bottom:50px}
+.sum p{font-size:20px;margin-bottom:34px}
+.help{margin-top:64px;background:#FFF;border:1px solid #848484;border-radius:28px;padding:56px 110px;text-align:center}
+.help h3{display:flex;align-items:center;justify-content:center;gap:16px;font-size:30px;font-weight:500}
+.help p{font-size:20px;margin:26px 0 32px}
+.help button{width:min(100%,780px);height:80px;border-radius:20px;background:var(--navy);color:#FFF;border:0;font:inherit;font-size:22px;cursor:pointer}
+@keyframes sh{0%{background-position:-1000px 0}100%{background-position:1000px 0}}
+.sk{background:#E2E8F0 linear-gradient(to right,#E2E8F0 0,#F1F5F9 20%,#E2E8F0 40%) no-repeat;background-size:1000px 100%;animation:sh 1.8s infinite linear;border-radius:24px;height:340px;margin-bottom:40px}
+@media(max-width:1100px){
+ .bk-main{flex-direction:column;gap:24px}.bk-img{width:100%;height:auto;aspect-ratio:3/2}.vline{display:none}
+ .mid-top,.sec1{min-height:0}.bk .hr{margin:18px 0}
+ .dgrid{grid-template-columns:1fr}.dtop{flex-direction:column}.dimg{width:100%;height:auto;aspect-ratio:16/10}
+ .dstat{flex-direction:column;gap:24px}.dstat .vline{display:none}.help{padding:36px 22px}
+ .crumb{position:static;margin-bottom:16px}.page-head{padding-top:24px}
+}
+@media(max-width:700px){
+ .wrap{padding:0 16px 40px}.page-head h1{font-size:30px}.page-head p{font-size:16px}
+ .searchbar{gap:10px;margin-top:28px}.btn-search{width:auto;padding:0 18px}.search-input{padding:0 14px}
+ .bk{padding:22px 18px}.acts .btn{flex:1}.dcard{padding:24px 18px}.info p{margin-left:0}.info h3{gap:14px}
+ .chip{height:44px;font-size:14px}.help h3{font-size:22px}.help p{font-size:16px}
+}
 
-/* SKELETON LOADING */
-@keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
-.skeleton-box { background: #E2E8F0; background-image: linear-gradient(to right, #E2E8F0 0%, #F1F5F9 20%, #E2E8F0 40%, #E2E8F0 100%); background-repeat: no-repeat; background-size: 1000px 100%; animation: shimmer 2s infinite linear forwards; border-radius: 8px; }
-.sk-card { display: flex; border: 1px solid #E2E8F0; border-radius: 16px; overflow: hidden; background: #FFF; height: 140px; margin-bottom: 20px; padding: 20px; gap: 20px; align-items: center; text-align: left;}
-.sk-img { width: 120px; height: 100px; border-radius: 10px; flex-shrink:0; }
-.sk-content { flex: 1; display: flex; flex-direction: column; gap: 12px; }
-.sk-title { width: 50%; height: 22px; }
-.sk-text { width: 80%; height: 16px; }
-.sk-text.short { width: 30%; }
-.hidden-loading { display: none !important; }
+/* TOAST, OFFLINE */
+.vsq-toast{position:fixed;top:124px;left:50%;transform:translate(-50%,-12px);max-width:calc(100% - 32px);background:#FDE2E2;color:#C02626;border-radius:14px;padding:14px 22px;font-size:14px;font-weight:500;z-index:3000;opacity:0;pointer-events:none;transition:.25s;text-align:center}
+.vsq-toast.show{opacity:1;transform:translate(-50%,0)}
+#vsqOffline{position:fixed;inset:0;z-index:99999;background:var(--navy);display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+#vsqOffline.show{display:flex}
+#vsqOffline svg{width:clamp(72px,8vw,124px);stroke:#FF2A2A;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+#vsqOffline h1{margin-top:28px;color:#fff;font-size:clamp(24px,3vw,44px)}
+#vsqOffline p{margin-top:18px;color:#D4D4D4;font-size:clamp(16px,2.2vw,32px)}
+#vsqOffline button{margin-top:32px;background:#FF2A2A;color:#fff;border:0;border-radius:16px;width:170px;height:56px;font-size:16px;font-family:inherit;cursor:pointer}
 
-/* SLOW CONNECTION TOAST */
-#slow-connection-toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #FEF3C7; color: #92400E; padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 10000; display: flex; align-items: center; gap: 8px; }
-
-/* MODAL */
-.vsq-modal-overlay { position:fixed; inset:0; background:rgba(19,27,46,.6); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; z-index:9999; opacity: 0; transition: opacity 0.3s ease; }
-.vsq-modal-overlay.show { display:flex; opacity: 1; }
-.vsq-modal-box { background:#FFF; width:90%; max-width:400px; border-radius:16px; padding:30px; text-align:center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.3s ease; }
-.vsq-modal-overlay.show .vsq-modal-box { transform: translateY(0); }
-.vsq-modal-icon { width: 60px; height: 60px; background: #FEE2E2; color: #EF4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
-.vsq-modal-icon svg { width: 30px; height: 30px; stroke: currentColor; stroke-width: 2; }
-.vsq-modal-title {font-size:20px;font-weight:700;color:#131B2E;margin-bottom:10px;}
-.vsq-modal-text {font-size:14px;color:#64748B;margin-bottom:25px;line-height:1.5;}
-.vsq-modal-actions {display:flex;gap:12px;}
-.vsq-modal-actions button {flex:1;padding:12px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;}
-.vsq-btn-cancel {background:#FFF;color:#131B2E;border:1px solid #CBD5E1;}
-.vsq-btn-confirm-logout {background:#EF4444;color:#FFF;border:1px solid #EF4444;}
-
-@media(max-width: 900px) {
-    .vsq-header { height: 80px; padding: 0 16px; }
-    .vsq-nav-menu { display: none; }
-    .vsq-nav-right { gap: 8px; }
-    .vsq-profile-box { max-width: 60px; padding: 0 6px; height: 40px; justify-content: center; border-radius: 8px; }
-    .vsq-profile-name { display: none; }
-    .vsq-profile-avatar { width: 26px; height: 26px; font-size: 11px; }
-    .vsq-btn-logout, .vsq-btn-login-outline, .vsq-btn-register { padding: 0 12px; height: 40px; font-size: 12px; border-radius: 8px; width: auto; }
-    .vsq-profile-dropdown { position: fixed; top: 85px; right: 16px; left: 16px; width: auto; }
-    
-    .sk-card { flex-direction: column; height: auto; text-align: center; }
-    .sk-img { width: 100%; height: 180px; }
-    .sk-content { align-items: center; width: 100%; }
-    .sk-title { width: 80%; }
+@media(max-width:768px){
+  .vsq-header{height:80px;padding:0 16px}
+  .vsq-nav-menu{display:none}
+  .vsq-logo-img{width:96px}
+  .vsq-nav-right{gap:8px}
+  .vsq-profile-box{min-width:0;max-width:64px;padding:0 6px;height:42px;justify-content:center}
+  .vsq-profile-name{display:none}
+  .vsq-btn-logout,.vsq-btn-login-outline,.vsq-btn-register{min-width:0;padding:0 14px;height:42px;font-size:13px;width:auto}
+  .vsq-profile-dropdown{position:fixed;top:85px;right:16px;left:16px;width:auto}
+  .vsq-toast{top:100px}
 }
 </style>
 </head>
-
 <body>
-
 <header id="navbar"></header>
+<main class="wrap" id="app"></main>
 
-<section class="vsq-section">
-    <div class="vsq-section-title">
-        <h2>Riwayat Booking</h2>
-    </div>
-    <!-- SKELETON CONTAINER -->
-    <div id="skeleton-container"></div>
-    
-    <!-- KONTEN ASLI -->
-    <div id="riwayat-container" class="hidden-loading">
-        <!-- Diisi oleh JS jika ada data, atau pesan kosong -->
-    </div>
-</section>
+<div class="modal" id="cancelModal"><div class="modal-box">
+  <span id="cancelIcon"></span><h3>Konfirmasi Batal</h3><p>Apakah anda yakin untuk membatalkan booking?</p>
+  <div class="mb"><button class="btn btn-o" id="cancelNo" type="button">Batal</button><button class="btn btn-n" id="cancelYes" type="button">Ya, Batalkan</button></div>
+</div></div>
 
-<div class="vsq-modal-overlay" id="logoutModal">
-    <div class="vsq-modal-box">
-        <div class="vsq-modal-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg></div>
-        <h3 class="vsq-modal-title">Konfirmasi Keluar</h3>
-        <p class="vsq-modal-text">Apakah Anda yakin ingin keluar dari akun ini?</p>
-        <div class="vsq-modal-actions">
-            <button class="vsq-btn-cancel" onclick="closeLogoutModal()">Batal</button>
-            <button class="vsq-btn-confirm-logout" onclick="confirmLogout()">Ya, Keluar</button>
-        </div>
+<div id="logoutModal" style="display:none;position:fixed;inset:0;background:rgba(19,27,46,.6);z-index:9999;align-items:center;justify-content:center">
+  <div style="background:#FFF;padding:30px;border-radius:16px;text-align:center;max-width:400px;width:90%">
+    <h3 style="font-size:20px;font-weight:700;color:#131B2E;margin-bottom:10px">Konfirmasi Keluar</h3>
+    <p style="font-size:14px;color:#64748B;margin-bottom:25px">Apakah Anda yakin ingin keluar dari akun ini?</p>
+    <div style="display:flex;gap:12px">
+      <button onclick="closeLogoutModal()" style="flex:1;padding:12px;border-radius:8px;border:1px solid #CBD5E1;background:#FFF;cursor:pointer;font-weight:600">Batal</button>
+      <button onclick="confirmLogout()" style="flex:1;padding:12px;border-radius:8px;border:none;background:#EF4444;color:#FFF;cursor:pointer;font-weight:600">Ya, Keluar</button>
     </div>
+  </div>
+</div>
+
+<div id="vsqOffline" role="alertdialog" aria-live="assertive">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/><path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/><path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/><path d="m2 2 20 20"/></svg>
+  <h1>Tidak Ada Koneksi Internet</h1>
+  <p>Periksa Koneksi Anda Kembali</p>
+  <button type="button" id="vsqRetryBtn">Coba Lagi</button>
 </div>
 
 <script>
-// PERBAIKAN: URL dinamis menyesuaikan lingkungan
-const API_BASE = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')
-    ? 'http://localhost/vincent-arena/Backend/API' 
-    : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
+const API_BASE = /localhost|127\.0\.0\.1/.test(location.hostname)
+  ? 'http://localhost/vincent-arena/Backend/API'
+  : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
 
-const USER_KEYS = ['vsq_user', 'user', 'userData', 'user_data', 'currentUser'];
+/* ---------- DETEKSI JARINGAN ---------- */
+const VSQNet = (function () {
+  const el = document.getElementById('vsqOffline'), btn = document.getElementById('vsqRetryBtn');
+  let timer = null;
+  async function ping() {
+    if (!navigator.onLine) return false;
+    const c = new AbortController(), t = setTimeout(() => c.abort(), 6000);
+    try { await fetch(location.pathname + '?_ping=' + Date.now(), { method: 'HEAD', cache: 'no-store', signal: c.signal }); return true; }
+    catch (e) { return false; } finally { clearTimeout(t); }
+  }
+  function show() { el.classList.add('show'); document.documentElement.style.overflow = 'hidden'; if (!timer) timer = setInterval(recover, 5000); }
+  function hide() { el.classList.remove('show'); document.documentElement.style.overflow = ''; clearInterval(timer); timer = null; }
+  async function recover() { if (await ping()) { hide(); window.dispatchEvent(new CustomEvent('vsq:online')); return true; } show(); return false; }
+  function handleError(err) {
+    const net = !navigator.onLine || (err && (err.name === 'TypeError' || err.name === 'AbortError'));
+    if (net) show();
+    return net;
+  }
+  btn.addEventListener('click', async () => { btn.disabled = true; btn.textContent = 'Memeriksa...'; await recover(); btn.disabled = false; btn.textContent = 'Coba Lagi'; });
+  window.addEventListener('offline', show);
+  window.addEventListener('online', recover);
+  if (!navigator.onLine) show();
+  return { handleError };
+})();
 
-function getCachedUser() {
-    for (const key of USER_KEYS) {
-        try {
-            const raw = localStorage.getItem(key);
-            if (!raw) continue;
-            const parsed = JSON.parse(raw);
-            if (parsed && typeof parsed === 'object') return parsed;
-        } catch (e) {}
-    }
-    return null;
-}
+/* ---------- AUTH GUARD ---------- */
+let userLogin = null;
+try { userLogin = JSON.parse(localStorage.getItem('vsq_user')); } catch (e) {}
+if (!userLogin) { sessionStorage.setItem('vsq_redirect', location.href); location.replace('login.html'); }
 
+/* ---------- NAVBAR ---------- */
 function normalizeUser(u) {
-    if (!u) return null;
-    const nama = u.nama || u.name || u.nama_lengkap || u.username || 'User';
-    return { nama: nama, email: u.email || '-', whatsapp: u.whatsapp || u.no_wa || '-', foto_url: u.foto_url || u.foto || '', initial: u.initial || nama.charAt(0).toUpperCase() };
+  if (!u) return null;
+  const nama = u.nama || u.name || u.nama_lengkap || u.username || 'User';
+  return { nama, email: u.email || '-', whatsapp: u.whatsapp || u.no_wa || u.no_hp || '-', foto_url: u.foto_url || u.foto || u.foto_profil || u.avatar || '', initial: u.initial || nama.charAt(0).toUpperCase() };
 }
-
+function logoFail(img) {
+  const f = document.createDocumentFragment(), t = document.createElement('span'), s = document.createElement('span');
+  t.className = 'vsq-logo-title'; t.textContent = "Vincent'SQ";
+  s.className = 'vsq-logo-sub'; s.textContent = 'SPORTS ARENA';
+  f.append(t, s); img.replaceWith(f);
+}
 function renderNavbar(user) {
-    const navbarEl = document.getElementById('navbar');
-    let rightNavHTML = '';
-    
-    const path = window.location.pathname;
-    let isBeranda = path.includes('index.html') || path === '/' ? 'active' : '';
-    let isLapangan = path.includes('lapangan.html') || path.includes('detail_lapangan.html') ? 'active' : '';
-    let isRiwayat = path.includes('riwayat.html') ? 'active' : '';
-    let isMakanan = path.includes('makanan.html') ? 'active' : '';
-
-    if (user) {
-        const firstName = user.nama.split(' ')[0];
-        const avatarContent = user.foto_url ? `<img src="${user.foto_url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">` : user.initial;
-        rightNavHTML = `
-            <button class="vsq-notif-btn"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></button>
-            <div class="vsq-profile-box" id="profileToggle">
-                <span class="vsq-profile-name">Hai ${firstName}</span>
-                <div class="vsq-profile-avatar">${avatarContent}</div>
-            </div>
-            <button class="vsq-btn-logout" onclick="logout()">Logout</button>
-            <div class="vsq-profile-dropdown" id="profileDropdown">
-                <div class="vsq-dd-header">
-                    <div class="vsq-dd-avatar">${avatarContent}</div>
-                    <div class="vsq-dd-info"><h4>${user.nama}</h4><div class="vsq-badge-verified">Terverifikasi</div></div>
-                </div>
-                <div class="vsq-dd-body"><div class="vsq-dd-item"><span class="value">${user.email}</span></div><div class="vsq-dd-item"><span class="value">${user.whatsapp}</span></div></div>
-                <div class="vsq-dd-divider"></div>
-                <div class="vsq-dd-footer">
-                    <a href="profil_user.html" class="vsq-btn-edit-profile">Edit Profil</a>
-                    <button class="vsq-btn-logout-dropdown" onclick="logout()">Keluar</button>
-                </div>
-            </div>
-        `;
-    } else {
-        rightNavHTML = `<a href="login.html" class="vsq-btn-login-outline">Login</a><a href="register.html" class="vsq-btn-register">Register</a>`;
-    }
-
-    navbarEl.innerHTML = `
-    <div class="vsq-header">
-        <div class="vsq-nav-left">
-            <a href="index.html" class="vsq-logo"><span class="vsq-logo-title">Vincent'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span></a>
-            <nav class="vsq-nav-menu">
-                <a href="index.html" class="vsq-nav-link ${isBeranda}">Beranda</a>
-                <a href="lapangan.html" class="vsq-nav-link ${isLapangan}">Booking Lapangan</a>
-                <a href="riwayat.html" class="vsq-nav-link ${isRiwayat}">Riwayat Booking</a>
-                <a href="makanan.html" class="vsq-nav-link ${isMakanan}">Makanan Minuman</a>
-            </nav>
-        </div>
-        <div class="vsq-nav-right">${rightNavHTML}</div>
-    </div>`;
-
-    const profileToggle = document.getElementById('profileToggle');
-    const profileDropdown = document.getElementById('profileDropdown');
-    if (profileToggle && profileDropdown) {
-        profileToggle.addEventListener('click', function(e) {
-            e.stopPropagation(); profileDropdown.classList.toggle('show');
-        });
-        document.addEventListener('click', function(e) {
-            if (!profileDropdown.contains(e.target) && !profileToggle.contains(e.target)) profileDropdown.classList.remove('show');
-        });
-    }
+  const nav = document.getElementById('navbar');
+  const first = user.nama.split(' ')[0];
+  const av = user.foto_url ? `<img src="${user.foto_url}" alt="${user.nama}" style="width:100%;height:100%;object-fit:cover;border-radius:50%" onerror="this.outerHTML='${user.initial}'">` : user.initial;
+  nav.innerHTML = `
+  <div class="vsq-header">
+    <div class="vsq-nav-left">
+      <a href="index.html" class="vsq-logo"><img class="vsq-logo-img" src="assets/images/logo.png" alt="Vincent'SQ Sports Arena" onerror="logoFail(this)"></a>
+      <nav class="vsq-nav-menu">
+        <a href="index.html" class="vsq-nav-link">Beranda</a>
+        <a href="lapangan.html" class="vsq-nav-link">Booking Lapangan</a>
+        <a href="riwayat.html" class="vsq-nav-link active">Riwayat Booking</a>
+        <a href="makanan.html" class="vsq-nav-link">Makanan Minuman</a>
+      </nav>
+    </div>
+    <div class="vsq-nav-right">
+      <button class="vsq-notif-btn" aria-label="Notifikasi"><img src="assets/images/notifikasi.png" alt="Notifikasi" onerror="this.style.display='none'"></button>
+      <div class="vsq-profile-box" id="profileToggle"><span class="vsq-profile-name">Hai ${first}</span><div class="vsq-profile-avatar">${av}</div></div>
+      <button class="vsq-btn-logout" onclick="logout()">Logout</button>
+      <div class="vsq-profile-dropdown" id="profileDropdown">
+        <div class="vsq-dd-header"><div class="vsq-dd-avatar">${av}</div><div class="vsq-dd-info"><h4>${user.nama}</h4><div class="vsq-badge-verified">✓ Terverifikasi</div></div></div>
+        <div class="vsq-dd-body"><div>${user.email}</div><div>${user.whatsapp}</div></div>
+        <div class="vsq-dd-footer"><a href="profil_user.html" class="vsq-btn-edit-profile">Edit Profil</a><button class="vsq-btn-logout-dropdown" onclick="logout()">Keluar</button></div>
+      </div>
+    </div>
+  </div>`;
+  const pt = document.getElementById('profileToggle'), pd = document.getElementById('profileDropdown');
+  pt.addEventListener('click', e => { e.stopPropagation(); pd.classList.toggle('show'); });
+  document.addEventListener('click', e => { if (!pd.contains(e.target) && !pt.contains(e.target)) pd.classList.remove('show'); });
 }
-
-async function updateNavbar() {
-    renderNavbar(normalizeUser(getCachedUser()));
-    try {
-        const response = await fetch(API_BASE + '/auth/check.php', { method:'GET', credentials: 'include', headers: {'Accept': 'application/json'} });
-        const result = await response.json();
-        const loggedIn = (result.data && result.data.logged_in) || result.logged_in;
-        const serverUser = (result.data && result.data.user) || result.user;
-        if (loggedIn && serverUser) {
-            localStorage.setItem('vsq_user', JSON.stringify(serverUser));
-            renderNavbar(normalizeUser(serverUser));
-        }
-    } catch (error) { console.log('Offline Mode'); }
-}
-
-function logout() { document.getElementById('logoutModal').classList.add('show'); }
-function closeLogoutModal() { document.getElementById('logoutModal').classList.remove('show'); }
+function logout() { document.getElementById('logoutModal').style.display = 'flex'; }
+function closeLogoutModal() { document.getElementById('logoutModal').style.display = 'none'; }
 async function confirmLogout() {
-    try { await fetch(API_BASE + '/auth/logout.php', { method: 'POST', credentials: 'include' }); } 
-    catch (error) {} 
-    finally { localStorage.clear(); window.location.href = 'login.html'; }
+  try { await fetch(API_BASE + '/auth/logout.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ type: 'user' }) }); } catch (e) {}
+  localStorage.clear(); location.href = 'login.html';
 }
 
-document.getElementById('logoutModal').addEventListener('click', function(e) { if (e.target === this) closeLogoutModal(); });
 
-// ===== SKELETON LOADING & SLOW CONNECTION LOGIC =====
-function showSkeleton() {
-    const container = document.getElementById('skeleton-container');
-    let html = '';
-    for (let i = 0; i < 3; i++) {
-        html += `
-        <div class="sk-card">
-            <div class="skeleton-box sk-img"></div>
-            <div class="sk-content">
-                <div class="skeleton-box sk-title"></div>
-                <div class="skeleton-box sk-text"></div>
-                <div class="skeleton-box sk-text short"></div>
-            </div>
-        </div>`;
-    }
-    container.innerHTML = html;
+/* ---------- RIWAYAT BOOKING ---------- */
+const ADMIN_WHATSAPP = '';      // isi nomor WhatsApp admin, contoh: '6281234567890'
+const POLLING_MS = 15000;
+const $ = id => document.getElementById(id);
+const IC = {
+  search:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
+  sliders:'<path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/>',
+  confirmed:'<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+  pending:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  completed:'<path d="M20 6 9 17l-5-5"/>',
+  canceled:'<path d="M18 6 6 18M6 6l12 12"/>',
+  ongoing:'<polygon points="6 3 20 12 6 21 6 3"/>',
+  cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>',
+  clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  wallet:'<path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM3 10h18M16 15h2"/>',
+  arrow:'<path d="M5 12h14M13 5l7 7-7 7"/>',
+  info:'<circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/>',
+  empty:'<path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5M16 2v4M8 2v4M3 10h5"/><circle cx="17.5" cy="17.5" r="4.5"/><path d="M17.5 15.5v2l1 1"/>',
+  nofound:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3M8.5 8.5l5 5M13.5 8.5l-5 5"/>',
+  headset:'<path d="M3 14v-3a9 9 0 0 1 18 0v3"/><path d="M21 16a2 2 0 0 1-2 2h-1a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h3zM3 16a2 2 0 0 0 2 2h1a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H3z"/>',
+  cx:'<circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/>',
+  home:'<path d="M3 10.5 12 3l9 7.5v10a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 20.5zM9 22v-6h6v6"/>',
+  chev:'<path d="m9 18 6-6-6-6"/>',
+  Indoor:'<path d="M22 8.35V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.35A2 2 0 0 1 3.26 6.5l8-3.2a2 2 0 0 1 1.48 0l8 3.2A2 2 0 0 1 22 8.35ZM6 18h12M6 14h12"/><rect x="6" y="10" width="12" height="12"/>',
+  'Area Luas':'<path d="M15 3h6v6M21 3l-7 7M3 21l7-7M9 21H3v-6"/>',
+  'Area Penonton':'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+  'Sirkulasi udara':'<path d="M12.8 19.6A2 2 0 1 0 14 16H2M17.5 8a2.5 2.5 0 1 1 2 4H2M9.8 4.4A2 2 0 1 1 11 8H2"/>'
+};
+const ico = n => `<svg class="ico" viewBox="0 0 24 24">${IC[n] || ''}</svg>`;
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const pad = n => String(n).padStart(2, '0');
+const HARI = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'], BULAN = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+const hm = t => String(t).slice(0, 5);
+const tgl = t => { const [y, m, d] = t.split('-').map(Number); return `${HARI[new Date(y, m - 1, d).getDay()]}, ${d} ${BULAN[m - 1]} ${y}`; };
+const akhir = (mulai, dur) => { const [h, m] = hm(mulai).split(':').map(Number), t = h * 60 + m + dur * 60; return `${pad(Math.floor(t / 60) % 24)}:${pad(t % 60)}`; };
+const rp = n => 'Rp. ' + Number(n).toLocaleString('id-ID');
+const dibuat = s => { const m = String(s || '').match(/(\d{4})-(\d\d)-(\d\d)[ T](\d\d):(\d\d)/); return m ? `${m[3]}, ${BULAN[+m[2] - 1]} ${m[1]}–${m[4]}:${m[5]} WIB` : '-'; };
+const metode = m => ({ transfer: 'Transfer Bank BCA', qris: 'QRIS', cod: 'COD' }[String(m || '').toLowerCase()] || m || '-');
+
+function toast(msg, ok) {
+  let t = $('vsqToast');
+  if (!t) { t = document.createElement('div'); t.id = 'vsqToast'; t.setAttribute('role', 'alert'); document.body.appendChild(t); }
+  t.className = 'vsq-toast show' + (ok ? ' ok' : '');
+  t.textContent = msg;
+  clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 4500);
 }
 
-function hideSkeleton() {
-    document.getElementById('skeleton-container').style.display = 'none';
-    document.getElementById('riwayat-container').classList.remove('hidden-loading');
+async function api(path, opt) {
+  const res = await fetch(API_BASE + path, Object.assign({ credentials: 'include', cache: 'no-store' }, opt));
+  const json = await res.json().catch(() => ({}));
+  if (res.status === 401) { sessionStorage.setItem('vsq_redirect', location.href); location.replace('login.html'); throw new Error('Belum login'); }
+  if (!res.ok || json.success === false) { const e = new Error(json.message || 'Terjadi kesalahan'); e.status = res.status; throw e; }
+  return json;
+}
+const gagal = e => { if (!VSQNet.handleError(e) && e.message !== 'Belum login') toast(e.message || 'Terjadi kesalahan. Silakan coba lagi.'); };
+
+/* ----- status (diturunkan dari data booking + pembayaran backend) ----- */
+const FIELD = {
+  1: { badge: 'VIP', cls: 'vip', img: 'assets/uploads/lapangan/Lapangan1.jpeg', fas: ['Indoor', 'Area Luas', 'Area Penonton', 'Sirkulasi udara'] },
+  2: { badge: 'Reguler', cls: 'reg', img: 'assets/uploads/lapangan/Lapangan2.jpeg', fas: ['Indoor', 'Area Luas'] }
+};
+const BOOK = {
+  pending: ['Menunggu Konfirmasi', 'Booking sudah dibuat, sedang menunggu persetujuan dari admin'],
+  confirmed: ['Di Konfirmasi', 'Booking kamu telah dikonfirmasi. Silakan datang sesuai jadwal yang telah ditentukan.'],
+  ongoing: ['Sedang Berlangsung', ''],
+  completed: ['Selesai', "Booking telah selesai. Terima kasih telah menggunakan layanan Vincent'SQ Sports Arena."],
+  canceled: ['Di Batalkan', 'Booking ini telah dibatalkan. Untuk informasi lebih lanjut, silakan hubungi admin.']
+};
+function bayar(key, bukti) {
+  if (key === 'pending') return bukti ? ['Menunggu Verifikasi', ''] : ['Menunggu Pembayaran', 'Harap melakukan pembayaran dalam jangka waktu yang telah ditentukan.'];
+  if (key === 'canceled') return bukti ? ['Dikembalikan', 'Booking dibatalkan dan dana pelanggan sudah dikembalikan.'] : ['Belum Dibayar', 'Booking dibatalkan dan pembayaran melewati batas waktu yang ditentukan.'];
+  if (key === 'confirmed' && !bukti) return ['Menunggu Pembayaran', 'Pembayaran dilakukan secara langsung ditempat, sebelum menggunakan'];
+  return ['Lunas', 'Booking sudah dikonfirmasi dan pembayaran diterima.'];
+}
+function vm(b) {
+  const mulai = hm(b.jam_mulai), selesai = akhir(b.jam_mulai, b.durasi);
+  const start = new Date(`${b.tanggal}T${mulai}:00`), end = new Date(start.getTime() + b.durasi * 3600000), now = new Date();
+  const key = b.status === 'confirmed' && now >= start && now < end ? 'ongoing' : b.status;
+  const f = FIELD[b.id_lapangan] || FIELD[1];
+  return Object.assign({}, b, { key, f, mulai, selesai, bk: BOOK[key] || [b.status, ''], pay: bayar(key, !!b.bukti_pembayaran), img: b.foto_lapangan_url || f.img, canAct: b.status === 'confirmed' && now < start });
 }
 
-function showSlowConnectionWarning() {
-    const toast = document.createElement('div');
-    toast.id = 'slow-connection-toast';
-    toast.innerHTML = `
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-        Koneksi Internet Lambat...
-    `;
-    document.body.appendChild(toast);
+/* ----- tampilan daftar ----- */
+const CHIPS = [['confirmed', 'Di Konfirmasi'], ['pending', 'Menunggu Konfirmasi'], ['completed', 'Selesai'], ['canceled', 'Di Batalkan'], ['ongoing', 'Sedang Berlangsung']];
+let all = [], filter = null, keyword = '', sig = '', cancelId = 0;
+const app = $('app');
+
+const card = b => `
+<article class="bk"><div class="bk-main">
+  <img class="bk-img" src="${esc(b.img)}" alt="${esc(b.nama_lapangan)}" onerror="this.style.visibility='hidden'">
+  <div class="bk-mid">
+    <div class="mid-top">
+      <div class="bk-name"><h3>${esc(b.nama_lapangan)}</h3><span class="tag ${b.f.cls}">${b.f.badge}</span></div>
+      <div class="row">${ico('cal')}<span>${tgl(b.tanggal)}</span></div>
+      <div class="row">${ico('clock')}<span>${b.mulai}–${b.selesai}</span></div>
+    </div>
+    <div class="hr"></div>
+    <h4>Total bayar</h4>
+    <div class="row price">${ico('wallet')}<span>${rp(b.total_harga)}</span></div>
+  </div>
+  <div class="vline"></div>
+  <div class="bk-right">
+    <div class="sec1"><h4>Status Booking</h4><span class="badge">${b.bk[0]}</span><p class="desc">${b.bk[1]}</p></div>
+    <div class="hr"></div>
+    <h4>Status Pembayaran</h4><span class="badge">${b.pay[0]}</span><p class="desc">${b.pay[1]}</p>
+  </div>
+</div>
+<div class="acts"><a class="btn btn-o" href="riwayat.html?id=${b.id}">${ico('arrow')} Lihat Detail</a>${b.canAct ? `<button class="btn btn-n" data-ubah="${b.id}" type="button">Ubah Jadwal</button><button class="btn btn-r" data-batal="${b.id}" type="button">Batalkan Booking</button>` : ''}</div>
+</article>`;
+
+function frameList() {
+  app.innerHTML = `
+  <div class="page-head"><h1>Riwayat booking</h1><p>Lihat daftar riwayat booking lapangan anda disini</p></div>
+  <div class="searchbar"><label class="search-input">${ico('search')}<input id="q" type="search" placeholder="Cari Lapangan..." autocomplete="off"></label><button class="btn-search" id="btnCari" type="button">${ico('search')} Cari</button></div>
+  <div class="filters" id="filters"></div><div id="list"></div><div id="info"></div>`;
+  $('q').value = keyword;
+  $('q').addEventListener('input', e => { keyword = e.target.value; renderList(); });
+  $('btnCari').addEventListener('click', () => { keyword = $('q').value; renderList(); });
+}
+function renderList() {
+  $('filters').innerHTML = ico('sliders') + CHIPS.map(([k, l]) => `<button class="chip ${filter === k ? 'on' : ''}" data-chip="${k}" type="button">${ico(k)} ${l}</button>`).join('');
+  const kw = keyword.trim().toLowerCase();
+  const rows = all.filter(b => (!filter || b.key === filter) && (!kw || b.nama_lapangan.toLowerCase().includes(kw) || String(b.kode_booking || '').toLowerCase().includes(kw)));
+  if (!all.length) {
+    $('list').innerHTML = `<div class="empty">${ico('empty')}<h2>Belum Ada Riwayat Booking</h2><p>Kamu belum memiliki riwayat booking lapangan. Yuk, booking lapangan dan mulai bermain bersama teman-temanmu!</p></div>`;
+  } else if (!rows.length) {
+    $('list').innerHTML = `<div class="empty">${ico('nofound')}<h2>Booking tidak ditemukan</h2><p>Maaf, booking yang kamu cari tidak ditemukan. Periksa kembali kata kunci pencarian atau filter yang digunakan.</p><button class="btn-reset" id="btnReset" type="button">Reset Pencarian</button></div>`;
+  } else {
+    $('list').innerHTML = rows.map(card).join('');
+  }
+  $('info').innerHTML = rows.length ? `<div class="info"><h3>${ico('info')} Informasi Booking</h3><p>Pembatalan booking atau perubahan jadwal hanya dapat dilakukan melalui admin. Silakan hubungi admin untuk bantuan lebih lanjut.</p></div>` : '';
+}
+async function ambilSemua() {
+  const out = [];
+  for (let page = 1; page <= 10; page++) {
+    const d = (await api(`/customer/booking.php?status=all&limit=50&page=${page}`)).data || {};
+    out.push(...(d.bookings || []));
+    if (page >= ((d.pagination || {}).total_pages || 1)) break;
+  }
+  return out.map(vm);
+}
+async function muatList(diam) {
+  try {
+    const data = await ambilSemua();
+    const s = JSON.stringify(data.map(b => [b.id, b.status, b.key, !!b.bukti_pembayaran]));
+    if (diam && s === sig) return;
+    sig = s; all = data; renderList();
+  } catch (e) { if (!diam) { all = []; renderList(); } gagal(e); }
 }
 
-function hideSlowConnectionWarning() {
-    const existing = document.getElementById('slow-connection-toast');
-    if (existing) existing.remove();
+/* ----- tampilan detail ----- */
+function renderDetail(b) {
+  const pill = (t, w) => `<span class="badge wide">${t}</span>`;
+  app.innerHTML = `
+  <div class="page-head">
+    <nav class="crumb"><a class="home" href="index.html">${ico('home')}</a>${ico('chev')}<a href="riwayat.html">Riwayat Booking</a>${ico('chev')}<span>Detail Riwayat</span></nav>
+    <h1>Detail Riwayat</h1><p>Informasi lengkap mengenai booking lapangan anda</p>
+  </div>
+  <div class="dgrid">
+    <section class="dcard">
+      <div class="dtop">
+        <img class="dimg" src="${esc(b.img)}" alt="${esc(b.nama_lapangan)}" onerror="this.style.visibility='hidden'">
+        <div class="dinfo">
+          <div class="bk-name"><h3 style="font-size:26px;font-weight:500">${esc(b.nama_lapangan)}</h3><span class="tag ${b.f.cls}">${b.f.badge}</span></div>
+          <div class="fas">${b.f.fas.map(x => `<span>${ico(x)} ${x}</span>`).join('')}</div>
+        </div>
+      </div>
+      <div class="dstat">
+        <div><h4 style="font-size:26px;font-weight:500">Status Booking</h4>${pill(b.bk[0])}<p class="desc">${b.bk[1]}</p></div>
+        <div class="vline"></div>
+        <div><h4 style="font-size:26px;font-weight:500">Status Pembayaran</h4>${pill(b.pay[0])}<p class="desc">${b.pay[1]}</p></div>
+      </div>
+    </section>
+    <aside class="dcard sum">
+      <h3>Ringkasan Booking</h3>
+      <p>Kode Booking: ${esc(b.kode_booking)}</p>
+      <p>Tanggal Dibuat: ${dibuat(b.created_at)}</p>
+      <p>Jadwal Main: ${tgl(b.tanggal)}</p>
+      <p>Total Harga: ${rp(b.total_harga)}</p>
+      <p>Durasi Booking: ${b.mulai}–${b.selesai}</p>
+      <p>Total Pembayaran: ${rp(b.total_harga)}</p>
+      <p>Metode Pembayaran: ${esc(metode(b.metode_pembayaran))}</p>
+      ${b.canAct ? `<div class="acts"><button class="btn btn-r" data-batal="${b.id}" type="button">Batalkan Booking</button></div>` : ''}
+    </aside>
+  </div>
+  <section class="help">
+    <h3>${ico('headset')} Bantuan &amp; Perubahan Booking</h3>
+    <p>Jika terjadi masalah atau apapun, Silahkan Hubungi admin untuk informasi lebih lanjut</p>
+    <button type="button" data-admin="${b.id}">Hubungi Admin</button>
+  </section>`;
+  window._detail = b;
+}
+async function muatDetail(id) {
+  app.innerHTML = '<div class="page-head"><h1>Detail Riwayat</h1></div><div class="sk" style="margin-top:50px"></div>';
+  try { renderDetail(vm((await api('/customer/booking_detail.php?id=' + id)).data)); }
+  catch (e) {
+    if (e.status === 404) app.innerHTML = `<div class="empty">${ico('nofound')}<h2>Booking tidak ditemukan</h2><p>Booking yang kamu cari tidak tersedia.</p><a class="btn-reset" style="text-decoration:none;text-align:center;line-height:60px" href="riwayat.html">Kembali ke Riwayat Booking</a></div>`;
+    gagal(e);
+  }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    updateNavbar();
-    
-    showSkeleton();
-    let isLoaded = false;
-    const slowTimer = setTimeout(() => { if (!isLoaded) showSlowConnectionWarning(); }, 5000);
+/* ----- aksi ----- */
+function hubungiAdmin(b) {
+  if (!ADMIN_WHATSAPP) return toast('Silakan hubungi admin untuk bantuan lebih lanjut.');
+  const teks = b ? `Halo admin, saya ingin menanyakan/mengubah booking ${b.kode_booking} (${b.nama_lapangan}, ${tgl(b.tanggal)} ${b.mulai}–${b.selesai}).` : 'Halo admin, saya ingin bertanya tentang booking.';
+  window.open(`https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(teks)}`, '_blank');
+}
+const cari = id => (window._detail && window._detail.id == id) ? window._detail : all.find(b => b.id == id);
 
-    // Simulasi fetch data riwayat (Delay 1.5 detik)
-    setTimeout(() => {
-        isLoaded = true;
-        clearTimeout(slowTimer);
-        hideSlowConnectionWarning();
-        
-        // Tampilkan pesan kosong karena datanya belum ada
-        document.getElementById('riwayat-container').innerHTML = '<p style="text-align:center;color:#64748B;font-size:18px;margin-top:40px;">Belum ada riwayat booking.</p>';
-        
-        hideSkeleton();
-    }, 1500);
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-chip],[data-ubah],[data-batal],[data-admin],#btnReset');
+  if (!t) return;
+  if (t.dataset.chip) { filter = filter === t.dataset.chip ? null : t.dataset.chip; renderList(); }
+  else if (t.id === 'btnReset') { filter = null; keyword = ''; $('q').value = ''; renderList(); }
+  else if (t.dataset.ubah || t.dataset.admin) hubungiAdmin(cari(t.dataset.ubah || t.dataset.admin));
+  else if (t.dataset.batal) { cancelId = +t.dataset.batal; $('cancelModal').classList.add('show'); }
 });
+$('cancelNo').addEventListener('click', () => $('cancelModal').classList.remove('show'));
+$('cancelModal').addEventListener('click', e => { if (e.target.id === 'cancelModal') e.currentTarget.classList.remove('show'); });
+$('cancelYes').addEventListener('click', async () => {
+  const btn = $('cancelYes'); btn.disabled = true; btn.textContent = 'Memproses...';
+  try {
+    await api('/customer/booking_cancel.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ booking_id: cancelId }) });
+    toast('Booking berhasil dibatalkan.', true);
+    $('cancelModal').classList.remove('show');
+    detailId ? muatDetail(detailId) : muatList();
+  } catch (e) { $('cancelModal').classList.remove('show'); gagal(e); }
+  btn.disabled = false; btn.textContent = 'Ya, Batalkan';
+});
+
+/* ----- mulai ----- */
+const detailId = parseInt(new URLSearchParams(location.search).get('id'), 10) || 0;
+if (userLogin) {
+  renderNavbar(normalizeUser(userLogin));
+  $('cancelIcon').innerHTML = ico('cx');
+  if (detailId) { muatDetail(detailId); }
+  else {
+    frameList();
+    $('list').innerHTML = '<div class="sk"></div><div class="sk"></div>';
+    muatList();
+    setInterval(() => { if (!document.hidden) muatList(true); }, POLLING_MS);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) muatList(true); });
+    window.addEventListener('vsq:online', () => muatList(true));
+  }
+}
 </script>
 </body>
 </html>

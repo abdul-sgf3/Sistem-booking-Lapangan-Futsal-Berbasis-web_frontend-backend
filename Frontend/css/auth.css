@@ -1,172 +1,130 @@
-/* css/auth.css */
-:root { 
-    --vsq-navy: #131B2E; /* Menggunakan warna gelap sesuai wireframe */
-    --vsq-red: #FF0000; 
-    --vsq-gray-text: #848484;
-    --vsq-gray-border: #848484;
-    --vsq-dark-btn: #131B2E; /* Warna tombol hitam/gelap */
-    --vsq-success-bg: #8AD1A4;
-    --vsq-success-text: #16A34A;
-    --vsq-error: #FF5555;
+/* =========================================================
+   auth.css - Vincent'SQ Sports Arena
+   Dipakai: login, lupa_password, verifikasi_lupa, password_baru
+   ========================================================= */
+:root{
+  --vsq-navy:#131B2E;
+  --vsq-blue:#477FEB;
+  --vsq-red:#E8141B;
+  --vsq-error:#F04B4B;
+  --vsq-border:#D4D4D8;
+  --vsq-placeholder:#9CA3AF;
+  --vsq-text:#111111;
 }
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:var(--vsq-text);overflow-x:hidden}
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { height: 100%; }
-body { 
-    font-family: 'Plus Jakarta Sans', sans-serif; 
-    min-height: 100vh; 
-    background: linear-gradient(rgba(19, 27, 46, 0.7), rgba(19, 27, 46, 0.7)), 
-                url('../assets/uploads/lapangan/hero.jpeg') center/cover no-repeat fixed;
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    padding: 20px; 
-}
+/* ---------- Layout ---------- */
+.vsq-wrapper{display:flex;min-height:100vh;width:100%}
+.vsq-left{flex:0 0 63.33%;display:flex;align-items:center;justify-content:center;padding:32px 24px;position:relative;background:#fff}
+.vsq-right{flex:1;background:linear-gradient(rgba(19,27,46,.6),rgba(19,27,46,.6)),url('../uploads/lapangan/Lapangan2.jpeg') center/cover no-repeat}
 
-/* Tombol Kembali */
-.vsq-back-btn { position: absolute; top: 36px; left: 38px; color: #FFFFFF; text-decoration: none; z-index: 10; }
-.vsq-back-btn svg { width: 40px; height: 40px; stroke: #FFFFFF; stroke-width: 2.5; fill: none; }
+.vsq-back-btn{position:absolute;top:50px;left:52px;display:flex;color:var(--vsq-navy);transition:transform .2s}
+.vsq-back-btn:hover{transform:translateX(-4px)}
+.vsq-back-btn svg{width:54px;height:52px;stroke:var(--vsq-navy);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
-/* Card Register */
-.vsq-register-card { 
-    background: #FFFFFF; 
-    width: 100%; 
-    max-width: 460px; 
-    border-radius: 20px; 
-    padding: 40px 41px 50px 41px; 
-    box-shadow: 0 10px 40px rgba(0,0,0,0.15); 
-    border: 1px solid var(--vsq-gray-border);
-    position: relative;
-}
+.vsq-card{width:100%;max-width:515px;text-align:center}
+.vsq-card.wide{max-width:640px}
+.vsq-narrow{width:100%;max-width:515px;margin:0 auto;text-align:left}
 
-/* Logo */
-.vsq-logo { text-align: center; margin-bottom: 30px; }
-.vsq-logo h1 { font-size: 31px; font-weight: 700; color: var(--vsq-navy); margin: 0; letter-spacing: -0.45px; }
-.vsq-logo p { font-size: 18px; font-weight: 700; color: var(--vsq-red); letter-spacing: 0.6px; margin-top: 4px; text-transform: uppercase; }
+/* ---------- Logo & teks ---------- */
+.vsq-logo{margin-bottom:34px}
+.vsq-logo h1{font-size:46px;font-weight:500;color:#000;letter-spacing:-.3px;line-height:1.15}
+.vsq-logo p{font-size:34px;font-weight:700;color:var(--vsq-red);line-height:1.1;text-transform:uppercase;margin-top:2px}
 
-/* Alert Sukses (Sesuai Gambar ke-6) */
-.vsq-alert { 
-    padding: 10px 15px; 
-    border-radius: 10px; 
-    font-size: 12px; 
-    font-weight: 500; 
-    margin-bottom: 20px; 
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-.vsq-alert-success { 
-    background-color: var(--vsq-success-bg); 
-    color: var(--vsq-success-text); 
-}
-.vsq-alert-error { 
-    background-color: #FEE2E2; 
-    color: #991B1B; 
-    border: 1px solid var(--vsq-error);
-}
+.vsq-title{font-size:21px;font-weight:700;color:#000;margin-bottom:12px}
+.vsq-sub{font-size:17px;font-weight:500;line-height:1.5;color:#000;margin-bottom:20px}
+.vsq-title.login{margin-bottom:44px}
 
-/* Form Group */
-.vsq-form-group { margin-bottom: 20px; position: relative; text-align: left; }
-.vsq-form-group label { display: block; font-size: 14px; font-weight: 500; color: #000000; margin-bottom: 8px; }
-.vsq-form-group label span { color: var(--vsq-red); margin-left: 2px; }
+.vsq-illustration{display:flex;justify-content:center;margin-bottom:22px}
+.vsq-illustration img{width:320px;max-width:80%;height:auto;object-fit:contain}
+.vsq-illustration.sm img{width:250px}
+.vsq-illustration.md img{width:290px}
 
-.vsq-input-wrapper { position: relative; width: 100%; }
+/* ---------- Form ---------- */
+.vsq-form-group{margin-bottom:12px;position:relative}
+.vsq-form-group label{display:block;font-size:15px;font-weight:500;margin-bottom:10px;color:#000}
+.vsq-input-wrapper{position:relative}
+.vsq-form-control{
+  width:100%;height:56px;padding:0 24px;font-size:15px;font-family:inherit;color:#000;
+  background:#fff;border:1px solid var(--vsq-border);border-radius:8px;outline:none;transition:border-color .2s
+}
+.vsq-input-wrapper .vsq-form-control{padding-right:60px}
+.vsq-form-control::placeholder{color:var(--vsq-placeholder)}
+.vsq-form-control:focus{border-color:var(--vsq-navy)}
+.vsq-form-control.is-invalid{border-color:var(--vsq-error)!important}
 
-/* Input (Background Putih, Border Abu-abu) */
-.vsq-form-control { 
-    width: 100%; 
-    height: 48px; 
-    padding: 12px 16px; 
-    padding-right: 45px; 
-    font-size: 14px; 
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: #FFFFFF;
-    border: 1px solid var(--vsq-gray-border); 
-    border-radius: 10px; 
-    outline: none; 
-    transition: all 0.2s; 
-    color: #000000;
-    font-weight: 400;
-    -webkit-box-shadow: 0 0 0 30px white inset !important;
-}
-.vsq-form-control::placeholder { color: var(--vsq-gray-text); font-weight: 400; font-size: 14px; }
-.vsq-form-control:focus { border-color: var(--vsq-navy); }
+.vsq-toggle-password{position:absolute;right:22px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;display:flex;align-items:center;padding:0}
+.vsq-toggle-password svg{width:24px;height:24px;stroke:#333;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
-/* State Invalid */
-.vsq-form-control.is-invalid { border: 1px solid var(--vsq-error) !important; }
+/* Pesan error (ruang selalu dipesan agar layout tidak bergeser) */
+.vsq-error-msg{display:flex;align-items:flex-start;gap:8px;font-size:12.5px;font-weight:500;color:var(--vsq-error);margin-top:8px;min-height:20px;visibility:hidden}
+.vsq-error-msg.show{visibility:visible}
+.vsq-error-icon{width:14px;height:14px;margin-top:1px;border:1.5px solid var(--vsq-error);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0}
+.vsq-error-body small{display:block;font-size:11px;font-weight:500;margin-top:3px}
 
-/* Pesan Error */
-.vsq-error-msg {
-    display: none;
-    align-items: center;
-    gap: 5px;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--vsq-error);
-    margin-top: 6px;
+/* Tombol */
+.vsq-btn{
+  display:block;width:100%;height:53px;margin-top:14px;font-size:15px;font-weight:600;font-family:inherit;
+  color:#fff;background:var(--vsq-navy);border:none;border-radius:8px;cursor:pointer;transition:background .2s
 }
-.vsq-error-msg.show { display: flex; }
-.vsq-error-icon {
-    width: 14px; height: 14px;
-    border: 2px solid var(--vsq-error);
-    color: var(--vsq-error);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px; font-weight: bold;
-    flex-shrink: 0;
-}
+.vsq-btn:hover{background:#0a0e1a}
+.vsq-btn:disabled{opacity:.6;cursor:not-allowed}
 
-/* Ikon Mata (Minimalis Hitam) */
-.vsq-toggle-password { 
-    position: absolute; 
-    right: 14px; 
-    top: 50%; 
-    transform: translateY(-50%); 
-    cursor: pointer; 
-    background: transparent; 
-    border: none; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    z-index: 2;
-    padding: 0;
-}
-.vsq-toggle-password svg { width: 20px; height: 20px; }
-.vsq-toggle-password svg path, 
-.vsq-toggle-password svg line, 
-.vsq-toggle-password svg circle { 
-    stroke: #000000; 
-    stroke-width: 1.5; 
-}
+/* ---------- Login ---------- */
+.vsq-row-pass{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;min-height:40px}
+.vsq-row-pass .vsq-error-msg{flex:1}
+.vsq-forgot{font-size:13px;font-weight:500;color:var(--vsq-blue);text-decoration:none;margin-top:8px;white-space:nowrap}
 
-/* Link Login */
-.vsq-login-link { 
-    text-align: center; 
-    font-size: 13px; 
-    margin-top: 20px; 
-    margin-bottom: 20px;
-    color: #000000; 
+.vsq-captcha{
+  display:flex;align-items:center;justify-content:space-between;height:98px;padding:0 28px;margin-top:6px;
+  background:#fff;border:1px solid var(--vsq-border);border-radius:4px;transition:border-color .2s
 }
-.vsq-login-link a { 
-    color: #477FEB; /* Warna biru untuk link */
-    text-decoration: none; 
-}
+.vsq-captcha.is-invalid{border-color:var(--vsq-error)}
+.vsq-captcha-left{display:flex;align-items:center;gap:20px}
+.vsq-captcha-left span{font-size:15px;color:#000}
+.vsq-captcha-check{appearance:none;-webkit-appearance:none;width:30px;height:30px;border:2px solid #C1C1C1;border-radius:3px;background:#fff;cursor:pointer;position:relative}
+.vsq-captcha-check:checked{border-color:var(--vsq-blue)}
+.vsq-captcha-check:checked::after{content:"";position:absolute;left:8px;top:2px;width:7px;height:15px;border:solid #1a9c4a;border-width:0 3px 3px 0;transform:rotate(45deg)}
+.vsq-captcha-right{display:flex;flex-direction:column;align-items:center;gap:2px}
+.vsq-captcha-right svg{width:34px;height:34px}
+.vsq-captcha-right small{font-size:8px;color:#555;line-height:1}
+.vsq-captcha-right em{font-style:normal;font-size:7px;color:#777;line-height:1}
+.vsq-captcha-error{margin-top:6px}
 
-/* Tombol Submit (Selalu Gelap #131B2E sesuai wireframe) */
-.vsq-btn-submit { 
-    display: block; 
-    width: 100%; 
-    padding: 14px; 
-    font-size: 15px; 
-    font-weight: 600; 
-    color: #FFFFFF; 
-    background-color: var(--vsq-dark-btn); 
-    border: none; 
-    border-radius: 10px; 
-    cursor: pointer; 
-    transition: opacity 0.2s; 
+.vsq-register{text-align:center;font-size:12.5px;font-weight:500;color:#000;margin-top:2px}
+.vsq-register a{color:var(--vsq-blue);text-decoration:none;font-weight:500}
+.vsq-btn.login{margin-top:34px}
+
+/* ---------- OTP ---------- */
+.vsq-otp{display:flex;justify-content:center;gap:34px;margin-top:6px}
+.vsq-otp-input{
+  width:76px;height:97px;text-align:center;font-size:28px;font-weight:500;font-family:inherit;color:#000;
+  background:#fff;border:1px solid var(--vsq-border);border-radius:8px;outline:none;transition:border-color .2s
 }
-.vsq-btn-submit:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
+.vsq-otp-input:focus{border-color:var(--vsq-navy)}
+.vsq-otp-input.is-invalid{border-color:var(--vsq-error)}
+.vsq-otp-error{min-height:20px;margin-top:12px;font-size:12.5px;font-weight:500;color:var(--vsq-error);text-align:center;visibility:hidden}
+.vsq-otp-error.show{visibility:visible}
+.vsq-timer{text-align:center;font-size:13px;font-weight:500;color:#000;margin-top:6px}
+.vsq-timer .lbl,.vsq-timer a{color:var(--vsq-blue)}
+.vsq-timer a{text-decoration:none;font-weight:500}
+.vsq-resend{text-align:center;font-size:13px;font-weight:500;color:#000;margin:4px 0 22px}
+.vsq-resend a{color:var(--vsq-blue);text-decoration:none}
+
+/* ---------- Responsive ---------- */
+@media (min-width:901px) and (max-height:900px){.vsq-card{zoom:.88}}
+@media (min-width:901px) and (max-height:780px){.vsq-card{zoom:.76}}
+@media (max-width:900px){
+  .vsq-wrapper{flex-direction:column}
+  .vsq-left{flex:none;width:100%;padding:90px 20px 40px}
+  .vsq-right{min-height:180px;order:-1;flex:none}
+  .vsq-back-btn{top:20px;left:20px}
+  .vsq-back-btn svg{width:36px;height:34px}
+  .vsq-logo h1{font-size:36px}
+  .vsq-logo p{font-size:26px}
+  .vsq-sub{font-size:15px}
+  .vsq-otp{gap:10px}
+  .vsq-otp-input{width:46px;height:60px;font-size:22px}
 }

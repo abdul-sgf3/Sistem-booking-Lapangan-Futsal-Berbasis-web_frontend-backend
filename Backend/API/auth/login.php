@@ -30,12 +30,12 @@ mysqli_stmt_execute($stmt);
 $user = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
 
 if (!$user) {
-    sendError('Email tidak terdaftar', 401);
+    sendError('Email belum terdaftar', 401);
 }
 
 // ===== CEK PASSWORD =====
 if (!password_verify($password, $user['password'])) {
-    sendError('Password salah', 401);
+    sendError('Email atau Password salah', 401);
 }
 
 // ===== CEK AKUN AKTIF =====

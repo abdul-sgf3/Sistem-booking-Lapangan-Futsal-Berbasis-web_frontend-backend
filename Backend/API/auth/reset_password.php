@@ -1,4 +1,3 @@
-
 <?php
 // ============================================================
 // auth/reset_password.php - Simpan password baru (setelah OTP valid)

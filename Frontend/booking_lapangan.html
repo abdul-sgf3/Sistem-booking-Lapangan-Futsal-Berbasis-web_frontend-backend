@@ -4,308 +4,422 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Formulir Booking - Vincent'SQ Sports Arena</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#131B2E;--green:#3DB268;--error:#F04646}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#F6F7FB;font-family:'Plus Jakarta Sans',sans-serif;color:#000;overflow-x:hidden}
+:root { --vsq-navy: #131B2E; --vsq-blue: #3B6FD4; --vsq-red: #DC2626; --vsq-gold: #EAB308; --vsq-gray: #848484; --vsq-bg: #F5F7FA; --vsq-border: #848484; --vsq-white: #FFFFFF; --green: #3DB268; --error: #F04646; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background-color: var(--vsq-bg); font-family: 'Plus Jakarta Sans', sans-serif; color: var(--vsq-navy); overflow-x: hidden; }
+body.is-error { background-color: #FFFFFF; }
+#page { width: 100%; }
 
-/* NAVBAR */
-#navbar{position:sticky;top:0;z-index:1000;background:#FFF}
-.vsq-header{height:106px;display:flex;align-items:center;justify-content:space-between;padding:0 44px}
-.vsq-nav-left{display:flex;align-items:center;gap:48px}
-.vsq-logo{display:flex;flex-direction:column;text-decoration:none}
-.vsq-logo-img{width:118px;height:auto;display:block}
-.vsq-logo-title{font-size:22px;font-weight:800;color:var(--navy);font-style:italic;letter-spacing:-.5px}
-.vsq-logo-sub{font-size:11px;font-weight:800;color:#F00;letter-spacing:.5px}
-.vsq-nav-menu{display:flex;align-items:center;gap:35px}
-.vsq-nav-link{font-size:15px;font-weight:500;color:#000;text-decoration:none;white-space:nowrap}
-.vsq-nav-link.active{color:#FFF;background:var(--navy);padding:0 32px;border-radius:12px;height:50px;display:flex;align-items:center}
-.vsq-nav-right{display:flex;align-items:center;gap:16px;position:relative}
-.vsq-btn-login-outline,.vsq-btn-register{width:90px;height:46px;border-radius:12px;font-size:14px;font-weight:600;text-decoration:none;display:flex;align-items:center;justify-content:center}
-.vsq-btn-login-outline{border:1px solid var(--navy);color:var(--navy);background:#FFF}
-.vsq-btn-register{background:var(--navy);color:#FFF}
-.vsq-profile-box{display:flex;align-items:center;justify-content:space-between;min-width:152px;max-width:200px;height:50px;border:2px solid var(--navy);border-radius:12px;padding:0 8px 0 18px;cursor:pointer;overflow:hidden;background:#FFF}
-.vsq-profile-name{font-size:16px;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:8px}
-.vsq-profile-avatar,.vsq-dd-avatar{background:#D9D9D9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0;overflow:hidden}
-.vsq-profile-avatar{width:34px;height:34px;font-size:13px}
-.vsq-btn-logout{background:var(--navy);color:#FFF;min-width:119px;padding:0 28px;height:50px;border-radius:12px;font-size:16px;font-weight:500;font-family:inherit;border:none;cursor:pointer}
-.vsq-notif-btn{background:none;border:none;cursor:pointer;width:40px;height:40px}
-.vsq-notif-btn img{width:30px;height:30px;object-fit:contain}
-.vsq-profile-dropdown{position:absolute;top:66px;right:0;width:280px;background:#FFF;border:1px solid #E2E8F0;border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,.12);display:none;flex-direction:column;z-index:1001;overflow:hidden}
-.vsq-profile-dropdown.show{display:flex}
-.vsq-dd-header{background:linear-gradient(135deg,#131B2E,#2C437B);padding:20px;display:flex;align-items:center;gap:15px;color:#FFF}
-.vsq-dd-avatar{width:50px;height:50px;background:#477FEB;color:#FFF;font-size:22px;border:2px solid #FFF}
-.vsq-dd-info{overflow:hidden}
-.vsq-dd-info h4{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.vsq-badge-verified{display:inline-flex;align-items:center;gap:4px;background:rgba(22,163,74,.2);color:#4ADE80;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;margin-top:6px}
-.vsq-dd-body{padding:15px 20px;display:flex;flex-direction:column;gap:12px;font-size:13px;font-weight:600;color:var(--navy)}
-.vsq-dd-footer{padding:15px 20px;display:flex;flex-direction:column;gap:10px;background:#F8FAFC;border-top:1px solid #E2E8F0}
-.vsq-btn-edit-profile{background:#477FEB;color:#FFF;padding:10px;border-radius:8px;font-size:13px;font-weight:600;text-align:center;text-decoration:none}
-.vsq-btn-logout-dropdown{background:none;color:#EF4444;border:1px solid #FECACA;padding:9px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
+/* ============================== NAVBAR (DARI INDEX) ============================== */
+#navbar { position: sticky; top: 0; z-index: 1000; min-height: 94px; background: #FFFFFF; }
+.vsq-header {
+  background: #FFFFFF; width: 100%; min-height: 94px; height: 94px;
+  border-bottom: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0 max(50px, calc((100% - 1540px) / 2 + 50px)) 0 max(47px, calc((100% - 1540px) / 2 + 47px));
+}
+.vsq-nav-left { display: flex; align-items: center; gap: 17px; }
+.vsq-logo { display: flex; align-items: center; text-decoration: none; width: 158px; flex-shrink: 0; }
+.vsq-logo-img { width: 100%; height: auto; display: block; object-fit: contain; }
+.vsq-logo-fallback { display: flex; flex-direction: column; padding-left: 18px; }
+.vsq-logo-title { font-size: 22px; font-weight: 800; color: #131B2E; line-height: 1.1; letter-spacing: -0.5px; }
+.vsq-logo-sub { font-size: 13px; font-weight: 800; color: #FF0000; line-height: 1.2; letter-spacing: 0.5px; margin-top: 2px; }
 
-/* BREADCRUMB & KARTU UTAMA */
-.breadcrumb{padding:0 46px;margin:44px 0 70px;display:flex;align-items:center;gap:16px;color:#848484;font-size:16px}
-.breadcrumb a{text-decoration:none;color:#848484;display:flex;align-items:center}
-.breadcrumb a:hover{color:var(--navy)}
-.breadcrumb svg{width:24px;height:24px;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
-.breadcrumb a.home{color:var(--navy)}.breadcrumb a.home svg{width:31px;height:31px}
-.detail-container{max-width:1242px;margin:0 auto 60px}
-.booking-card{background:#FFF;border:1px solid #848484;border-radius:32px;padding:46px 100px 45px;width:100%}
-.booking-header h2{font-size:28px;line-height:36px;font-weight:500;text-align:center;margin-bottom:62px}
+.vsq-nav-menu { display: flex; align-items: center; gap: 17px; }
+.vsq-nav-link {
+  height: 53px; padding: 9px 19px; border-radius: 16px; font-size: 15px; font-weight: 600; line-height: 19px;
+  color: #131B2E; text-decoration: none; white-space: nowrap; display: flex; align-items: center; justify-content: center;
+}
+.vsq-nav-link:hover { color: #131B2E; }
+.vsq-nav-link.active { color: #FFFFFF; background: #131B2E; }
+.vsq-nav-link.active:hover { color: #FFFFFF; }
+.vsq-nav-link:nth-child(1) { width: 100px; }
+.vsq-nav-link:nth-child(2) { width: 203px; }
+.vsq-nav-link:nth-child(3) { width: 159px; }
+.vsq-nav-link:nth-child(4) { width: 181px; color: #111827; }
+
+.vsq-nav-right { display: flex; align-items: center; gap: 17px; position: relative; flex-shrink: 0; }
+.vsq-btn-login-outline {
+  background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E;
+  width: 128px; height: 51px; border-radius: 16px; font-size: 17px; font-weight: 600;
+  text-decoration: none; display: flex; align-items: center; justify-content: center;
+}
+.vsq-btn-register {
+  background: #131B2E; color: #FFF; width: 128px; height: 53px; border-radius: 16px;
+  font-size: 17px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center;
+}
+.vsq-profile-box {
+  display: flex; align-items: center; justify-content: space-between;
+  min-width: 163px; height: 52px; border: 2px solid #131B2E; border-radius: 12px;
+  padding: 0 8px 0 22px; text-decoration: none; cursor: pointer; transition: background 0.2s;
+  flex-shrink: 0; overflow: hidden;
+}
+.vsq-profile-box:hover { background: #F8FAFC; }
+.vsq-profile-name { font-size: 16px; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 400; margin-right: 8px; }
+.vsq-profile-avatar {
+  width: 36px; height: 36px; background: #D9D9D9; color: #000;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 600; flex-shrink: 0; overflow: hidden;
+}
+.vsq-profile-avatar img, .vsq-dd-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.vsq-btn-logout {
+  background: #131B2E; color: #FFF; width: 128px; height: 53px; border-radius: 16px;
+  font-size: 17px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center;
+  border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; font-family: inherit;
+}
+.vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; flex-shrink: 0; padding: 0; }
+.vsq-notif-btn img { width: 34px; height: 34px; object-fit: contain; }
+
+.vsq-profile-dropdown {
+  position: absolute; top: 64px; right: 0; width: 280px;
+  background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12); padding: 0; display: none; flex-direction: column;
+  z-index: 1001; overflow: hidden; animation: slideDown 0.3s ease;
+}
+@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+.vsq-profile-dropdown.show { display: flex; }
+.vsq-dd-header { background: linear-gradient(135deg, #131B2E 0%, #2C437B 100%); padding: 20px; display: flex; align-items: center; gap: 15px; color: #FFFFFF; }
+.vsq-dd-avatar { width: 50px; height: 50px; background: #477FEB; color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; border: 2px solid #FFFFFF; box-shadow: 0 4px 10px rgba(0,0,0,0.2); flex-shrink: 0; overflow: hidden; }
+.vsq-dd-info { overflow: hidden; }
+.vsq-dd-info h4 { font-size: 16px; font-weight: 700; margin: 0; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vsq-badge-verified { display: inline-flex; align-items: center; gap: 4px; background: rgba(22, 163, 74, 0.2); color: #4ADE80; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-top: 6px; }
+.vsq-dd-body { padding: 15px 20px; display: flex; flex-direction: column; gap: 12px; }
+.vsq-dd-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #131B2E; }
+.vsq-dd-item .value { font-weight: 600; color: #131B2E; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
+.vsq-dd-divider { height: 1px; background: #E2E8F0; margin: 5px 20px; }
+.vsq-dd-footer { padding: 15px 20px; display: flex; flex-direction: column; gap: 10px; background: #F8FAFC; }
+.vsq-btn-edit-profile { background: #477FEB; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.vsq-btn-edit-profile:hover { background: #3564C6; }
+.vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.vsq-btn-logout-dropdown:hover { background: #FEF2F2; border-color: #EF4444; }
+
+/* ============================== BREADCRUMB & KARTU BOOKING ============================== */
+.breadcrumb { padding: 0 46px; margin: 44px 0 70px; display: flex; align-items: center; gap: 16px; color: #848484; font-size: 16px; }
+.breadcrumb a { text-decoration: none; color: #848484; display: flex; align-items: center; }
+.breadcrumb a:hover { color: var(--vsq-navy); }
+.breadcrumb svg { width: 24px; height: 24px; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.breadcrumb a.home { color: var(--vsq-navy); }
+.breadcrumb a.home svg { width: 31px; height: 31px; }
+.detail-container { max-width: 1242px; margin: 0 auto 60px; }
+.booking-card { background: #FFF; border: 1px solid #848484; border-radius: 32px; padding: 46px 100px 45px; width: 100%; }
+.booking-header h2 { font-size: 28px; line-height: 36px; font-weight: 500; text-align: center; margin-bottom: 62px; }
 
 /* KARTU LAPANGAN */
-.field-card{display:flex;min-height:401px;margin-bottom:71px;border:1px solid #848484;border-radius:24px;overflow:hidden;background:#fff}
-.field-img{position:relative;width:455px;flex-shrink:0;background:#E2E8F0}
-.detail-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.img-fail{position:absolute;inset:0;background:#D9D9D9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--navy);font-size:14px;cursor:pointer}
-.img-fail svg{width:40px;height:40px;stroke:var(--navy);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.field-info{flex:1;min-width:0;padding:36px 76px 24px 35px}
-.header-title{display:flex;align-items:center;gap:13px}
-.header-title h1{font-size:24px;font-weight:500}
-.badge-vip,.badge-reguler{display:inline-flex;align-items:center;height:28px;padding:0 16px;border-radius:20px;font-size:13px;font-weight:500}
-.badge-vip{background:#E5B800}.badge-reguler{background:#D9D9D9}
-.location{display:flex;align-items:center;gap:6px;margin:8px 0 15px;font-size:12px;font-weight:500}
-.location svg{width:16px;height:16px;fill:var(--navy);flex-shrink:0}
-.fasilitas-list{display:flex;flex-wrap:wrap;gap:15px;margin-bottom:14px}
-.fasilitas-list.vertical{flex-direction:column;align-items:flex-start}
-.fasilitas-item{display:flex;align-items:center;gap:7px;height:40px;padding:0 14px 0 12px;border:1px solid var(--navy);border-radius:20px;font-size:14px;font-weight:500;background:#fff}
-.fasilitas-item svg{width:24px;height:24px;fill:none;stroke:#111C3A;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.deskripsi-title{font-size:20px;font-weight:500;margin-bottom:12px}
-.deskripsi-text{font-size:14px;line-height:18px;text-align:justify}
+.field-card { display: flex; min-height: 401px; margin-bottom: 71px; border: 1px solid #848484; border-radius: 24px; overflow: hidden; background: #fff; }
+.field-img { position: relative; width: 455px; flex-shrink: 0; background: #E2E8F0; }
+.detail-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.img-fail { position: absolute; inset: 0; background: #D9D9D9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: var(--vsq-navy); font-size: 14px; cursor: pointer; }
+.img-fail svg { width: 40px; height: 40px; stroke: var(--vsq-navy); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.field-info { flex: 1; min-width: 0; padding: 36px 76px 24px 35px; }
+.header-title { display: flex; align-items: center; gap: 13px; }
+.header-title h1 { font-size: 24px; font-weight: 500; }
+.badge-vip, .badge-reguler { display: inline-flex; align-items: center; height: 28px; padding: 0 16px; border-radius: 20px; font-size: 13px; font-weight: 500; }
+.badge-vip { background: #E5B800; }
+.badge-reguler { background: #D9D9D9; }
+.location { display: flex; align-items: center; gap: 6px; margin: 8px 0 15px; font-size: 12px; font-weight: 500; }
+.location svg { width: 16px; height: 16px; fill: var(--vsq-navy); flex-shrink: 0; }
+.fasilitas-list { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 14px; }
+.fasilitas-list.vertical { flex-direction: column; align-items: flex-start; }
+.fasilitas-item { display: flex; align-items: center; gap: 7px; height: 40px; padding: 0 14px 0 12px; border: 1px solid var(--vsq-navy); border-radius: 20px; font-size: 14px; font-weight: 500; background: #fff; }
+.fasilitas-item svg { width: 24px; height: 24px; fill: none; stroke: #111C3A; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.deskripsi-title { font-size: 20px; font-weight: 500; margin-bottom: 12px; }
+.deskripsi-text { font-size: 14px; line-height: 18px; text-align: justify; }
 
 /* FORM */
-.form-group{margin-bottom:51px;position:relative}
-.form-group label{display:block;font-size:18px;font-weight:500;margin-bottom:14px}
-.form-control{width:100%;height:76px;padding:0 51px;font-size:20px;font-family:inherit;background:#FFF!important;border:1px solid #848484;border-radius:18px;outline:none;color:#000}
-.form-control::placeholder{color:#848484}
-.form-control:focus{border-color:var(--navy)}
-.form-control.is-invalid{border-color:var(--error)!important}
-.error-msg{display:none;position:absolute;left:0;top:calc(100% + 14px);color:var(--error);font-size:13px;font-weight:500;align-items:center;gap:7px;white-space:nowrap}
-.error-msg.show{display:flex}
-.error-icon{width:15px;height:15px;border:1.5px solid var(--error);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;line-height:1}
-.schedule-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;gap:16px;flex-wrap:wrap}
-.cal-title{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:600;padding-top:3px}
-.cal-title svg{width:28px;height:28px;stroke:#111C3A;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.legend-badge-avail{height:45px;padding:0 22px;display:flex;align-items:center;font-size:15px;color:var(--green);border-radius:16px;border:1px solid var(--green);white-space:nowrap}
-.schedule-layout{display:flex;gap:60px;align-items:flex-start}
-.calendar-box{width:334px;flex-shrink:0;border:1px solid #848484;border-radius:18px;padding:20px 10px 16px}
-.calendar-header{display:flex;justify-content:space-between;align-items:center;height:24px;margin-bottom:12px;padding:0 12px}
-.calendar-header h4{font-size:17px;font-weight:600;color:#111C3A}
-.cal-btn{background:none;border:none;cursor:pointer;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
-.cal-btn:disabled{opacity:.3;cursor:not-allowed}
-.cal-btn svg{width:20px;height:20px;stroke:#111C3A;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.calendar-grid,.calendar-days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center}
-.calendar-grid{margin-bottom:7px}
-.calendar-days{grid-auto-rows:32px}
-.day-name{font-size:13px;font-weight:700;color:#111C3A;line-height:18px}
-.day-name.sun,.day.sun{color:#FF5555}
-.day{font-size:14px;color:#111C3A;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;margin:0 auto}
-.day:hover{background:#F1F5F9}
-.day.active{background:#111C3A;color:#FFF;font-weight:700;width:34px;height:34px;margin:-1px auto}
-.day.empty{visibility:hidden}
-.day.full{color:#B8B8B8;text-decoration:line-through;cursor:not-allowed}
-.day.disabled{color:#CFCFCF;cursor:not-allowed}
-.day.full:hover,.day.disabled:hover{background:transparent}
-.day.active.full{color:#FFF;text-decoration:none}
-.time-section{flex:1;padding-top:20px;min-width:0;position:relative}
-.time-title{font-size:20px;line-height:24px;font-weight:500;margin-bottom:16px}
-.time-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
-.time-slot{height:40px;display:flex;align-items:center;justify-content:center;border:1px solid #848484;border-radius:20px;font-size:15px;cursor:pointer;user-select:none;background:#FFF;white-space:nowrap}
-.time-slot:hover{border-color:#000}
-.time-slot:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
-.time-slot.error-border,.time-slot.error-border:hover{border-color:var(--error)}
-.time-slot.selected{background:var(--navy)!important;color:#FFF;border-color:var(--navy)!important;font-weight:500}
-.no-slot{grid-column:1/-1;font-size:15px;color:#848484;padding:10px 0}
-#err-jam{top:calc(100% + 16px)}
-.payment-section{margin-top:56px;position:relative}
-.payment-title{font-size:22px;line-height:28px;font-weight:500;margin-bottom:18px}
-.payment-card{border:1px solid #848484;border-radius:16px;background:#fff;overflow:hidden}
-.payment-card.is-invalid{border-color:var(--error)}
-.payment-main-row{display:flex;align-items:center;justify-content:space-between;min-height:75px;padding:0 26px 0 30px;cursor:pointer}
-.payment-main-row input{appearance:none;-webkit-appearance:none;width:30px;height:30px;border:2px solid #000;border-radius:50%;outline:none;cursor:pointer;position:relative;background:#fff}
-.payment-main-row input:checked::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:14px;height:14px;background:#000;border-radius:50%}
-.pay-bank{display:flex;align-items:center;gap:14px}
-.pay-bank-icon{width:36px;height:36px;fill:none;stroke:#111C3A;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.pay-name{display:block;font-size:20px;line-height:24px;font-weight:500;color:#111C3A}
-.pay-logos{margin-top:4px;height:14px}.pay-logos img{height:14px}
-.bca-text{font-size:13px;font-weight:800;font-style:italic;color:#0060AF}
-#err-payment{top:calc(100% + 14px)}
-.action-bottom{display:flex;justify-content:flex-end;margin-top:42px}
-.btn-confirm{background:var(--navy);color:#FFF;border:none;width:220px;height:59px;border-radius:10px;font-size:18px;font-weight:500;font-family:inherit;cursor:pointer;transition:.3s}
-.btn-confirm:hover{background:#1a2b4c}
-.btn-confirm:disabled{opacity:.6;cursor:not-allowed}
+.form-group { margin-bottom: 51px; position: relative; }
+.form-group label { display: block; font-size: 18px; font-weight: 500; margin-bottom: 14px; }
+.form-control { width: 100%; height: 76px; padding: 0 51px; font-size: 20px; font-family: inherit; background: #FFF !important; border: 1px solid #848484; border-radius: 18px; outline: none; color: #000; }
+.form-control::placeholder { color: #848484; }
+.form-control:focus { border-color: var(--vsq-navy); }
+.form-control.is-invalid { border-color: var(--error) !important; }
+.error-msg { display: none; position: absolute; left: 0; top: calc(100% + 14px); color: var(--error); font-size: 13px; font-weight: 500; align-items: center; gap: 7px; white-space: nowrap; }
+.error-msg.show { display: flex; }
+.error-icon { width: 15px; height: 15px; border: 1.5px solid var(--error); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; line-height: 1; }
+.schedule-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; gap: 16px; flex-wrap: wrap; }
+.cal-title { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 600; padding-top: 3px; }
+.cal-title svg { width: 28px; height: 28px; stroke: #111C3A; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.legend-badge-avail { height: 45px; padding: 0 22px; display: flex; align-items: center; font-size: 15px; color: var(--green); border-radius: 16px; border: 1px solid var(--green); white-space: nowrap; }
+.schedule-layout { display: flex; gap: 60px; align-items: flex-start; }
+.calendar-box { width: 334px; flex-shrink: 0; border: 1px solid #848484; border-radius: 18px; padding: 20px 10px 16px; }
+.calendar-header { display: flex; justify-content: space-between; align-items: center; height: 24px; margin-bottom: 12px; padding: 0 12px; }
+.calendar-header h4 { font-size: 17px; font-weight: 600; color: #111C3A; }
+.cal-btn { background: none; border: none; cursor: pointer; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+.cal-btn:disabled { opacity: .3; cursor: not-allowed; }
+.cal-btn svg { width: 20px; height: 20px; stroke: #111C3A; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.calendar-grid, .calendar-days { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; }
+.calendar-grid { margin-bottom: 7px; }
+.calendar-days { grid-auto-rows: 32px; }
+.day-name { font-size: 13px; font-weight: 700; color: #111C3A; line-height: 18px; }
+.day-name.sun, .day.sun { color: #FF5555; }
+.day { font-size: 14px; color: #111C3A; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; margin: 0 auto; }
+.day:hover { background: #F1F5F9; }
+.day.active { background: #111C3A; color: #FFF; font-weight: 700; width: 34px; height: 34px; margin: -1px auto; }
+.day.empty { visibility: hidden; }
+.day.full { color: #B8B8B8; text-decoration: line-through; cursor: not-allowed; }
+.day.disabled { color: #CFCFCF; cursor: not-allowed; }
+.day.full:hover, .day.disabled:hover { background: transparent; }
+.day.active.full { color: #FFF; text-decoration: none; }
+.time-section { flex: 1; padding-top: 20px; min-width: 0; position: relative; }
+.time-title { font-size: 20px; line-height: 24px; font-weight: 500; margin-bottom: 16px; }
+.time-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+.time-slot { height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid #848484; border-radius: 20px; font-size: 15px; cursor: pointer; user-select: none; background: #FFF; white-space: nowrap; }
+.time-slot:hover { border-color: #000; }
+.time-slot:focus-visible { outline: 2px solid var(--vsq-navy); outline-offset: 2px; }
+.time-slot.error-border, .time-slot.error-border:hover { border-color: var(--error); }
+.time-slot.selected { background: var(--vsq-navy) !important; color: #FFF; border-color: var(--vsq-navy) !important; font-weight: 500; }
+.no-slot { grid-column: 1/-1; font-size: 15px; color: #848484; padding: 10px 0; }
+#err-jam { top: calc(100% + 16px); }
+.payment-section { margin-top: 56px; position: relative; }
+.payment-title { font-size: 22px; line-height: 28px; font-weight: 500; margin-bottom: 18px; }
+.payment-card { border: 1px solid #848484; border-radius: 16px; background: #fff; overflow: hidden; }
+.payment-card.is-invalid { border-color: var(--error); }
+.payment-main-row { display: flex; align-items: center; justify-content: space-between; min-height: 75px; padding: 0 26px 0 30px; cursor: pointer; }
+.payment-main-row input { appearance: none; -webkit-appearance: none; width: 30px; height: 30px; border: 2px solid #000; border-radius: 50%; outline: none; cursor: pointer; position: relative; background: #fff; }
+.payment-main-row input:checked::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 14px; height: 14px; background: #000; border-radius: 50%; }
+.pay-bank { display: flex; align-items: center; gap: 14px; }
+.pay-bank-icon { width: 36px; height: 36px; fill: none; stroke: #111C3A; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.pay-name { display: block; font-size: 20px; line-height: 24px; font-weight: 500; color: #111C3A; }
+.pay-logos { margin-top: 4px; height: 20px; display: flex; align-items: center; }
+.pay-logos img, .pay-logos svg { height: 20px; width: auto; display: block; }
+#err-payment { top: calc(100% + 14px); }
+.action-bottom { display: flex; justify-content: flex-end; margin-top: 42px; }
+.btn-confirm { background: var(--vsq-navy); color: #FFF; border: none; width: 220px; height: 59px; border-radius: 10px; font-size: 18px; font-weight: 500; font-family: inherit; cursor: pointer; transition: .3s; }
+.btn-confirm:hover { background: #1a2b4c; }
+.btn-confirm:disabled { opacity: .6; cursor: not-allowed; }
 
 /* SKELETON */
-@keyframes shimmer{0%{background-position:-1000px 0}100%{background-position:1000px 0}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.skeleton-box{background:#E2E8F0 linear-gradient(to right,#E2E8F0 0,#F1F5F9 20%,#E2E8F0 40%) no-repeat;background-size:1000px 100%;animation:shimmer 1.8s infinite linear;border-radius:8px}
-.fade-in{animation:fadeIn .35s ease}
-.hidden-loading{display:none!important}
-.sk-row{display:flex;gap:60px;align-items:flex-start}
-.sk-slots{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:20px;padding-top:44px}
-.sk-slots .skeleton-box{height:40px;border-radius:20px}
+@keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.skeleton-box { background: #E2E8F0 linear-gradient(to right, #E2E8F0 0, #F1F5F9 20%, #E2E8F0 40%) no-repeat; background-size: 1000px 100%; animation: shimmer 1.8s infinite linear; border-radius: 8px; }
+.fade-in { animation: fadeIn .35s ease; }
+.hidden-loading { display: none !important; }
+.sk-row { display: flex; gap: 60px; align-items: flex-start; }
+.sk-slots { flex: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; padding-top: 44px; }
+.sk-slots .skeleton-box { height: 40px; border-radius: 20px; }
+
+/* GAGAL MEMUAT (TC-BOOKING-022) - sesuai desain */
+.load-error { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 190px 20px 120px; }
+.load-error svg { width: 112px; height: 112px; display: block; stroke: var(--vsq-navy); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.load-error h1 { font-size: 56px; font-weight: 700; line-height: 1.2; color: var(--vsq-navy); }
+.load-error p { margin-top: 32px; font-size: 18px; line-height: 27px; font-weight: 400; color: var(--vsq-navy); }
+.load-error button { margin-top: 58px; width: 532px; max-width: 100%; height: 57px; border: 0; border-radius: 16px; background: var(--vsq-navy); color: #FFF; font-size: 28px; font-weight: 500; font-family: inherit; cursor: pointer; transition: .3s; }
+.load-error button:hover { background: #1a2b4c; }
+.load-error button:disabled { opacity: .6; cursor: not-allowed; }
+.load-error h1, .load-error p, .load-error button { font-family: 'Plus Jakarta Sans', sans-serif; }
+body.is-error .vsq-header { border-bottom-color: transparent; }
 
 /* TOAST, OFFLINE */
-.vsq-toast{position:fixed;top:124px;left:50%;transform:translate(-50%,-12px);max-width:calc(100% - 32px);background:#FDE2E2;color:#C02626;border-radius:14px;padding:14px 22px;font-size:14px;font-weight:500;z-index:3000;opacity:0;pointer-events:none;transition:.25s;text-align:center}
-.vsq-toast.show{opacity:1;transform:translate(-50%,0)}
-#vsqOffline{position:fixed;inset:0;z-index:99999;background:var(--navy);display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
-#vsqOffline.show{display:flex}
-#vsqOffline svg{width:clamp(72px,8vw,124px);stroke:#FF2A2A;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-#vsqOffline h1{margin-top:28px;color:#fff;font-size:clamp(24px,3vw,44px)}
-#vsqOffline p{margin-top:18px;color:#D4D4D4;font-size:clamp(16px,2.2vw,32px)}
-#vsqOffline button{margin-top:32px;background:#FF2A2A;color:#fff;border:0;border-radius:16px;width:170px;height:56px;font-size:16px;font-family:inherit;cursor:pointer}
+.vsq-toast { position: fixed; top: 124px; left: 50%; transform: translate(-50%, -12px); max-width: calc(100% - 32px); background: #FDE2E2; color: #C02626; border-radius: 14px; padding: 14px 22px; font-size: 14px; font-weight: 500; z-index: 3000; opacity: 0; pointer-events: none; transition: .25s; text-align: center; }
+.vsq-toast.show { opacity: 1; transform: translate(-50%, 0); }
+#vsqOffline { position: fixed; inset: 0; z-index: 99999; background: #1A2235; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; }
+#vsqOffline.show { display: flex; }
+#vsqOffline svg { width: clamp(72px, 8vw, 124px); stroke: #FF2A2A; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+#vsqOffline h1 { margin-top: 28px; color: #fff; font-size: clamp(24px, 3vw, 44px); }
+#vsqOffline p { margin-top: 18px; color: #D4D4D4; font-size: clamp(16px, 2.2vw, 32px); }
+#vsqOffline button { margin-top: 32px; background: #FF2A2A; color: #fff; border: 0; border-radius: 16px; width: 170px; height: 56px; font-size: 16px; font-family: inherit; cursor: pointer; }
+
+/* MODAL LOGOUT */
+.vsq-modal-overlay { position: fixed; inset: 0; background: rgba(19, 27, 46, 0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 9999; opacity: 0; transition: opacity 0.3s ease; }
+.vsq-modal-overlay.show { display: flex; opacity: 1; }
+.vsq-modal-box { background: #FFFFFF; width: 90%; max-width: 458px; border: 1px solid #9CA3AF; border-radius: 16px; padding: 46px 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.3s ease; }
+.vsq-modal-overlay.show .vsq-modal-box { transform: translateY(0); }
+.vsq-modal-icon { width: 72px; height: 72px; margin: 0 auto 20px; }
+.vsq-modal-icon img { width: 72px; height: 72px; object-fit: contain; display: block; }
+.vsq-modal-title { font-size: 20px; line-height: 28px; font-weight: 600; color: var(--vsq-navy); margin-bottom: 18px; }
+.vsq-modal-text { font-size: 14px; line-height: 18px; font-weight: 400; color: var(--vsq-navy); margin: 0 0 23px; }
+.vsq-modal-actions { display: flex; gap: 11px; justify-content: center; padding-right: 9px; }
+.vsq-btn-cancel, .vsq-btn-confirm-logout { width: 95px; height: 42px; padding: 0; border-radius: 12px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, border-color 0.2s; }
+.vsq-btn-cancel { background: #FFFFFF; color: var(--vsq-navy); border: 1px solid #9CA3AF; }
+.vsq-btn-cancel:hover { background: #F8FAFC; border-color: #6B7280; }
+.vsq-btn-confirm-logout { background: var(--vsq-navy); color: #FFFFFF; border: 1px solid var(--vsq-navy); }
+.vsq-btn-confirm-logout:hover { background: #1d2a47; border-color: #1d2a47; }
 
 /* RESPONSIVE */
 @media(max-width:1300px){.detail-container{padding:0 20px}}
-@media(max-width:1100px){
-  .booking-card{padding:40px 40px 45px}
-  .schedule-layout,.sk-row{flex-direction:column;gap:24px}
-  .time-section{padding-top:0;width:100%}
-  .time-grid{grid-template-columns:repeat(4,1fr)}
+@media screen and (max-width: 1100px) {
+  .vsq-header { padding: 0 20px; }
+  .vsq-nav-menu { gap: 4px; }
+  .vsq-nav-link { font-size: 14px; padding: 12px 10px; height: 44px; }
+  .vsq-nav-link:nth-child(1), .vsq-nav-link:nth-child(2), .vsq-nav-link:nth-child(3), .vsq-nav-link:nth-child(4) { width: auto; }
+  .vsq-logo { width: 140px; }
+  .vsq-btn-login-outline, .vsq-btn-register, .vsq-btn-logout { width: 100px; height: 44px; font-size: 14px; border-radius: 12px; }
+  .vsq-profile-box { min-width: 130px; height: 44px; }
+  .booking-card { padding: 40px 40px 45px; }
+  .schedule-layout, .sk-row { flex-direction: column; gap: 24px; }
+  .time-section { padding-top: 0; width: 100%; }
+  .time-grid { grid-template-columns: repeat(4, 1fr); }
 }
-@media(max-width:900px){
-  .breadcrumb{margin:20px 0 15px;padding:0 16px;font-size:13px;gap:8px;flex-wrap:wrap}
-  .breadcrumb svg{width:18px;height:18px}.breadcrumb a.home svg{width:22px;height:22px}
-  .booking-card{padding:24px 16px 30px;border-radius:20px}
-  .booking-header h2{font-size:20px;line-height:28px;margin-bottom:30px}
-  .field-card{flex-direction:column;margin-bottom:30px}
-  .field-img{width:100%;height:250px}
-  .field-info{padding:20px}
-  .form-control{height:56px;padding:0 20px;font-size:16px}
-  .form-group{margin-bottom:30px}
-  .time-grid,.sk-slots{grid-template-columns:repeat(2,1fr);gap:14px}
-  .sk-slots{padding-top:0;width:100%}
-  .btn-confirm{width:100%}
-  .error-msg{position:static;margin-top:10px;white-space:normal}
-  #err-jam,#err-payment{top:auto}
+@media screen and (max-width: 900px) {
+  .breadcrumb { margin: 20px 0 15px; padding: 0 16px; font-size: 13px; gap: 8px; flex-wrap: wrap; }
+  .breadcrumb svg { width: 18px; height: 18px; } .breadcrumb a.home svg { width: 22px; height: 22px; }
+  .booking-card { padding: 24px 16px 30px; border-radius: 20px; }
+  .booking-header h2 { font-size: 20px; line-height: 28px; margin-bottom: 30px; }
+  .field-card { flex-direction: column; margin-bottom: 30px; }
+  .field-img { width: 100%; height: 250px; }
+  .field-info { padding: 20px; }
+  .form-control { height: 56px; padding: 0 20px; font-size: 16px; }
+  .form-group { margin-bottom: 30px; }
+  .time-grid, .sk-slots { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .sk-slots { padding-top: 0; width: 100%; }
+  .btn-confirm { width: 100%; }
+  .error-msg { position: static; margin-top: 10px; white-space: normal; }
+  #err-jam, #err-payment { top: auto; }
+  .load-error { padding: 80px 16px 60px; }
+  .load-error svg { width: 80px; height: 80px; }
+  .load-error h1 { font-size: 32px; }
+  .load-error p { margin-top: 20px; font-size: 15px; line-height: 22px; }
+  .load-error button { margin-top: 36px; height: 52px; font-size: 20px; }
 }
-@media(max-width:768px){
-  .vsq-header{height:80px;padding:0 16px}
-  .vsq-nav-menu{display:none}
-  .vsq-logo-img{width:96px}
-  .vsq-nav-right{gap:8px}
-  .vsq-profile-box{min-width:0;max-width:64px;padding:0 6px;height:42px;justify-content:center}
-  .vsq-profile-name{display:none}
-  .vsq-btn-logout,.vsq-btn-login-outline,.vsq-btn-register{min-width:0;padding:0 14px;height:42px;font-size:13px;width:auto}
-  .vsq-profile-dropdown{position:fixed;top:85px;right:16px;left:16px;width:auto}
-  .vsq-toast{top:100px}
+@media screen and (max-width: 768px) {
+  .vsq-header { height: 80px; padding: 0 16px; }
+  .vsq-nav-menu { display: none; }
+  .vsq-logo { width: 120px; }
+  .vsq-nav-right { gap: 8px; }
+  .vsq-notif-btn { width: 40px; height: 40px; }
+  .vsq-notif-btn img { width: 28px; height: 28px; }
+  .vsq-profile-box { min-width: 0; max-width: 60px; padding: 0 6px; height: 40px; justify-content: center; border-radius: 8px; border-width: 1px; }
+  .vsq-profile-name { display: none; }
+  .vsq-profile-avatar { width: 26px; height: 26px; font-size: 11px; }
+  .vsq-btn-logout, .vsq-btn-login-outline, .vsq-btn-register { padding: 0 12px; height: 40px; font-size: 12px; border-radius: 8px; width: auto; }
+  .vsq-profile-dropdown { position: fixed; top: 85px; right: 16px; left: 16px; width: auto; }
+  .vsq-toast { top: 100px; }
+  .vsq-modal-box { padding: 32px 20px; }
+  .vsq-modal-text br { display: none; }
 }
+html { scrollbar-gutter: stable; }
 </style>
 </head>
 <body>
 
-<header id="navbar"></header>
+<!-- MEMBUNGKUS SEMUA DALAM #page AGAR SCALE/ZOOM BERJALAN -->
+<div id="page">
+  <header id="navbar"></header>
 
-<div class="breadcrumb">
-  <a href="index.html" class="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5L12 3l9 7.5v10a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 20.5v-10z"/><path d="M9 22v-6h6v6"/></svg></a>
-  <svg viewBox="0 0 24 24" fill="none" stroke="#848484"><polyline points="9 18 15 12 9 6"/></svg>
-  <a href="lapangan.html">Booking Lapangan</a>
-  <svg viewBox="0 0 24 24" fill="none" stroke="#848484"><polyline points="9 18 15 12 9 6"/></svg>
-  <a href="detail_lapangan.html?id=1" id="breadcrumb-detail">Detail Lapangan 1</a>
-  <svg viewBox="0 0 24 24" fill="none" stroke="#848484"><polyline points="9 18 15 12 9 6"/></svg>
-  <span>Formulir Booking</span>
+  <div class="breadcrumb" id="breadcrumb">
+    <a href="index.html" class="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5L12 3l9 7.5v10a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 20.5v-10z"/><path d="M9 22v-6h6v6"/></svg></a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="#848484"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="lapangan.html">Booking Lapangan</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="#848484"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="detail_lapangan.html?id=1" id="breadcrumb-detail">Detail Lapangan 1</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="#848484"><polyline points="9 18 15 12 9 6"/></svg>
+    <span>Formulir Booking</span>
+  </div>
+
+  <main class="detail-container">
+
+    <!-- SKELETON -->
+    <div id="skeleton-container" aria-hidden="true">
+      <div class="booking-card">
+        <div class="skeleton-box" style="width:50%;height:34px;margin:0 auto 62px"></div>
+        <div class="skeleton-box" style="height:401px;border-radius:24px;margin-bottom:71px"></div>
+        <div class="skeleton-box" style="width:70px;height:22px;margin-bottom:14px"></div>
+        <div class="skeleton-box" style="height:76px;border-radius:18px;margin-bottom:51px"></div>
+        <div class="skeleton-box" style="width:230px;height:28px;margin-bottom:16px"></div>
+        <div class="sk-row">
+          <div class="skeleton-box" style="width:334px;height:256px;border-radius:18px;flex-shrink:0"></div>
+          <div class="sk-slots"><div class="skeleton-box"></div><div class="skeleton-box"></div><div class="skeleton-box"></div><div class="skeleton-box"></div><div class="skeleton-box"></div></div>
+        </div>
+        <div class="skeleton-box" style="width:200px;height:26px;margin:56px 0 18px"></div>
+        <div class="skeleton-box" style="height:75px;border-radius:16px"></div>
+        <div class="skeleton-box" style="width:220px;height:59px;border-radius:10px;margin:42px 0 0 auto"></div>
+      </div>
+    </div>
+
+    <!-- GAGAL MEMUAT (TC-BOOKING-022) -->
+    <div id="error-container" class="load-error hidden-loading" role="alert">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2 2 20 20"/><path d="M5.782 5.782A7 7 0 0 0 9 19h8.5a4.5 4.5 0 0 0 1.307-.193"/><path d="M21.532 16.5A4.5 4.5 0 0 0 17.5 10h-1.79A7.008 7.008 0 0 0 10 5.07"/></svg>
+      <h1>Gagal memuat</h1>
+      <p>Maaf, data lapangan belum dapat dimuat. Silakan coba beberapa saat lagi</p>
+      <button type="button" id="btnRefreshError">Refresh</button>
+    </div>
+
+    <!-- KONTEN -->
+    <div id="main-content" class="hidden-loading">
+      <div class="booking-card">
+        <div class="booking-header"><h2>Isi Nama ,Pilih tanggal dan jam booking</h2></div>
+
+        <div class="field-card">
+          <div class="field-img"><img id="lapangan-image" class="detail-image" src="" alt="Lapangan" onerror="imgFail(this)"></div>
+          <div class="field-info">
+            <div class="header-title"><h1 id="lapangan-name">Memuat...</h1><span id="lapangan-badge" class="badge-vip">...</span></div>
+            <div class="location">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+              <span>Tuparev, Kota Cirebon- jawabarat</span>
+            </div>
+            <div class="fasilitas-list" id="fasilitas-container"></div>
+            <div class="deskripsi-title">Deskripsi:</div>
+            <p class="deskripsi-text" id="lapangan-deskripsi">Memuat deskripsi...</p>
+          </div>
+        </div>
+
+        <div class="form-group" id="group-nama">
+          <label for="namaPemesan">Nama*</label>
+          <input type="text" id="namaPemesan" class="form-control" placeholder="Contoh: Mifa miftahul....." maxlength="60" autocomplete="name">
+          <div class="error-msg" id="err-nama" role="alert"><span class="error-icon">!</span> Nama Wajib Di isi!</div>
+        </div>
+
+        <div class="schedule-head">
+          <div class="cal-title">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="14" x2="8.01" y2="14"/><line x1="12" y1="14" x2="12.01" y2="14"/><line x1="16" y1="14" x2="16.01" y2="14"/><line x1="8" y1="18" x2="8.01" y2="18"/><line x1="12" y1="18" x2="12.01" y2="18"/><line x1="16" y1="18" x2="16.01" y2="18"/></svg>
+            Jadwal Ketersediaan
+          </div>
+          <span class="legend-badge-avail" id="availCount">0 Jadwal Tersedia</span>
+        </div>
+
+        <div class="schedule-layout">
+          <div class="calendar-box">
+            <div class="calendar-header">
+              <button class="cal-btn" id="prevMonth" aria-label="Bulan sebelumnya"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+              <h4 id="monthYearDisplay"></h4>
+              <button class="cal-btn" id="nextMonth" aria-label="Bulan berikutnya"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+            </div>
+            <div class="calendar-grid"><div class="day-name sun">Min</div><div class="day-name">Sen</div><div class="day-name">Sel</div><div class="day-name">Rab</div><div class="day-name">Kam</div><div class="day-name">Jum</div><div class="day-name">Sab</div></div>
+            <div class="calendar-days" id="calendarDays"></div>
+          </div>
+          <div class="time-section" id="group-jam">
+            <div class="time-title">Pilih Waktu</div>
+            <div class="time-grid" id="timeGrid"></div>
+            <div class="error-msg" id="err-jam" role="alert"><span class="error-icon">!</span> Harap Pilih Waktu yang tersedia!</div>
+          </div>
+        </div>
+
+        <div class="payment-section" id="group-payment">
+          <div class="payment-title">Metode Pembayaran</div>
+          <div class="payment-card" id="card-bank">
+            <label class="payment-main-row">
+              <div class="pay-bank">
+                <svg class="pay-bank-icon" viewBox="0 0 24 24"><path d="M3 9.5 12 3l9 6.5"/><path d="M3 9.5h18"/><path d="M5.5 12v6"/><path d="M9.5 12v6"/><path d="M14.5 12v6"/><path d="M18.5 12v6"/><path d="M4 18.5h16"/><path d="M2.5 21h19"/></svg>
+                <div>
+                  <span class="pay-name">Transfer Bank</span>
+                  <!-- TC-BOOKING-008: logo BCA dengan fallback SVG inline -->
+                  <div class="pay-logos"><img src="assets/images/bca.png" alt="BCA" onerror="bcaFail(this)"></div>
+                </div>
+              </div>
+              <input type="radio" name="payment" value="Transfer Bank BCA">
+            </label>
+          </div>
+          <div class="error-msg" id="err-payment" role="alert"><span class="error-icon">!</span> Harap pilih metode pembayaran yang tersedia!</div>
+        </div>
+
+        <div class="action-bottom"><button class="btn-confirm" id="btnConfirm" type="button">Konfirmasi</button></div>
+      </div>
+    </div>
+  </main>
 </div>
 
-<main class="detail-container">
-
-  <!-- SKELETON -->
-  <div id="skeleton-container" aria-hidden="true">
-    <div class="booking-card">
-      <div class="skeleton-box" style="width:50%;height:34px;margin:0 auto 62px"></div>
-      <div class="skeleton-box" style="height:401px;border-radius:24px;margin-bottom:71px"></div>
-      <div class="skeleton-box" style="width:70px;height:22px;margin-bottom:14px"></div>
-      <div class="skeleton-box" style="height:76px;border-radius:18px;margin-bottom:51px"></div>
-      <div class="skeleton-box" style="width:230px;height:28px;margin-bottom:16px"></div>
-      <div class="sk-row">
-        <div class="skeleton-box" style="width:334px;height:256px;border-radius:18px;flex-shrink:0"></div>
-        <div class="sk-slots"><div class="skeleton-box"></div><div class="skeleton-box"></div><div class="skeleton-box"></div><div class="skeleton-box"></div><div class="skeleton-box"></div></div>
-      </div>
-      <div class="skeleton-box" style="width:200px;height:26px;margin:56px 0 18px"></div>
-      <div class="skeleton-box" style="height:75px;border-radius:16px"></div>
-      <div class="skeleton-box" style="width:220px;height:59px;border-radius:10px;margin:42px 0 0 auto"></div>
-    </div>
-  </div>
-
-  <!-- KONTEN -->
-  <div id="main-content" class="hidden-loading">
-    <div class="booking-card">
-      <div class="booking-header"><h2>Isi Nama ,Pilih tanggal dan jam booking</h2></div>
-
-      <div class="field-card">
-        <div class="field-img"><img id="lapangan-image" class="detail-image" src="" alt="Lapangan" onerror="imgFail(this)"></div>
-        <div class="field-info">
-          <div class="header-title"><h1 id="lapangan-name">Memuat...</h1><span id="lapangan-badge" class="badge-vip">...</span></div>
-          <div class="location">
-            <svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
-            <span>Tuparev, Kota Cirebon- jawabarat</span>
-          </div>
-          <div class="fasilitas-list" id="fasilitas-container"></div>
-          <div class="deskripsi-title">Deskripsi:</div>
-          <p class="deskripsi-text" id="lapangan-deskripsi">Memuat deskripsi...</p>
-        </div>
-      </div>
-
-      <div class="form-group" id="group-nama">
-        <label for="namaPemesan">Nama*</label>
-        <input type="text" id="namaPemesan" class="form-control" placeholder="Contoh: Mifa miftahul....." maxlength="60" autocomplete="name">
-        <div class="error-msg" id="err-nama" role="alert"><span class="error-icon">!</span> Nama Wajib Di isi!</div>
-      </div>
-
-      <div class="schedule-head">
-        <div class="cal-title">
-          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="14" x2="8.01" y2="14"/><line x1="12" y1="14" x2="12.01" y2="14"/><line x1="16" y1="14" x2="16.01" y2="14"/><line x1="8" y1="18" x2="8.01" y2="18"/><line x1="12" y1="18" x2="12.01" y2="18"/><line x1="16" y1="18" x2="16.01" y2="18"/></svg>
-          Jadwal Ketersediaan
-        </div>
-        <span class="legend-badge-avail" id="availCount">0 Jadwal Tersedia</span>
-      </div>
-
-      <div class="schedule-layout">
-        <div class="calendar-box">
-          <div class="calendar-header">
-            <button class="cal-btn" id="prevMonth" aria-label="Bulan sebelumnya"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-            <h4 id="monthYearDisplay"></h4>
-            <button class="cal-btn" id="nextMonth" aria-label="Bulan berikutnya"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-          </div>
-          <div class="calendar-grid"><div class="day-name sun">Min</div><div class="day-name">Sen</div><div class="day-name">Sel</div><div class="day-name">Rab</div><div class="day-name">Kam</div><div class="day-name">Jum</div><div class="day-name">Sab</div></div>
-          <div class="calendar-days" id="calendarDays"></div>
-        </div>
-        <div class="time-section" id="group-jam">
-          <div class="time-title">Pilih Waktu</div>
-          <div class="time-grid" id="timeGrid"></div>
-          <div class="error-msg" id="err-jam" role="alert"><span class="error-icon">!</span> Harap Pilih Waktu yang tersedia!</div>
-        </div>
-      </div>
-
-      <div class="payment-section" id="group-payment">
-        <div class="payment-title">Metode Pembayaran</div>
-        <div class="payment-card" id="card-bank">
-          <label class="payment-main-row">
-            <div class="pay-bank">
-              <svg class="pay-bank-icon" viewBox="0 0 24 24"><path d="M3 9.5 12 3l9 6.5"/><path d="M3 9.5h18"/><path d="M5.5 12v6"/><path d="M9.5 12v6"/><path d="M14.5 12v6"/><path d="M18.5 12v6"/><path d="M4 18.5h16"/><path d="M2.5 21h19"/></svg>
-              <div>
-                <span class="pay-name">Transfer Bank</span>
-                <div class="pay-logos"><img src="assets/images/bca.png" alt="BCA" onerror="this.outerHTML='<span class=&quot;bca-text&quot;>BCA</span>'"></div>
-              </div>
-            </div>
-            <input type="radio" name="payment" value="Transfer Bank BCA">
-          </label>
-        </div>
-        <div class="error-msg" id="err-payment" role="alert"><span class="error-icon">!</span> Harap pilih metode pembayaran yang tersedia!</div>
-      </div>
-
-      <div class="action-bottom"><button class="btn-confirm" id="btnConfirm" type="button">Konfirmasi</button></div>
-    </div>
-  </div>
-</main>
-
-<div id="logoutModal" style="display:none;position:fixed;inset:0;background:rgba(19,27,46,.6);z-index:9999;align-items:center;justify-content:center">
-  <div style="background:#FFF;padding:30px;border-radius:16px;text-align:center;max-width:400px;width:90%">
-    <h3 style="font-size:20px;font-weight:700;color:#131B2E;margin-bottom:10px">Konfirmasi Keluar</h3>
-    <p style="font-size:14px;color:#64748B;margin-bottom:25px">Apakah Anda yakin ingin keluar dari akun ini?</p>
-    <div style="display:flex;gap:12px">
-      <button onclick="closeLogoutModal()" style="flex:1;padding:12px;border-radius:8px;border:1px solid #CBD5E1;background:#FFF;cursor:pointer;font-weight:600">Batal</button>
-      <button onclick="confirmLogout()" style="flex:1;padding:12px;border-radius:8px;border:none;background:#EF4444;color:#FFF;cursor:pointer;font-weight:600">Ya, Keluar</button>
+<!-- MODAL LOGOUT (DARI INDEX) -->
+<div class="vsq-modal-overlay" id="logoutModal">
+  <div class="vsq-modal-box" role="dialog" aria-modal="true" aria-labelledby="logoutTitle">
+    <div class="vsq-modal-icon"><img src="assets/images/icon-logout.png" alt=""></div>
+    <h3 class="vsq-modal-title" id="logoutTitle">Konfirmasi Keluar</h3>
+    <p class="vsq-modal-text">Apakah anda yakin ingin keluar dari akun? anda harus<br>login kembali untuk melakukan pembookingan</p>
+    <div class="vsq-modal-actions">
+      <button type="button" class="vsq-btn-cancel" onclick="closeLogoutModal()">Batal</button>
+      <button type="button" class="vsq-btn-confirm-logout" onclick="confirmLogout()">Ya, Keluar</button>
     </div>
   </div>
 </div>
@@ -318,6 +432,21 @@ body{background:#F6F7FB;font-family:'Plus Jakarta Sans',sans-serif;color:#000;ov
 </div>
 
 <script>
+// SCRIPT ZOOM DARI INDEX AGAR UKURAN PAS
+const DESIGN_WIDTH = 1540;
+const SCALE_MIN_WIDTH = 1100;
+function applyScale() {
+    const page = document.getElementById('page');
+    if (!page) return;
+    page.style.zoom = 1;
+    const w = document.documentElement.clientWidth;
+    const z = (w > SCALE_MIN_WIDTH && w < DESIGN_WIDTH) ? (w / DESIGN_WIDTH) : 1;
+    page.style.zoom = z;
+}
+applyScale();
+window.addEventListener('resize', applyScale);
+window.addEventListener('load', function () { applyScale(); requestAnimationFrame(applyScale); });
+
 const API_BASE = /localhost|127\.0\.0\.1/.test(location.hostname)
   ? 'http://localhost/vincent-arena/Backend/API'
   : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
@@ -352,26 +481,70 @@ let userLogin = null;
 try { userLogin = JSON.parse(localStorage.getItem('vsq_user')); } catch (e) {}
 if (!userLogin) { sessionStorage.setItem('vsq_redirect', location.href); location.replace('login.html'); }
 
-/* ---------- NAVBAR ---------- */
+/* ---------- NAVBAR (PERSIS INDEX) ---------- */
+const USER_KEYS = ['vsq_user', 'user', 'userData', 'user_data', 'currentUser'];
+function getCachedUser() {
+  for (const key of USER_KEYS) {
+    try { const raw = localStorage.getItem(key); if (!raw) continue; const parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') return parsed; } catch (e) {}
+  }
+  return null;
+}
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+}
 function normalizeUser(u) {
   if (!u) return null;
-  const nama = u.nama || u.name || u.nama_lengkap || u.username || 'User';
-  return { nama, email: u.email || '-', whatsapp: u.whatsapp || u.no_wa || u.no_hp || '-', foto_url: u.foto_url || u.foto || u.foto_profil || u.avatar || '', initial: u.initial || nama.charAt(0).toUpperCase() };
+  const nama = String(u.nama || u.name || u.nama_lengkap || u.username || 'User').trim() || 'User';
+  return {
+    nama: nama,
+    email: u.email || '-',
+    whatsapp: u.whatsapp || u.no_wa || u.no_hp || '-',
+    foto_url: u.foto_url || u.foto || u.foto_profil || u.avatar || '',
+    initial: (u.initial || nama.charAt(0)).toUpperCase()
+  };
 }
-function logoFail(img) {
-  const f = document.createDocumentFragment(), t = document.createElement('span'), s = document.createElement('span');
-  t.className = 'vsq-logo-title'; t.textContent = "Vincent'SQ";
-  s.className = 'vsq-logo-sub'; s.textContent = 'SPORTS ARENA';
-  f.append(t, s); img.replaceWith(f);
+function avatarHTML(user) {
+  return user.foto_url
+    ? `<img src="${esc(user.foto_url)}" alt="${esc(user.nama)}" data-initial="${esc(user.initial)}" onerror="avatarFallback(this)">`
+    : esc(user.initial);
 }
+function avatarFallback(img) { img.parentNode.textContent = img.dataset.initial || '?'; }
+function logoFallback(img) {
+  const wrap = document.createElement('span');
+  wrap.className = 'vsq-logo-fallback';
+  wrap.innerHTML = '<span class="vsq-logo-title">Vincent\'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span>';
+  img.replaceWith(wrap);
+}
+
+let lastNavSignature = null;
 function renderNavbar(user) {
-  const nav = document.getElementById('navbar');
-  const first = user.nama.split(' ')[0];
-  const av = user.foto_url ? `<img src="${user.foto_url}" alt="${user.nama}" style="width:100%;height:100%;object-fit:cover;border-radius:50%" onerror="this.outerHTML='${user.initial}'">` : user.initial;
-  nav.innerHTML = `
+  const signature = JSON.stringify(user);
+  if (signature === lastNavSignature) return;
+  lastNavSignature = signature;
+
+  const navbarEl = document.getElementById('navbar');
+  let rightNavHTML = '';
+  if (user) {
+    const firstName = esc(user.nama.split(' ')[0]);
+    const avatar = avatarHTML(user);
+    rightNavHTML = `
+      <button class="vsq-notif-btn" aria-label="Notifikasi"><img src="assets/images/notifikasi.png" alt="Notifikasi"></button>
+      <div class="vsq-profile-box" id="profileToggle"><span class="vsq-profile-name">Hai ${firstName}</span><div class="vsq-profile-avatar">${avatar}</div></div>
+      <button class="vsq-btn-logout" onclick="logout()">Logout</button>
+      <div class="vsq-profile-dropdown" id="profileDropdown">
+        <div class="vsq-dd-header"><div class="vsq-dd-avatar">${avatar}</div><div class="vsq-dd-info"><h4>${esc(user.nama)}</h4><div class="vsq-badge-verified"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Terverifikasi</div></div></div>
+        <div class="vsq-dd-body"><div class="vsq-dd-item"><span class="value">${esc(user.email)}</span></div><div class="vsq-dd-item"><span class="value">${esc(user.whatsapp)}</span></div></div>
+        <div class="vsq-dd-divider"></div>
+        <div class="vsq-dd-footer"><a href="profil_user.html" class="vsq-btn-edit-profile">Edit Profil</a><button class="vsq-btn-logout-dropdown" onclick="logout()">Keluar</button></div>
+      </div>`;
+  } else {
+    rightNavHTML = `<a href="login.html" class="vsq-btn-login-outline">Login</a><a href="register.html" class="vsq-btn-register">Register</a>`;
+  }
+
+  navbarEl.innerHTML = `
   <div class="vsq-header">
     <div class="vsq-nav-left">
-      <a href="index.html" class="vsq-logo"><img class="vsq-logo-img" src="assets/images/logo.png" alt="Vincent'SQ Sports Arena" onerror="logoFail(this)"></a>
+      <a href="index.html" class="vsq-logo"><img src="assets/images/logo.png" class="vsq-logo-img" alt="Vincent'SQ Sports Arena" onerror="logoFallback(this)"></a>
       <nav class="vsq-nav-menu">
         <a href="index.html" class="vsq-nav-link">Beranda</a>
         <a href="lapangan.html" class="vsq-nav-link active">Booking Lapangan</a>
@@ -379,27 +552,47 @@ function renderNavbar(user) {
         <a href="makanan.html" class="vsq-nav-link">Makanan Minuman</a>
       </nav>
     </div>
-    <div class="vsq-nav-right">
-      <button class="vsq-notif-btn" aria-label="Notifikasi"><img src="assets/images/notifikasi.png" alt="Notifikasi" onerror="this.style.display='none'"></button>
-      <div class="vsq-profile-box" id="profileToggle"><span class="vsq-profile-name">Hai ${first}</span><div class="vsq-profile-avatar">${av}</div></div>
-      <button class="vsq-btn-logout" onclick="logout()">Logout</button>
-      <div class="vsq-profile-dropdown" id="profileDropdown">
-        <div class="vsq-dd-header"><div class="vsq-dd-avatar">${av}</div><div class="vsq-dd-info"><h4>${user.nama}</h4><div class="vsq-badge-verified">✓ Terverifikasi</div></div></div>
-        <div class="vsq-dd-body"><div>${user.email}</div><div>${user.whatsapp}</div></div>
-        <div class="vsq-dd-footer"><a href="profil_user.html" class="vsq-btn-edit-profile">Edit Profil</a><button class="vsq-btn-logout-dropdown" onclick="logout()">Keluar</button></div>
-      </div>
-    </div>
+    <div class="vsq-nav-right">${rightNavHTML}</div>
   </div>`;
-  const pt = document.getElementById('profileToggle'), pd = document.getElementById('profileDropdown');
-  pt.addEventListener('click', e => { e.stopPropagation(); pd.classList.toggle('show'); });
-  document.addEventListener('click', e => { if (!pd.contains(e.target) && !pt.contains(e.target)) pd.classList.remove('show'); });
 }
-function logout() { document.getElementById('logoutModal').style.display = 'flex'; }
-function closeLogoutModal() { document.getElementById('logoutModal').style.display = 'none'; }
+
+document.addEventListener('click', function (e) {
+  const pd = document.getElementById('profileDropdown');
+  if (!pd) return;
+  if (e.target.closest('#profileToggle')) { e.stopPropagation(); pd.classList.toggle('show'); }
+  else if (!pd.contains(e.target)) pd.classList.remove('show');
+});
+
+async function updateNavbar() {
+  renderNavbar(normalizeUser(getCachedUser()));
+  try {
+    if (!navigator.onLine) return;
+    const c = new AbortController(), t = setTimeout(() => c.abort(), 4000);
+    const res = await fetch(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' }, signal: c.signal });
+    clearTimeout(t);
+    const result = await res.json();
+    const loggedIn = (result.data && result.data.logged_in !== undefined) ? result.data.logged_in : result.logged_in;
+    const serverUser = (result.data && result.data.user) || result.user;
+    if (loggedIn && serverUser) {
+      localStorage.setItem('vsq_user', JSON.stringify(serverUser));
+      renderNavbar(normalizeUser(serverUser));
+    } else if (loggedIn === false) {
+      USER_KEYS.forEach(k => localStorage.removeItem(k));
+      renderNavbar(null);
+    }
+  } catch (error) { console.log('Catatan: Menggunakan data sesi lokal.'); }
+}
+
+/* ---------- LOGOUT (PERSIS INDEX) ---------- */
+function logout() { document.getElementById('logoutModal').classList.add('show'); }
+function closeLogoutModal() { document.getElementById('logoutModal').classList.remove('show'); }
 async function confirmLogout() {
   try { await fetch(API_BASE + '/auth/logout.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ type: 'user' }) }); } catch (e) {}
-  localStorage.clear(); location.href = 'login.html';
+  localStorage.clear();
+  lastNavSignature = null;
+  window.location.href = 'login.html';
 }
+document.getElementById('logoutModal').addEventListener('click', function (e) { if (e.target === this) closeLogoutModal(); });
 
 /* ---------- GAMBAR GAGAL MUAT ---------- */
 const REFRESH_SVG = '<svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>';
@@ -418,18 +611,25 @@ function imgFail(img) {
   };
   img.replaceWith(box);
 }
+// TC-BOOKING-008: logo BCA cadangan (SVG inline) bila assets/images/bca.png tidak ada
+function bcaFail(img) {
+  img.outerHTML = '<svg viewBox="0 0 64 20" role="img" aria-label="BCA"><text x="0" y="16" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-style="italic" font-size="19" fill="#0060AF">BCA</text></svg>';
+}
 
 /* ---------- HALAMAN BOOKING ---------- */
 document.addEventListener('DOMContentLoaded', function () {
+  renderNavbar(normalizeUser(getCachedUser()));
+  updateNavbar();
   if (!userLogin) return;
-  renderNavbar(normalizeUser(userLogin));
 
   const POLLING_MS = 10000;
-  const MIN_HARI_SEBELUM = 0;            // isi 3 bila aturan "minimal 3 hari sebelumnya" diberlakukan
+  const MIN_HARI_SEBELUM = 0;
   const HALAMAN_PEMBAYARAN = 'pembayaran.html';
   const ENDPOINT_JADWAL = API_BASE + '/customer/check_availability.php';
   const ENDPOINT_BUAT = API_BASE + '/customer/booking.php';
-  const SKELETON_MIN_MS = 700, SKELETON_MAX_MS = 8000;
+  // TC-BOOKING-022: SKELETON_MAX_MS = batas waktu muat awal. Lewat batas ini -> tampil "Gagal memuat"
+  // (naikkan bila di server production halaman normal ikut gagal, turunkan bila 3G belum memicu error)
+  const SKELETON_MIN_MS = 700, SKELETON_MAX_MS = 1800, FETCH_TIMEOUT_MS = 8000;
 
   const $ = id => document.getElementById(id);
   const pad = n => String(n).padStart(2, '0');
@@ -479,11 +679,11 @@ document.addEventListener('DOMContentLoaded', function () {
   const monthNames = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
   let MAKS_DURASI = 5;
   const buatJam = (buka, tutup) => Array.from({ length: Math.max(0, tutup - buka) }, (_, i) => `${pad(buka + i)}:00 - ${pad(buka + i + 1)}:00`);
-  let jamOperasional = buatJam(8, 22);   // diganti otomatis dari pengaturan server
+  let jamOperasional = buatJam(8, 22);
 
-  let bookedByMonth = {};          // { '2026-11': { '2026-11-20': ['09:00 - 10:00'] } }
+  let bookedByMonth = {};
   let selectedSlots = [];
-  let errorField = null;           // 'nama' | 'jam' | 'pay' | null (satu error aktif, sesuai desain)
+  let errorField = null;
   let userPicked = false, lastSig = '';
 
   const today = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
@@ -496,17 +696,18 @@ document.addEventListener('DOMContentLoaded', function () {
   const startMin = j => parseInt(j.slice(0, 2), 10) * 60 + parseInt(j.slice(3, 5), 10);
   const expired = (d, j) => { const n = new Date(); return isoDate(d) === isoDate(n) && startMin(j) <= n.getHours() * 60 + n.getMinutes(); };
   const availableOn = d => jamOperasional.filter(j => !bookedOn(d).includes(j) && !expired(d, j));
-  const isFull = d => jamOperasional.every(j => expired(d, j));   // hanya hari ini yang jamnya sudah lewat semua
+  const isFull = d => jamOperasional.every(j => expired(d, j));
 
-  /* ----- data real-time dari server ----- */
-  // Backend tidak punya endpoint daftar jadwal, jadi tiap slot (durasi 1 jam)
-  // pada tanggal terpilih dicek lewat customer/check_availability.php.
+  /* ----- data real-time dari server (TC-BOOKING-022) ----- */
   async function cekSlot(tgl, jam) {
-    const res = await fetch(`${ENDPOINT_JADWAL}?id_lapangan=${fieldId}&tanggal=${tgl}&jam_mulai=${jam.slice(0, 5)}&durasi=1`, { credentials: 'include', cache: 'no-store' });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const json = await res.json();
-    if (json.success === false) throw new Error(json.message || 'Gagal memuat jadwal');
-    return (json.data || {}).tersedia === false;   // true = sudah dibooking
+    const c = new AbortController(), t = setTimeout(() => c.abort(), FETCH_TIMEOUT_MS);
+    try {
+      const res = await fetch(`${ENDPOINT_JADWAL}?id_lapangan=${fieldId}&tanggal=${tgl}&jam_mulai=${jam.slice(0, 5)}&durasi=1`, { credentials: 'include', cache: 'no-store', signal: c.signal });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const json = await res.json();
+      if (json.success === false) throw new Error(json.message || 'Gagal memuat jadwal');
+      return (json.data || {}).tersedia === false;
+    } finally { clearTimeout(t); }
   }
   const inflight = {};
   function muatJadwal() {
@@ -521,7 +722,8 @@ document.addEventListener('DOMContentLoaded', function () {
         refreshIfChanged();
         return true;
       } catch (e) {
-        if (!VSQNet.handleError(e)) console.error('Gagal memuat jadwal:', e);
+        if (!navigator.onLine) VSQNet.handleError(e);
+        else console.error('Gagal memuat jadwal:', e);
         return false;
       }
     })().finally(() => { delete inflight[tgl]; });
@@ -539,7 +741,7 @@ document.addEventListener('DOMContentLoaded', function () {
     renderCalendar(); renderTimeSlots();
   }
 
-  /* ----- validasi (urutan: nama → waktu → pembayaran) ----- */
+  /* ----- validasi ----- */
   const namaInput = $('namaPemesan');
   const isNamaValid = () => namaInput.value.trim() !== '';
   const isJamValid = () => selectedSlots.length > 0;
@@ -586,8 +788,6 @@ document.addEventListener('DOMContentLoaded', function () {
   $('nextMonth').addEventListener('click', () => { viewDate.setMonth(viewDate.getMonth() + 1); renderCalendar(); });
 
   /* ----- slot waktu ----- */
-  // Backend menyimpan 1 booking = jam_mulai + durasi (berurutan, maks 5 jam),
-  // jadi pilihan jam harus berupa satu rentang yang bersambung.
   function pilihSlot(jam) {
     const idx = jamOperasional.indexOf(jam);
     const ids = selectedSlots.map(j => jamOperasional.indexOf(j)).sort((a, b) => a - b);
@@ -643,7 +843,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     btn.disabled = true; btn.textContent = 'Memproses...';
     try {
-      // cek ulang ketersediaan ke server sebelum membuat booking
       if (!(await muatJadwal())) { toast('Gagal memuat jadwal. Periksa koneksi lalu coba lagi.'); return resetBtn(); }
       if (!isJamValid()) { errorField = 'jam'; renderErrors(); resetBtn(); return arahkanKe($('group-jam'), document.querySelector('.time-slot')); }
 
@@ -698,7 +897,6 @@ document.addEventListener('DOMContentLoaded', function () {
   renderCalendar();
   renderTimeSlots();
 
-  // jika hari ini sudah lewat jam operasional, pindah ke tanggal berikutnya yang masih bisa dipilih
   function pilihTanggalAwal() {
     if (userPicked || !isFull(selectedDate)) return false;
     for (let i = 1; i <= 62; i++) {
@@ -713,7 +911,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     return false;
   }
-  // tanggal berpindah -> jadwal tanggal baru harus dicek ulang ke server
   const jadwalAwal = muatJadwal().then(ok => pilihTanggalAwal() ? muatJadwal() : ok);
 
   const waitImage = img => new Promise(res => {
@@ -721,10 +918,38 @@ document.addEventListener('DOMContentLoaded', function () {
     img.addEventListener('load', res, { once: true });
     img.addEventListener('error', res, { once: true });
   });
+
+  /* ----- tampilan "Gagal memuat" (TC-BOOKING-022) ----- */
+  // sesuai desain: hanya navbar + pesan error (breadcrumb disembunyikan, latar putih)
+  // menunggu font Plus Jakarta Sans selesai dimuat (maks 3 detik) agar tampilan sama persis dengan desain
+  const tampilkanGagal = async () => {
+    if (document.fonts && document.fonts.load) {
+      await Promise.race([
+        Promise.all([
+          document.fonts.load('400 18px "Plus Jakarta Sans"'),
+          document.fonts.load('500 28px "Plus Jakarta Sans"'),
+          document.fonts.load('700 56px "Plus Jakarta Sans"')
+        ]).catch(() => {}),
+        delay(3000)
+      ]);
+    }
+    $('skeleton-container').style.display = 'none';
+    $('main-content').classList.add('hidden-loading');
+    $('breadcrumb').style.display = 'none';
+    document.body.classList.add('is-error');
+    $('error-container').classList.remove('hidden-loading');
+    $('error-container').classList.add('fade-in');
+  };
+  $('btnRefreshError').addEventListener('click', e => {
+    e.currentTarget.disabled = true; e.currentTarget.textContent = 'Memuat...';
+    location.reload();
+  });
+
   Promise.race([
-    Promise.all([jadwalAwal, waitImage(imgEl), delay(SKELETON_MIN_MS)]),
-    delay(SKELETON_MAX_MS)
-  ]).then(() => {
+    Promise.all([jadwalAwal, waitImage(imgEl), delay(SKELETON_MIN_MS)]).then(r => ({ ok: r[0] })),
+    delay(SKELETON_MAX_MS).then(() => ({ ok: false }))
+  ]).then(({ ok }) => {
+    if (!ok) return tampilkanGagal();
     $('skeleton-container').style.display = 'none';
     $('main-content').classList.remove('hidden-loading');
     $('main-content').classList.add('fade-in');

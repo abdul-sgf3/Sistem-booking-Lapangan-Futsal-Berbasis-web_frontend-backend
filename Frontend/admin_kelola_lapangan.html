@@ -12,56 +12,56 @@ html,body{height:100%}
 body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:#0f1626;display:flex;letter-spacing:-.2px}
 button{font:inherit;cursor:pointer;color:inherit}
 svg{flex:none}
-aside{width:226px;background:var(--navy);color:#fff;position:relative;flex:none;height:100vh;position:sticky;top:0}
+aside{width:226px;background:#131b2e;color:#fff;position:relative;flex:none;height:100vh;position:sticky;top:0}
 .logo{position:absolute;left:37px;top:22px;width:152px;height:50px;background:#fff;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#1b2a8a;font-style:italic;font-weight:700;font-size:17px;line-height:1}
 .logo i{color:#d4202a;font-size:7px;letter-spacing:1.5px;font-style:normal;color:#222;margin-top:2px}
-.pill{position:absolute;left:37px;top:97px;width:106px;height:28px;border-radius:14px;background:#363f4f;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:500}
+.pill{position:absolute;left:37px;top:97px;width:106px;height:28px;border-radius:14px;background:#3a4151;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:500}
 .menu-t{position:absolute;left:36px;top:150px;font-size:16px;font-weight:500}
-nav a{position:absolute;left:37px;width:152px;display:flex;align-items:center;gap:8px;font-size:17px;color:#fff;text-decoration:none;padding-bottom:6px}
-.logo{font-size:0}nav a.on{border-bottom:2px solid #fff}
-.sdiv{position:absolute;left:20px;right:28px;top:635px;height:1px;background:#37404f}
-.ucard{position:absolute;left:21px;top:685px;width:185px;height:54px;background:#fff;border-radius:14px;color:#0f1626;display:flex;align-items:center;padding:0 12px 0 17px;gap:8px}
+nav a{position:absolute;left:37px;width:152px;display:flex;align-items:center;gap:8px;font-size:17px;color:#ccced0;text-decoration:none;height:32px;white-space:nowrap}
+.logo{font-size:0}nav a{cursor:pointer}.ucard img{cursor:pointer}nav a.on{border-bottom:2px solid #fff;color:#f5f7fa}
+.sdiv{position:absolute;left:20px;right:28px;bottom:120px;height:1px;background:#37404f}
+.ucard{position:absolute;left:21px;bottom:17px;width:185px;height:54px;background:#f5f7fa;border-radius:14px;color:#0f1626;display:flex;align-items:center;padding:0 19px 0 17px;gap:11.5px}
 .av{width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;flex:none}
 .ucard b{display:block;font-weight:500;font-size:15px}.ucard small{font-size:11px}
 .ucard .t{flex:1}
 .main{flex:1;min-width:0}
-header{height:99px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
-header h2{font-size:17px;font-weight:600}header p{color:var(--mut);font-size:15px;margin-top:4px;font-weight:400}
+header{height:99px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 38px 0 22px}
+header h2{font-size:16px;font-weight:600}header p{color:var(--mut);font-size:15px;margin-top:4px;font-weight:400}
 .dd{width:249px;height:59px;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;gap:9px;padding:0 17px 0 18px}
 .dd .av{width:42px;height:42px;font-size:16px}.dd div{flex:1;font-size:16px;line-height:1.25;font-weight:500}.dd small{font-size:16px;font-weight:400;display:block}
-.content{padding:32px 24px 30px}
+.content{padding:26px 38px 30px 22px}
 .top{display:flex;justify-content:space-between;align-items:flex-start}
-.top h1{font-size:34px;font-weight:700;line-height:1.1;letter-spacing:-1px;margin-top:2px}
-.top p{color:var(--mut);font-size:14px;margin-top:9px}
-.btn{height:51px;padding:0 19px;border-radius:14px;background:var(--navy);color:#fff;border:0;display:flex;align-items:center;gap:8px;font-size:15px;margin-top:1px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:28px}
-.stat{height:84px;border:1px solid #555d6b;border-radius:18px;background:#fff;display:flex;align-items:center;padding:0 24px;gap:14px}
+.top h1{font-size:32px;font-weight:700;line-height:1.1;letter-spacing:-1px;margin-top:0}
+.top p{color:var(--mut);font-size:14px;margin-top:8px}
+.btn{height:51px;padding:0 17px;border-radius:14px;background:var(--navy);color:#fff;border:0;display:flex;align-items:center;gap:8px;font-size:15px;margin-top:7px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:25px}
+.stat{height:84px;border:1px solid #555d6b;border-radius:18px;background:#fff;display:flex;align-items:center;padding:0 25px;gap:14px}
 .ic{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.stat span{display:block;color:var(--mut);font-size:16px}.stat b{font-size:24px;font-weight:500;line-height:1.1;display:block;margin-top:3px}
+.stat span{display:block;color:var(--mut);font-size:16px}.row.h div:nth-child(4){padding-left:7px}.stat b{font-size:24px;font-weight:500;line-height:1.1;display:block;margin-top:3px}
 .card{margin-top:31px;border:1px solid #555d6b;border-radius:18px;background:#fff;overflow:hidden}
 .bar{height:68px;display:flex;align-items:center;padding:0 25px;gap:0;border-bottom:1px solid #8c919a}
-.search{flex:1;height:34px;border-radius:17px;background:#eef0f4;display:flex;align-items:center;gap:8px;padding:0 16px;color:#8b8f98;margin-right:90px}
+.search{flex:1;height:34px;border-radius:17px;background:#eef0f4;display:flex;align-items:center;gap:8px;padding:0 16px;color:#8b8f98;margin-right:0}
 .search input{border:0;background:none;outline:0;font:inherit;font-size:15px;flex:1;color:#0f1626}
-.bar .cnt{color:#6b7079;font-size:16px;font-weight:500}
-.row{display:grid;grid-template-columns:3.75fr 1.25fr 1.35fr 3.3fr 1.1fr;align-items:center;padding:0 25px;height:83px;border-top:1px solid #8c919a}
+.bar .cnt{color:#6b7079;font-size:16px;font-weight:500;width:175px;text-align:right}
+.row{display:grid;grid-template-columns:264px 100px 184px 1fr auto;align-items:center;padding:0 25px;height:83px;border-top:1px solid #8c919a}
 .row.h{height:60px;border-top:0;color:var(--mut);font-size:16px}
 .row .c{text-align:center}.row .r{text-align:right}
-.field{display:flex;align-items:center;gap:19px}
-.th{width:72px;height:49px;border-radius:10px;flex:none;background-size:cover}
-.field b{font-weight:500;font-size:17px;display:block}.field small{color:var(--mut);font-size:12px}
+.field{display:flex;align-items:center;gap:17px}
+.th{width:72px;height:49px;border-radius:10px;flex:none;background-size:cover;background-position:center}
+.field b{font-weight:500;font-size:16px;display:block}.field small{color:var(--mut);font-size:12px}
 .badge{display:inline-flex;align-items:center;justify-content:center;border-radius:14px;font-size:12px;font-weight:500}
 .vip{background:#e8b010;width:56px;height:24px;color:#2a2200}.reg{background:#dcdcde;width:76px;height:27px;color:#333}
 .price{font-size:16px;font-weight:500}
 .st{color:var(--green);font-size:14px;display:flex;align-items:center;gap:6px;font-weight:500}.st:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--green)}
 .st.p{color:#b45309}.st.p:before{background:#d97706}
-.acts{display:flex;gap:14px;justify-content:flex-end}
+.acts{margin-right:-8px;display:flex;gap:14px;justify-content:flex-end}
 .ib{width:30px;height:30px;border:1px solid #666;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;padding:0}
 .ib.d{border-color:#999}
-.foot{display:flex;justify-content:space-between;align-items:center;padding:0 25px;height:46px;font-size:12px;color:#6b7079;margin-top:-4px}
-.pg{display:flex;gap:6px}.pg span{width:21px;height:21px;border:1px solid #cfd2d8;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#aaa;font-size:12px}
+.foot{display:flex;justify-content:space-between;align-items:flex-start;padding:0 25px;height:23px;line-height:12px;font-size:12px;color:#6b7079}
+.pg{display:flex;gap:6px;margin-top:-3px}.pg span{width:18px;height:18px;border:1px solid #cfd2d8;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#aaa;font-size:12px}
 .pg .a{background:var(--navy);color:#fff;border-color:var(--navy)}
 .empty{padding:30px;text-align:center;color:var(--mut)}
-nav a img{width:26px;height:26px;object-fit:contain}.logo img{width:100%;height:100%;object-fit:contain;padding:4px}.lo{width:22px;height:22px;object-fit:contain}
+nav a img{width:22px;height:22px;object-fit:contain}.logo img{width:100%;height:100%;object-fit:contain;padding:4px}.lo{width:22px;height:22px;object-fit:contain}
 /* modal */
 .ov{position:fixed;inset:0;background:rgba(17,28,46,.5);display:none;align-items:center;justify-content:center;z-index:50;padding:12px;backdrop-filter:blur(.5px)}
 .ov.on{display:flex}
@@ -69,19 +69,19 @@ nav a img{width:26px;height:26px;object-fit:contain}.logo img{width:100%;height:
 .mh{background:var(--bg);padding:35px 32px 29px;border-bottom:1px solid #8c919a}
 .mh h3{font-size:19px;font-weight:600}.mh p{color:var(--mut);font-size:16px;margin-top:11px}
 .mb{padding:0 32px 42px}
-.mb label.l{display:block;font-size:17px;font-weight:500;margin:23px 0 11px}.mb label.l:first-child{margin-top:34px}
+.mb label.l{display:block;font-size:17px;font-weight:500;margin:20px 0 8px}.mb label.l:first-child{margin-top:21px}.mb label.l:nth-of-type(3){margin:13px 0 15px}.mb label.l:nth-of-type(4){margin:19px 0 8px}.mb label.l:nth-of-type(5){margin:20px 0 13px}
 .mb label.l i{color:#dc2626;font-style:normal}
-.in{width:100%;height:56px;border:1px solid #666;border-radius:14px;padding:0 31px;font:inherit;font-size:19px;outline:0;color:#0f1626;background:#fff}
+.in{width:100%;height:56px;border:1px solid #666;border-radius:14px;padding:0 31px;font:inherit;font-size:18px;outline:0;color:#0f1626;background:#fff}
 .in::placeholder{color:#8b8f98}.in.err{border-color:var(--red)}
 .pre{position:relative}.pre .in{padding-left:20px}
-.hint{color:#8b8f98;font-size:16px;margin-top:21px}
+.hint{color:#8b8f98;font-size:16px;margin-top:13px;line-height:20px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:43px}
-.opt{height:62px;border:1px solid #666;border-radius:14px;display:flex;align-items:center;gap:19px;padding:0 22px 0 23px;cursor:pointer;background:#fff;text-align:left}
+.opt{height:62px;border:1px solid #666;border-radius:14px;display:flex;align-items:center;gap:16px;padding:0 22px 0 23px;cursor:pointer;background:#fff;text-align:left}
 .opt .rd{width:28px;height:28px;border:2px solid #777;border-radius:50%;flex:none;position:relative}
 .opt.on{border-color:var(--navy);box-shadow:0 0 0 1px var(--navy)}.opt.on .rd{border-color:var(--navy)}.opt.on .rd:after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--navy)}
 .opt b{display:block;font-weight:500;font-size:16px;line-height:1.2}.opt span{font-size:16px;line-height:1.3}
 .opt.err{border-color:var(--red)}
-.tg{height:56px;border:1px solid #666;border-radius:14px;display:flex;align-items:center;gap:8px;padding:0 20px 0 20px;cursor:pointer;background:#fff;width:100%;text-align:left}
+.tg{height:56px;border:1px solid #666;border-radius:14px;display:flex;align-items:center;gap:10px;padding:0 20px 0 20px;cursor:pointer;background:#fff;width:100%;text-align:left}
 .sw{width:44px;height:26px;border-radius:13px;background:#777;position:relative;flex:none;transition:.15s}
 .sw:after{content:"";position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.15s}
 .tg.on .sw{background:#16a34a}.tg.on .sw:after{left:21px}
@@ -90,7 +90,7 @@ nav a img{width:26px;height:26px;object-fit:contain}.logo img{width:100%;height:
 .drop.err{border-color:var(--red)}
 .drop .ci{width:48px;height:48px;border:1px solid #bbb;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:5px}
 .drop u{color:#2563eb;text-decoration:none}.drop small{font-size:12px;color:#8b8f98}
-.cur{border:1px solid #666;border-radius:18px;height:118px;display:flex;align-items:center;padding:0 29px 0 31px;gap:15px}
+.cur{border:1px solid #666;border-radius:18px;height:118px;display:flex;align-items:center;padding:0 21px 0 31px;gap:15px}
 .cur .p{width:86px;height:58px;border-radius:14px;background-size:cover;background-position:center;flex:none}
 .cur .n{flex:1;min-width:0}.cur .n b{display:block;font-weight:500;font-size:19px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cur .n small{color:#8b8f98;font-size:14px;margin-left:2px}
 .cur button{height:38px;padding:0 20px;border:1px solid #666;border-radius:10px;background:#fff;font-size:15px;font-weight:500}
@@ -98,12 +98,12 @@ nav a img{width:26px;height:26px;object-fit:contain}.logo img{width:100%;height:
 .b1,.b2{height:53px;border-radius:14px;font-size:17px;font-weight:500}
 .b1{background:#fff;border:1px solid #666;color:#0f1626}.b2{background:var(--navy);color:#fff;border:0}
 /* delete */
-.dm{width:383px;max-width:100%;background:#fff;border-radius:18px;padding:38px 30px 37px;text-align:center}
-.dm .ci{width:60px;height:60px;border-radius:50%;background:#f4b4b4;margin:0 auto 20px;display:flex;align-items:center;justify-content:center}
-.dm h3{font-size:18px;font-weight:700}.dm p{font-size:13px;line-height:1.35;margin:18px 0 20px;letter-spacing:-.3px}
-.dm .bt{display:flex;gap:10px;justify-content:center}
-.dm button{height:35px;padding:0 25px;border-radius:8px;font-size:15px;font-weight:500}
-.dm .x{background:#fff;border:1px solid #888}.dm .y{background:#dc2626;color:#fff;border:0;padding:0 24px}
+.dm{width:383px;max-width:100%;background:#fff;border:1px solid #848484;border-radius:18px;padding:38px 32px;text-align:center}
+.dm .ci{width:60px;height:60px;border-radius:50%;background:#f3b7b7;margin:0 auto 16px;display:flex;align-items:center;justify-content:center}
+.dm h3{line-height:24px;font-size:19px;font-weight:600;letter-spacing:-.4px;color:#0a0a0a}.dm p{font-size:13px;line-height:15px;margin:16px 0 19px;letter-spacing:-.3px}
+.dm .bt{display:flex;gap:9.5px;justify-content:center;padding-right:7px}
+.dm button{width:79.5px;height:35px;padding:0;border-radius:8px;font-size:15px;font-weight:600;letter-spacing:-.3px}
+.dm .x{background:#fff;border:1px solid #888}.dm .y{background:#dc2626;color:#fff;border:0}
 @media(max-width:900px){aside{display:none}.stats{gap:12px}.top h1{font-size:26px}.row{grid-template-columns:2.5fr 1fr 1.3fr 1.2fr 1fr;padding:0 12px}.row .field{gap:8px}.th{width:44px;height:32px}.bar{padding:0 12px}.search{margin-right:12px}.stat{padding:0 12px}.stat span{font-size:12px}.ic{display:none}}
 </style>
 </head>
@@ -113,15 +113,15 @@ nav a img{width:26px;height:26px;object-fit:contain}.logo img{width:100%;height:
   <div class="pill">Admin</div>
   <div class="menu-t">Menu Utama</div>
   <nav>
-    <a class="on" style="top:220px"><img src="assets/images/icon-lapangan.png" alt="">Kelola Lapangan</a>
-    <a style="top:291px"><img src="assets/images/icon-jadwal.png" alt="">Papan Jadwal</a>
-    <a style="top:364px"><img src="assets/images/icon-konfirmasi.png" alt="">Kelola Booking</a>
-    <a style="top:438px"><svg width="28" height="26" viewBox="0 0 28 26" fill="none" stroke="#fff" stroke-width="1.5"><rect x="2" y="3" width="24" height="20" rx="2"/><path d="M2 9h24"/><circle cx="21" cy="16" r="1" fill="#fff"/></svg>Kasir</a>
-    <a style="top:511px;padding-left:5px"><svg width="26" height="30" viewBox="0 0 24 28" fill="none" stroke="#fff" stroke-width="1.5"><path d="M3 25V12h5v13M10 25V4h5v21M17 25V14h5v11M1 25h22"/></svg><span style="margin-left:6px">Laporan</span></a>
+    <a class="on" href="admin_kelola_lapangan.html" style="top:214.6px"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAAlCAYAAAAN8srVAAAByUlEQVR4nO2Z3W3CMBRGDxXvDRMQOkE3gE5AOwFlgrIBdIKKDcoG7QbpBNAFGjIB9AEh8dI+GKQotfnzZ6CII+WB69i+X4xv7nVKs/mizvkwKs3mi59jeyGkcXVsD9SULbYRMBWMHQG3FnsKZILxARpFQ1FQD3gWTVYHEot9IJyjCgyBysqQ/8tNhBMdigx4yxvygqaH9CQUZxcULoJ2IHbYq8srCCEENYEv4NXR3sZEv26AueWCXjBRp7bhvhjzikgRr5ZSUBfo7NgnxqzWtcoJlaAW5onvQ+zR9w8qQb77oYPJLLxRCGqxec9sw6NgDImgpsOeOuyjHcfZCYUg1+q48sI37ElrBUHEUwiyRagUGK/p41q9yNeZUJlC5Nm+NwpBtmKtgqX4WlJd0zb2dUYhKHHYnxz2NrmCLMcQ+PZ1JqQgm9Pr6Hv6AWgEfVCoGvdgjCnNvVEFhQ7uyLVtfwkqQRnwwH6iesC7yA9p2P4E7the1AS4R3wwo34PZcANJi8bOe6ZYFalhnBlVtgOGhUMMBs9sbT1CXhcdjkkOXXOWlCNgMdLAWnkfxSDQoKocsT+5QHMQ1OU2xGWavnywevUKePOlv8j019PsktQ3YaKkQAAAABJRU5ErkJggg==" alt="" style="width:21.8px;height:15.5px;flex:none;">Kelola Lapangan</a>
+    <a href="admin_papan_jadwal.html" style="top:284.3px"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAwCAYAAABT9ym6AAABh0lEQVR4nO2a0VWDMBSGPzi8WycAnaAbWCdpN5DjAuoGjFA3cAM7QE/LBsoEphPoQ1BrDB4ChF45+V7a9OTy3x9uEmiItruSlqTAGlgAG2AFVG2DfWvEDiJ5LUD9mTvEetdwMXJmtGcOsd41EuMg2R/BFxaRq7ZCLXHVKIEDQFSPkRvgHj9n2Sev6DH1kABLoDhhMn3I0BdAxcDdSVMZhjzhd13mgLJ0XgLXR+1n4HHghNpqzPhZRVli6fSEfe42B13VINKHthopxnBwmX4PRls5xHrXcDFSAC/19z1+JojOGrbSaqICLtHrjXnmhqKzhssV+cSXiV4aXYyIxFZac/RCI5nM/KFp+v13TKa0JmPEVloF8DZyHq6cYzx0Rdtd+W50yhj+EXZoUvQt/BeTKa1gRBrBiDSCEWkEI9IIRqQRjEgjGJFGMCKNYEQawYg0ghFpTMaI7Z/G9dhJdMB8Q4IEvXN6vJO6GCubAdnEwC1+NjbHQgGrGP0+xxxdUupU2XRA8V1N1Qd4aEYmDe0VGAAAAABJRU5ErkJggg==" alt="" style="width:21.0px;height:20.2px;flex:none;">Papan Jadwal</a>
+    <a href="admin_kelola_booking.html" style="top:357.8px"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABDCAYAAADeQVbVAAAC9klEQVR4nO2a33XaMBSHPzi8Byaw6QKlE8SZoOkE0AlCF6DxBCETBDZoFyjkPSclExQmgE7QPlzTCNkQrD+2To9/LyBhyfc7kq50L2o9Pa8wUATMsk+X2gCj7LOUOoYvnAKJYdtT6md9fyrbsG34wgvDdueoa9LIdER0/bJs37c1wBXIO8v2f2wNMJ1awenUiFwAMcVzVq+7dGPOv76P9bcCfhf90Cpwv5fALX68kgstEfse1Up9at1lDyYVGGSqBLHxTq1UQR6AcWXm2GuM2Ay8rpEJsqOq2gHfKHatIw5d5ldLo1Ll+xrFQEUfgPfae0fIurlvPT2voqyxqhlCXLiwgB/AlVJunWXucanud6n1rSpCdv5rpW4L9Nvk18MC+MxxiDq1QY4vC6WuB4w6wFB7OKW8Fm8/4lQph6OWdJC9Yq8tmls7U4m5TUZ6RNZwNysPdPd77nQKYdpt1YLpESXF/qBYpB3wxaSh6aFxhRwUXQdWOwxH2/b0WzqS86X/5vTbgISmBiQ0NSChqQEJTQ2IB0VYpGJDAZkg4fYO+GjSQQggEw6j0pFJJ3WD6BCQT4ScpTpBiiB+IlnE0qoL5BjEFYaBVR0gziHADuQGyb+WCXe9QIB5qHvHa574GkkHvRX2eoMA8xGJte9LTo+MVwgwB5lp5ZjjMN4hwBzkO/mNKyYPUwkE2C32OadhKoMA+7zWHMm/TpW6GEngdbVnvUGAm33knvxu3NXKXiHA3YaYcvxo4R0C3O7sRTCVQIC7mw97pcjpdYisk5SK/oJwDQLiAOYe+j2puuMRZ2pAQlMDEpoakNDUgISmBiQA9dRCm8NDXYzfy8muFHEY86zbSGiq6rYiY2w01sqrNnLdT3/opgJjTDUkDzLrIHefFhxe5JoCAwRyjfxvUbcGCECi1c+Al/293wiBsb6jXrHWZFnOvdfaICPi4w6WL61RUrWq+93DzKq2qKR2iEMaoOSbi66Ug0y1BLln2yt6oAZtgRdk3ebyAH8BabOftzz8jusAAAAASUVORK5CYII=" alt="" style="width:21.0px;height:28.1px;flex:none;">Kelola Booking</a>
+    <a href="admin_kasir.html" style="top:432px"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAxCAYAAACYq/ofAAABn0lEQVR4nO2a4VHCMBiGH3r9jxsUXQCdQEbQCYQJ7AaWEdgAN9AJKv89WicQNqAT6I/Qs5RgA7Hhq5fnjgO+S7j3uSYlTdt7X+bU6APX9eIZ2QAfTY3CyucImAOjVuLYEQOz3xoE2/cISJEpAfDU1KAUSYHLdrNYUTQ1CIAHZEtsgKSpUYgSqZIBk+0PSGCDwREJgZta7R5YtxCoVQLgolbrnAT8TPYq9aHWCUJNbY46DX86TXIai+1LKwIwdhbFngSYHhLpEgmw0s2RLjI+NEciYOA0yvFU/8RHOpGJqySWfFW//Jeh5UXE4UWk4UWk4UWkIVFkCNwe20mSSAQsgRx4Q10PRaadJYkk7O4fDFALWCMkidxpakPTzpJErJAkkmlqr6adJYlM2N3wyDDYYSyRdM2+Bq5Qp94CdfYyRpJIyeKUTpKGlhVeRBpeRBpeRBpeRBo6kb7zFH9AwP6dqfgMOawJUUvluFJLULfeVs7TWBACL+wfhZHrIJbkAWq1mZw5iC3zcrJP6a5MCsx6tee1IuARWc9rHaJATYtngG9SQTnttaCLygAAAABJRU5ErkJggg==" alt="" style="width:21.0px;height:20.6px;flex:none">Kasir</a>
+    <a href="admin_laporan.html" style="top:505.6px"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAsCAYAAAAn4+taAAABTElEQVR4nO2Z0W2DMBBAHyj/oRNAJmgzQegGbJAR2g2qTtB0k3YD+h9FZIKSCdJs0A9aFVEsXPsSrshP8ofBPu5JBxgTbXcVI3AH5EDiMLcG7oFT++DMMyEXUmDjGaMGHtsHYs+ALmTniDGGyFnQIPIARAMtGwqiQUSEIKKNIKKNyYhIvNlXX82WhcA1f+ErkgKlQB7e+JZWLpGEBOEeMfAEvA6MuQaeha8rLrIH3oRjWjGZ0goi2ggi2jA9tebAjcV8mzEXoU9khZJlx1/oK631xbMQYPL3SJsNcDScWwKFVDI+2IocDOfWKBGZTGkFEW0EEW0EEW0EEW0EEW18r7Xm/KyZunuzBfBhmJ8P9PtIO/0lw58OSaefteaUwCHa7qoUqHoG/xeOwCLG/ce9Fq6AIqbZ4nwfORkfaqCc0dT/Lc1GQjJaOu68AKdPLxQklrEkLAAAAAAASUVORK5CYII=" alt="" style="width:21.0px;height:18.5px;flex:none;margin:0 4.8px 0 3px;">Laporan</a>
   </nav>
   <div class="sdiv"></div>
   <div class="ucard"><div class="av">A</div><div class="t"><b>Ashfahani</b><small>Admin</small></div>
-    <img src="assets/images/icon-logout.png" alt="Logout" class="lo"></div>
+    <img id="lo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAYAAABXuSs3AAABiUlEQVR4nO3ZwU3DMBTG8T9VByg3bg0nrtmAMgFigroTwAbABIgJmm5QNjAjsEHZoGzAITmUkjbv+VnWO+S7NInkTz9FVuo4F5dXNwD3QI0tG2Bn7BBnCiyBJkNXAK4z9IgyARaZuipgnqlrMJOMXVvgO2Pf2Ux7rgX0c3UPfBktqvTBIwXvXGpyTpWiGeGlM8JLxwt8DtxqBniAL2n/NyLwJh3kAR4Ojp+AtWSQB3g8Og8I8B7gr/xfnQYG8B7gACuUeC9wUOI9wUGB9wYHId4jHAT4vvW4JlVXVhl7pAnd78oKfyTfO6s0AWi8TpWhzKx3/IV2mtRWyYlUPdca4MMK/wEejB2nsubvOgZa9Ar8PlXOosEnfBAN/uAiNPiCi9HgB65Cgw/4M0o0+IDXR+cNA2jwAY8Hxw0CNNgXWTnyTrtFPUOx4+sBDu3usGqH2MNUScoIL50RXjp9T5WatHfIT5NEmT74NrErAnfJEmVyTpUFhT/QxkxdOwp/oN10x5WhZ0/6FEvKLz9QQMsUiGjNAAAAAElFTkSuQmCC" alt="" style="width:19.3px;height:19.3px;flex:none;"></div>
 </aside>
 
 <div class="main">
@@ -147,7 +147,7 @@ nav a img{width:26px;height:26px;object-fit:contain}.logo img{width:100%;height:
       </div>
       <div class="row h"><div>Lapangan</div><div class="c">Jenis</div><div class="c">Harga</div><div>Status</div><div class="r">Aksi</div></div>
       <div id="rows"></div>
-      <div class="foot" id="foot" style="display:none"><span id="ft"></span><div class="pg"><span>&lsaquo;</span><span class="a">1</span><span>&rsaquo;</span></div></div>
+      <div class="foot" id="foot"><span id="ft"></span><div class="pg"><span>&lsaquo;</span><span class="a">1</span><span>&rsaquo;</span></div></div>
     </div>
   </div>
 </div>
@@ -175,50 +175,66 @@ nav a img{width:26px;height:26px;object-fit:contain}.logo img{width:100%;height:
 </div></div>
 
 <div class="ov" id="do"><div class="dm">
-  <div class="ci"><svg width="30" height="32" viewBox="0 0 24 26" fill="none" stroke="#dc2626" stroke-width="1.6"><path d="M3 6h18M9 6V3h6v3M5 6l1 18h12l1-18M10 11v8M14 11v8"/></svg></div>
+  <div class="ci"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADYAAAA6CAYAAAD7h6qmAAACDUlEQVR4nO2b0W3CMBCGPxDvRF0A+sJr2QA6QekGbEA2aJgAOkHLBKUTNGxA35EaFqjCBn1wECQkEOwL4MqfhJQY33F/El9OtqmtOh0EaAKPQD851mEDhMBcIqCGgI8B8AZ4Ar5GQASMgXcTR3XDQALgAxlRW9qoC+WbOKkZPIot1NWtki7wrWNo8igGOW0xsNT0104+2d941nFmImyQOV+iksdG018TlTy6e219TV/aY6zF4bjy0RdFYjvOtHnJb52NafKQxuTCpLg1YWJsx9gQeDH0NUclD2nCM/rGqITzWVt1OpdI25fGqyP7cr0VunXU3YquG4coEbBooDJRH3gC7pIvR6TvZAgsLhbacXqk328x8Joc/wIzKC6pfkhXAWPyK41rEJBOdBFwn+30b9O9E2YbTphtOGG2IS0sAL44b77CT2ymkoFIzFJtmaIqFlCVQczpmaYhMMnYBBLBSN6xh8x5v4RNtk9PJBLcGLMPJ8w2nDDbcMJswwmzDSfMNpww23DCbMMJK0F84lzKphSSwnx2y1ERu7mMY0wyNr5UMJKTOWvUqkcrOa7KphRVjDGdAEVFgUse9uGE2YYTZhtl32MeOSvzV8Ir06mssBG7lZRbI85rLHoUZ9XFIU7u1toiYfs13C0TUbBrr0jYdhtSWEk4MoSoGHPLsWNjbI36k0CLw03I1ybiRH35B3vdVkentyPPAAAAAElFTkSuQmCC" alt="" style="width:22.6px;height:24.3px;flex:none;"></div>
   <h3 id="dt"></h3>
   <p>Lapangan ini akan dihapus permanen dari daftar,termasuk jadwalnya. Tindakan ini tidak dapat dibatalkan.</p>
   <div class="bt"><button class="x" id="dc">Batal</button><button class="y" id="dy">Ya, Keluar</button></div>
 </div></div>
 
+<!-- SCRIPT LOKAL (Tanpa API Backend) -->
 <script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const toast=(msg,err)=>{ console.log((err?'[ERROR] ':'[INFO] ')+msg); alert(msg); };
+
 const G=['linear-gradient(180deg,#5b4a3a 0%,#8a7a68 35%,#c0392b 60%,#a72a22 100%)','linear-gradient(180deg,#4a4f55 0%,#9aa0a6 40%,#c9cdd2 70%,#d9b21c 100%)','linear-gradient(180deg,#3d4047 0%,#7d848c 45%,#b9bec4 75%,#555 100%)'];
-let data=[
- {id:1,name:'Lapangan Futsal 1',type:'VIP',price:100000,on:true,img:G[0],file:'futsal-1.jpg'},
- {id:2,name:'Lapangan Futsal 2',type:'Reguler',price:90000,on:true,img:G[1],file:'futsal-2.jpg'}];
-let seq=3,editId=null,type=null,on=true,photo=null,delId=null;
-const $=s=>document.querySelector(s),rp=n=>'Rp.'+n.toLocaleString('id-ID')+'/jam';
-const code=n=>'LPG-'+String(n).padStart(3,'0');
 const pen='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="1.6"><path d="M4 20l1-5L16 4l4 4L9 19l-5 1zM13 7l4 4"/></svg>';
-const trash='<svg width="17" height="17" viewBox="0 0 24 24" fill="#dc2626"><path d="M9 3h6l1 2h4v2H4V5h4l1-2zM5 9h14l-1 12H6L5 9z"/></svg>';
+const trash='<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADYAAAA6CAYAAAD7h6qmAAACDUlEQVR4nO2b0W3CMBCGPxDvRF0A+sJr2QA6QekGbEA2aJgAOkHLBKUTNGxA35EaFqjCBn1wECQkEOwL4MqfhJQY33F/El9OtqmtOh0EaAKPQD851mEDhMBcIqCGgI8B8AZ4Ar5GQASMgXcTR3XDQALgAxlRW9qoC+WbOKkZPIot1NWtki7wrWNo8igGOW0xsNT0104+2d941nFmImyQOV+iksdG018TlTy6e219TV/aY6zF4bjy0RdFYjvOtHnJb52NafKQxuTCpLg1YWJsx9gQeDH0NUclD2nCM/rGqITzWVt1OpdI25fGqyP7cr0VunXU3YquG4coEbBooDJRH3gC7pIvR6TvZAgsLhbacXqk328x8Joc/wIzKC6pfkhXAWPyK41rEJBOdBFwn+30b9O9E2YbTphtOGG2IS0sAL44b77CT2ymkoFIzFJtmaIqFlCVQczpmaYhMMnYBBLBSN6xh8x5v4RNtk9PJBLcGLMPJ8w2nDDbcMJswwmzDSfMNpww23DCbMMJK0F84lzKphSSwnx2y1ERu7mMY0wyNr5UMJKTOWvUqkcrOa7KphRVjDGdAEVFgUse9uGE2YYTZhtl32MeOSvzV8Ir06mssBG7lZRbI85rLHoUZ9XFIU7u1toiYfs13C0TUbBrr0jYdhtSWEk4MoSoGHPLsWNjbI36k0CLw03I1ybiRH35B3vdVkentyPPAAAAAElFTkSuQmCC" style="width:14px">';
+const rp=n=>'Rp.'+(+n).toLocaleString('id-ID')+'/jam',code=n=>'LPG-'+String(n).padStart(3,'0');
+
+// DUMMY DATA AWAL
+let data = [
+  {id: 1, name: 'Lapangan Futsal 1', price: 150000, on: true, type: 'Reguler', foto: 'futsal1.jpg', url: '', desc: '', lokasi: 'Cirebon'},
+  {id: 2, name: 'Lapangan Futsal 2', price: 200000, on: true, type: 'VIP', foto: 'futsal2.jpg', url: '', desc: '', lokasi: 'Cirebon'}
+];
+
+let editId=null,type=null,on=true,photo=null,delId=null,busy=false;
+const bg=d=>(d.url?"url('"+d.url+"'),":'')+G[d.id%3];
+
 function render(){
   const q=$('#q').value.toLowerCase(),L=data.filter(d=>d.name.toLowerCase().includes(q));
-  $('#rows').innerHTML=L.map(d=>`<div class="row"><div class="field"><div class="th" style="background:${d.img}"></div><div><b>${d.name}</b><small>${code(d.id)}</small></div></div>
+  $('#rows').innerHTML=L.map(d=>`<div class="row"><div class="field"><div class="th" style="background-image:${bg(d)}"></div><div><b>${esc(d.name)}</b><small>${code(d.id)}</small></div></div>
   <div class="c"><span class="badge ${d.type=='VIP'?'vip':'reg'}">${d.type}</span></div><div class="c price">${rp(d.price)}</div>
   <div><span class="st ${d.on?'':'p'}">${d.on?'Tersedia':'Perbaikan'}</span></div>
   <div class="acts"><button class="ib" data-e="${d.id}">${pen}</button><button class="ib d" data-d="${d.id}">${trash}</button></div></div>`).join('')||'<div class="empty">Lapangan tidak ditemukan.</div>';
+  
   $('#cnt').textContent=L.length+' Lapangan';
-  $('#s1').textContent=data.length;$('#s2').textContent=data.filter(d=>d.on).length;$('#s3').textContent=data.filter(d=>!d.on).length;
-  const f=$('#foot');f.style.display=data.length>=3?'flex':'none';
+  $('#s1').textContent=data.length;
+  $('#s2').textContent=data.filter(d=>d.on).length;
+  $('#s3').textContent=data.filter(d=>!d.on).length;
+  $('#foot').style.visibility=data.length>=3?'visible':'hidden';
   $('#ft').textContent=`Menampilkan 1–${L.length} dari ${L.length} lapangan di page 1`;
 }
+
 function setType(v){type=v;document.querySelectorAll('.opt').forEach(o=>{o.classList.toggle('on',o.dataset.v==v);o.classList.remove('err')})}
 function setOn(v){on=v;$('#tg').classList.toggle('on',v)}
+
 function photoUI(){
-  const h=$('#ph');
-  if(editId||photo){const d=editId?data.find(x=>x.id==editId):null;
-    h.innerHTML=`<div class="cur"><div class="p" style="background-image:${photo?`url(${photo.url})`:d.img}"></div><div class="n"><b>${photo?photo.name:d.file}</b><small>Foto saat ini</small></div><button type="button" id="gf">Ganti Foto</button></div>`;
+  const h=$('#ph'),d=editId?data.find(x=>x.id==editId):null;
+  if(photo||(d&&d.url)){
+    h.innerHTML=`<div class="cur"><div class="p" style="background-image:${photo?`url(${photo.url})`:bg(d)}"></div><div class="n"><b>${esc(photo?photo.name:(d.foto||'Foto Lapangan'))}</b><small>Foto saat ini</small></div><button type="button" id="gf">Ganti Foto</button></div>`;
     $('#gf').onclick=()=>$('#file').click();
   }else{
     h.innerHTML=`<div class="drop" id="dz"><div class="ci"><svg width="26" height="24" viewBox="0 0 26 24" fill="none" stroke="#2563eb" stroke-width="1.8"><rect x="2" y="2" width="22" height="20" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M2 19l7-7 5 5 3-3 7 6"/></svg></div><div><u>Klik untuk unggah</u> atau seret foto ke sini</div><small>JPG atau PNG, maksimal 2 MB</small></div>`;
-    const z=$('#dz');z.onclick=()=>$('#file').click();
-    z.ondragover=e=>e.preventDefault();z.ondrop=e=>{e.preventDefault();load(e.dataTransfer.files[0])};
+    const z=$('#dz');z.onclick=()=>$('#file').click();z.ondragover=e=>e.preventDefault();z.ondrop=e=>{e.preventDefault();loadFile(e.dataTransfer.files[0])};
   }
 }
-function load(f){
-  if(!f||!/^image\/(jpeg|png)$/.test(f.type)||f.size>2*1024*1024){alert('Gunakan foto JPG atau PNG, maksimal 2 MB.');return}
-  const r=new FileReader();r.onload=()=>{photo={url:r.result,name:f.name};photoUI()};r.readAsDataURL(f);
+
+function loadFile(f){
+  if(!f||!/^image\/(jpeg|png)$/.test(f.type)||f.size>2*1024*1024){toast('Gunakan foto JPG atau PNG, maksimal 2 MB.',1);return}
+  const r=new FileReader();r.onload=()=>{photo={url:r.result,name:f.name,file:f};photoUI()};r.readAsDataURL(f);
 }
+
 function open_(id){
   editId=id;photo=null;$('#file').value='';
   const d=id?data.find(x=>x.id==id):null;
@@ -232,33 +248,59 @@ function open_(id){
   document.querySelectorAll('.in').forEach(i=>i.classList.remove('err'));
   $('#fo').classList.add('on');
 }
+
 const close_=()=>$('#fo').classList.remove('on');
 $('#add').onclick=()=>open_(null);$('#bc').onclick=close_;
 $('#fo').onclick=e=>{if(e.target.id=='fo')close_()};
 document.querySelectorAll('.opt').forEach(o=>o.onclick=()=>setType(o.dataset.v));
 $('#tg').onclick=()=>setOn(!on);
-$('#file').onchange=e=>load(e.target.files[0]);
+$('#file').onchange=e=>loadFile(e.target.files[0]);
 $('#fp').oninput=e=>{const n=e.target.value.replace(/\D/g,'');e.target.value=n?(+n).toLocaleString('id-ID'):''};
 $('#q').oninput=render;
-$('#bs').onclick=()=>{
+
+$('#bs').onclick=async()=>{
+  if(busy)return;
   const name=$('#fn').value.trim(),price=+$('#fp').value.replace(/\D/g,'');let ok=true;
   $('#fn').classList.toggle('err',!name);$('#fp').classList.toggle('err',!price);
   if(!name||!price)ok=false;
   if(!type){document.querySelectorAll('.opt').forEach(o=>o.classList.add('err'));ok=false}
   if(!editId&&!photo){const z=$('#dz');z&&z.classList.add('err');ok=false}
   if(!ok)return;
-  if(editId){const d=data.find(x=>x.id==editId);Object.assign(d,{name,type,price,on});if(photo){d.img=`url(${photo.url})`;d.file=photo.name}}
-  else data.push({id:seq++,name,type,price,on,img:`url(${photo.url})`,file:photo.name});
-  close_();render();
+
+  busy=true;$('#bs').disabled=true;
+  
+  // Simulasi Simpan Data
+  setTimeout(()=>{
+    if(editId){
+      const idx = data.findIndex(x=>x.id==editId);
+      data[idx] = {...data[idx], name, price, on, type, url: photo?photo.url:data[idx].url, foto: photo?photo.name:data[idx].foto};
+    } else {
+      const newId = data.length ? Math.max(...data.map(d=>d.id))+1 : 1;
+      data.push({id: newId, name, price, on, type, foto: photo?photo.name:'', url: photo?photo.url:'', desc:'', lokasi:'Cirebon'});
+    }
+    close_(); toast('Berhasil disimpan (Lokal)'); render();
+    busy=false;$('#bs').disabled=false;
+  }, 500);
 };
+
 $('#rows').onclick=e=>{
   const b=e.target.closest('button');if(!b)return;
   if(b.dataset.e)open_(+b.dataset.e);
   if(b.dataset.d){delId=+b.dataset.d;const d=data.find(x=>x.id==delId);$('#dt').textContent='Hapus '+d.name.replace('Futsal ','')+'?';$('#do').classList.add('on')}
 };
+
 $('#dc').onclick=()=>$('#do').classList.remove('on');
 $('#do').onclick=e=>{if(e.target.id=='do')$('#do').classList.remove('on')};
-$('#dy').onclick=()=>{data=data.filter(d=>d.id!=delId);$('#do').classList.remove('on');render()};
+
+$('#dy').onclick=()=>{
+  // Simulasi Hapus
+  data = data.filter(x => x.id !== delId);
+  $('#do').classList.remove('on');
+  toast('Lapangan dihapus (Lokal)');
+  render();
+};
+
+// Panggil render pertama kali
 render();
 </script>
 </body>

@@ -136,6 +136,21 @@ body.is-error { background-color: #FFFFFF; }
 .form-control::placeholder { color: #848484; }
 .form-control:focus { border-color: var(--vsq-navy); }
 .form-control.is-invalid { border-color: var(--error) !important; }
+/* hapus background biru autofill Chrome/Safari/Edge */
+.form-control:-webkit-autofill,
+.form-control:-webkit-autofill:hover,
+.form-control:-webkit-autofill:focus,
+.form-control:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #FFFFFF inset !important;
+  box-shadow: 0 0 0 1000px #FFFFFF inset !important;
+  -webkit-text-fill-color: #000 !important;
+  caret-color: #000;
+  transition: background-color 9999s ease-in-out 0s;
+}
+.form-control:autofill {
+  box-shadow: 0 0 0 1000px #FFFFFF inset !important;
+  -webkit-text-fill-color: #000 !important;
+}
 .error-msg { display: none; position: absolute; left: 0; top: calc(100% + 14px); color: var(--error); font-size: 13px; font-weight: 500; align-items: center; gap: 7px; white-space: nowrap; }
 .error-msg.show { display: flex; }
 .error-icon { width: 15px; height: 15px; border: 1.5px solid var(--error); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; line-height: 1; }

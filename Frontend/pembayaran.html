@@ -1,605 +1,726 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ringkasan Booking - Vincent'SQ Sports Arena</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root { 
-            --vsq-navy: #131B2E; 
-            --vsq-blue: #477FEB; 
-            --vsq-red: #FF0000; 
-            --vsq-gray: #848484; 
-            --vsq-white: #FFFFFF; 
-            --vsq-error: #F04646;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; color: #000; overflow-x: hidden; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ringkasan Booking - Vincent'SQ Sports Arena</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --vsq-navy: #131B2E; --vsq-blue: #3B6FD4; --vsq-red: #DC2626; --vsq-gold: #EAB308; --vsq-gray: #848484; --vsq-bg: #F5F7FA; --vsq-border: #848484; --vsq-white: #FFFFFF; --green: #3DB268; --error: #F04646; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background-color: var(--vsq-bg); font-family: 'Plus Jakarta Sans', sans-serif; color: var(--vsq-navy); overflow-x: hidden; }
+#page { width: 100%; }
+.hidden-loading { display: none !important; }
 
-        /* ==========================================================================
-           NAVBAR
-           ========================================================================== */
-        #navbar { position: sticky; top: 0; z-index: 1000; background: #FFF; }
-        .vsq-header { background: #FFFFFF; width: 100%; height: 106px; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; box-sizing: border-box; }
-        .vsq-nav-left { display: flex; align-items: center; gap: 40px; }
-        .vsq-logo { display: flex; flex-direction: column; text-decoration: none; width: 130px; flex-shrink: 0; }
-        .vsq-logo-title { font-size: 22px; font-weight: 800; color: #131B2E; line-height: 1.1; letter-spacing: -0.5px; }
-        .vsq-logo-sub { font-size: 13px; font-weight: 800; color: #FF0000; line-height: 1.2; letter-spacing: 0.5px; margin-top: 2px; }
-        .vsq-nav-menu { display: flex; align-items: center; gap: 32px; }
-        .vsq-nav-link { font-size: 15px; font-weight: 600; color: #000000; text-decoration: none; transition: color 0.2s; white-space: nowrap; }
-        .vsq-nav-link:hover { color: var(--vsq-blue); }
-        .vsq-nav-link.active { color: #FFFFFF; background: #131B2E; padding: 14px 24px; border-radius: 12px; height: auto; display: flex; align-items: center; justify-content: center; }
-        .vsq-nav-right { display: flex; align-items: center; gap: 16px; position: relative; flex-shrink: 0; }
-        .vsq-btn-login-outline { background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
-        .vsq-btn-register { background: #131B2E; color: #FFF; width: 90px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; }
-        .vsq-profile-box { display: flex; align-items: center; justify-content: space-between; width: auto; max-width: 160px; height: 42px; border: 1px solid #000000; border-radius: 10px; padding: 0 8px 0 12px; text-decoration: none; cursor: pointer; transition: background 0.2s; flex-shrink: 1; overflow: hidden; }
-        .vsq-profile-box:hover { background: #F8FAFC; }
-        .vsq-profile-name { font-size: 14px; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; margin-right: 8px; }
-        .vsq-profile-avatar { width: 28px; height: 28px; background: #D9D9D9; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; overflow: hidden; }
-        .vsq-btn-logout { background: #131B2E; color: #FFF; width: auto; padding: 0 16px; height: 42px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
-        .vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; padding: 0; }
-        .vsq-notif-btn img { width: 28px; height: 28px; object-fit: contain; }
+/* ============================== NAVBAR (SAMA DENGAN HALAMAN BOOKING) ============================== */
+#navbar { position: sticky; top: 0; z-index: 1000; min-height: 94px; background: #FFFFFF; }
+.vsq-header {
+  background: #FFFFFF; width: 100%; min-height: 94px; height: 94px;
+  border-bottom: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0 max(50px, calc((100% - 1540px) / 2 + 50px)) 0 max(47px, calc((100% - 1540px) / 2 + 47px));
+}
+.vsq-nav-left { display: flex; align-items: center; gap: 17px; }
+.vsq-logo { display: flex; align-items: center; text-decoration: none; width: 158px; flex-shrink: 0; }
+.vsq-logo-img { width: 100%; height: auto; display: block; object-fit: contain; }
+.vsq-logo-fallback { display: flex; flex-direction: column; padding-left: 18px; }
+.vsq-logo-title { font-size: 22px; font-weight: 800; color: #131B2E; line-height: 1.1; letter-spacing: -0.5px; }
+.vsq-logo-sub { font-size: 13px; font-weight: 800; color: #FF0000; line-height: 1.2; letter-spacing: 0.5px; margin-top: 2px; }
 
-        .vsq-profile-dropdown { position: absolute; top: 60px; right: 0; width: 280px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.12); padding: 0; display: none; flex-direction: column; z-index: 1001; overflow: hidden; animation: slideDown 0.3s ease; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-        .vsq-profile-dropdown.show { display: flex; }
-        .vsq-dd-header { background: linear-gradient(135deg, #131B2E 0%, #2C437B 100%); padding: 20px; display: flex; align-items: center; gap: 15px; color: #FFFFFF; }
-        .vsq-dd-avatar { width: 50px; height: 50px; background: #477FEB; color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; border: 2px solid #FFFFFF; box-shadow: 0 4px 10px rgba(0,0,0,0.2); flex-shrink: 0; overflow: hidden; }
-        .vsq-dd-info { overflow: hidden; }
-        .vsq-dd-info h4 { font-size: 16px; font-weight: 700; margin: 0; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .vsq-badge-verified { display: inline-flex; align-items: center; gap: 4px; background: rgba(22, 163, 74, 0.2); color: #4ADE80; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-top: 6px; }
-        .vsq-dd-body { padding: 15px 20px; display: flex; flex-direction: column; gap: 12px; }
-        .vsq-dd-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #131B2E; }
-        .vsq-dd-item .value { font-weight: 600; color: #131B2E; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
-        .vsq-dd-divider { height: 1px; background: #E2E8F0; margin: 5px 20px; }
-        .vsq-dd-footer { padding: 15px 20px; display: flex; flex-direction: column; gap: 10px; background: #F8FAFC; }
-        .vsq-btn-edit-profile { background: #477FEB; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .vsq-btn-edit-profile:hover { background: #3564C6; }
-        .vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .vsq-btn-logout-dropdown:hover { background: #FEF2F2; border-color: #EF4444; }
+.vsq-nav-menu { display: flex; align-items: center; gap: 17px; }
+.vsq-nav-link {
+  height: 53px; padding: 9px 19px; border-radius: 16px; font-size: 15px; font-weight: 600; line-height: 19px;
+  color: #131B2E; text-decoration: none; white-space: nowrap; display: flex; align-items: center; justify-content: center;
+}
+.vsq-nav-link:hover { color: #131B2E; }
+.vsq-nav-link.active { color: #FFFFFF; background: #131B2E; }
+.vsq-nav-link.active:hover { color: #FFFFFF; }
+.vsq-nav-link:nth-child(1) { width: 100px; }
+.vsq-nav-link:nth-child(2) { width: 203px; }
+.vsq-nav-link:nth-child(3) { width: 159px; }
+.vsq-nav-link:nth-child(4) { width: 181px; color: #111827; }
 
-        /* ==========================================================================
-           BREADCRUMB & KONTAINER
-           ========================================================================== */
-        .breadcrumb { width: 100%; margin: 42px 0 48px; padding: 0 46px; display: flex; align-items: center; gap: 16px; color: #848484; font-size: 16px; font-weight: 400; }
-        .breadcrumb a { text-decoration: none; color: #848484; display: flex; align-items: center; transition: 0.2s; }
-        .breadcrumb a:hover { color: var(--vsq-navy); }
-        .breadcrumb svg { width: 24px; height: 24px; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
-        .breadcrumb a.home svg { width: 31px; height: 31px; }
-        .breadcrumb .current { color: #848484; }
+.vsq-nav-right { display: flex; align-items: center; gap: 17px; position: relative; flex-shrink: 0; }
+.vsq-btn-login-outline {
+  background: #FFFFFF; color: #131B2E; border: 1px solid #131B2E;
+  width: 128px; height: 51px; border-radius: 16px; font-size: 17px; font-weight: 600;
+  text-decoration: none; display: flex; align-items: center; justify-content: center;
+}
+.vsq-btn-register {
+  background: #131B2E; color: #FFF; width: 128px; height: 53px; border-radius: 16px;
+  font-size: 17px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center;
+}
+.vsq-profile-box {
+  display: flex; align-items: center; justify-content: space-between;
+  min-width: 163px; height: 52px; border: 2px solid #131B2E; border-radius: 12px;
+  padding: 0 8px 0 22px; text-decoration: none; cursor: pointer; transition: background 0.2s;
+  flex-shrink: 0; overflow: hidden;
+}
+.vsq-profile-box:hover { background: #F8FAFC; }
+.vsq-profile-name { font-size: 16px; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 400; margin-right: 8px; }
+.vsq-profile-avatar {
+  width: 36px; height: 36px; background: #D9D9D9; color: #000;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 600; flex-shrink: 0; overflow: hidden;
+}
+.vsq-profile-avatar img, .vsq-dd-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.vsq-btn-logout {
+  background: #131B2E; color: #FFF; width: 128px; height: 53px; border-radius: 16px;
+  font-size: 17px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center;
+  border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; font-family: inherit;
+}
+.vsq-notif-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; flex-shrink: 0; padding: 0; }
+.vsq-notif-btn img { width: 34px; height: 34px; object-fit: contain; }
 
-        .container { max-width: 1240px; margin: 0 auto 60px; padding: 0; }
-        .main-card { position: relative; background: #FFF; border: 1px solid #848484; border-radius: 20px; padding: 44px 100px 68px; width: 100%; }
-        .main-title { font-size: 28px; line-height: 36px; font-weight: 500; text-align: center; color: #000; margin-bottom: 93px; }
+.vsq-profile-dropdown {
+  position: absolute; top: 64px; right: 0; width: 280px;
+  background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12); padding: 0; display: none; flex-direction: column;
+  z-index: 1001; overflow: hidden; animation: slideDown 0.3s ease;
+}
+@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+.vsq-profile-dropdown.show { display: flex; }
+.vsq-dd-header { background: linear-gradient(135deg, #131B2E 0%, #2C437B 100%); padding: 20px; display: flex; align-items: center; gap: 15px; color: #FFFFFF; }
+.vsq-dd-avatar { width: 50px; height: 50px; background: #477FEB; color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; border: 2px solid #FFFFFF; box-shadow: 0 4px 10px rgba(0,0,0,0.2); flex-shrink: 0; overflow: hidden; }
+.vsq-dd-info { overflow: hidden; }
+.vsq-dd-info h4 { font-size: 16px; font-weight: 700; margin: 0; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vsq-badge-verified { display: inline-flex; align-items: center; gap: 4px; background: rgba(22, 163, 74, 0.2); color: #4ADE80; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-top: 6px; }
+.vsq-dd-body { padding: 15px 20px; display: flex; flex-direction: column; gap: 12px; }
+.vsq-dd-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #131B2E; }
+.vsq-dd-item .value { font-weight: 600; color: #131B2E; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
+.vsq-dd-divider { height: 1px; background: #E2E8F0; margin: 5px 20px; }
+.vsq-dd-footer { padding: 15px 20px; display: flex; flex-direction: column; gap: 10px; background: #F8FAFC; }
+.vsq-btn-edit-profile { background: #477FEB; color: #FFF; border: none; width: 100%; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.vsq-btn-edit-profile:hover { background: #3564C6; }
+.vsq-btn-logout-dropdown { background: transparent; color: #EF4444; border: 1px solid #FECACA; width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.vsq-btn-logout-dropdown:hover { background: #FEF2F2; border-color: #EF4444; }
 
-        /* Toast (hijau = sukses, merah = gagal) */
-        .toast { position: absolute; top: 97px; left: 50%; transform: translateX(-50%); width: 477px; max-width: calc(100% - 32px); min-height: 46px; padding: 0 16px; border-radius: 14px; background: #B1D5C0; color: #1B7F3F; font-size: 14px; font-weight: 500; display: none; align-items: center; justify-content: center; gap: 10px; z-index: 5; text-align: center; }
-        .toast.show { display: flex; }
-        .toast.err { background: #F8D0D0; color: #C02626; }
-        .toast svg { width: 26px; height: 26px; stroke: currentColor; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+/* ============================== BREADCRUMB & KARTU ============================== */
+.breadcrumb { padding: 0 46px; margin: 45px 0 52px; display: flex; align-items: center; gap: 16px; color: #848484; font-size: 18px; }
+.breadcrumb a, .breadcrumb .current { text-decoration: none; color: #848484; display: flex; align-items: center; }
+.breadcrumb a:hover { color: var(--vsq-navy); }
+.breadcrumb svg { width: 24px; height: 24px; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.breadcrumb a.home { color: var(--vsq-navy); }
+.breadcrumb a.home svg { width: 31px; height: 31px; }
 
-        /* Kotak ringkasan */
-        .summary-box { border: 1px solid #848484; border-radius: 24px; padding: 40px 50px 105px; }
-        .total-row { display: flex; justify-content: space-between; align-items: center; height: 40px; }
-        .total-row span { font-size: 20px; font-weight: 500; color: #000; }
-        .total-row h3 { font-size: 28px; font-weight: 500; color: #131B2E; }
+.container { max-width: 1442px; margin: 0 auto 60px; padding: 0; }
+.main-card { position: relative; background: #FFF; border: 1px solid #848484; border-radius: 24px; padding: 48px 116px 73px; width: 100%; }
+.main-title { font-size: 28px; line-height: 36px; font-weight: 500; text-align: center; color: var(--vsq-navy); margin-bottom: 100px; }
 
-        .rek { text-align: center; margin-top: 162px; }
-        .rek-label { font-size: 22px; line-height: 28px; font-weight: 500; color: #000; }
-        .rek-number { font-size: 56px; line-height: 64px; font-weight: 800; letter-spacing: .05em; color: #000; margin-top: 26px; }
-        .rek-name { font-size: 24px; line-height: 30px; font-weight: 500; color: #000; margin-top: 23px; }
+/* Toast (hijau = sukses, merah = gagal) */
+.toast { position: absolute; top: 103px; left: 50%; transform: translateX(-50%); width: 961px; max-width: calc(100% - 32px); min-height: 49px; padding: 0 22px; border-radius: 14px; background: #B1D5C0; color: #1B7F3F; font-size: 14px; font-weight: 400; line-height: 20px; display: none; align-items: center; justify-content: flex-start; gap: 12px; z-index: 5; }
+.toast.show { display: flex; }
+.toast.err { background: #F8D0D0; color: #C02626; }
+.toast svg { width: 25px; height: 25px; stroke: currentColor; stroke-width: 1.7; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
-        .countdown-row { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 146px; }
-        .countdown-label { font-size: 20px; line-height: 36px; font-weight: 500; color: #000; }
-        .countdown-right { text-align: right; }
-        .countdown-right h4 { font-size: 28px; line-height: 36px; font-weight: 500; color: #131B2E; font-variant-numeric: tabular-nums; }
-        .countdown-right p { font-size: 18px; line-height: 24px; font-weight: 400; color: #000; margin-top: 6px; }
-        .status-row { margin-top: 30px; padding-top: 21px; border-top: 1px solid #000; text-align: right; font-size: 20px; line-height: 30px; font-weight: 400; color: #000; }
+/* Kotak ringkasan */
+.summary-box { border: 1px solid #848484; border-radius: 28px; padding: 44px 58px 114px; }
+.total-row { display: flex; justify-content: space-between; align-items: center; height: 40px; }
+.total-row span { font-size: 20px; font-weight: 500; color: var(--vsq-navy); }
+.total-row h3 { font-size: 28px; font-weight: 500; color: var(--vsq-navy); margin-right: 12px; }
 
-        /* Detail pemesan */
-        .detail-list { margin-top: 21px; }
-        .detail-row { display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 62px; font-size: 20px; font-weight: 400; color: #000; }
-        .detail-row span:last-child { text-align: right; }
+.rek { text-align: center; margin-top: 177px; }
+.rek-label { font-size: 22px; line-height: 28px; font-weight: 500; color: var(--vsq-navy); }
+.rek-number { font-size: 56px; line-height: 64px; font-weight: 800; letter-spacing: .05em; color: var(--vsq-navy); margin-top: 31px; }
+.rek-name { font-size: 24px; line-height: 30px; font-weight: 500; color: var(--vsq-navy); margin-top: 28px; }
 
-        /* Upload bukti */
-        .upload-wrap { position: relative; margin-top: 22px; }
-        .upload-box { border: 1px solid #848484; border-radius: 20px; min-height: 175px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 20px; cursor: pointer; background: #fff; transition: border-color .2s; text-align: center; }
-        .upload-box:hover { border-color: #000; }
-        .upload-box:focus-visible { outline: 2px solid #131B2E; outline-offset: 2px; }
-        .upload-box.is-invalid { border-color: var(--vsq-error); }
-        .upload-box svg { width: 82px; height: 82px; stroke: #000; stroke-width: 1.7; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-        .upload-box img.preview { max-height: 90px; max-width: 100%; border-radius: 8px; object-fit: contain; }
-        .upload-label { font-size: 28px; line-height: 36px; font-weight: 500; color: #000; word-break: break-all; }
-        .upload-label.small { font-size: 16px; line-height: 22px; font-weight: 500; }
-        .error-msg { display: none; position: absolute; left: 0; top: calc(100% + 12px); color: var(--vsq-error); font-size: 13px; font-weight: 500; align-items: center; gap: 7px; }
-        .error-msg.show { display: flex; }
-        .error-icon { width: 15px; height: 15px; border: 1.5px solid var(--vsq-error); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; line-height: 1; }
+.countdown-row { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 160px; }
+.countdown-label { font-size: 20px; line-height: 36px; font-weight: 500; color: var(--vsq-navy); }
+.countdown-right { text-align: right; }
+.countdown-right h4 { font-size: 28px; line-height: 36px; font-weight: 500; color: var(--vsq-navy); font-variant-numeric: tabular-nums; margin-right: 8px; }
+.countdown-right p { font-size: 18px; line-height: 24px; font-weight: 400; color: var(--vsq-navy); margin-top: 9px; margin-right: 16px; }
+.status-row { margin-top: 34px; padding: 23px 20px 0 0; border-top: 1px solid var(--vsq-navy); text-align: right; font-size: 20px; line-height: 30px; font-weight: 400; color: var(--vsq-navy); }
 
-        .btn-submit { width: 100%; height: 75px; margin-top: 41px; background: var(--vsq-navy); color: #FFF; border: none; border-radius: 18px; font-size: 18px; font-weight: 500; font-family: inherit; cursor: pointer; transition: .3s; }
-        .btn-submit:hover { background: #1a2b4c; }
-        .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
+/* Detail pemesan */
+.detail-list { margin-top: 22px; }
+.detail-row { display: flex; justify-content: space-between; align-items: center; gap: 24px; height: 67.5px; font-size: 20px; font-weight: 400; color: var(--vsq-navy); }
+.detail-row span:first-child { width: 190px; text-align: center; flex-shrink: 0; }
+.detail-row span:last-child { text-align: right; padding-right: 11px; }
+/* penyesuaian posisi sesuai desain */
+.detail-row:nth-child(2) span:last-child { padding-right: 17px; }
+.detail-row:nth-child(3) span:last-child { padding-right: 12px; }
+.detail-row:nth-child(4) span:last-child { padding-right: 15px; }
 
-        /* Halaman tanpa jaringan */
-        #vsqOffline { position: fixed; inset: 0; z-index: 99999; background: #131B2E; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; }
-        #vsqOffline.show { display: flex; }
-        #vsqOffline svg { width: clamp(72px, 8vw, 124px); height: auto; stroke: #FF2A2A; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-        #vsqOffline h1 { margin-top: clamp(20px, 3vw, 44px); color: #fff; font-size: clamp(24px, 3vw, 44px); font-weight: 700; line-height: 1.2; }
-        #vsqOffline p { margin-top: 18px; color: #D4D4D4; font-size: clamp(16px, 2.2vw, 32px); font-weight: 400; }
-        #vsqOffline button { margin-top: clamp(24px, 3vw, 48px); background: #FF2A2A; color: #fff; border: 0; border-radius: 16px; width: clamp(150px, 13vw, 186px); height: clamp(48px, 4.4vw, 63px); font-size: clamp(14px, 1.2vw, 17px); font-weight: 500; font-family: inherit; cursor: pointer; transition: opacity .2s; }
-        #vsqOffline button:disabled { opacity: .7; cursor: wait; }
+/* Upload bukti */
+.upload-wrap { position: relative; margin-top: 22px; }
+.upload-box {
+  border: 0; border-radius: 24px; min-height: 190px; padding: 33px 20px 29px;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 18px;
+  cursor: pointer; text-align: center; background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect width='100%25' height='100%25' fill='none' stroke='%23848484' stroke-width='2' stroke-dasharray='10%2C8' rx='24' ry='24'/%3E%3C/svg%3E");
+  transition: background-color .2s;
+}
+.upload-box:hover { background-color: #FBFCFD; }
+.upload-box:focus-visible { outline: 2px solid var(--vsq-navy); outline-offset: 2px; }
+.upload-box.is-invalid { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect width='100%25' height='100%25' fill='none' stroke='%23F04646' stroke-width='2' stroke-dasharray='10%2C8' rx='24' ry='24'/%3E%3C/svg%3E"); }
+.upload-box svg { width: 96px; height: 78px; stroke: var(--vsq-navy); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.upload-box svg .dot { fill: var(--vsq-navy); }
+.upload-box img.preview { height: 78px; max-width: 100%; border-radius: 8px; object-fit: contain; flex-shrink: 0; }
+.upload-label { font-size: 24px; line-height: 32px; font-weight: 500; color: var(--vsq-navy); word-break: break-all; }
+.upload-label.small { font-size: 16px; line-height: 22px; }
+.error-msg { display: none; position: absolute; left: 0; top: calc(100% + 12px); color: var(--error); font-size: 13px; font-weight: 500; align-items: center; gap: 7px; }
+.error-msg.show { display: flex; }
+.error-icon { width: 15px; height: 15px; border: 1.5px solid var(--error); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; line-height: 1; }
 
-        /* ==========================================================================
-           SKELETON LOADING (SESUAI REFERENSI)
-           ========================================================================== */
-        @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
-        .skeleton-box { background: #E2E8F0; background-image: linear-gradient(to right, #E2E8F0 0%, #F1F5F9 20%, #E2E8F0 40%, #E2E8F0 100%); background-repeat: no-repeat; background-size: 1000px 100%; animation: shimmer 2s infinite linear forwards; border-radius: 8px; }
+.btn-submit { width: 100%; height: 81px; margin-top: 44px; background: var(--vsq-navy); color: #FFF; border: none; border-radius: 20px; font-size: 16px; font-weight: 500; font-family: inherit; cursor: pointer; transition: .3s; }
+.btn-submit:hover { background: #1a2b4c; }
+.btn-submit:disabled { opacity: .6; cursor: not-allowed; }
 
-        /* Skeleton Card */
-        .sk-main-card { border: 1px solid #E2E8F0; border-radius: 20px; padding: 44px 100px 68px; background: #fff; }
-        .sk-title { width: 50%; height: 36px; margin: 0 auto 93px; }
-        .sk-summary-box { border: 1px solid #E2E8F0; border-radius: 24px; padding: 40px 50px 105px; }
-        .sk-total-row { display: flex; justify-content: space-between; margin-bottom: 162px; }
-        .sk-total-title { width: 120px; height: 24px; }
-        .sk-total-value { width: 150px; height: 32px; }
-        .sk-rek { text-align: center; margin-bottom: 146px; }
-        .sk-rek-label { width: 200px; height: 28px; margin: 0 auto 26px; }
-        .sk-rek-number { width: 380px; height: 64px; margin: 0 auto 23px; }
-        .sk-rek-name { width: 150px; height: 30px; margin: 0 auto; }
-        .sk-countdown { display: flex; justify-content: space-between; margin-bottom: 30px; }
-        .sk-countdown-label { width: 100px; height: 24px; }
-        .sk-countdown-timer { width: 150px; height: 36px; }
-        .sk-status { width: 200px; height: 30px; margin-left: auto; margin-bottom: 21px; }
-        
-        .sk-detail-list { margin-top: 21px; }
-        .sk-detail-row { display: flex; justify-content: space-between; margin-bottom: 24px; }
-        .sk-detail-label { width: 150px; height: 24px; }
-        .sk-detail-value { width: 200px; height: 24px; }
-        
-        .sk-upload-box { width: 100%; height: 175px; border-radius: 20px; margin-top: 22px; margin-bottom: 41px; }
-        .sk-btn-submit { width: 100%; height: 75px; border-radius: 18px; }
+/* ============================== SKELETON ============================== */
+@keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.skeleton-box { background: #E2E8F0 linear-gradient(to right, #E2E8F0 0, #F1F5F9 20%, #E2E8F0 40%) no-repeat; background-size: 1000px 100%; animation: shimmer 1.8s infinite linear; border-radius: 8px; }
+.fade-in { animation: fadeIn .35s ease; }
+.sk-main-card { background: #fff; border: 1px solid #E2E8F0; border-radius: 24px; padding: 48px 116px 73px; }
+.sk-title { width: 300px; max-width: 80%; height: 36px; margin: 0 auto 100px; }
+.sk-summary-box { position: relative; height: 875px; border: 1px solid #E2E8F0; border-radius: 28px; }
+.sk-summary-box .skeleton-box { position: absolute; }
+.sk-detail-list { margin-top: 22px; }
+.sk-detail-row { height: 67.5px; display: flex; justify-content: space-between; align-items: center; }
+.sk-detail-label { width: 160px; height: 24px; }
+.sk-detail-value { width: 190px; height: 24px; }
+.sk-upload-box { height: 190px; border-radius: 24px; margin-top: 22px; }
+.sk-btn-submit { height: 81px; border-radius: 20px; margin-top: 44px; }
 
-        /* RESPONSIVE */
-        @media screen and (max-width: 1300px) { .container { padding: 0 20px; } }
-        @media screen and (max-width: 1100px) { .main-card, .sk-main-card { padding: 40px 40px 50px; } .main-title, .sk-title { margin-bottom: 50px; } }
-        @media screen and (max-width: 900px) {
-            .breadcrumb { margin: 20px 0 15px; padding: 0 16px; font-size: 13px; gap: 8px; flex-wrap: wrap; }
-            .breadcrumb svg { width: 18px; height: 18px; }
-            .breadcrumb a.home svg { width: 22px; height: 22px; }
-            .main-card, .sk-main-card { padding: 24px 16px 30px; }
-            .main-title, .sk-title { font-size: 22px; margin-bottom: 70px; width: 80%; }
-            .toast { top: 72px; width: calc(100% - 32px); }
-            .summary-box, .sk-summary-box { padding: 24px 16px 40px; }
-            .total-row h3 { font-size: 22px; }
-            .rek { margin-top: 60px; }
-            .rek-number { font-size: 34px; line-height: 44px; }
-            .countdown-row { margin-top: 60px; }
-            .countdown-right h4 { font-size: 22px; }
-            .countdown-right p { font-size: 14px; }
-            .detail-row { font-size: 15px; }
-            .upload-label { font-size: 20px; }
-            .upload-box svg { width: 64px; height: 64px; }
-            .btn-submit, .sk-btn-submit { height: 60px; }
-        }
-        @media screen and (max-width: 768px) {
-            .vsq-header { height: 80px; padding: 0 16px; }
-            .vsq-nav-menu { display: none; }
-            .vsq-nav-right { gap: 8px; }
-            .vsq-profile-box { max-width: 60px; padding: 0 6px; height: 40px; justify-content: center; border-radius: 8px; }
-            .vsq-profile-name { display: none; }
-            .vsq-profile-avatar { width: 26px; height: 26px; font-size: 11px; }
-            .vsq-btn-logout, .vsq-btn-login-outline, .vsq-btn-register { padding: 0 12px; height: 40px; font-size: 12px; border-radius: 8px; width: auto; }
-            .vsq-profile-dropdown { position: fixed; top: 85px; right: 16px; left: 16px; width: auto; }
-        }
-    </style>
+/* ============================== OFFLINE & MODAL LOGOUT ============================== */
+#vsqOffline { position: fixed; inset: 0; z-index: 99999; background: #1A2235; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; }
+#vsqOffline.show { display: flex; }
+#vsqOffline svg { width: clamp(72px, 8vw, 124px); stroke: #FF2A2A; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+#vsqOffline h1 { margin-top: 28px; color: #fff; font-size: clamp(24px, 3vw, 44px); }
+#vsqOffline p { margin-top: 18px; color: #D4D4D4; font-size: clamp(16px, 2.2vw, 32px); }
+#vsqOffline button { margin-top: 32px; background: #FF2A2A; color: #fff; border: 0; border-radius: 16px; width: 170px; height: 56px; font-size: 16px; font-family: inherit; cursor: pointer; }
+#vsqOffline button:disabled { opacity: .7; cursor: wait; }
+
+.vsq-modal-overlay { position: fixed; inset: 0; background: rgba(19, 27, 46, 0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 9999; opacity: 0; transition: opacity 0.3s ease; }
+.vsq-modal-overlay.show { display: flex; opacity: 1; }
+.vsq-modal-box { background: #FFFFFF; width: 90%; max-width: 458px; border: 1px solid #9CA3AF; border-radius: 16px; padding: 46px 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.3s ease; }
+.vsq-modal-overlay.show .vsq-modal-box { transform: translateY(0); }
+.vsq-modal-icon { width: 72px; height: 72px; margin: 0 auto 20px; }
+.vsq-modal-icon img { width: 72px; height: 72px; object-fit: contain; display: block; }
+.vsq-modal-title { font-size: 20px; line-height: 28px; font-weight: 600; color: var(--vsq-navy); margin-bottom: 18px; }
+.vsq-modal-text { font-size: 14px; line-height: 18px; font-weight: 400; color: var(--vsq-navy); margin: 0 0 23px; }
+.vsq-modal-actions { display: flex; gap: 11px; justify-content: center; padding-right: 9px; }
+.vsq-btn-cancel, .vsq-btn-confirm-logout { width: 95px; height: 42px; padding: 0; border-radius: 12px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, border-color 0.2s; }
+.vsq-btn-cancel { background: #FFFFFF; color: var(--vsq-navy); border: 1px solid #9CA3AF; }
+.vsq-btn-cancel:hover { background: #F8FAFC; border-color: #6B7280; }
+.vsq-btn-confirm-logout { background: var(--vsq-navy); color: #FFFFFF; border: 1px solid var(--vsq-navy); }
+.vsq-btn-confirm-logout:hover { background: #1d2a47; border-color: #1d2a47; }
+
+/* ============================== RESPONSIVE ============================== */
+@media(max-width:1590px){ .container { padding: 0 49px; } }
+@media screen and (max-width: 1100px) {
+  .vsq-header { padding: 0 20px; }
+  .vsq-nav-menu { gap: 4px; }
+  .vsq-nav-link { font-size: 14px; padding: 12px 10px; height: 44px; }
+  .vsq-nav-link:nth-child(1), .vsq-nav-link:nth-child(2), .vsq-nav-link:nth-child(3), .vsq-nav-link:nth-child(4) { width: auto; }
+  .vsq-logo { width: 140px; }
+  .vsq-btn-login-outline, .vsq-btn-register, .vsq-btn-logout { width: 100px; height: 44px; font-size: 14px; border-radius: 12px; }
+  .vsq-profile-box { min-width: 130px; height: 44px; }
+  .main-card, .sk-main-card { padding: 40px 40px 50px; }
+}
+@media screen and (max-width: 900px) {
+  .container { padding: 0 16px; }
+  .breadcrumb { margin: 20px 0 15px; padding: 0 16px; font-size: 13px; gap: 8px; flex-wrap: wrap; }
+  .breadcrumb svg { width: 18px; height: 18px; } .breadcrumb a.home svg { width: 22px; height: 22px; }
+  .main-card, .sk-main-card { padding: 24px 16px 30px; border-radius: 20px; }
+  .main-title { font-size: 22px; line-height: 30px; margin-bottom: 70px; }
+  .sk-title { margin-bottom: 70px; }
+  .toast { top: 62px; width: calc(100% - 32px); padding: 8px 14px; }
+  .summary-box { padding: 24px 16px 40px; border-radius: 20px; }
+  .total-row h3 { font-size: 22px; margin-right: 0; }
+  .rek { margin-top: 60px; }
+  .rek-number { font-size: 34px; line-height: 44px; }
+  .rek-name { margin-top: 16px; }
+  .countdown-row { margin-top: 60px; }
+  .countdown-right h4 { font-size: 22px; margin-right: 0; }
+  .countdown-right p { font-size: 14px; margin-right: 0; }
+  .status-row { padding-right: 0; }
+  .detail-row { font-size: 15px; height: 56px; }
+  .detail-row span:first-child { width: auto; text-align: left; }
+  .detail-row span:last-child, .detail-row:nth-child(n) span:last-child { padding-right: 0; }
+  .upload-label { font-size: 18px; }
+  .upload-box svg { width: 72px; height: 58px; }
+  .upload-box img.preview { height: 58px; }
+  .btn-submit, .sk-btn-submit { height: 60px; }
+  .sk-summary-box { height: 520px; }
+}
+@media screen and (max-width: 768px) {
+  .vsq-header { height: 80px; padding: 0 16px; }
+  .vsq-nav-menu { display: none; }
+  .vsq-logo { width: 120px; }
+  .vsq-nav-right { gap: 8px; }
+  .vsq-notif-btn { width: 40px; height: 40px; }
+  .vsq-notif-btn img { width: 28px; height: 28px; }
+  .vsq-profile-box { min-width: 0; max-width: 60px; padding: 0 6px; height: 40px; justify-content: center; border-radius: 8px; border-width: 1px; }
+  .vsq-profile-name { display: none; }
+  .vsq-profile-avatar { width: 26px; height: 26px; font-size: 11px; }
+  .vsq-btn-logout, .vsq-btn-login-outline, .vsq-btn-register { padding: 0 12px; height: 40px; font-size: 12px; border-radius: 8px; width: auto; }
+  .vsq-profile-dropdown { position: fixed; top: 85px; right: 16px; left: 16px; width: auto; }
+  .vsq-modal-box { padding: 32px 20px; }
+  .vsq-modal-text br { display: none; }
+}
+html { scrollbar-gutter: stable; }
+</style>
 </head>
 <body>
 
-    <header id="navbar"></header>
+<div id="page">
+  <header id="navbar"></header>
 
-    <div class="breadcrumb">
-        <a href="index.html" class="home">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5L12 3l9 7.5v10a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 20.5v-10z" /><path d="M9 22v-6h6v6" /></svg>
-        </a>
-        <svg viewBox="0 0 24 24" fill="none" stroke="#848484" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        <a href="lapangan.html">Booking Lapangan</a>
-        <svg viewBox="0 0 24 24" fill="none" stroke="#848484" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        <a href="detail_lapangan.html?id=1" id="bc-detail">Detail Lapangan 1</a>
-        <svg viewBox="0 0 24 24" fill="none" stroke="#848484" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        <a href="booking_lapangan.html?id=1" id="bc-form">Formulir Booking</a>
-        <svg viewBox="0 0 24 24" fill="none" stroke="#848484" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        <span class="current">Ringkasan Booking</span>
+  <div class="breadcrumb" id="breadcrumb">
+    <a href="index.html" class="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5L12 3l9 7.5v10a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 20.5v-10z"/><path d="M9 22v-6h6v6"/></svg></a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="#848484"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="lapangan.html">Booking Lapangan</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="#848484"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="detail_lapangan.html?id=1" id="bc-detail">Detail Lapangan 1</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="#848484"><polyline points="9 18 15 12 9 6"/></svg>
+    <a href="booking_lapangan.html?id=1" id="bc-form">Formulir Booking</a>
+    <svg viewBox="0 0 24 24" fill="none" stroke="#848484"><polyline points="9 18 15 12 9 6"/></svg>
+    <span class="current">Ringkasan Booking</span>
+  </div>
+
+  <main class="container">
+
+    <!-- SKELETON -->
+    <div id="skeleton-container" class="sk-main-card" aria-hidden="true">
+      <div class="skeleton-box sk-title"></div>
+      <div class="sk-summary-box">
+        <div class="skeleton-box" style="left:58px;top:51px;width:120px;height:24px"></div>
+        <div class="skeleton-box" style="right:70px;top:48px;width:150px;height:32px"></div>
+        <div class="skeleton-box" style="left:50%;margin-left:-100px;top:261px;width:200px;height:28px"></div>
+        <div class="skeleton-box" style="left:50%;margin-left:-190px;top:320px;width:380px;height:64px;max-width:90%"></div>
+        <div class="skeleton-box" style="left:50%;margin-left:-75px;top:412px;width:150px;height:30px"></div>
+        <div class="skeleton-box" style="left:58px;top:608px;width:110px;height:24px"></div>
+        <div class="skeleton-box" style="right:66px;top:602px;width:150px;height:36px"></div>
+        <div class="skeleton-box" style="right:74px;top:649px;width:260px;height:22px"></div>
+        <div class="skeleton-box" style="right:78px;top:729px;width:200px;height:30px"></div>
+      </div>
+      <div class="sk-detail-list">
+        <div class="sk-detail-row"><div class="skeleton-box sk-detail-label"></div><div class="skeleton-box sk-detail-value"></div></div>
+        <div class="sk-detail-row"><div class="skeleton-box sk-detail-label"></div><div class="skeleton-box sk-detail-value"></div></div>
+        <div class="sk-detail-row"><div class="skeleton-box sk-detail-label"></div><div class="skeleton-box sk-detail-value"></div></div>
+        <div class="sk-detail-row"><div class="skeleton-box sk-detail-label"></div><div class="skeleton-box sk-detail-value"></div></div>
+      </div>
+      <div class="skeleton-box sk-upload-box"></div>
+      <div class="skeleton-box sk-btn-submit"></div>
     </div>
 
-    <main class="container">
-        
-        <!-- SKELETON CONTAINER -->
-        <div id="skeleton-container" class="sk-main-card">
-            <div class="skeleton-box sk-title"></div>
-            
-            <div class="sk-summary-box">
-                <div class="sk-total-row">
-                    <div class="skeleton-box sk-total-title"></div>
-                    <div class="skeleton-box sk-total-value"></div>
-                </div>
-                
-                <div class="sk-rek">
-                    <div class="skeleton-box sk-rek-label"></div>
-                    <div class="skeleton-box sk-rek-number"></div>
-                    <div class="skeleton-box sk-rek-name"></div>
-                </div>
-                
-                <div class="sk-countdown">
-                    <div class="skeleton-box sk-countdown-label"></div>
-                    <div class="skeleton-box sk-countdown-timer"></div>
-                </div>
-                
-                <div class="skeleton-box sk-status"></div>
-            </div>
+    <!-- KONTEN ASLI -->
+    <div class="main-card hidden-loading" id="mainCard">
+      <h1 class="main-title">Ringkasan Booking</h1>
 
-            <div class="sk-detail-list">
-                <div class="sk-detail-row"><div class="skeleton-box sk-detail-label"></div><div class="skeleton-box sk-detail-value"></div></div>
-                <div class="sk-detail-row"><div class="skeleton-box sk-detail-label"></div><div class="skeleton-box sk-detail-value"></div></div>
-                <div class="sk-detail-row"><div class="skeleton-box sk-detail-label"></div><div class="skeleton-box sk-detail-value"></div></div>
-                <div class="sk-detail-row"><div class="skeleton-box sk-detail-label"></div><div class="skeleton-box sk-detail-value"></div></div>
-            </div>
+      <div class="toast" id="toast" role="status">
+        <svg id="toastIcon" viewBox="0 0 24 24"></svg>
+        <span id="toastText"></span>
+      </div>
 
-            <div class="skeleton-box sk-upload-box"></div>
-            <div class="skeleton-box sk-btn-submit"></div>
+      <div class="summary-box">
+        <div class="total-row">
+          <span>Total Harga</span>
+          <h3 id="displayTotalHarga">Rp100.000</h3>
         </div>
 
-        <!-- KONTEN ASLI -->
-        <div class="main-card hidden-loading" id="mainCard">
-            <h1 class="main-title">Ringkasan Booking</h1>
-
-            <div class="toast" id="toast" role="status">
-                <svg id="toastIcon" viewBox="0 0 24 24"></svg>
-                <span id="toastText"></span>
-            </div>
-
-            <div class="summary-box">
-                <div class="total-row">
-                    <span>Total Harga</span>
-                    <h3 id="displayTotalHarga">Rp100.000</h3>
-                </div>
-
-                <div class="rek">
-                    <div class="rek-label">No. Rekening BCA</div>
-                    <div class="rek-number" id="noRekening">1342665181</div>
-                    <div class="rek-name">A.n Abdullah</div>
-                </div>
-
-                <div class="countdown-row">
-                    <div class="countdown-label">Bayar Dalam</div>
-                    <div class="countdown-right">
-                        <h4 id="countdownTimer">23:59:56</h4>
-                        <p id="dueDateText">Jatuh tempo, -</p>
-                    </div>
-                </div>
-
-                <div class="status-row" id="statusText">Menunggu Pembayaran</div>
-            </div>
-
-            <div class="detail-list">
-                <div class="detail-row"><span>Nama Pemesanan:</span><span id="dataNama">-</span></div>
-                <div class="detail-row"><span>Tanggal Pemesanan:</span><span id="dataTanggal">-</span></div>
-                <div class="detail-row"><span>Waktu Booking:</span><span id="dataWaktu">-</span></div>
-                <div class="detail-row"><span>Jenis Lapangan:</span><span id="dataLapangan">-</span></div>
-            </div>
-
-            <div class="upload-wrap">
-                <div class="upload-box" id="uploadBox" tabindex="0" role="button" aria-label="Upload bukti pembayaran">
-                    <svg viewBox="0 0 24 24" id="uploadIcon"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-                    <div class="upload-label" id="uploadLabel">Upload Bukti</div>
-                </div>
-                <input type="file" id="fileBukti" accept="image/jpeg,image/png,image/webp" hidden>
-                <div class="error-msg" id="err-upload" role="alert"><span class="error-icon">!</span> <span id="errUploadText">Harap upload bukti pembayaran!</span></div>
-            </div>
-
-            <button class="btn-submit" id="btnSubmit" type="button">Submit</button>
+        <div class="rek">
+          <div class="rek-label">No. Rekening BCA</div>
+          <div class="rek-number" id="noRekening">1342665181</div>
+          <div class="rek-name">A.n Abdullah</div>
         </div>
-    </main>
 
-    <div id="logoutModal" class="vsq-modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(19,27,46,.6); z-index:9999; align-items:center; justify-content:center;">
-        <div style="background:#FFF; padding:30px; border-radius:16px; text-align:center; max-width:400px; width:90%;">
-            <h3 style="font-size:20px; font-weight:700; color:#131B2E; margin-bottom:10px;">Konfirmasi Keluar</h3>
-            <p style="font-size:14px; color:#64748B; margin-bottom:25px;">Apakah Anda yakin ingin keluar dari akun ini?</p>
-            <div style="display:flex; gap:12px;">
-                <button onclick="closeLogoutModal()" style="flex:1; padding:12px; border-radius:8px; border:1px solid #CBD5E1; background:#FFF; cursor:pointer; font-weight:600;">Batal</button>
-                <button onclick="confirmLogout()" style="flex:1; padding:12px; border-radius:8px; border:none; background:#EF4444; color:#FFF; cursor:pointer; font-weight:600;">Ya, Keluar</button>
-            </div>
+        <div class="countdown-row">
+          <div class="countdown-label">Bayar Dalam</div>
+          <div class="countdown-right">
+            <h4 id="countdownTimer">23:59:56</h4>
+            <p id="dueDateText">Jatuh tempo, -</p>
+          </div>
         </div>
+
+        <div class="status-row" id="statusText">Menunggu Pembayaran</div>
+      </div>
+
+      <div class="detail-list">
+        <div class="detail-row"><span>Nama Pemesanan:</span><span id="dataNama">-</span></div>
+        <div class="detail-row"><span>Tanggal Pemesanan:</span><span id="dataTanggal">-</span></div>
+        <div class="detail-row"><span>Waktu Booking:</span><span id="dataWaktu">-</span></div>
+        <div class="detail-row"><span>Jenis Lapangan:</span><span id="dataLapangan">-</span></div>
+      </div>
+
+      <div class="upload-wrap">
+        <div class="upload-box" id="uploadBox" tabindex="0" role="button" aria-label="Upload bukti pembayaran">
+          <svg viewBox="0 0 24 19.5" id="uploadIcon" aria-hidden="true">
+            <rect x="1" y="1" width="22" height="17.5" rx="2"/>
+            <circle class="dot" cx="14.6" cy="6.6" r="1.2"/>
+            <path d="M1.3 15.6 6.4 10.5a1.5 1.5 0 0 1 2.1 0L18.4 18.2"/>
+            <path d="M12.9 14.2 15.7 11.4a1.5 1.5 0 0 1 2.1 0L22.7 15.6"/>
+          </svg>
+          <div class="upload-label" id="uploadLabel">Klik Untuk Upload Bukti</div>
+        </div>
+        <input type="file" id="fileBukti" accept="image/jpeg,image/png,image/webp" hidden>
+        <div class="error-msg" id="err-upload" role="alert"><span class="error-icon">!</span> <span id="errUploadText">Harap upload bukti pembayaran!</span></div>
+      </div>
+
+      <button class="btn-submit" id="btnSubmit" type="button">Submit</button>
     </div>
+  </main>
+</div>
 
-    <!-- HALAMAN TANPA JARINGAN -->
-    <div id="vsqOffline" role="alertdialog" aria-live="assertive">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/>
-            <path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/>
-            <path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/>
-            <path d="m2 2 20 20"/>
-        </svg>
-        <h1>Tidak Ada Koneksi Internet</h1>
-        <p>Periksa Koneksi Anda Kembali</p>
-        <button type="button" id="vsqRetryBtn">Coba Lagi</button>
+<!-- MODAL LOGOUT (SAMA DENGAN HALAMAN BOOKING) -->
+<div class="vsq-modal-overlay" id="logoutModal">
+  <div class="vsq-modal-box" role="dialog" aria-modal="true" aria-labelledby="logoutTitle">
+    <div class="vsq-modal-icon"><img src="assets/images/icon-logout.png" alt=""></div>
+    <h3 class="vsq-modal-title" id="logoutTitle">Konfirmasi Keluar</h3>
+    <p class="vsq-modal-text">Apakah anda yakin ingin keluar dari akun? anda harus<br>login kembali untuk melakukan pembookingan</p>
+    <div class="vsq-modal-actions">
+      <button type="button" class="vsq-btn-cancel" onclick="closeLogoutModal()">Batal</button>
+      <button type="button" class="vsq-btn-confirm-logout" onclick="confirmLogout()">Ya, Keluar</button>
     </div>
+  </div>
+</div>
 
-    <script>
-        const API_BASE = window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1')
-            ? 'http://localhost/vincent-arena/Backend/API' 
-            : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
+<!-- HALAMAN TANPA JARINGAN -->
+<div id="vsqOffline" role="alertdialog" aria-live="assertive">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/><path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/><path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/><path d="m2 2 20 20"/></svg>
+  <h1>Tidak Ada Koneksi Internet</h1>
+  <p>Periksa Koneksi Anda Kembali</p>
+  <button type="button" id="vsqRetryBtn">Coba Lagi</button>
+</div>
 
-        // =============================================
-        // 0. DETEKSI JARINGAN (halaman tanpa koneksi)
-        // =============================================
-        const VSQNet = (function () {
-            const el = document.getElementById('vsqOffline');
-            const btn = document.getElementById('vsqRetryBtn');
-            let autoCheck = null;
+<script>
+// SCRIPT ZOOM SAMA DENGAN HALAMAN BOOKING
+const DESIGN_WIDTH = 1540;
+const SCALE_MIN_WIDTH = 1100;
+function applyScale() {
+  const page = document.getElementById('page');
+  if (!page) return;
+  page.style.zoom = 1;
+  const w = document.documentElement.clientWidth;
+  const z = (w > SCALE_MIN_WIDTH && w < DESIGN_WIDTH) ? (w / DESIGN_WIDTH) : 1;
+  page.style.zoom = z;
+}
+applyScale();
+window.addEventListener('resize', applyScale);
+window.addEventListener('load', function () { applyScale(); requestAnimationFrame(applyScale); });
 
-            async function ping() {
-                if (!navigator.onLine) return false;
-                const ctrl = new AbortController();
-                const t = setTimeout(() => ctrl.abort(), 6000);
-                try {
-                    await fetch(location.pathname + '?_ping=' + Date.now(), { method: 'HEAD', cache: 'no-store', signal: ctrl.signal });
-                    return true;
-                } catch (e) { return false; } finally { clearTimeout(t); }
-            }
-            function show() {
-                el.classList.add('show');
-                document.documentElement.style.overflow = 'hidden';
-                if (!autoCheck) autoCheck = setInterval(recover, 5000);
-            }
-            function hide() {
-                el.classList.remove('show');
-                document.documentElement.style.overflow = '';
-                clearInterval(autoCheck); autoCheck = null;
-            }
-            async function recover() {
-                if (await ping()) { hide(); window.dispatchEvent(new CustomEvent('vsq:online')); return true; }
-                show(); return false;
-            }
-            function handleError(err) {
-                const isNetwork = !navigator.onLine || (err && (err.name === 'TypeError' || err.name === 'AbortError'));
-                if (isNetwork) show();
-                return isNetwork;
-            }
+const API_BASE = /localhost|127\.0\.0\.1/.test(location.hostname)
+  ? 'http://localhost/vincent-arena/Backend/API'
+  : 'https://sistem-booking-lapangan-futsal-berbasis-webfron-production.up.railway.app/API';
 
-            btn.addEventListener('click', async () => {
-                btn.disabled = true; btn.textContent = 'Memeriksa...';
-                await recover();
-                btn.disabled = false; btn.textContent = 'Coba Lagi';
-            });
-            window.addEventListener('offline', show);
-            window.addEventListener('online', recover);
-            if (!navigator.onLine) show();
+/* ---------- DETEKSI JARINGAN ---------- */
+const VSQNet = (function () {
+  const el = document.getElementById('vsqOffline'), btn = document.getElementById('vsqRetryBtn');
+  let timer = null;
+  async function ping() {
+    if (!navigator.onLine) return false;
+    const c = new AbortController(), t = setTimeout(() => c.abort(), 6000);
+    try { await fetch(location.pathname + '?_ping=' + Date.now(), { method: 'HEAD', cache: 'no-store', signal: c.signal }); return true; }
+    catch (e) { return false; } finally { clearTimeout(t); }
+  }
+  function show() { el.classList.add('show'); document.documentElement.style.overflow = 'hidden'; if (!timer) timer = setInterval(recover, 5000); }
+  function hide() { el.classList.remove('show'); document.documentElement.style.overflow = ''; clearInterval(timer); timer = null; }
+  async function recover() { if (await ping()) { hide(); window.dispatchEvent(new CustomEvent('vsq:online')); return true; } show(); return false; }
+  function handleError(err) {
+    const net = !navigator.onLine || (err && (err.name === 'TypeError' || err.name === 'AbortError'));
+    if (net) show();
+    return net;
+  }
+  btn.addEventListener('click', async () => { btn.disabled = true; btn.textContent = 'Memeriksa...'; await recover(); btn.disabled = false; btn.textContent = 'Coba Lagi'; });
+  window.addEventListener('offline', show);
+  window.addEventListener('online', recover);
+  if (!navigator.onLine) show();
+  return { handleError };
+})();
 
-            return { show, hide, recover, handleError };
-        })();
+/* ---------- NAVBAR (SAMA DENGAN HALAMAN BOOKING) ---------- */
+const USER_KEYS = ['vsq_user', 'user', 'userData', 'user_data', 'currentUser'];
+function getCachedUser() {
+  for (const key of USER_KEYS) {
+    try { const raw = localStorage.getItem(key); if (!raw) continue; const parsed = JSON.parse(raw); if (parsed && typeof parsed === 'object') return parsed; } catch (e) {}
+  }
+  return null;
+}
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+}
+function normalizeUser(u) {
+  if (!u) return null;
+  const nama = String(u.nama || u.name || u.nama_lengkap || u.username || 'User').trim() || 'User';
+  return {
+    nama: nama,
+    email: u.email || '-',
+    whatsapp: u.whatsapp || u.no_wa || u.no_hp || '-',
+    foto_url: u.foto_url || u.foto || u.foto_profil || u.avatar || '',
+    initial: (u.initial || nama.charAt(0)).toUpperCase()
+  };
+}
+function avatarHTML(user) {
+  return user.foto_url
+    ? `<img src="${esc(user.foto_url)}" alt="${esc(user.nama)}" data-initial="${esc(user.initial)}" onerror="avatarFallback(this)">`
+    : esc(user.initial);
+}
+function avatarFallback(img) { img.parentNode.textContent = img.dataset.initial || '?'; }
+function logoFallback(img) {
+  const wrap = document.createElement('span');
+  wrap.className = 'vsq-logo-fallback';
+  wrap.innerHTML = '<span class="vsq-logo-title">Vincent\'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span>';
+  img.replaceWith(wrap);
+}
 
-        // =============================================
-        // 1. NAVBAR
-        // =============================================
-        function normalizeUser(u) { if (!u) return null; const nama = u.nama || u.name || u.nama_lengkap || u.username || 'User'; return { nama: nama, email: u.email || '-', whatsapp: u.whatsapp || u.no_wa || u.no_hp || '-', foto_url: u.foto_url || u.foto || u.foto_profil || u.avatar || '', initial: u.initial || nama.charAt(0).toUpperCase() }; }
+let lastNavSignature = null;
+function renderNavbar(user) {
+  const signature = JSON.stringify(user);
+  if (signature === lastNavSignature) return;
+  lastNavSignature = signature;
 
-        function renderNavbar(user) {
-            const navbarEl = document.getElementById('navbar');
-            let rightNavHTML = '';
-            if (user) {
-                const firstName = user.nama.split(' ')[0];
-                const avatarContent = user.foto_url ? `<img src="${user.foto_url}" alt="${user.nama}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.outerHTML='${user.initial}'">` : user.initial;
-                rightNavHTML = `
-                    <button class="vsq-notif-btn" aria-label="Notifikasi"><img src="assets/images/notifikasi.png" alt="Notifikasi" onerror="this.style.display='none'"></button>
-                    <div class="vsq-profile-box" id="profileToggle"><span class="vsq-profile-name">Hai ${firstName}</span><div class="vsq-profile-avatar">${avatarContent}</div></div>
-                    <button class="vsq-btn-logout" onclick="logout()">Logout</button>
-                    <div class="vsq-profile-dropdown" id="profileDropdown">
-                        <div class="vsq-dd-header"><div class="vsq-dd-avatar">${avatarContent}</div><div class="vsq-dd-info"><h4>${user.nama}</h4><div class="vsq-badge-verified"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Terverifikasi</div></div></div>
-                        <div class="vsq-dd-body"><div class="vsq-dd-item"><span class="value">${user.email}</span></div><div class="vsq-dd-item"><span class="value">${user.whatsapp}</span></div></div>
-                        <div class="vsq-dd-divider"></div>
-                        <div class="vsq-dd-footer"><a href="profil_user.html" class="vsq-btn-edit-profile">Edit Profil</a><button class="vsq-btn-logout-dropdown" onclick="logout()">Keluar</button></div>
-                    </div>
-                `;
-            } else {
-                rightNavHTML = `<a href="login.html" class="vsq-btn-login-outline">Login</a><a href="register.html" class="vsq-btn-register">Register</a>`;
-            }
+  const navbarEl = document.getElementById('navbar');
+  let rightNavHTML = '';
+  if (user) {
+    const firstName = esc(user.nama.split(' ')[0]);
+    const avatar = avatarHTML(user);
+    rightNavHTML = `
+      <button class="vsq-notif-btn" aria-label="Notifikasi"><img src="assets/images/notifikasi.png" alt="Notifikasi"></button>
+      <div class="vsq-profile-box" id="profileToggle"><span class="vsq-profile-name">Hai ${firstName}</span><div class="vsq-profile-avatar">${avatar}</div></div>
+      <button class="vsq-btn-logout" onclick="logout()">Logout</button>
+      <div class="vsq-profile-dropdown" id="profileDropdown">
+        <div class="vsq-dd-header"><div class="vsq-dd-avatar">${avatar}</div><div class="vsq-dd-info"><h4>${esc(user.nama)}</h4><div class="vsq-badge-verified"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Terverifikasi</div></div></div>
+        <div class="vsq-dd-body"><div class="vsq-dd-item"><span class="value">${esc(user.email)}</span></div><div class="vsq-dd-item"><span class="value">${esc(user.whatsapp)}</span></div></div>
+        <div class="vsq-dd-divider"></div>
+        <div class="vsq-dd-footer"><a href="profil_user.html" class="vsq-btn-edit-profile">Edit Profil</a><button class="vsq-btn-logout-dropdown" onclick="logout()">Keluar</button></div>
+      </div>`;
+  } else {
+    rightNavHTML = `<a href="login.html" class="vsq-btn-login-outline">Login</a><a href="register.html" class="vsq-btn-register">Register</a>`;
+  }
 
-            navbarEl.innerHTML = `
-            <div class="vsq-header">
-                <div class="vsq-nav-left">
-                    <a href="index.html" class="vsq-logo"><span class="vsq-logo-title">Vincent'SQ</span><span class="vsq-logo-sub">SPORTS ARENA</span></a>
-                    <nav class="vsq-nav-menu">
-                        <a href="index.html" class="vsq-nav-link">Beranda</a>
-                        <a href="lapangan.html" class="vsq-nav-link active">Booking Lapangan</a>
-                        <a href="riwayat.html" class="vsq-nav-link">Riwayat Booking</a>
-                        <a href="makanan.html" class="vsq-nav-link">Makanan Minuman</a>
-                    </nav>
-                </div>
-                <div class="vsq-nav-right">${rightNavHTML}</div>
-            </div>`;
+  navbarEl.innerHTML = `
+  <div class="vsq-header">
+    <div class="vsq-nav-left">
+      <a href="index.html" class="vsq-logo"><img src="assets/images/logo.png" class="vsq-logo-img" alt="Vincent'SQ Sports Arena" onerror="logoFallback(this)"></a>
+      <nav class="vsq-nav-menu">
+        <a href="index.html" class="vsq-nav-link">Beranda</a>
+        <a href="lapangan.html" class="vsq-nav-link active">Booking Lapangan</a>
+        <a href="riwayat.html" class="vsq-nav-link">Riwayat Booking</a>
+        <a href="makanan.html" class="vsq-nav-link">Makanan Minuman</a>
+      </nav>
+    </div>
+    <div class="vsq-nav-right">${rightNavHTML}</div>
+  </div>`;
+}
 
-            const pt = document.getElementById('profileToggle'), pd = document.getElementById('profileDropdown');
-            if (pt && pd) { pt.addEventListener('click', e => { e.stopPropagation(); pd.classList.toggle('show'); }); document.addEventListener('click', e => { if (!pd.contains(e.target) && !pt.contains(e.target)) pd.classList.remove('show'); }); }
+document.addEventListener('click', function (e) {
+  const pd = document.getElementById('profileDropdown');
+  if (!pd) return;
+  if (e.target.closest('#profileToggle')) { e.stopPropagation(); pd.classList.toggle('show'); }
+  else if (!pd.contains(e.target)) pd.classList.remove('show');
+});
+
+async function updateNavbar() {
+  renderNavbar(normalizeUser(getCachedUser()));
+  try {
+    if (!navigator.onLine) return;
+    const c = new AbortController(), t = setTimeout(() => c.abort(), 4000);
+    const res = await fetch(API_BASE + '/auth/check.php', { credentials: 'include', headers: { 'Accept': 'application/json' }, signal: c.signal });
+    clearTimeout(t);
+    const result = await res.json();
+    const loggedIn = (result.data && result.data.logged_in !== undefined) ? result.data.logged_in : result.logged_in;
+    const serverUser = (result.data && result.data.user) || result.user;
+    if (loggedIn && serverUser) {
+      localStorage.setItem('vsq_user', JSON.stringify(serverUser));
+      renderNavbar(normalizeUser(serverUser));
+    } else if (loggedIn === false) {
+      USER_KEYS.forEach(k => localStorage.removeItem(k));
+      renderNavbar(null);
+    }
+  } catch (error) { console.log('Catatan: Menggunakan data sesi lokal.'); }
+}
+
+/* ---------- LOGOUT ---------- */
+function logout() { document.getElementById('logoutModal').classList.add('show'); }
+function closeLogoutModal() { document.getElementById('logoutModal').classList.remove('show'); }
+async function confirmLogout() {
+  try { await fetch(API_BASE + '/auth/logout.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ type: 'user' }) }); } catch (e) {}
+  localStorage.clear();
+  lastNavSignature = null;
+  window.location.href = 'login.html';
+}
+document.getElementById('logoutModal').addEventListener('click', function (e) { if (e.target === this) closeLogoutModal(); });
+
+/* ---------- HALAMAN PEMBAYARAN ---------- */
+const PAKAI_DATA_DUMMY = true;   // ubah ke false di production
+const MAX_MB = 5;
+const ENDPOINT_BUKTI = API_BASE + '/booking/upload_bukti.php';
+const HALAMAN_FORM = 'booking_lapangan.html';
+const NO_REKENING = '1342665181';
+const SKELETON_MS = 1000;
+
+document.addEventListener('DOMContentLoaded', function () {
+  renderNavbar(normalizeUser(getCachedUser()));
+  updateNavbar();
+
+  const pad = n => String(n).padStart(2, '0');
+  const bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+  const $ = id => document.getElementById(id);
+
+  setTimeout(() => {
+    let b = null;
+    try { b = JSON.parse(localStorage.getItem('temp_booking')); } catch (e) {}
+    if (!b) {
+      if (!PAKAI_DATA_DUMMY) { window.location.replace('lapangan.html'); return; }
+      b = { lapangan_id: '1', nama: 'Mifa Miftahul', tanggal: '05, November 2026', jam: ['08:00 - 09:00'], total: 100000, lapangan: 'Lapangan Futsal 1' };
+    }
+    if (!b.expires_at) {
+      b.expires_at = Date.now() + 24 * 3600 * 1000;
+      localStorage.setItem('temp_booking', JSON.stringify(b));
+    }
+
+    /* ----- isi data ----- */
+    const jamArr = Array.isArray(b.jam) ? b.jam : [b.jam];
+    $('bc-detail').textContent = 'Detail ' + (b.lapangan || 'Lapangan Futsal 1').replace(/futsal/i, '').trim();
+    $('bc-detail').href = 'detail_lapangan.html?id=' + (b.lapangan_id || 1);
+    $('bc-form').href = HALAMAN_FORM + '?id=' + (b.lapangan_id || 1);
+
+    $('displayTotalHarga').textContent = 'Rp' + (Number(b.total) || 0).toLocaleString('id-ID');
+    $('noRekening').textContent = NO_REKENING;
+    $('dataNama').textContent = b.nama;
+    $('dataTanggal').textContent = b.tanggal;
+    $('dataWaktu').textContent = (b.jam_mulai && b.jam_selesai)
+      ? `${b.jam_mulai}–${b.jam_selesai}`
+      : jamArr.map(j => String(j).replace(/\s*-\s*/g, '–')).join(', ');
+    $('dataLapangan').textContent = b.lapangan || 'Lapangan Futsal 1';
+
+    const due = new Date(b.expires_at);
+    $('dueDateText').textContent = `Jatuh tempo, ${due.getDate()} ${bulan[due.getMonth()]} ${due.getFullYear()}, ${pad(due.getHours())}:${pad(due.getMinutes())}`;
+
+    /* ----- timer ----- */
+    let expired = false;
+    const timerEl = $('countdownTimer');
+    function tick() {
+      const sisa = Math.max(0, Math.floor((b.expires_at - Date.now()) / 1000));
+      timerEl.textContent = `${pad(Math.floor(sisa / 3600))}:${pad(Math.floor((sisa % 3600) / 60))}:${pad(sisa % 60)}`;
+      if (sisa <= 0 && !expired) {
+        expired = true;
+        $('statusText').textContent = 'Sesi Pembayaran Berakhir';
+        clearInterval(iv);
+      }
+    }
+    const iv = setInterval(tick, 1000);
+    tick();
+
+    /* ----- toast ----- */
+    const ICON_OK = '<circle cx="12" cy="12" r="10"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/>';
+    const ICON_ERR = '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
+    let toastTimer;
+    function showToast(msg, type, opts) {
+      opts = opts || {};
+      const t = $('toast');
+      t.classList.toggle('err', type === 'err');
+      $('toastIcon').innerHTML = type === 'err' ? ICON_ERR : ICON_OK;
+      $('toastText').textContent = msg;
+      t.classList.add('show');
+      if (!opts.noScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+      clearTimeout(toastTimer);
+      const hideAfter = opts.hideAfter || (type === 'err' ? 6000 : 0);
+      if (hideAfter) toastTimer = setTimeout(() => t.classList.remove('show'), hideAfter);
+    }
+
+    /* ----- upload bukti + validasi realtime ----- */
+    let file = null;
+    let triedSubmit = false;
+    let uploadError = '';
+    let submittedOk = !!b.bukti_terkirim;
+    const box = $('uploadBox'), input = $('fileBukti');
+    const LABEL_DEFAULT = 'Klik Untuk Upload Bukti';
+
+    function renderUpload() {
+      const bad = (triedSubmit && !file) || !!uploadError;
+      box.classList.toggle('is-invalid', bad);
+      $('err-upload').classList.toggle('show', bad);
+      $('errUploadText').textContent = uploadError || 'Harap upload bukti pembayaran!';
+
+      const old = box.querySelector('img.preview');
+      if (old) { URL.revokeObjectURL(old.src); old.remove(); }
+      const icon = $('uploadIcon'), label = $('uploadLabel');
+      if (file) {
+        icon.style.display = 'none';
+        const img = document.createElement('img');
+        img.className = 'preview';
+        img.alt = 'Pratinjau bukti pembayaran';
+        img.src = URL.createObjectURL(file);
+        box.insertBefore(img, label);
+        label.textContent = file.name;
+        label.classList.add('small');
+      } else {
+        icon.style.display = '';
+        label.textContent = LABEL_DEFAULT;
+        label.classList.remove('small');
+      }
+    }
+
+    box.addEventListener('click', () => { if (!submittedOk) input.click(); });
+    box.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); box.click(); } });
+    input.addEventListener('change', () => {
+      const f = input.files[0];
+      uploadError = '';
+      if (f) {
+        if (!['image/jpeg', 'image/png', 'image/webp'].includes(f.type)) { uploadError = 'Format harus JPG, PNG, atau WEBP!'; file = null; }
+        else if (f.size > MAX_MB * 1024 * 1024) { uploadError = `Ukuran file maksimal ${MAX_MB} MB!`; file = null; }
+        else file = f;
+      }
+      input.value = '';
+      renderUpload();
+    });
+
+    /* ----- submit ----- */
+    const btn = $('btnSubmit');
+    if (submittedOk) btn.disabled = true;
+
+    btn.addEventListener('click', async () => {
+      if (expired) {
+        showToast('Sesi pembayaran berakhir. Silakan lakukan booking ulang.', 'err');
+        return;
+      }
+      triedSubmit = true;
+      renderUpload();
+      if (!file) {
+        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => box.focus({ preventScroll: true }), 400);
+        return;
+      }
+
+      btn.disabled = true;
+      try {
+        if (!PAKAI_DATA_DUMMY) {
+          const fd = new FormData();
+          fd.append('booking_id', b.booking_id || '');
+          fd.append('bukti', file);
+          const res = await fetch(ENDPOINT_BUKTI, { method: 'POST', credentials: 'include', body: fd });
+          const json = await res.json().catch(() => ({}));
+          if (!res.ok || json.success === false) throw new Error(json.message || 'Gagal mengunggah bukti pembayaran.');
+        } else {
+          await new Promise(r => setTimeout(r, 600));
         }
+        submittedOk = true;
+        b.bukti_terkirim = true;
+        localStorage.setItem('temp_booking', JSON.stringify(b));
+        showToast('Pembookingan Berhasil Terkirim, Tunggu Admin untuk mengkonfirmasi!', 'ok');
+      } catch (e) {
+        btn.disabled = false;
+        if (!VSQNet.handleError(e)) showToast(e.message || 'Terjadi kesalahan. Silakan coba lagi.', 'err');
+      }
+    });
 
-        function logout() { document.getElementById('logoutModal').style.display = 'flex'; }
-        function closeLogoutModal() { document.getElementById('logoutModal').style.display = 'none'; }
-        async function confirmLogout() {
-            try { await fetch(API_BASE + '/auth/logout.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ type: 'user' }) }); } catch (error) {}
-            localStorage.clear(); window.location.href = 'login.html';
-        }
+    renderUpload();
 
-        // =============================================
-        // 2. INISIALISASI HALAMAN
-        // =============================================
-        const PAKAI_DATA_DUMMY = true;   
-        const MAX_MB = 5;
-        const ENDPOINT_BUKTI = API_BASE + '/booking/upload_bukti.php'; 
-        const HALAMAN_FORM = 'booking_lapangan.html';
-        const NO_REKENING = '1342665181';
+    /* ----- tampilkan konten ----- */
+    $('skeleton-container').style.display = 'none';
+    $('mainCard').classList.remove('hidden-loading');
+    $('mainCard').classList.add('fade-in');
 
-        document.addEventListener('DOMContentLoaded', function () {
-            let user = null;
-            try { user = JSON.parse(localStorage.getItem('vsq_user')); } catch (e) {}
-            renderNavbar(user ? normalizeUser(user) : null);
-
-            const pad = n => String(n).padStart(2, '0');
-            const bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-            const $ = id => document.getElementById(id);
-
-            // Simulasi Loading
-            setTimeout(() => {
-                let b = null;
-                try { b = JSON.parse(localStorage.getItem('temp_booking')); } catch (e) {}
-                if (!b) {
-                    if (!PAKAI_DATA_DUMMY) { window.location.replace('lapangan.html'); return; }
-                    b = { lapangan_id: '1', nama: 'Mifa Miftahul', tanggal: '05, November 2026', jam: ['08:00 - 09:00'], total: 100000, lapangan: 'Lapangan Futsal 1' };
-                }
-                if (!b.expires_at) { 
-                    b.expires_at = Date.now() + 24 * 3600 * 1000;
-                    localStorage.setItem('temp_booking', JSON.stringify(b));
-                }
-
-                // ----- Isi data -----
-                const jamArr = Array.isArray(b.jam) ? b.jam : [b.jam];
-                $('bc-detail').textContent = 'Detail ' + (b.lapangan || 'Lapangan Futsal 1').replace(/futsal/i, '').trim();
-                $('bc-detail').href = 'detail_lapangan.html?id=' + (b.lapangan_id || 1);
-                $('bc-form').href = HALAMAN_FORM + '?id=' + (b.lapangan_id || 1);
-
-                $('displayTotalHarga').textContent = 'Rp' + (Number(b.total) || 0).toLocaleString('id-ID');
-                $('noRekening').textContent = NO_REKENING;
-                $('dataNama').textContent = b.nama;
-                $('dataTanggal').textContent = b.tanggal;
-                $('dataWaktu').textContent = jamArr.map(j => String(j).replace(/\s*-\s*/g, '–')).join(', ');
-                $('dataLapangan').textContent = b.lapangan || 'Lapangan Futsal 1';
-
-                const due = new Date(b.expires_at);
-                $('dueDateText').textContent = `Jatuh tempo, ${due.getDate()} ${bulan[due.getMonth()]} ${due.getFullYear()}, ${pad(due.getHours())}:${pad(due.getMinutes())}`;
-
-                // ----- Timer -----
-                let expired = false;
-                const timerEl = $('countdownTimer');
-                function tick() {
-                    const sisa = Math.max(0, Math.floor((b.expires_at - Date.now()) / 1000));
-                    timerEl.textContent = `${pad(Math.floor(sisa / 3600))}:${pad(Math.floor((sisa % 3600) / 60))}:${pad(sisa % 60)}`;
-                    if (sisa <= 0 && !expired) {
-                        expired = true;
-                        $('statusText').textContent = 'Sesi Pembayaran Berakhir';
-                        clearInterval(iv);
-                    }
-                }
-                const iv = setInterval(tick, 1000);
-                tick();
-
-                // ----- Toast -----
-                const ICON_OK = '<circle cx="12" cy="12" r="10"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/>';
-                const ICON_ERR = '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
-                let toastTimer;
-                function showToast(msg, type) {
-                    const t = $('toast');
-                    t.classList.toggle('err', type === 'err');
-                    $('toastIcon').innerHTML = type === 'err' ? ICON_ERR : ICON_OK;
-                    $('toastText').textContent = msg;
-                    t.classList.add('show');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                    clearTimeout(toastTimer);
-                    if (type === 'err') toastTimer = setTimeout(() => t.classList.remove('show'), 6000);
-                }
-
-                // ----- Upload bukti + validasi realtime -----
-                let file = null;
-                let triedSubmit = false;
-                let uploadError = '';
-                let submittedOk = !!b.bukti_terkirim;
-                const box = $('uploadBox'), input = $('fileBukti');
-                const ICON_IMG = '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>';
-
-                function renderUpload() {
-                    const bad = (triedSubmit && !file) || !!uploadError;
-                    box.classList.toggle('is-invalid', bad);
-                    $('err-upload').classList.toggle('show', bad);
-                    $('errUploadText').textContent = uploadError || 'Harap upload bukti pembayaran!';
-
-                    const old = box.querySelector('img.preview');
-                    if (old) { URL.revokeObjectURL(old.src); old.remove(); }
-                    const icon = $('uploadIcon'), label = $('uploadLabel');
-                    if (file) {
-                        icon.style.display = 'none';
-                        const img = document.createElement('img');
-                        img.className = 'preview';
-                        img.alt = 'Pratinjau bukti pembayaran';
-                        img.src = URL.createObjectURL(file);
-                        box.insertBefore(img, label);
-                        label.textContent = file.name;
-                        label.classList.add('small');
-                    } else {
-                        icon.style.display = '';
-                        icon.innerHTML = ICON_IMG;
-                        label.textContent = 'Upload Bukti';
-                        label.classList.remove('small');
-                    }
-                }
-
-                box.addEventListener('click', () => { if (!submittedOk) input.click(); });
-                box.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); box.click(); } });
-                input.addEventListener('change', () => {
-                    const f = input.files[0];
-                    uploadError = '';
-                    if (f) {
-                        if (!['image/jpeg', 'image/png', 'image/webp'].includes(f.type)) { uploadError = 'Format harus JPG, PNG, atau WEBP!'; file = null; }
-                        else if (f.size > MAX_MB * 1024 * 1024) { uploadError = `Ukuran file maksimal ${MAX_MB} MB!`; file = null; }
-                        else file = f;
-                    }
-                    input.value = '';
-                    renderUpload();
-                });
-
-                // ----- Submit -----
-                const btn = $('btnSubmit');
-                if (submittedOk) btn.disabled = true;
-
-                btn.addEventListener('click', async () => {
-                    if (expired) {
-                        showToast('Sesi pembayaran berakhir. Silakan lakukan booking ulang.', 'err');
-                        return;
-                    }
-                    triedSubmit = true;
-                    renderUpload();
-                    if (!file) {
-                        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        setTimeout(() => box.focus({ preventScroll: true }), 400);
-                        return;
-                    }
-
-                    btn.disabled = true;
-                    try {
-                        if (!PAKAI_DATA_DUMMY) {
-                            const fd = new FormData();
-                            fd.append('booking_id', b.booking_id || '');
-                            fd.append('bukti', file);
-                            const res = await fetch(ENDPOINT_BUKTI, { method: 'POST', credentials: 'include', body: fd });
-                            const json = await res.json().catch(() => ({}));
-                            if (!res.ok || json.success === false) throw new Error(json.message || 'Gagal mengunggah bukti pembayaran.');
-                        } else {
-                            await new Promise(r => setTimeout(r, 600));
-                        }
-                        submittedOk = true;
-                        b.bukti_terkirim = true;
-                        localStorage.setItem('temp_booking', JSON.stringify(b));
-                        showToast('Pembookingan Berhasil Terkirim, Tunggu Admin untuk mengkonfirmasi!', 'ok');
-                    } catch (e) {
-                        btn.disabled = false;
-                        if (!VSQNet.handleError(e)) showToast(e.message || 'Terjadi kesalahan. Silakan coba lagi.', 'err');
-                    }
-                });
-
-                renderUpload();
-
-                // Tampilkan Konten
-                document.getElementById('skeleton-container').style.display = 'none';
-                document.getElementById('mainCard').classList.remove('hidden-loading');
-            }, 1000); // Jeda 1 detik untuk skeleton
-        });
-    </script>
+    // toast sambutan setelah booking dibuat (hilang otomatis 6 detik)
+    if (!submittedOk && !expired) {
+      showToast('Pembookingan anda berhasil terkirim, segera melakukan pembayaran dalam jangka waktu yang sudah di tentukan!', 'ok', { noScroll: true, hideAfter: 6000 });
+    }
+  }, SKELETON_MS);
+});
+</script>
 </body>
 </html>
